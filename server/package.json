@@ -6,7 +6,8 @@
     "method-override": "^3.0.0",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "tar": "^6.1.11"
   },
   "devDependencies": {
     "husky": "^7.0.4",
@@ -22,11 +23,11 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "main": "nodemon --inspect ./index.js",
     "prepare": "cd .. && husky install server/.husky",
-    "pre-commit": "lint-staged" 
+    "pre-commit": "lint-staged"
   },
-  "lint-staged":{
+  "lint-staged": {
     "src/**/*.{js,json}": "prettier --single-quote --trailling-comma all --tab-width 4 --write"
-  },  
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/XuaanNam/Auction_site.git"
