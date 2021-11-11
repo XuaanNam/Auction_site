@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "install": "^0.13.0"
+  },
+  "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^11.2.6",
+    "prettier": "^2.4.1"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged":{
+    "src/**/*.{js,json}": "prettier --single-quote --trailling-comma all --tab-width 4 --write"
+  }
+  
+}
