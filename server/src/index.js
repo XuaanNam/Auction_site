@@ -8,6 +8,9 @@ const { resourceLimits } = require('worker_threads');
 const route = require('./routes');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
+const helmet = require("helmet");
+const connection = require('./app/models/AuctionData');
+
 
 
 app.use(cors());
@@ -17,6 +20,7 @@ app.use(express.urlencoded());
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(cookieParser())
+app.use(helmet());
 
 
 //app.set('views', path.join(__dirname, 'resources', 'views'))// chưa xong
@@ -25,8 +29,10 @@ app.use(cookieParser())
 route(app);
 
 
-
-
 app.listen(port, ()=> {
     console.log(`Server is running on: http://localhost:${port} `);
+    connection.connect(function(err) {
+        if (err) throw err;
+        console.log('connected as id ' + connection.threadId);
+      });
 });
