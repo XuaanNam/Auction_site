@@ -21,13 +21,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "prepare": "cd .. && husky install client/.husky",
-    "pre-commit": "lint-staged"
+    "eject": "react-scripts eject"
   },
-  "lint-staged": {
-    "src/**/*.{js,json}": "prettier --single-quote --trailling-comma all --tab-width 4 --write"
-  },
+ 
   "eslintConfig": {
     "extends": [
       "react-app",

@@ -6,13 +6,20 @@ const cors = require("cors");
 const morgan = require("morgan");
 const { resourceLimits } = require('worker_threads');
 const route = require('./routes');
+const methodOverride = require('method-override');
+const cookieParser = require('cookie-parser');
 
 
+app.use(cors());
 app.use(morgan("combined"));
-app.use(express.static(path.join(__dirname,"public")));
+app.use(express.static("client"));  // đang chỉnh sửa
 app.use(express.urlencoded());
 app.use(express.json());
-app.use(cors());
+app.use(methodOverride('_method'));
+app.use(cookieParser())
+
+
+//app.set('views', path.join(__dirname, 'resources', 'views'))// chưa xong
 
 
 route(app);

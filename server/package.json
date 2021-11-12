@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
@@ -18,15 +19,9 @@
   "name": "auction_site",
   "version": "1.0.0",
   "description": "\"Do an cuoi ky EC\"",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "main": "nodemon --inspect ./index.js",
-    "prepare": "cd .. && husky install server/.husky",
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "src/**/*.{js,json}": "prettier --single-quote --trailling-comma all --tab-width 4 --write"
+    "start": "nodemon --inspect ./src/index.js"
   },
   "repository": {
     "type": "git",
