@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
     password : 'nam123',
-    database : 'checked_db',
+    database : 'auctiondata',
     supportBigNumbers: true,
     bigNumberStrings: true,
     dateStrings: true,
