@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+/* Navbar.js */
+.btn-nav{
+  width: 6vw;
+}
+/* Body */
+.body-container{
+  text-align:left;
+}
+.Auction-title{
+  font-size: 24px;
+  font-weight: bold;
+  padding-left: 3vw;
+}
+.grid-body{
+  margin-left: 5vw;
+}
