@@ -1,7 +1,6 @@
 {
   "dependencies": {
-    "install": "^0.13.0",
-    "react-router-dom": "^6.0.2"
+    "install": "^0.13.0"
   },
   "devDependencies": {
     "husky": "^7.0.4",
