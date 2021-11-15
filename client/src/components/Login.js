@@ -1,15 +1,15 @@
 import React from "react";
 import styled from "styled-components"
 import { Form, Button } from "react-bootstrap";
-import Footer from "../Footer";
-//import Navbar from "../Navbar";
-import '../../App.css';
-import logo from "../../images/img-login.png";
+import Header from "./Header";
+import Footer from "./Footer";
+import '../App.css';
+import logo from "../images/img-login.png";
 
 
 const Container = styled.div`
     width: 100vw;
-    padding-top: 60px;
+    padding-top: 30px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -17,7 +17,7 @@ const Container = styled.div`
     
 `;
 const Main = styled.div`
-    margin-top: 60px;
+    min-height: 100vh;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -52,17 +52,16 @@ return (
     <div>
       {/* <Logo src={logo}/> */}
       {/* <Navbar></Navbar> */}
+      <Header/>
       <Main className="container">
-        
-        <Title>Login</Title>
-        <Description>If they have a positive experience, they'll want to tell their friends too.</Description>
+        <Title>Đăng nhập</Title>
         <Form action="#" style={{ minWidth: "40%", marginBottom: "90px" }}>
           <Form.Group className="mb-3 form-custom" controlId="formGridUsername">
-            <Form.Label className="d-flex">Username</Form.Label>
+            <Form.Label className="d-flex">Tên người dùng</Form.Label>
             <Form.Control type="mail" placeholder="Username"  />
           </Form.Group>
           <Form.Group className="mb-3 form-custom" controlId="formGridPassword">
-            <Form.Label className="d-flex">Password</Form.Label>
+            <Form.Label className="d-flex">Mật khẩu</Form.Label>
             <Form.Control type="password" placeholder="Password"  />
           </Form.Group>
           {/* {error && <Error>Something went wrong!</Error>} */}
@@ -71,7 +70,7 @@ return (
             //   onClick={handleLogin}
             //   disabled={isFetching}
             >
-              Login
+              Đăng nhập
             </Button>
           </Submit>
         </Form>

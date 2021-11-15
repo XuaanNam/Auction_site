@@ -1,7 +1,12 @@
 {
   "dependencies": {
+<<<<<<< HEAD
     "axios": "^0.24.0",
     "install": "^0.13.0"
+=======
+    "install": "^0.13.0",
+    "react-router-dom": "^6.0.2"
+>>>>>>> 590e684619b1ffc35c7573d877d3fe9d96cfea8d
   },
   "devDependencies": {
     "husky": "^7.0.4",

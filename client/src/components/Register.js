@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components"
-//import Navbar from "../Navbar";
+import Header from "./Header";
 import { Form, Row, Col, Button } from "react-bootstrap"
 import Footer from "../Footer";
 import logo from "../../images/img-login.png";
@@ -15,13 +15,12 @@ const Container = styled.div`
     flex-direction: column;
     flex-wrap: nowrap;
     width: 100vw;
-    padding-top: 60px;
+    padding-top: 30px;
    
 `;
-
 const Main = styled.div`
+    min-height: 100vh;
     flex: 1;
-    margin-top: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,10 +34,8 @@ const Logo = styled.img`
     margin-bottom: 50px;
 `;
 const Title = styled.h2`
-    margin-top: 8px;
-`;
-const Description = styled.p`
-    color: #6c757d;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
 `;
 const Submit = styled.div`
     // width: 100%;
@@ -97,11 +94,10 @@ const Register = () => {
         
         <div>
             {/* <Logo src={logo}/> */}
-        {/* <Header></Header> */}   
+        <Header></Header>   
         <Main className="container">
         
-            <Title>Sign up</Title>
-            <Description>If they have a positive experience, they'll want to tell their friends too.</Description>
+            <Title>Đăng ký</Title>
             <Form action="#" >
                 <Row className="mb-3 form-custom">
                     <Form.Group as={Col} controlId="formGridFirstName">
@@ -137,7 +133,7 @@ const Register = () => {
                     <Button variant="dark" size="lg" className="w-100 btn-custom" id="btnSignUp"
                         onClick={handleRegister}
                     >
-                        Sign Up
+                        Đăng ký
                     </Button>
                 </Submit>
             </Form>
