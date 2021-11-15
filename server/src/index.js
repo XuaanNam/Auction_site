@@ -9,7 +9,6 @@ const route = require('./routes');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const helmet = require("helmet");
-const connection = require('./app/models/connection');
 
 
 
@@ -31,8 +30,4 @@ route(app);
 
 app.listen(port, ()=> {
     console.log(`Server is running on: http://localhost:${port} `);
-    connection.connect(function(err) {
-        if (err) throw err;
-        console.log('connected as id ' + connection.threadId);
-      });
 });

@@ -1,4 +1,32 @@
 {
+  "name": "auction_site",
+  "version": "1.0.0",
+  "description": "\"Do an cuoi ky EC\"",
+  "main": "src/index.js",
+  "scripts": {
+    "server": "nodemon --inspect ./src/index.js",
+    "client": "npm run start --prefix ../client",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XuaanNam/Auction_site.git"
+  },
+  "keywords": [
+    "\"auction\""
+  ],
+  "author": "P109",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XuaanNam/Auction_site/issues"
+  },
+  "homepage": "https://github.com/XuaanNam/Auction_site#readme",
+  "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^11.2.6",
+    "node-sass": "^6.0.1",
+    "prettier": "^2.4.1"
+  },
   "dependencies": {
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
@@ -13,31 +41,5 @@
     "nodemon": "^2.0.15",
     "sequelize": "^6.9.0",
     "tar": "^6.1.11"
-  },
-  "devDependencies": {
-    "husky": "^7.0.4",
-    "lint-staged": "^11.2.6",
-    "node-sass": "^6.0.1",
-    "prettier": "^2.4.1"
-  },
-  "name": "auction_site",
-  "version": "1.0.0",
-  "description": "\"Do an cuoi ky EC\"",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "nodemon --inspect ./src/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/XuaanNam/Auction_site.git"
-  },
-  "keywords": [
-    "\"auction\""
-  ],
-  "author": "P109",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/XuaanNam/Auction_site/issues"
-  },
-  "homepage": "https://github.com/XuaanNam/Auction_site#readme"
+  }
 }
