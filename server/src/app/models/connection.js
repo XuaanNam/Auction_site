@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const config = require('../config/db')
 
-const pool = mysql.createPool(config);
+const connection = mysql.createConnection(config);
 
 module.exports = connection;

@@ -1,4 +1,4 @@
-const connection = require('../models/AuctionData')
+const connection = require('../models/connection')
 class SiteController {
     // [GET] /
     index(req, res){
