@@ -57,12 +57,12 @@ return (
         <Title>Đăng nhập</Title>
         <Form action="#" style={{ minWidth: "40%", marginBottom: "90px" }}>
           <Form.Group className="mb-3 form-custom" controlId="formGridUsername">
-            <Form.Label className="d-flex">Tên người dùng</Form.Label>
-            <Form.Control type="mail" placeholder="Username"  />
+            <Form.Label className="d-flex">Tên đăng nhập</Form.Label>
+            <Form.Control type="mail" placeholder="Nhập tên đăng nhập"  />
           </Form.Group>
           <Form.Group className="mb-3 form-custom" controlId="formGridPassword">
             <Form.Label className="d-flex">Mật khẩu</Form.Label>
-            <Form.Control type="password" placeholder="Password"  />
+            <Form.Control type="password" placeholder="Nhập mật khẩu"  />
           </Form.Group>
           {/* {error && <Error>Something went wrong!</Error>} */}
           <Submit>

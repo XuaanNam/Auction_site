@@ -1,14 +1,10 @@
-//import { Add, Remove } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import Footer from './Footer'
-import Header from './Header'
-import '../App.css';
-import {Card,Row,Col,Button as bt, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Footer from './Footer';
+import Header from './Header';
+import logo from "../images/img-login.jpg";
 const KEY = process.env.REACT_APP_STRIPE;
-
 
 const Container = styled.div`
     min-height: 100vh;
@@ -19,11 +15,9 @@ const Container = styled.div`
 const Main = styled.div`
     flex: 1;
     margin-top: 60px;
-    
 `;
 const Wrapper = styled.div`
     padding: 20px;
-    
 `;
 const Title = styled.h3`
     font-weight: 400;
@@ -36,14 +30,13 @@ const Top = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-    
 `;
 const TopButton = styled.button`
     text-transform: uppercase;
-    
 `;
 const TopTexts = styled.div`
-    
+    text-decoration: none !important;
+   
 `;
 const TopText = styled.span`
     text-decoration: underline;
@@ -54,7 +47,7 @@ const TopText = styled.span`
 const Bottom = styled.div`
     display: flex;
     justify-content: space-between;
-    
+   
 `;
 const Info = styled.div`
     flex: 3;
@@ -134,7 +127,8 @@ const SummaryItem = styled.div`
     margin: 24px 0;
     display: flex;
     justify-content: space-between;
-
+    font-weight: ${props => props.type === "total" && "500"};
+    font-size: ${props => props.type === "total" && "20px"};
 `;
 const SummaryItemText = styled.span``;
 const SummaryItemPrice = styled.span``;
@@ -159,97 +153,103 @@ const ShopButton = styled.button`
 `;
 
 const Cart = () => {
-    // const cart = useSelector(state => state.cart);
-    // const [stripeToken, setStripeToken] = useState(null);
-    // const history = useHistory();
 
-    // const onToken = (token) => {
-    //     setStripeToken(token);
-    // }
-    // useEffect(() => {
-    //     const makeRequest = async () => {
-    //         try {
-    //             const res = await userRequest.post("/checkout/payment", {
-    //                 tokenId: stripeToken.id,
-    //                 amount: cart.total * 100
-    //             });
-    //             history.push("/success", { data: res.data });
-    //         } catch (err) {
-
-    //         }
-    //     };
-    //     stripeToken && makeRequest();
-    // }, [stripeToken, cart.total, history]);
-
-    // const dispatch = useDispatch();
-
-    // const handleRemove = (product) => {
-    //     dispatch(
-    //         removeProduct(product)
-    //     );
-    // }
-    // const handleDecrease = (product) => {
-    //     dispatch(
-    //         decreaseProduct(product)
-    //     );
-    // }
-    // const handleIncrease = (product) => {
-    //     dispatch(
-    //         increaseProduct(product)
-    //     );
-    // }
 
     return (
-        <div>
-            <Header/>
+        <Container>
+            <Header></Header>
             <Main className="container">
-                
+                <Wrapper>
                     <Title>Auction Cart</Title>
                     <Empty>
-                        <EmptyCart src="./shopping-cart.png" />
-                        <h4>Your cart is currently empty!</h4>
+                        <EmptyCart src={logo} />
+                        <h4>Giỏ hàng hiện tại đang trống!</h4>
                         <Link to="/">
-                            <ShopButton className="btn btn-dark btn-custom">SHOP NOW</ShopButton>
+                            <ShopButton className="btn btn-dark btn-custom">Đấu giá ngay!</ShopButton>
                         </Link>
                     </Empty>
                     <Top>
                         <Link to="/">
-                            <TopButton className="btn btn-outline-dark btn-custom">Continue Shopping</TopButton>
+                            <TopButton className="btn btn-outline-dark btn-custom">Tiếp tục đấu giá</TopButton>
                         </Link>
-                        <TopTexts>
-                            <TopText>Auction Cart</TopText>
-                            <TopText>Auction win(0)</TopText>
+                        <TopTexts >
+                            <TopText className="text-decoration-none alert-danger">Số lượng trong giỏ hàng(SL)</TopText>
+                            <TopText className="text-decoration-none alert-warning">Bạn đã thắng(0)</TopText>
                         </TopTexts>
-
-                        <TopButton className="btn btn-dark btn-custom">Checkout Now</TopButton>
                     </Top>
-                    
+                    <Bottom>
+                        {/* Thông tin về sản phẩm đấu giá được */}
+                        <Info>
+                            <>
+                                <Hr />
+                                <Product>
+                                    <ProductDetail>
+                                        <Image src="" />
+                                        <Details>
+                                            <ProductName><b>Banner: </b>Title</ProductName>
+                                            <Button value="" className="btn btn-dark btn-custom btn-remove">Xoá</Button>
+                                        </Details>
+                                    </ProductDetail>
+                                    <PriceDetail>
+                                        <ProductAmountContainer>
+                                            <a className="amount-custom btn-custom">
+                                                xoá
+                                            </a>
+                                            <ProductAmount>1</ProductAmount>
+                                            <a className="amount-custom btn-custom">
+                                                thêm
+                                            </a>
+                                        </ProductAmountContainer>
+                                        <ProductPrice>Tổng tiền:  $ 49.5</ProductPrice>
+                                    </PriceDetail>
+                                </Product>
+                                <Hr />
+                                <Product>
+                                    <ProductDetail>
+                                        <Image src="" />
+                                        <Details>
+                                            <ProductName><b>Banner: </b>Title</ProductName>
+                                            <Button value="" className="btn btn-dark btn-custom btn-remove">Xoá</Button>
+                                        </Details>
+                                    </ProductDetail>
+                                    <PriceDetail>
+                                        <ProductAmountContainer>
+                                            <a className="amount-custom btn-custom">
+                                                xoá
+                                            </a>
+                                            <ProductAmount>1</ProductAmount>
+                                            <a className="amount-custom btn-custom">
+                                                thêm
+                                            </a>
+                                        </ProductAmountContainer>
+                                        <ProductPrice>Tổng tiền: $ 49.5</ProductPrice>
+                                    </PriceDetail>
+                                </Product>
+                                
+                                
+                            </>
+                        </Info>
                         
                         <Summary>
-                            <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+                            <SummaryTitle>Tóm tắt đơn hàng</SummaryTitle>
                             <SummaryItem>
-                                <SummaryItemText>Subtotal</SummaryItemText>
-                                <SummaryItemPrice>$ 0</SummaryItemPrice>
+                                <SummaryItemText>Tổng phụ</SummaryItemText>
+                                <SummaryItemPrice>$ 99</SummaryItemPrice>
                             </SummaryItem>
                             <SummaryItem>
-                                <SummaryItemText>Estimated Shipping</SummaryItemText>
-                                <SummaryItemPrice>$ 0</SummaryItemPrice>
-                            </SummaryItem>
-                            <SummaryItem>
-                                <SummaryItemText>Shipping Discount</SummaryItemText>
+                                <SummaryItemText>Phụ phí + Thuế</SummaryItemText>
                                 <SummaryItemPrice>$ 0</SummaryItemPrice>
                             </SummaryItem>
                             <SummaryItem type="total">
-                                <SummaryItemText>Total</SummaryItemText>
-                                <SummaryItemPrice>$     0</SummaryItemPrice>
+                                <SummaryItemText>Tổng cộng</SummaryItemText>
+                                <SummaryItemPrice>$ 99</SummaryItemPrice>
                             </SummaryItem>
-                            
-                                <Button className="btn btn-dark btn-custom">Checkout Now</Button>
-                        </Summary>    
+                        </Summary>
+                    </Bottom>
+                </Wrapper>
             </Main>
-            <Footer/>
-        </div>
-        
+            <Footer></Footer>
+        </Container>
     )
 }
 
