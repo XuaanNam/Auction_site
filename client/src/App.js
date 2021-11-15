@@ -7,6 +7,7 @@ import Home from './components/Home';
 import Register from './components/Register';
 import Login from './components/Login';
 import Auction from './components/Auction';
+import HomePage from './components/HomePage';
 
 
 function App() {
@@ -15,10 +16,11 @@ function App() {
       <div>
         <Router>
           <Routes>
-            <Route path='/' exact element={<Home/>} />
+            <Route path='/' exact element={<HomePage/>} />
             <Route path='/register' element={<Register/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/auction' element={<Auction/>} />
+            <Route path='/home' exact element={<Home/>} />         
           </Routes>
         </Router>
       </div>

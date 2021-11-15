@@ -3,10 +3,10 @@ import styled from "styled-components"
 import Header from "./Header";
 import { Form, Row, Col, Button } from "react-bootstrap"
 import Footer from "./Footer";
-//import logo from "../../images/img-login.png";
-//dùng để kết nối tới db, không xóa những dòng dưới
+import logo from "../images/img-login.png";
+//dùng để kết nối tới db
 import {useState, useEffect} from "react";
-import axios from "axios";
+import axios from "../api/axios"; 
 import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
@@ -69,27 +69,27 @@ const Register = () => {
     //     register(dispatch, { firstname, lastname, username, email, password });
     // }
 
-
-    //dùng để kết nối tới db, không xóa những dòng dưới
     const [Ho, setHo] = useState("");
     const [Ten, setTen] = useState("");
     const [Email, setEmail] = useState("");
     const [TenDN, setTenDN] = useState("");
     const [MatKhau, setMatKhau] = useState("");
-    const [CfMatKhau, setCfMatKhau] = useState("");
 
     let navigate = useNavigate();
     
     const handleRegister = (event) => {
         event.preventDefault();
-        axios.post("http://localhost:5000/api/register", {
-            Ho, Ten, Email, TenDN, MatKhau, CfMatKhau
+        axios.post("register", {
+            Ho, Ten, Email, TenDN, MatKhau
         })
             .then(() =>{
-                navigate('/login');
+                navigate('/login');               
             })
-            .catch(() => {alert("Register failed")}) 
+            .catch(() => {
+                alert("Đã có một lỗi bất thường xảy ra, đăng kí tài khoản thất bại!")
+            }) 
     };
+
     return (
         
         <div>
@@ -123,7 +123,7 @@ const Register = () => {
                 </Form.Group>
                 <Form.Group className="mb-3 form-custom" controlId="formGridConfirmPassword">
                     <Form.Label className="d-flex">Confirm Password</Form.Label>
-                    <Form.Control type="password" placeholder="Confirm Password" onChange={(e)=>{setCfMatKhau(e.target.value);}} />
+                    <Form.Control type="password" placeholder="Confirm Password"  />
                 </Form.Group>
                 <Form.Group className="d-flex mb-3 form-custom" id="formGridCheckbox">
                     <Form.Check type="checkbox" label="Subscribe for participate in the auction!" />

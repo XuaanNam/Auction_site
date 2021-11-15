@@ -7,9 +7,9 @@ function Header() {
     return (
         <div>
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand className="Brand ml-5" href="/">Logo</Navbar.Brand>
+                <Navbar.Brand className="Brand ml-5" href="/home">Logo</Navbar.Brand>
                 <Nav className="mr-auto">
-                <Nav.Link href="/">Trang chủ</Nav.Link>
+                <Nav.Link href="/home">Trang chủ</Nav.Link>
                 </Nav>
                 <Form inline className="mr-5">
                     <Form inline className="mr-5">

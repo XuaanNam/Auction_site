@@ -5,6 +5,10 @@ import Header from "./Header";
 import Footer from "./Footer";
 import '../App.css';
 import logo from "../images/img-login.png";
+//dùng để kết nối tới db
+import {useState, useEffect} from "react";
+import axios from "../api/axios"; 
+import { useNavigate } from 'react-router-dom';
 
 
 const Container = styled.div`
@@ -48,6 +52,24 @@ const Error = styled.span`
 
 const Login = () => {
 
+  const [Email, setEmail] = useState("");
+  const [MatKhau, setMatKhau] = useState("");
+
+  let navigate = useNavigate();
+    
+    const handleLogin = (event) => {
+        event.preventDefault();
+        axios.post("login", {
+          Email, MatKhau
+        })
+          .then(() =>{
+            navigate('/home');      
+          })
+          .catch(() => {
+              alert("Đăng nhập thất bại");
+          }) 
+    };
+
 return (
     <div>
       {/* <Logo src={logo}/> */}
@@ -57,17 +79,17 @@ return (
         <Title>Đăng nhập</Title>
         <Form action="#" style={{ minWidth: "40%", marginBottom: "90px" }}>
           <Form.Group className="mb-3 form-custom" controlId="formGridUsername">
-            <Form.Label className="d-flex">Tên người dùng</Form.Label>
-            <Form.Control type="mail" placeholder="Username"  />
+            <Form.Label className="d-flex">Email</Form.Label>
+            <Form.Control type="mail" placeholder="Email" onChange={(e)=>{setEmail(e.target.value);}} />
           </Form.Group>
           <Form.Group className="mb-3 form-custom" controlId="formGridPassword">
             <Form.Label className="d-flex">Mật khẩu</Form.Label>
-            <Form.Control type="password" placeholder="Password"  />
+            <Form.Control type="password" placeholder="Password" onChange={(e)=>{setMatKhau(e.target.value);}} />
           </Form.Group>
           {/* {error && <Error>Something went wrong!</Error>} */}
           <Submit>
             <Button variant="dark" size="lg" className="w-100 btn-custom" id="btnLogin"
-            //   onClick={handleLogin}
+              onClick={handleLogin}
             //   disabled={isFetching}
             >
               Đăng nhập
