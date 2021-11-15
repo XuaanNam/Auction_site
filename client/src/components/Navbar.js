@@ -6,13 +6,13 @@ function Footer() {
     return (
         <div>
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand className="Brand ml-5" href="#home">Navbar</Navbar.Brand>
+                <Navbar.Brand className="Brand ml-5" href="#home">Banner Auction</Navbar.Brand>
                 <Nav className="mr-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
+                <Nav.Link href="#home">Trang chủ</Nav.Link>
                 </Nav>
                 <Form inline className="mr-5">
-                <Button className="btn-nav mr-2" variant="outline-info">Sign In</Button>
-                <Button className="btn-nav" variant="outline-info">Sign Up</Button>
+                <Button className="btn-nav mr-2" variant="outline-info">Đăng nhập</Button>
+                <Button className="btn-nav" variant="outline-info">Đăng ký</Button>
                 </Form>
             </Navbar>
         

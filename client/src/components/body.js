@@ -8,26 +8,26 @@ function Body() {
             <p className="Auction-title">Các cuộc đấu giá</p>
             <Row className="justify-content-md-center m-4">
                 <Col xs sm="5" mr-2 style={{ backgroundColor: 'red' }}>
-                    Banner 1
+                    <Card>
+                        <Card.Img variant="top" src='/imp.jpg' />
+                        <Card.Body>
+                            <Card.Title>Banner1</Card.Title>
+                            <div>
+                            <span> Description</span>
+                            </div>
+                            <div className="d-flex pt-1">
+                                <b>Time</b>
+                                <b className="ml-5">Price</b>
+                            </div>
+                        </Card.Body>
+                    </Card>
                 </Col>
                 <Col xs sm="1"></Col>
                 <Col xs sm="5" pl-2 style={{ backgroundColor: 'blue' }}>
                     Banner 2
                 </Col>
             </Row>
-            <Card style={{ width: '30vw' }}>
-                <Card.Img variant="top" src='/imp.jpg' />
-                <Card.Body>
-                    <Card.Title>Banner1</Card.Title>
-                    <div>
-                       <span> Description</span>
-                    </div>
-                    <div className="d-flex pt-1">
-                        <b>Time</b>
-                        <b className="ml-5">Price</b>
-                    </div>
-                </Card.Body>
-            </Card>
+            
         </div>
     )
 }

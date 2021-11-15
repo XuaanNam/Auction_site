@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "install": "^0.13.0"
+    "install": "^0.13.0",
+    "react-router-dom": "^6.0.2"
   },
   "devDependencies": {
     "husky": "^7.0.4",
@@ -11,8 +12,7 @@
     "prepare": "husky install",
     "pre-commit": "lint-staged"
   },
-  "lint-staged":{
+  "lint-staged": {
     "src/**/*.{js,json}": "prettier --single-quote --trailling-comma all --tab-width 4 --write"
   }
-  
 }
