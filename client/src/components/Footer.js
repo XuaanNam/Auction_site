@@ -9,46 +9,35 @@ function Footer() {
       <div className='footer-links'>
         <div className='footer-link-wrapper'>
           <div className='footer-link-items'>
-            <h2>About Us</h2>
-            <Link to='/'>Testimonials</Link>
-            <Link to='/'>Careers</Link>
-            <Link to='/'>Investors</Link>
-            <Link to='/'>Terms of Service</Link>
+            <h2>Thông tin</h2>
+            <Link to='/'>Về chúng tôi</Link>
+            <Link to='/'>Chính sách bảo mật</Link>
+            <Link to='/'>Thông tin công ty</Link>
+            <Link to='/'>Điều khoản sử dụng</Link>
           </div>
           <div className='footer-link-items'>
-            <h2>Contact Us</h2>
-            <Link to='/'>Contact</Link>
-            <Link to='/'>Support</Link>
-            <Link to='/'>Destinations</Link>
-            <Link to='/'>Sponsorships</Link>
-          </div>
-        </div>
-        <div className='footer-link-wrapper'>
-          <div className='footer-link-items'>
-            <h2>Videos</h2>
-            <Link to='/'>Submit Video</Link>
-            <Link to='/'>Ambassadors</Link>
-            <Link to='/'>Agency</Link>
-            <Link to='/'>Influencer</Link>
-          </div>
-          <div className='footer-link-items'>
-            <h2>Social Media</h2>
+            <h2>Phương tiện</h2>
             <Link to='/'>Instagram</Link>
             <Link to='/'>Facebook</Link>
             <Link to='/'>Youtube</Link>
             <Link to='/'>Twitter</Link>
           </div>
+          <div className='footer-link-items'>
+            <h2>Liên hệ</h2>
+            <Link to='/'>Liên hệ</Link>
+            <Link to='/'>Trợ giúp</Link>
+          </div>
+        </div>
+        <div className='footer-link-wrapper'>
+       
         </div>
       </div>
       <section className='social-media'>
         <div className='social-media-wrap'>
-          <div className='footer-logo'>
-            <Link to='/' className='social-logo'>
-              Banner Auction
-              <i className='fab fa-typo3' />
-            </Link>
+          <div className='' style={{color: 'white', fontSize: '16px'}}>
+            Có câu hỏi? Chúng tôi muốn nghe từ bạn! <br/>
+            Email cho chúng tôi: support@chilindo.com
           </div>
-          <small className='website-rights'>Banner Auction © 2020</small>
           <div className='social-icons'>
             <Link className='social-icon-link facebook' to='/'>
               <i className='fab fa-facebook-f' />
@@ -86,6 +75,8 @@ function Footer() {
               <i className='fab fa-linkedin' />
             </Link>
           </div>
+          <small className='website-rights'>Banner Auction © 2020</small>
+          
         </div>
       </section>
     </div>

@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  font-size: 18px;
 }
 
 .App-logo {
@@ -20,8 +20,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
@@ -36,19 +34,48 @@
     transform: rotate(360deg);
   }
 }
-/* Navbar.js */
+/* Header.js */
 .btn-nav{
   width: 8vw;
 }
-/* Body */
+
+/* Home */
 .body-container{
   text-align:left;
+  width: 80%;
+  height: 100%;
+  margin: 5vh auto 3vh;
 }
-.Auction-title{
+.player-name{
+  margin-left: 20vw;
+}
+.auction-title{
   font-size: 24px;
   font-weight: bold;
   padding-left: 3vw;
 }
+.auction-link{
+  text-decoration: none !important;
+  color: #000;
+}
+.auction-link:hover{
+  color: #000;
+}
 .grid-body{
   margin-left: 5vw;
+}
+/* auction */
+.auction-table{
+  width: 90% !important;
+  margin: 3vh auto ;
+  text-align: center;
+}
+.description{
+  font-size: 26px;
+  font-weight: bold;
+  margin: 1vh 5vw 3vh;
+  color:mediumturquoise;
+}
+.descript{
+  margin: 3vh 5vw 15vh;
 }
