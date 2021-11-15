@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card,Row,Col,Button } from 'react-bootstrap';
 import '../App.css';
+import banner from '../images/img-login.jpg';
 
 function Body() {
     return (
@@ -16,7 +17,7 @@ function Body() {
                 </Col>
             </Row>
             <Card style={{ width: '30vw' }}>
-                <Card.Img variant="top" src='/imp.jpg' />
+                <Card.Img variant="top" src={banner} />
                 <Card.Body>
                     <Card.Title>Banner1</Card.Title>
                     <div>
