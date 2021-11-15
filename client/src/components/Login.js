@@ -84,8 +84,9 @@ return (
           </Form.Group>
           <Form.Group className="mb-3 form-custom" controlId="formGridPassword">
             <Form.Label className="d-flex">Mật khẩu</Form.Label>
-            <Form.Control type="password" placeholder="Password" onChange={(e)=>{setMatKhau(e.target.value);}} />
+            <Form.Control type="password" placeholder="Nhập mật khẩu" onChange={(e)=>{setMatKhau(e.target.value);}} />
           </Form.Group>
+
           {/* {error && <Error>Something went wrong!</Error>} */}
           <Submit>
             <Button variant="dark" size="lg" className="w-100 btn-custom" id="btnLogin"

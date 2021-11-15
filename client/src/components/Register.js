@@ -101,29 +101,29 @@ const Register = () => {
             <Form action="#" >
                 <Row className="mb-3 form-custom">
                     <Form.Group as={Col} controlId="formGridFirstName">
-                        <Form.Label className="d-flex">First Name</Form.Label>
-                        <Form.Control type="text" placeholder="First Name" onChange={(e)=>{setTen(e.target.value);}} />
+                        <Form.Label className="d-flex">Tên</Form.Label>
+                        <Form.Control type="text" placeholder="Nhập tên" onChange={(e)=>{setTen(e.target.value);}} />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridLastName">
-                        <Form.Label className="d-flex">Last Name</Form.Label>
-                        <Form.Control type="text" placeholder="Last Name" onChange={(e)=>{setHo(e.target.value);}} />
+                        <Form.Label className="d-flex">Họ</Form.Label>
+                        <Form.Control type="text" placeholder="Nhập họ" onChange={(e)=>{setHo(e.target.value);}} />
                     </Form.Group>
                 </Row>
                 <Form.Group className="mb-3 form-custom" controlId="formGridEmail">
-                    <Form.Label className="d-flex">Email</Form.Label>
-                    <Form.Control type="mail" placeholder="Enter your email" onChange={(e)=>{setEmail(e.target.value);}} />
+                    <Form.Label className="d-flex">Địa chỉ email</Form.Label>
+                    <Form.Control type="mail" placeholder="Nhập địa chỉ email" onChange={(e)=>{setEmail(e.target.value);}} />
                 </Form.Group>
                 <Form.Group className="mb-3 form-custom" controlId="formGridUsername">
-                    <Form.Label className="d-flex">Username</Form.Label>
-                    <Form.Control type="mail" placeholder="Username" onChange={(e)=>{setTenDN(e.target.value);}} />
+                    <Form.Label className="d-flex">Tên đăng nhập</Form.Label>
+                    <Form.Control type="mail" placeholder="Tên đăng nhập" onChange={(e)=>{setTenDN(e.target.value);}} />
                 </Form.Group>
                 <Form.Group className="mb-3 form-custom" controlId="formGridPassword">
-                    <Form.Label className="d-flex">Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" onChange={(e)=>{setMatKhau(e.target.value);}} />
+                    <Form.Label className="d-flex">Mật khẩu</Form.Label>
+                    <Form.Control type="password" placeholder="Mật khẩu" onChange={(e)=>{setMatKhau(e.target.value);}} />
                 </Form.Group>
                 <Form.Group className="mb-3 form-custom" controlId="formGridConfirmPassword">
-                    <Form.Label className="d-flex">Confirm Password</Form.Label>
-                    <Form.Control type="password" placeholder="Confirm Password"  />
+                    <Form.Label className="d-flex">Nhập lại mật khẩu</Form.Label>
+                    <Form.Control type="password" placeholder="Nhập lại mật khẩu" />
                 </Form.Group>
                 <Form.Group className="d-flex mb-3 form-custom" id="formGridCheckbox">
                     <Form.Check type="checkbox" label="Subscribe for participate in the auction!" />
