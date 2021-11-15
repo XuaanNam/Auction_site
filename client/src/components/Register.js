@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components"
 import Header from "./Header";
 import { Form, Row, Col, Button } from "react-bootstrap"
-import Footer from "../Footer";
-import logo from "../../images/img-login.png";
+import Footer from "./Footer";
+//import logo from "../../images/img-login.png";
 //dùng để kết nối tới db, không xóa những dòng dưới
 import {useState, useEffect} from "react";
 import axios from "axios";
