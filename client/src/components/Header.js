@@ -11,7 +11,16 @@ function Header() {
                 <Nav className="mr-auto">
                 <Nav.Link href="/">Trang chủ</Nav.Link>
                 </Nav>
+                <div>
+                    <a href="#">
+                            <Button className="btn-nav mr-2" variant="outline-info">Đấu giá</Button>
+                    </a>
+                    <a href="/Cart">
+                            <Button className="btn-nav mr-2" variant="outline-info">Giỏ hàng</Button>
+                    </a>
+                </div>
                 <Form inline className="mr-5">
+                    
                     <Form inline className="mr-5">
                     <a href="/login">
                         <Button className="btn-nav mr-2" variant="outline-info">Đăng nhập</Button>
