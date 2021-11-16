@@ -9,6 +9,8 @@ import Login from './components/Login';
 import Auction from './components/Auction';
 import HomePage from './components/HomePage';
 import Cart from './components/Cart';
+import Profile from './components/Profile';
+import Changepass from './components/ChangePass';
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
             <Route path='/auction' element={<Auction/>} />
             <Route path='/home' exact element={<Home/>} />         
             <Route path='/cart' element={<Cart/>} />
+            <Route path='/profile' element={<Profile/>} />
+            <Route path='/changepass' element={<Changepass/>} />
           </Routes>
         </Router>
       </div>
