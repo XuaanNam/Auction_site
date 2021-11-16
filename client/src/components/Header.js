@@ -1,15 +1,18 @@
 import React from 'react';
 import '../App.css';
 import {BrowserRouter as Route, Link} from 'react-router-dom';
-import {Navbar,Nav,Form,FormControl,Button, Container} from 'react-bootstrap';
+import {Navbar,Nav,Form,FormControl,Button, Container, Image} from 'react-bootstrap';
+import logo from '../images/logo.png'
 
 function Header() {
     return (
         <div>
-            <Navbar bg="dark" variant="dark">
-                <Navbar.Brand className="Brand ml-5" href="/">Logo</Navbar.Brand>
+            <Navbar className="header" bg="dark" variant="dark">
+                <a href="/">
+                    <img className="logo-header ml-5" src={logo}  rounded />
+                </a>
                 <Nav className="mr-auto">
-                <Nav.Link href="/">Trang chủ</Nav.Link>
+                <Nav.Link href="/" className="ml-2">Trang chủ</Nav.Link>
                 </Nav>
                 <Form inline className="mr-5">
                     <Form inline className="mr-5">

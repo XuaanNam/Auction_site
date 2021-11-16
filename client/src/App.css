@@ -35,8 +35,15 @@
   }
 }
 /* Header.js */
+.header{
+  font-size: 24px;
+}
 .btn-nav{
   width: 8vw;
+}
+.logo-header{
+  width: 50px;
+  height: 100%;
 }
 
 /* Home */

@@ -34,9 +34,7 @@ const Logo = styled.img`
 const Title = styled.h2`
     margin-top: 8px;
 `;
-const Description = styled.p`
-    color: #6c757d;
-`;
+
 const Submit = styled.div`
     // width: 100%;
     padding: 40px 0px;
