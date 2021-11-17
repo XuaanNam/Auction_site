@@ -27,7 +27,7 @@ const Main = styled.div`
 const SideBar = styled.div`
     border-right: 1px solid rgba(0, 0, 0, 0.3);
     position: fixed;
-    top: 60px;
+    top: 75px;
     bottom: 0;
     left: 0;
     width: 24vw;
