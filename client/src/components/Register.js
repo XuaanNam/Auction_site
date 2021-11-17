@@ -74,6 +74,7 @@ const Register = () => {
     const [Email, setEmail] = useState("");
     const [TenDN, setTenDN] = useState("");
     const [MatKhau, setMatKhau] = useState("");
+    const [loginStatus, setLoginStatus] = useState("");
 
     let navigate = useNavigate();
     
@@ -83,13 +84,28 @@ const Register = () => {
             Ho, Ten, Email, TenDN, MatKhau
         })
             .then(() =>{
-                navigate('/login');               
+                if(Response.data.message){
+                    setLoginStatus(Response.data.message );           
+                } else {
+                    navigate('/login');
+                }                             
             })
             .catch(() => {
-                alert("Đã có một lỗi bất thường xảy ra, đăng kí tài khoản thất bại!")
+                setLoginStatus("Đã có một lỗi bất thường xảy ra, đăng kí tài khoản thất bại!")
             }) 
     };
-
+    useEffect(()=>{
+        console.log("Effect is run");
+        axios.get("islogin")
+            .then((Response) => {
+                console.log(Response);
+                if(Response.data.loggedIn===true) {            
+                    setLoginStatus(Response.data.user[0].Ten+" "+Response.data.user[0].Ho);
+                    //navigate('/home');    
+                }
+            })
+            .catch(error => console.error(error));
+    }, [navigate]);
     return (
         
         <div>
@@ -128,7 +144,7 @@ const Register = () => {
                 <Form.Group className="d-flex mb-3 form-custom" id="formGridCheckbox">
                     <Form.Check type="checkbox" label="Subscribe for participate in the auction!" />
                 </Form.Group>
-                {/* {error && <Error>Something went wrong!</Error>} */}
+                <Error>{loginStatus}</Error>
                 <Submit >
                     <Button variant="dark" size="lg" className="w-100 btn-custom" id="btnSignUp"
                         onClick={handleRegister}

@@ -24,11 +24,11 @@ class API {
 
         bcrypt.hash(MatKhau, saltRound, (err, hash) => {
             if(err) {
-                console.log({message:"Đã có một lỗi bất thường xảy ra, đăng kí tài khoản thất bại!"});   
+                res.status(200).send({message:"Đã có một lỗi bất thường xảy ra, đăng kí tài khoản thất bại!"});   
             }
             pool.query(sql,[Ho, Ten, Email, TenDN, hash] , function (error, results, fields) {
                 if (error) {
-                    console.log({message:"Kết nối DataBase thất bại"}); 
+                    res.status(200).send({message:"Kết nối DataBase thất bại"}); 
                 } else {
                     res.send(results);
                 }                            
@@ -37,26 +37,41 @@ class API {
         
     }
 
+    // [GET] /api/islogin
+    isLogin(req, res, next){
+        if(req.session.user){
+            res.send({loggedIn: true, user: req.session.user});
+        } else {
+            res.send({loggedIn: false})
+        }
+    }
+
     // [POST] /api/login
     login(req, res, next) {
-        const sql = "select * from taikhoan where TenDN = ? ";
-        const TenDN = req.body.TenDN;
+        const sql = "select * from taikhoan where Email = ? ";
+        const Email = req.body.Email;
         const MatKhau = req.body.MatKhau;
 
-        pool.query(sql,[TenDN, MatKhau], function (error, results, fields) {
+        pool.query(sql,[Email], function (error, results, fields) {
             if (error) {
                 res.send({error: error});
             }
             if (results.length > 0){
                 bcrypt.compare(MatKhau, results[0].MatKhau, (err, response) => {
                     if(response){
+                        req.session.isAuth = true;
+                        console.log(req.session)
+                        // var oneDay = 8640000;
+                        // req.session.cookie.expires = new Date(Date.now() + oneDay);
+                        // req.session.cookie.maxAge = oneDay;
+                        // req.session.user = results;
                         res.send(results);
                     } else {
-                        res.send({message: "Tên Đăng Nhập hoặc mật khẩu không đúng!"});
+                        res.status(200).send({message: "Tên Đăng Nhập hoặc mật khẩu không đúng!"});
                     }                   
                 } )
             } else {
-                res.send({message:"Tài khoản không tồn tại!"});
+                res.status(200).send({message:"Tài khoản không tồn tại!"});
             }
         });
     }
