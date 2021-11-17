@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components"
 import { Form, Button } from "react-bootstrap";
-import Header from "../components/Header";
-import Footer from '../components/Footer';
-import '../App.css';
+import Header from "../layout/Header";
+import Footer from '../layout/Footer';
+import '../../App.css';
 import logo from "../images/img-login.png";
 //dùng để kết nối tới db
 import {useState, useEffect} from "react";
-import axios from "../api/axios"; 
+import axios from "../../api/axios"; 
 import { useNavigate } from 'react-router-dom';
 
 

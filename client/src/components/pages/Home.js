@@ -1,7 +1,7 @@
 import React from 'react';
-import '../App.css';
-import Header from "../components/Header";
-import Footer from '../components/Footer';
+import '../../App.css'
+import Header from "../layout/Header";
+import Footer from '../layout/Footer';
 import {Card,Row,Col,Button } from 'react-bootstrap';
 
 // import Body from '../body';

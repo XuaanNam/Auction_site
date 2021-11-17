@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css';
+import '../../App.css';
 import {BrowserRouter as Route, Link} from 'react-router-dom';
 import {Navbar,Nav,Form,FormControl,Button, Container, Image} from 'react-bootstrap';
 import logo from '../images/logo.png'

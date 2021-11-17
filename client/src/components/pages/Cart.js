@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import Header from "../components/Header";
-import Footer from '../components/Footer';
+import Header from "../layout/Header";
+import Footer from '../layout/Footer';
 import logo from "../images/img-login.jpg";
 const KEY = process.env.REACT_APP_STRIPE;
 
