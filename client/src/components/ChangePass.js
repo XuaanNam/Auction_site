@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from "./Header";
+import Footer from './Footer';
 import { mobile } from '../responsive';
 
 
@@ -248,8 +249,11 @@ const ChangePass = () => {
                     <Hr />
                     <Menu>
                         <MenuItems className="menu-items" >
+                        <MenuItem className="item active-menu" id="0">
+                                <a href="/profile" style={{ marginRight: "12px" }} > Thông tin cơ bản</a>
+                            </MenuItem>
                             <MenuItem className="item active-menu" id="0">
-                                <p style={{ marginRight: "12px" }} > Đổi mật khẩu</p>
+                                <a href="#" style={{ marginRight: "12px" }} > Đổi mật khẩu</a>
                             </MenuItem>
                         </MenuItems>
                     </Menu>
@@ -281,7 +285,7 @@ const ChangePass = () => {
                     </ProfileBody>
                 </ProfileBar>
             </Main>
-            {/* <Footer></Footer> */}
+            <Footer></Footer>
         </Container>
     )
 };

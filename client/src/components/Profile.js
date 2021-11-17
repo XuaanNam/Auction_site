@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from "./Header";
+import Footer from './Footer';
 import { mobile } from '../responsive';
 
 
@@ -260,7 +261,10 @@ const Profile = () => {
                     <Menu>
                         <MenuItems className="menu-items" >
                             <MenuItem className="item active-menu" id="0">
-                                <p style={{ marginRight: "12px" }} > Thông tin cơ bản</p>
+                                <a href="#" style={{ marginRight: "12px" }} > Thông tin cơ bản</a>
+                            </MenuItem>
+                            <MenuItem className="item active-menu" id="0">
+                                <a href="/changepass" style={{ marginRight: "12px" }} > Đổi mật khẩu</a>
                             </MenuItem>
                             
                         </MenuItems>
@@ -278,9 +282,9 @@ const Profile = () => {
                                 <UserInfo>
                                     <InfoName className="basic">Tên đầy đủ</InfoName>
                                     <Info className="basic">"Họ và tên"</Info>
-                                    <InfoName className="edit-basic display-none">First Name</InfoName>
+                                    {/* <InfoName className="edit-basic display-none">First Name</InfoName> */}
                                     {/* Xử lý */}
-                                    <InfoName className="edit-basic display-none">Last Name</InfoName>
+                                    {/* <InfoName className="edit-basic display-none">Last Name</InfoName> */}
                                     {/* Xử lý */}
                                 </UserInfo>
                                 <UserInfo>
@@ -320,7 +324,7 @@ const Profile = () => {
                     </ProfileBody>
                 </ProfileBar>
             </Main>
-            {/* <Footer></Footer> */}
+            <Footer style="position: relative!important;"></Footer>
         </Container>
     )
 };
