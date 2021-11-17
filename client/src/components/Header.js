@@ -6,15 +6,23 @@ import logo from '../images/logo.png'
 
 function Header() {
     return (
-        <div>
-            <Navbar className="header" bg="dark" variant="dark">
-                <a href="/">
-                    <img className="logo-header ml-5" src={logo}  rounded />
-                </a>
-                <Nav className="mr-auto">
-                <Nav.Link href="/" className="ml-2">Trang chủ</Nav.Link>
-                </Nav>
+                <div><Navbar className="header" bg="dark" variant="dark">
+                    <a href="/">
+                        <img className="logo-header ml-5" src={logo}  rounded />
+                    </a>
+                    <Nav className="mr-auto">
+                    <Nav.Link href="/" className="ml-2">Trang chủ</Nav.Link>
+                    </Nav>
+                <div>
+                    <a href="#">
+                            <Button className="btn-nav mr-2" variant="outline-info">Đấu giá</Button>
+                    </a>
+                    <a href="/Cart">
+                            <Button className="btn-nav mr-2" variant="outline-info">Giỏ hàng</Button>
+                    </a>
+                </div>
                 <Form inline className="mr-5">
+                    
                     <Form inline className="mr-5">
                     <a href="/login">
                         <Button className="btn-nav mr-2" variant="outline-info">Đăng nhập</Button>

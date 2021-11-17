@@ -12,6 +12,7 @@ const helmet = require("helmet");
 
 
 
+
 app.use(cors());
 app.use(morgan("combined"));
 app.use(express.static("client"));  // đang chỉnh sửa

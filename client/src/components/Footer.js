@@ -36,7 +36,7 @@ function Footer() {
         <div className='social-media-wrap'>
           <div className='' style={{color: 'white', fontSize: '16px'}}>
             Có câu hỏi? Chúng tôi muốn nghe từ bạn! <br/>
-            Email cho chúng tôi: support@chilindo.com
+            Email cho chúng tôi: greypanther@gmail.com
           </div>
           <div className='social-icons'>
             <Link className='social-icon-link facebook' to='/'>
@@ -75,7 +75,7 @@ function Footer() {
               <i className='fab fa-linkedin' />
             </Link>
           </div>
-          <small className='website-rights'>Banner Auction © 2020</small>
+          <small className='website-rights'>Grey Panther © 2020</small>
           
         </div>
       </section>
