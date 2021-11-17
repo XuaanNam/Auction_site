@@ -14,7 +14,8 @@ class API {
 
     // [POST] /api/register
     register(req, res, next) {
-        const sql = "insert into taikhoan (Ho, Ten, Email, TenDN, MatKhau) value (?,?,?,?,?)";
+        const insertSql = "insert into taikhoan (Ho, Ten, Email, TenDN, MatKhau) value (?,?,?,?,?)";
+        const selectSql = 'select Email from taikhoan where Email = ?';
 
         const Ho = req.body.Ho;
         const Ten = req.body.Ten;
@@ -24,17 +25,36 @@ class API {
 
         bcrypt.hash(MatKhau, saltRound, (err, hash) => {
             if(err) {
-                res.status(200).send({message:"Đã có một lỗi bất thường xảy ra, đăng kí tài khoản thất bại!"});   
+                res.status(200).send({message:"Mật khẩu không được mã hóa"});   
             }
-            pool.query(sql,[Ho, Ten, Email, TenDN, hash] , function (error, results, fields) {
-                if (error) {
-                    res.status(200).send({message:"Kết nối DataBase thất bại"}); 
-                } else {
-                    res.send(results);
-                }                            
-            });
-        })
-        
+
+            pool.getConnection(function(err, connection) {
+                if (err) throw err; // not connected!
+               
+                // Use the connection
+                connection.query(selectSql , Email, function (error, results, fields) {
+                    if (error) {
+                        res.status(200).send({message:"Kết nối DataBase thất bại"}); 
+                    } else {
+                        if(results.length > 0) {
+                            console.log(results);
+                            res.status(200).send({message:"Email đã được dùng để đăng kí tài khoản. Vui lòng chọn quên mật khẩu!"});
+                    
+                        } else {
+                            connection.query(insertSql,[Ho, Ten, Email, TenDN, hash] , function (error, results, fields) {
+                                if (error) {
+                                    res.status(200).send({message:"Kết nối DataBase thất bại"}); 
+                                } else {
+                                    res.send(results);
+                                }                            
+                            });
+                        }                    
+                        connection.release();
+                    }                            
+                });
+       
+            });           
+        })       
     }
 
     // [GET] /api/islogin

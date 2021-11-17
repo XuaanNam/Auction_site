@@ -83,7 +83,7 @@ const Register = () => {
         axios.post("register", {
             Ho, Ten, Email, TenDN, MatKhau
         })
-            .then(() =>{
+            .then((Response) =>{
                 if(Response.data.message){
                     setLoginStatus(Response.data.message );           
                 } else {
@@ -91,7 +91,7 @@ const Register = () => {
                 }                             
             })
             .catch(() => {
-                setLoginStatus("Đã có một lỗi bất thường xảy ra, đăng kí tài khoản thất bại!")
+                setLoginStatus("Đã có một lỗi bất thường xảy ra, vui lòng đăng kí lại!")
             }) 
     };
     useEffect(()=>{
