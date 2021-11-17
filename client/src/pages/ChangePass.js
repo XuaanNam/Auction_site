@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Header from "./Header";
+import Header from "../components/Header";
+import Footer from '../components/Footer';
 import { mobile } from '../responsive';
-
 
 
 const Container = styled.div`
@@ -208,12 +208,6 @@ const InfoName = styled.div`
     font-weight: 600;
     ${mobile({ width: "100%" })}
 `;
-const Info = styled.div`
-    width: calc((100%/12)*7);
-    padding: 4px 0;
-    word-wrap: break-word;
-    ${mobile({ width: "100%", paddingLeft: "8px" })}
-`;
 const CardFooter = styled.div`
     display: flex;
     justify-content: center;
@@ -238,13 +232,9 @@ const InfoEdit = styled.input`
     }
     ${mobile({ width: "100%", paddingLeft: "8px" })}
 `;
-const Error = styled.span`
-    display: block;
-    margin-top: 10px;
-    color: red;
-`;
 
-const Profile = () => {
+
+const ChangePass = () => {
 
 
     return (
@@ -259,10 +249,12 @@ const Profile = () => {
                     <Hr />
                     <Menu>
                         <MenuItems className="menu-items" >
-                            <MenuItem className="item active-menu" id="0">
-                                <p style={{ marginRight: "12px" }} > Thông tin cơ bản</p>
+                        <MenuItem className="item active-menu" id="0">
+                                <a href="/profile" style={{ marginRight: "12px" }} > Thông tin cơ bản</a>
                             </MenuItem>
-                            
+                            <MenuItem className="item active-menu" id="0">
+                                <a href="#" style={{ marginRight: "12px" }} > Đổi mật khẩu</a>
+                            </MenuItem>
                         </MenuItems>
                     </Menu>
                 </SideBar>
@@ -272,57 +264,30 @@ const Profile = () => {
                         <SubTitle>Thông tin về cá nhân bạn là hoàn toàn được bảo mật!</SubTitle>
                     </ProfileHeader>
                     <ProfileBody>
-                        <ProfileCard className="card-item fade-card mobile-active">
-                            <CardHeader>Thông tin cơ bản</CardHeader>
+                    <ProfileCard className="card-item mobile-active">
+                            <CardHeader>Thay đổi mật khẩu</CardHeader>
                             <CardBody>
                                 <UserInfo>
-                                    <InfoName className="basic">Tên đầy đủ</InfoName>
-                                    <Info className="basic">"Họ và tên"</Info>
-                                    <InfoName className="edit-basic display-none">First Name</InfoName>
-                                    {/* Xử lý */}
-                                    <InfoName className="edit-basic display-none">Last Name</InfoName>
-                                    {/* Xử lý */}
+                                    <InfoName>Mật khẩu hiện tại</InfoName>
+                                    <InfoEdit type="password"></InfoEdit>
                                 </UserInfo>
                                 <UserInfo>
-                                    <InfoName>Ngày sinh</InfoName>
-                                    <Info className="basic">"Ngày sinh"</Info>
-                                    {/* Xử lý */}
-                                </UserInfo>
-                                <UserInfo>
-                                    <InfoName>Giới tính</InfoName>
-                                    <Info className="basic">"Giới tính"</Info>
-                                    {/* Xử lý */}
+                                    <InfoName>Mật khẩu mới</InfoName>
+                                    <InfoEdit type="password"></InfoEdit>
                                 </UserInfo>
                             </CardBody>
-                            <CardHeader>Contact Info</CardHeader>
-                            <CardBody>
-                                <UserInfo>
-                                    <InfoName>Email</InfoName>
-                                    <Info className="contact">Email</Info>
-                                    {/* xử lý*/}
-                                </UserInfo>
-                                <UserInfo>
-                                    <InfoName>Phone</InfoName>
-                                    <Info className="contact">Số  điện thoại</Info>
-                                    {/* xỬ LÝ */}
-                                </UserInfo>
-                            </CardBody>
+                            {/* xỬ LÝ NẾU SAI */}
                             <CardFooter>
-                              
+                                <EditButton className="btn btn-dark btn-custom basic"  >Chỉnh sửa</EditButton>
+                                    {/*Xử lý*/} 
                             </CardFooter>
-                            <CardFooter>
-                                <EditButton
-                                    className="btn btn-dark btn-custom basic"      
-                                >Chỉnh sửa</EditButton>
-                                {/* xử lý */}
-                            </CardFooter>  
                         </ProfileCard>
                     </ProfileBody>
                 </ProfileBar>
             </Main>
-            {/* <Footer></Footer> */}
+            <Footer></Footer>
         </Container>
     )
 };
 
-export default Profile
+export default ChangePass

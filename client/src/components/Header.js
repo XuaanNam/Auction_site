@@ -14,6 +14,14 @@ function Header() {
                     <Nav.Link href="/" className="ml-2">Trang chủ</Nav.Link>
                     </Nav>
                 <div>
+                    <a href="/changepass">
+                            <Button className="btn-nav mr-2" variant="outline-info">Đổi mật khẩu</Button>
+                    </a>
+                    <a href="/profile">
+                            <Button className="btn-nav mr-2" variant="outline-info">Cá nhân</Button>
+                    </a>
+                </div>
+                <div>
                     <a href="#">
                             <Button className="btn-nav mr-2" variant="outline-info">Đấu giá</Button>
                     </a>

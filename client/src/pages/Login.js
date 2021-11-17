@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components"
 import { Form, Button } from "react-bootstrap";
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "../components/Header";
+import Footer from '../components/Footer';
 import '../App.css';
 import logo from "../images/img-login.png";
 //dùng để kết nối tới db

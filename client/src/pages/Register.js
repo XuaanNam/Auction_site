@@ -1,8 +1,8 @@
+import { Form, Row, Col, Button } from "react-bootstrap"
 import React from "react";
 import styled from "styled-components"
-import Header from "./Header";
-import { Form, Row, Col, Button } from "react-bootstrap"
-import Footer from "./Footer";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import logo from "../images/img-login.png";
 //dùng để kết nối tới db
 import {useState, useEffect} from "react";
