@@ -1,8 +1,8 @@
 import React from 'react';
-import '../App.css';
+import '../../App.css';
 import {Card,Row,Col,Button, Table } from 'react-bootstrap';
-import Header from "../components/Header";
-import Footer from '../components/Footer';
+import Header from "../layout/Header";
+import Footer from '../layout/Footer';
 function Auction() {
     return (
         <div>
