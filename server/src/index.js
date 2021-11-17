@@ -9,11 +9,18 @@ const route = require('./routes');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 const helmet = require("helmet");
+const session = require('express-session');
 
 
 
 
-app.use(cors());
+app.use(
+    cors({
+        origin: ["http://localhost:3000"],
+        methods: ['GET','POST','PUT', 'DELETE', 'PATCH'],
+        credentials: true,
+    }
+));
 app.use(morgan("combined"));
 app.use(express.static("client"));  // đang chỉnh sửa
 app.use(express.urlencoded({ extended: true }));
@@ -21,6 +28,7 @@ app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(cookieParser())
 app.use(helmet());
+
 
 
 //app.set('views', path.join(__dirname, 'resources', 'views'))// chưa xong

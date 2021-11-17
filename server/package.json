@@ -28,15 +28,13 @@
     "prettier": "^2.4.1"
   },
   "dependencies": {
-<<<<<<< HEAD
-=======
     "bcrypt": "^5.0.1",
->>>>>>> d357a3751e56b83f8873854e4212d74da6f97b06
     "concurrently": "^6.4.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.2",
     "helmet": "^4.6.0",
     "method-override": "^3.0.0",
     "morgan": "^1.10.0",

@@ -1,8 +1,8 @@
 import { Form, Row, Col, Button } from "react-bootstrap"
 import React from "react";
 import styled from "styled-components"
-import Header from "../layout/Header";
-import Footer from "../layout/Footer";
+import Header from "../Header";
+import Footer from "../Footer";
 import logo from "../images/img-login.png";
 //dùng để kết nối tới db
 import {useState, useEffect} from "react";
@@ -74,6 +74,7 @@ const Register = () => {
     const [Email, setEmail] = useState("");
     const [TenDN, setTenDN] = useState("");
     const [MatKhau, setMatKhau] = useState("");
+    const [loginStatus, setLoginStatus] = useState("");
 
     let navigate = useNavigate();
     
@@ -82,14 +83,29 @@ const Register = () => {
         axios.post("register", {
             Ho, Ten, Email, TenDN, MatKhau
         })
-            .then(() =>{
-                navigate('/login');               
+            .then((Response) =>{
+                if(Response.data.message){
+                    setLoginStatus(Response.data.message );           
+                } else {
+                    navigate('/login');
+                }                             
             })
             .catch(() => {
-                alert("Đã có một lỗi bất thường xảy ra, đăng kí tài khoản thất bại!")
+                setLoginStatus("Đã có một lỗi bất thường xảy ra, vui lòng đăng kí lại!")
             }) 
     };
-
+    useEffect(()=>{
+        console.log("Effect is run");
+        axios.get("islogin")
+            .then((Response) => {
+                console.log(Response);
+                if(Response.data.loggedIn===true) {            
+                    setLoginStatus(Response.data.user[0].Ten+" "+Response.data.user[0].Ho);
+                    //navigate('/home');    
+                }
+            })
+            .catch(error => console.error(error));
+    }, [navigate]);
     return (
         
         <div>
@@ -125,7 +141,10 @@ const Register = () => {
                     <Form.Label className="d-flex">Nhập lại mật khẩu</Form.Label>
                     <Form.Control type="password" placeholder="Nhập lại mật khẩu" />
                 </Form.Group>
-                {/* {error && <Error>Something went wrong!</Error>} */}
+                <Form.Group className="d-flex mb-3 form-custom" id="formGridCheckbox">
+                    <Form.Check type="checkbox" label="Subscribe for participate in the auction!" />
+                </Form.Group>
+                <Error>{loginStatus}</Error>
                 <Submit >
                     <Button variant="dark" size="lg" className="w-100 btn-custom" id="btnSignUp"
                         onClick={handleRegister}
