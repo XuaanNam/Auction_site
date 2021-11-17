@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Header from "./Header";
-import Footer from './Footer';
+import Header from "../components/Header";
+import Footer from '../components/Footer';
 import { mobile } from '../responsive';
 
 
