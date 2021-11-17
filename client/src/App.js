@@ -3,14 +3,14 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './components/Home'; 
-import Register from './components/Register';
-import Login from './components/Login';
-import Auction from './components/Auction';
-import HomePage from './components/HomePage';
-import Cart from './components/Cart';
-import Profile from './components/Profile';
-import Changepass from './components/ChangePass';
+import Home from './pages/Home'; 
+import Register from './pages/Register';
+import Login from './pages/Login';
+import Auction from './pages/Auction';
+import HomePage from './pages/HomePage';
+import Cart from './pages/Cart';
+import Profile from './pages/Profile';
+import Changepass from './pages/ChangePass';
 
 
 function App() {
