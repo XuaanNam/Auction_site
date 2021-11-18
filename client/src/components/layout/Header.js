@@ -4,9 +4,12 @@ import {BrowserRouter as Route, Link} from 'react-router-dom';
 import {Navbar,Nav,Form,FormControl,Button, Container, Image} from 'react-bootstrap';
 import logo from '../images/logo.png'
 
+
 function Header() {
+
     return (
-                <div><Navbar className="header" bg="dark" variant="dark">
+            <div>
+                <Navbar className="header" bg="dark" variant="dark">
                     <a href="/">
                         <img className="logo-header ml-5" src={logo}  rounded />
                     </a>

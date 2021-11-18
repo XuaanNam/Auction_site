@@ -66,28 +66,25 @@ const Login = () => {
           if(Response.data.message) {
             setLoginStatus(Response.data.message );                       
           } else {
-            setLoginStatus(Response.data[0].Ten+" "+Response.data[0].Ho);
-            navigate('/home'); 
-            //console.log(Response.data[0].Ten+" "+Response.data[0].Ho );
+            console.log(Response)
+            //navigate('/home'); 
           }
         })
         .catch(() => {
           setLoginStatus("Đăng nhập thất bại");
         }, []) 
   };
-  useEffect(()=>{
-    console.log("Effect is run");
-    axios.get("islogin")
-        .then((Response) => {
-            console.log(Response);
-  
-        if(Response.data.loggedIn===true) {            
-          setLoginStatus(Response.data.user[0].Ten+" "+Response.data.user[0].Ho);
-          //navigate('/home');    
-        }
-      })
-      .catch(error => console.error(error));
-  }, [navigate]);
+  // useEffect(()=>{
+  //   console.log("Effect is run");
+  //   axios.get("isAuth")
+  //       .then((Response) => {
+  //         console.log(Response);
+  //         if(Response.data.isAuth) {            
+  //           //navigate('/home');    
+  //         }
+  //     })
+  //     .catch(error => console.error(error));
+  // }, [navigate]);
 
 return (
     <div>

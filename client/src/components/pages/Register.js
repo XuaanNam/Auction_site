@@ -1,8 +1,8 @@
 import { Form, Row, Col, Button } from "react-bootstrap"
 import React from "react";
 import styled from "styled-components"
-import Header from "../Header";
-import Footer from "../Footer";
+import Header from "../layout/Header";
+import Footer from "../layout/Footer";
 import logo from "../images/img-login.png";
 //dùng để kết nối tới db
 import {useState, useEffect} from "react";
@@ -94,18 +94,18 @@ const Register = () => {
                 setLoginStatus("Đã có một lỗi bất thường xảy ra, vui lòng đăng kí lại!")
             }) 
     };
-    useEffect(()=>{
-        console.log("Effect is run");
-        axios.get("islogin")
-            .then((Response) => {
-                console.log(Response);
-                if(Response.data.loggedIn===true) {            
-                    setLoginStatus(Response.data.user[0].Ten+" "+Response.data.user[0].Ho);
-                    //navigate('/home');    
-                }
-            })
-            .catch(error => console.error(error));
-    }, [navigate]);
+    // useEffect(()=>{
+    //     console.log("Effect is run");
+    //     axios.get("isAuth")
+    //         .then((Response) => {
+    //           console.log(Response);
+    //           if(Response.data.isAuth) {            
+    //             //navigate('/home');    
+    //           }
+    //       })
+    //       .catch(error => console.error(error));
+    //   }, [navigate]);
+    
     return (
         
         <div>
