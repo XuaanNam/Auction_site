@@ -3,10 +3,21 @@ import '../../App.css';
 import {BrowserRouter as Route, Link} from 'react-router-dom';
 import {Navbar,Nav,Form,FormControl,Button, Container, Image} from 'react-bootstrap';
 import logo from '../images/logo.png'
-
+import axios from "../../api/axios"; 
+import { useNavigate } from 'react-router-dom';
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 function Header() {
 
+    let navigate = useNavigate();
+
+    const handleLogout = () => {
+        cookies.remove("userAuth");
+        cookies.remove("userid");
+
+        //navigate('/login');
+    }
     return (
             <div>
                 <Navbar className="header" bg="dark" variant="dark">
@@ -43,6 +54,9 @@ function Header() {
                     </a>
                     </Form>
                 </Form>
+                    <a href="/">
+                        <Button className="btn-nav" variant="outline-info" onClick={handleLogout}>Đăng xuất</Button>
+                    </a>
             </Navbar>
         </div>
     )

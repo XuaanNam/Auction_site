@@ -97,6 +97,7 @@ const Register = () => {
     useEffect(()=>{
         axios.get("isAuth")
             .then((Response) => {
+                console.log('response:', Response)
             if(Response.data.isAuth) {            
                 navigate('/home');    
             }

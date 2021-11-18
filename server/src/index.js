@@ -1,4 +1,5 @@
 const express = require('express');
+const methodOverride = require('method-override');
 const app = express();
 const port = process.env.port || 5000;
 const cors = require("cors");
@@ -21,6 +22,7 @@ app.use(morgan("combined"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(helmet());
+app.use(methodOverride('_method'));
 
 
 route(app);

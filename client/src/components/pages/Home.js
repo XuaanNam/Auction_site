@@ -4,9 +4,30 @@ import Header from "../layout/Header";
 import Footer from '../layout/Footer';
 import {Card,Row,Col,Button } from 'react-bootstrap';
 
+import {useState, useEffect} from "react";
+import axios from "../../api/axios"; 
+import { useNavigate } from 'react-router-dom';
 // import Body from '../body';
 
 function Home() {
+
+  let navigate = useNavigate();
+  let isAuth = 0;
+  useEffect(()=>{
+      axios.get("isAuth")
+        .then((Response) => {
+          if(Response.data.isAuth){
+            isAuth = 1;
+          }
+        })
+        .catch(error => { console.log(error);})
+        .then(function () {
+          if(isAuth !== 1){
+            navigate('/')
+          }       
+        });
+  }, []);
+
   return (
     <div>
       <Header/>
