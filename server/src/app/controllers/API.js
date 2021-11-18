@@ -33,7 +33,7 @@ class API {
             if (err) {
                 res.status(200).send({ message: "Mật khẩu không được mã hóa" });
             }
-
+            console.log('hash:', hash, Ho, Ten, TenDN, Email);
             pool.getConnection(function (err, connection) {
                 if (err) throw err; // not connected!
 
@@ -49,13 +49,13 @@ class API {
                             insertSql,
                             [Ho, Ten, Email, TenDN, hash],
                             function (error, results, fields) {
-                            if (error) {
-                                res
-                                .status(200)
-                                .send({ message: "Kết nối DataBase thất bại" });
-                            } else {
-                                res.send(results);
-                            }
+                                if (error) {
+                                    res
+                                    .status(200)
+                                    .send({ message: "Kết nối DataBase thất bại, lỗi cú pháp" });
+                                } else {
+                                    res.send(results);
+                                }
                             }
                         );
                         }
@@ -106,7 +106,7 @@ class API {
         });
     }
 
-    // [PATCH] /api/change/password
+    // [PATCH] /api/update/password
     updatePassword(req, res, next) {
 
         
@@ -148,7 +148,7 @@ class API {
         });
     }
 
-    // [PATCH] /api/change/password
+    // [PATCH] /api/update/profile
     updateProfile(req, res, next){     
 
         const updateSql = "update taikhoan set Ho = ? , Ten = ? , NgaySinh = ? , Email = ? , SDT = ? where idTK = ?";
@@ -161,8 +161,6 @@ class API {
                 NgaySinh = req.body.NgaySinh, 
                 Email = req.body.Email, 
                 SDT = req.body.SDT
-        
-                console.log('adu: ',idTK, TenDN, Ho, Ten, NgaySinh, Email, SDT)
 
         pool.getConnection(function (err, connection) {
             if (err) throw err; // not connected!
@@ -178,7 +176,7 @@ class API {
                             if(results){
                                 res.send({check: "Cập nhật thông tin thành công"});
                             } else { 
-                                res.send({check: "Cập nhật thất bại, lỗi cú pháp!"});
+                                res.send({check: "Cập nhật thông tin thất bại, lỗi cú pháp!"});
                             }
                         }
                     })
@@ -188,7 +186,273 @@ class API {
                 }
             });              
         });       
-       
+    }
+
+    // [POST] /api/admin/stored/product
+    storedProduct(req, res, next){
+        const insertSql = "insert into sanpham (HinhAnh, Website, ViTri, Gia, MoTa) values (?, ?,?,?,?)";
+        const selectSql = "select MatKhau from taikhoan where idTK = ? and TenDN = ? ";
+                
+        const   idTK = req.body.userid,
+                TenDN = req.body.username,
+                HinhAnh = req.file.path, 
+                Website = req.body.Website,      
+                ViTri = req.body.ViTri, 
+                Gia = req.body.Gia, 
+                MoTa = req.body.MoTa
+
+        pool.getConnection(function (err, connection) {
+            if (err) throw err; // not connected!
+            connection.query(selectSql, [idTK, TenDN], function (error, results, fields) {
+                if (error) {
+                    res.send({  message: "Kết nối DataBase thất bại"  });
+                }
+                if (results.length > 0) {      
+                    connection.query(insertSql, [HinhAnh, Website, ViTri, Gia, MoTa], function (err, results, fields) {
+                        if (error) {
+                            res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+                        } else { 
+                            if(results){
+                                res.send({check: "Thêm sản phẩm thành công"});
+                            } else { 
+                                res.send({check: "Thêm sản phẩm thất bại, lỗi cú pháp!"});
+                            }
+                        }
+                    })
+                    connection.release();               
+                } else { 
+                    res.status(200).send({isAuth: false});
+                }
+            });              
+        });       
+    }
+
+    // [POST] /api/stored/avatar
+    storedAvatar(req, res, next){
+
+        const updateSql = "update taikhoan set Avt = ? where idTK = ?";
+        const selectSql = "select MatKhau from taikhoan where idTK = ? and TenDN = ? ";
+                
+        const   idTK = req.body.userid,
+                TenDN = req.body.username,
+                Avt = req.file.path
+
+        pool.getConnection(function (err, connection) {
+            if (err) throw err; // not connected!
+            connection.query(selectSql, [idTK, TenDN], function (error, results, fields) {
+                if (error) {
+                    res.send({  message: "Kết nối DataBase thất bại"  });
+                }
+                if (results.length > 0) {      
+                    connection.query(updateSql, [Avt, idTK], function (err, results, fields) {
+                        if (error) {
+                            res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+                        } else { 
+                            if(results){
+                                res.send({check: "Cập nhật ảnh đại diện thành công"});
+                            } else { 
+                                res.send({check: "Cập nhật ảnh đại diện thất bại, lỗi cú pháp!"});
+                            }
+                        }
+                    })
+                    connection.release();               
+                } else { 
+                    res.status(200).send({isAuth: false});
+                }
+            });              
+        });
+    }
+
+    // [PATCH] /api/admin/update/product
+    updateProduct(req, res, next){
+        const updateSql = "update sanpham set HinhAnh = ?, Website = ?, ViTri = ?, Gia = ?, MoTa = ? where idSP = ?";
+        const selectSql = "select MatKhau from taikhoan where idTK = ? and TenDN = ? ";
+                
+        const   idTK = req.body.userid,
+                TenDN = req.body.username,
+                HinhAnh = req.file.path, 
+                Website = req.body.Website,      
+                ViTri = req.body.ViTri, 
+                Gia = req.body.Gia, 
+                MoTa = req.body.MoTa,
+                idSP = req.body.idSP
+
+        pool.getConnection(function (err, connection) {
+            if (err) throw err; // not connected!
+            connection.query(selectSql, [idTK, TenDN], function (error, results, fields) {
+                if (error) {
+                    res.send({  message: "Kết nối DataBase thất bại"  });
+                }
+                if (results.length > 0) {      
+                    connection.query(updateSql, [HinhAnh, Website, ViTri, Gia, MoTa, idSP], function (err, results, fields) {
+                        if (error) {
+                            res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+                        } else { 
+                            if(results){
+                                res.send({check: "Cập nhật sản phẩm thành công"});
+                            } else { 
+                                res.send({check: "Cập nhật sản phẩm thất bại, lỗi cú pháp!"});
+                            }
+                        }
+                    })
+                    connection.release();               
+                } else { 
+                    res.status(200).send({isAuth: false});
+                }
+            });              
+        });       
+    }
+
+    // [DELETE] /api/admin/delete/product
+    deleteProduct(req, res, next){
+        const deleteSql = "delete from sanpham where idSP = ?";
+        const selectSql = "select MatKhau from taikhoan where idTK = ? and TenDN = ? ";
+                
+        const   idTK = req.body.userid,
+                TenDN = req.body.username,
+                idSP = req.body.idSP
+
+        pool.getConnection(function (err, connection) {
+            if (err) throw err; // not connected!
+            connection.query(selectSql, [idTK, TenDN], function (error, results, fields) {
+                if (error) {
+                    res.send({  message: "Kết nối DataBase thất bại"  });
+                }
+                if (results.length > 0) {      
+                    connection.query(deleteSql, idSP, function (err, results, fields) {
+                        if (error) {
+                            res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+                        } else { 
+                            if(results){
+                                res.send({check: "Xóa sản phẩm thành công"});
+                            } else { 
+                                res.send({check: "Xóa sản phẩm thất bại, lỗi cú pháp!"});
+                            }
+                        }
+                    })
+                    connection.release();               
+                } else { 
+                    res.status(200).send({isAuth: false});
+                }
+            });              
+        });       
+    }
+
+    // [POST] /api/admin/stored/auction
+    storedAuction(req, res, next){
+        const insertSql = "insert into daugia (idSP, TgBatDau, TgDauGia, GiaKhoiDiem, TrangThai, BuocGia) values (?, ?,?,?,?,?)";
+        const selectSql = "select MatKhau from taikhoan where idTK = ? and TenDN = ? ";
+                
+        const   idTK = req.body.userid,
+                TenDN = req.body.username,
+                idSP = req.body.idSP, 
+                TgBatDau = req.body.TgBatDau, 
+                TgDauGia = req.body.TgDauGia     
+                GiaKhoiDiem = req.body.GiaKhoiDiem, 
+                TrangThai = req.body.TrangThai, 
+                BuocGia = req.body.BuocGia
+
+        pool.getConnection(function (err, connection) {
+            if (err) throw err; // not connected!
+            connection.query(selectSql, [idTK, TenDN], function (error, results, fields) {
+                if (error) {
+                    res.send({  message: "Kết nối DataBase thất bại"  });
+                }
+                if (results.length > 0) {      
+                    connection.query(insertSql, [idSP, TgBatDau, TgDauGia, GiaKhoiDiem, TrangThai, BuocGia], function (err, results, fields) {
+                        if (error) {
+                            res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+                        } else { 
+                            if(results){
+                                res.send({check: "Thêm cuộc đấu giá thành công"});
+                            } else { 
+                                res.send({check: "Thêm cuộc đấu giá thất bại, lỗi cú pháp!"});
+                            }
+                        }
+                    })
+                    connection.release();               
+                } else { 
+                    res.status(200).send({isAuth: false});
+                }
+            });              
+        });       
+    }
+
+    // [PATCH] /api/admin/update/product
+    updateAuction(req, res, next){
+        const updateSql = "update daugia set idSP = ?, TgBatDau = ?, TgDauGia = ?, GiaKhoiDiem = ?, TrangThai = ?,BuocGia=? where idDG = ?";
+        const selectSql = "select MatKhau from taikhoan where idTK = ? and TenDN = ? ";
+                
+        const   idTK = req.body.userid,
+                TenDN = req.body.username,
+                idSP = req.body.idSP, 
+                TgBatDau = req.body.TgBatDau, 
+                TgDauGia = req.body.TgDauGia     
+                GiaKhoiDiem = req.body.GiaKhoiDiem, 
+                TrangThai = req.body.TrangThai, 
+                BuocGia = req.body.BuocGia,
+                idDG = req.body.idDG
+
+
+        pool.getConnection(function (err, connection) {
+            if (err) throw err; // not connected!
+            connection.query(selectSql, [idTK, TenDN], function (error, results, fields) {
+                if (error) {
+                    res.send({  message: "Kết nối DataBase thất bại"  });
+                }
+                if (results.length > 0) {      
+                    connection.query(updateSql, [idSP, TgBatDau, TgDauGia, GiaKhoiDiem, TrangThai, BuocGia, idDG], function (err, results, fields) {
+                        if (error) {
+                            res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+                        } else { 
+                            if(results){
+                                res.send({check: "Cập nhật cuộc đấu giá thành công"});
+                            } else { 
+                                res.send({check: "Cập nhật cuộc đấu giá thất bại, lỗi cú pháp!"});
+                            }
+                        }
+                    })
+                    connection.release();               
+                } else { 
+                    res.status(200).send({isAuth: false});
+                }
+            });              
+        });       
+    }
+
+    // [DELETE] /api/admin/delete/product
+    deleteProduct(req, res, next){
+        const deleteSql = "delete from daugia where idDG = ?";
+        const selectSql = "select MatKhau from taikhoan where idTK = ? and TenDN = ? ";
+                
+        const   idTK = req.body.userid,
+                TenDN = req.body.username,
+                idDG = req.body.idDG
+
+        pool.getConnection(function (err, connection) {
+            if (err) throw err; // not connected!
+            connection.query(selectSql, [idTK, TenDN], function (error, results, fields) {
+                if (error) {
+                    res.send({  message: "Kết nối DataBase thất bại"  });
+                }
+                if (results.length > 0) {      
+                    connection.query(deleteSql, idDG, function (err, results, fields) {
+                        if (error) {
+                            res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+                        } else { 
+                            if(results){
+                                res.send({check: "Xóa cuộc đấu giá thành công"});
+                            } else { 
+                                res.send({check: "Xóa cuộc đấu giá thất bại, lỗi cú pháp!"});
+                            }
+                        }
+                    })
+                    connection.release();               
+                } else { 
+                    res.status(200).send({isAuth: false});
+                }
+            });              
+        });       
     }
 
     // [GET] /api/user
