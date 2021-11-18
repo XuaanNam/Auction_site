@@ -14,6 +14,7 @@ app.use(
         origin: ["http://localhost:3000"],
         methods: ['GET','POST','PUT', 'DELETE', 'PATCH'],
         credentials: true,
+        exposedHeaders: 'isAuth',
     }
 ));
 app.use(morgan("combined"));

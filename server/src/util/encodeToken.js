@@ -8,7 +8,7 @@ module.exports = function encodeToken(payload){
         payload,
         secret_key.secret_key,
         {
-            expiresIn: 60 * 60 * 72 * 100,
+            expiresIn: 60 * 60 * 72 * 1000,
         }
     );
 }

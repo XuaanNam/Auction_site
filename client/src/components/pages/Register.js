@@ -84,27 +84,25 @@ const Register = () => {
             Ho, Ten, Email, TenDN, MatKhau
         })
             .then((Response) =>{
-                if(Response.data.message){
-                    setLoginStatus(Response.data.message );           
+                if(Response.data.message) {
+                    setLoginStatus(Response.data.message );                       
                 } else {
-                    navigate('/login');
-                }                             
+                    navigate('/login'); 
+                }                   
             })
             .catch(() => {
                 setLoginStatus("Đã có một lỗi bất thường xảy ra, vui lòng đăng kí lại!")
             }) 
     };
-    // useEffect(()=>{
-    //     console.log("Effect is run");
-    //     axios.get("isAuth")
-    //         .then((Response) => {
-    //           console.log(Response);
-    //           if(Response.data.isAuth) {            
-    //             //navigate('/home');    
-    //           }
-    //       })
-    //       .catch(error => console.error(error));
-    //   }, [navigate]);
+    useEffect(()=>{
+        axios.get("isAuth")
+            .then((Response) => {
+            if(Response.data.isAuth) {            
+                navigate('/home');    
+            }
+        })
+        .catch(error => console.error(error));
+    }, []);
     
     return (
         
