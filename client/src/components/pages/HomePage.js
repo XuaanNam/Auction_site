@@ -16,6 +16,7 @@ export default function HomePage() {
         .catch(error => console.error(error));
     }, []);
 
+    
     return (
         <h1>this is home page</h1>
     )

@@ -75,7 +75,7 @@ function Footer() {
               <i className='fab fa-linkedin' />
             </Link>
           </div>
-          <small className='website-rights'>Grey Panther © 2020</small>
+          <small className='website-rights'>© Copyright 2021 GreyPanther </small>
           
         </div>
       </section>

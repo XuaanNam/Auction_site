@@ -2,7 +2,7 @@ import React from 'react';
 import '../../App.css';
 import {BrowserRouter as Route, Link} from 'react-router-dom';
 import {Navbar,Nav,Form,FormControl,Button, Container, Image} from 'react-bootstrap';
-import logo from '../images/logo.png'
+import logo from '../images/Logo.png'
 import axios from "../../api/axios"; 
 import { useNavigate } from 'react-router-dom';
 import Cookies from "universal-cookie";
