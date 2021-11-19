@@ -4,12 +4,113 @@ import { Link } from 'react-router-dom';
 import Header from "../layout/Header";
 import Footer from '../layout/Footer';
 import CartD from '../assets/CartDetail.module.css'
-import logo from "../images/img-login.jpg";
+import banner1 from "../images/img-1.png";
+import logo from "../images/img-login.png"
 //
 import axios from "../../api/axios"; 
 import { useNavigate } from 'react-router-dom';
 
 const KEY = process.env.REACT_APP_STRIPE;
+
+
+
+const Cart = () => {
+
+    let navigate = useNavigate();
+    let isAuth = 0;
+    useEffect(()=>{
+        axios.get("isAuth",)
+            .then((Response) => {
+            if(Response.data.isAuth){
+                isAuth = 1;
+            }
+            })
+            .catch(error => { console.log(error);})
+            .then(function () {
+            if(isAuth !== 1){
+                navigate('/')
+            }       
+            });
+    }, []);
+
+    return (
+        <Container>
+            <Header isActive={true} />
+            <Main className="container">
+                <Wrapper>
+                    <Title>Giỏ hàng</Title>
+                    {/* KHI GIỎ HÀNG TRỐNG */}
+                    <Empty>
+                        <EmptyCart src={logo} />
+                        <TopText className={`text-decoration-none alert-danger ${CartD.cartAlert}`}>Số lượng trong giỏ hàng: 0</TopText>
+                        <h4 className={CartD.cartNullTitle}>Bạn hiện không có sản phẩm nào trong giỏ hàng</h4>
+                        <Link to="/">
+                            <ShopButton className={`btn btn-dark btn-custom ${CartD.btnNullTitle}`}>Đi đến đấu giá!</ShopButton>
+                        </Link>
+                    </Empty>
+                    {/*  */}
+                    {/* TOP */}
+                    <Top>
+                        <Title>Đấu giá của tôi</Title><br></br>
+                        <TopTexts >
+                        
+
+                        </TopTexts>
+                    </Top>
+                    {/* BOTTOM */}
+                    <Bottom>
+                        {/* Thông tin về sản phẩm đấu giá được */}
+                        <Info>
+                            <>
+                                <Hr />
+                                <ContainerBody>
+                                    <Product>
+                                        {/* Ảnh Banner */}
+                                        <ProductDetail>
+                                            <Image src={banner1} />
+                                            <span></span> 
+                                        </ProductDetail>
+                                    </Product>
+                                    <ProductDetail>
+                                        <span className={CartD.detailBannerPosition}>Vị trí: </span>
+                                        <span className={CartD.detailBannerSize}>Kích thước:</span>
+                                        <span className={CartD.detailBannerPrice}>Giá:</span>
+                                    </ProductDetail>
+                                    <ShopButton className={`btn btn-dark btn-custom ${CartD.btnRemoveItem}`}>Xoá</ShopButton>
+                                </ContainerBody>
+                                <Hr /> 
+                                {/* Nếu nhiều Items thì được ngăn cách    */}
+                            </>
+                        </Info>
+                        {/* TỔNG TIỀN */}
+                        <Summary>
+                            <SummaryTitle>Thành tiền</SummaryTitle>
+                            <SummaryItem>
+                                <SummaryItemText>Tổng phụ:</SummaryItemText>
+                                <SummaryItemPrice>$ 99</SummaryItemPrice>
+                            </SummaryItem>
+                            <SummaryItem>
+                                <SummaryItemText>Phụ phí:</SummaryItemText>
+                                <SummaryItemPrice>$ 0</SummaryItemPrice>
+                            </SummaryItem>
+                            <SummaryItem type="total">
+                                <SummaryItemText>Tổng cộng:</SummaryItemText>
+                                <SummaryItemPrice>$ 99</SummaryItemPrice>
+                            </SummaryItem>
+                            <SummaryItem>
+                                {/* Thêm checkout ngay đây */}
+                                <Button className={`btn ${CartD.btnCheckout}`}>
+                                    Thanh toán ngay
+                                </Button>
+                            </SummaryItem>
+                        </Summary>
+                    </Bottom>
+                </Wrapper>
+            </Main>
+            <Footer></Footer>
+        </Container>
+    )
+}
 
 const Container = styled.div`
     min-height: 100vh;
@@ -19,10 +120,14 @@ const Container = styled.div`
 `;
 
 const ContainerBody = styled.div`
-    min-height: 50vh;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
+    position: relative;
+    border: 2px solid #343a40;
+    border-radius: 10px;
+    margin-left: -65px;
+    padding: 20px;
+    height: 60vh;
+    margin-bottom: 50px;
+    margin-right: 20px;
 `;
 
 const Main = styled.div`
@@ -79,8 +184,11 @@ const ProductDetail = styled.div`
     display: flex;
 `;
 const Image = styled.img`
-    width: 200px;
+    
+    width: 100%;
     height: 250px;
+    border-radius: 5px;
+    //border: 1px solid rgba(0, 0, 0, 0.3);
    
 `;
 const Details = styled.div`
@@ -171,136 +279,5 @@ const EmptyCart = styled.img`
 const ShopButton = styled.button`
     margin-top: 5px;
 `;
-
-const Cart = () => {
-
-    let navigate = useNavigate();
-    let isAuth = 0;
-    useEffect(()=>{
-        axios.get("isAuth",)
-            .then((Response) => {
-            if(Response.data.isAuth){
-                isAuth = 1;
-            }
-            })
-            .catch(error => { console.log(error);})
-            .then(function () {
-            if(isAuth !== 1){
-                navigate('/')
-            }       
-            });
-    }, []);
-
-    return (
-        <Container>
-            <Header isActive={true} />
-            <Main className="container">
-                <Wrapper>
-                    <Title>Giỏ hàng</Title>
-                    {/* KHI GIỎ HÀNG TRỐNG */}
-                    {/* <Empty>
-                        <EmptyCart src={logo} />
-                        <TopText className={`text-decoration-none alert-danger ${CartD.cartAlert}`}>Số lượng trong giỏ hàng: 0</TopText>
-                        <h4 className={CartD.cartNullTitle}>Bạn hiện không có sản phẩm nào trong giỏ hàng</h4>
-                        <Link to="/">
-                            <ShopButton className={`btn btn-dark btn-custom ${CartD.btnNullTitle}`}>Đi đến đấu giá!</ShopButton>
-                        </Link>
-                    </Empty>
-                    <Link to="/">
-                            <TopButton className="btn btn-outline-dark btn-custom">Tiếp tục đấu giá</TopButton>
-                    </Link>
-                    <TopText className={`text-decoration-none alert-danger ${CartD.cartAlert}`}>Số lượng trong giỏ hàng: 0</TopText> */}
-                    {/*  */}
-                    {/* TOP */}
-                    <Top>
-                        <Title>Đấu giá của tôi</Title><br></br>
-                        <TopTexts >
-                        
-
-                        </TopTexts>
-                    </Top>
-                    {/* BOTTOM */}
-                    <Bottom>
-                        {/* Thông tin về sản phẩm đấu giá được */}
-                        <Info>
-                            <>
-                                <Hr />
-                                <ContainerBody>
-                                    
-                                <Product>
-                                    <ProductDetail>
-                                        <Image src="" />
-                                        <Details>
-                                            <ProductName><b>Banner: </b>Title</ProductName>
-                                            <Button value="" className="btn btn-dark btn-custom btn-remove">Xoá</Button>
-                                        </Details>
-                                    </ProductDetail>
-                                    <PriceDetail>
-                                        <ProductAmountContainer>
-                                            <a className="amount-custom btn-custom">
-                                                xoá
-                                            </a>
-                                            <ProductAmount>1</ProductAmount>
-                                            <a className="amount-custom btn-custom">
-                                                thêm
-                                            </a>
-                                        </ProductAmountContainer>
-                                        <ProductPrice>Tổng tiền:  $ 49.5</ProductPrice>
-                                    </PriceDetail>
-                                </Product>
-                                </ContainerBody>
-                                <Hr />
-                                <Product>
-                                    <ProductDetail>
-                                        <Image src="" />
-                                        <Details>
-                                            <ProductName><b>Banner: </b>Title</ProductName>
-                                            <Button value="" className="btn btn-dark btn-custom btn-remove">Xoá</Button>
-                                        </Details>
-                                    </ProductDetail>
-                                    <PriceDetail>
-                                        <ProductAmountContainer>
-                                            <a className="amount-custom btn-custom">
-                                                xoá
-                                            </a>
-                                            <ProductAmount>1</ProductAmount>
-                                            <a className="amount-custom btn-custom">
-                                                thêm
-                                            </a>
-                                        </ProductAmountContainer>
-                                        <ProductPrice>Tổng tiền: $ 49.5</ProductPrice>
-                                    </PriceDetail>
-                                </Product>                   
-                            </>
-                        </Info>
-                        {/* TỔNG TIỀN */}
-                        <Summary>
-                            <SummaryTitle>Thành tiền</SummaryTitle>
-                            <SummaryItem>
-                                <SummaryItemText>Tổng phụ:</SummaryItemText>
-                                <SummaryItemPrice>$ 99</SummaryItemPrice>
-                            </SummaryItem>
-                            <SummaryItem>
-                                <SummaryItemText>Phụ phí:</SummaryItemText>
-                                <SummaryItemPrice>$ 0</SummaryItemPrice>
-                            </SummaryItem>
-                            <SummaryItem type="total">
-                                <SummaryItemText>Tổng cộng:</SummaryItemText>
-                                <SummaryItemPrice>$ 99</SummaryItemPrice>
-                            </SummaryItem>
-                            <SummaryItem>
-                                {/* Thêm checkout ngay đây */}
-                                <Button className={`btn ${CartD.btnCheckout}`}>
-                                    Thanh toán ngay
-                                </Button>
-                            </SummaryItem>
-                        </Summary>
-                    </Bottom>
-                </Wrapper>
-            </Main>
-            <Footer></Footer>
-        </Container>
-    )
-}
 
 export default Cart

@@ -105,7 +105,7 @@ const Login = () => {
       {/* <Navbar></Navbar> */}
       <Header/>
       <Main className="container">
-        <Title>Đăng nhập</Title>
+        <Title>ĐĂNG NHẬP</Title>
         <Form action="#" style={{ minWidth: "40%", marginBottom: "90px" }}>
           <Form.Group className="mb-3 form-custom" controlId="formGridUsername">
             <Form.Label className="d-flex">Email</Form.Label>

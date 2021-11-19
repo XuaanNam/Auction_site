@@ -10,7 +10,7 @@ import axios from "../../api/axios";
 import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
-    min-height: 100vh;
+    min-height: 120vh;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -19,7 +19,7 @@ const Container = styled.div`
    
 `;
 const Main = styled.div`
-    min-height: 100vh;
+    min-height: 110vh;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -112,7 +112,7 @@ const Register = () => {
         <Header/>   
         <Main className="container">
         
-            <Title>Đăng ký</Title>
+            <Title>ĐĂNG KÝ</Title>
             <Form action="#" >
                 <Row className="mb-3 form-custom">
                     <Form.Group as={Col} controlId="formGridFirstName">
