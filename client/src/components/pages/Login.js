@@ -103,7 +103,7 @@ const Login = () => {
     <div>
       {/* <Logo src={logo}/> */}
       {/* <Navbar></Navbar> */}
-      <Header />
+      <Header/>
       <Main className="container">
         <Title>Đăng nhập</Title>
         <Form action="#" style={{ minWidth: "40%", marginBottom: "90px" }}>

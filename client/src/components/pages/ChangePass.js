@@ -290,7 +290,7 @@ const ChangePass = () => {
 
     return (
         <Container>
-            <Header></Header>
+            <Header isActive={true}/>
             <Main>
                 <SideBar>
                     <HeaderBar>

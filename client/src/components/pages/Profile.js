@@ -268,7 +268,7 @@ const Profile = () => {
 
     return (
         <Container>
-            <Header></Header>
+            <Header isActive={true}/>
             <Main>
                 <SideBar>
                     <HeaderBar>

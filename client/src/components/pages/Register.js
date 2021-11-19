@@ -109,7 +109,7 @@ const Register = () => {
         
         <div>
             {/* <Logo src={logo}/> */}
-        <Header></Header>   
+        <Header/>   
         <Main className="container">
         
             <Title>Đăng ký</Title>

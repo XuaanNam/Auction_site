@@ -177,7 +177,7 @@ const Cart = () => {
 
     return (
         <Container>
-            <Header></Header>
+            <Header isActive={true} />
             <Main className="container">
                 <Wrapper>
                     <Title>Auction Cart</Title>
