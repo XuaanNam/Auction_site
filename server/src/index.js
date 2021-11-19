@@ -9,11 +9,10 @@ const route = require('./routes');
 const helmet = require("helmet");
 require('dotenv').config();
 
-
 app.use(
     cors({
         origin: ["http://localhost:3000"],
-        methods: ['GET','POST','PUT', 'DELETE', 'PATCH'],
+        methods: ['GET','POST','PUT', 'DELETE', 'PATCH', 'HEAD'],
         credentials: true,
         exposedHeaders: 'isAuth',
     }

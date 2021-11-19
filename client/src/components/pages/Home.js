@@ -14,7 +14,7 @@ function Home() {
   let navigate = useNavigate();
   let isAuth = 0;
   useEffect(()=>{
-      axios.get("isAuth")
+      axios.get("isAuth",)
         .then((Response) => {
           if(Response.data.isAuth){
             isAuth = 1;

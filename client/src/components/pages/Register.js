@@ -86,7 +86,7 @@ const Register = () => {
             .then((Response) =>{
                 if(Response.data.message) {
                     setLoginStatus(Response.data.message );                       
-                } else {
+                } else if (Response.data.isAuth){
                     navigate('/login'); 
                 }                   
             })
@@ -97,7 +97,6 @@ const Register = () => {
     useEffect(()=>{
         axios.get("isAuth")
             .then((Response) => {
-                console.log('response:', Response)
             if(Response.data.isAuth) {            
                 navigate('/home');    
             }

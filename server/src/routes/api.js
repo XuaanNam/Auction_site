@@ -21,6 +21,7 @@ router.delete('/admin/delete/auction', passport.authenticate('jwt', {session: fa
 
 router.post('/stored/avatar', upload.single('Avatar'), api.storedAvatar);
 
+
 router.get('/', api.index);
 
 
