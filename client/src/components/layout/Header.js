@@ -20,7 +20,7 @@ function Header() {
     }
     return (
             <div>
-                <Navbar className="header" bg="dark" variant="dark">
+                <Navbar className="header" style={{position: "fixed", top: "0", left: "0", right: "0", zIndex: "2"}} bg="dark" variant="dark">
                     <a href="/">
                         <img className="logo-header ml-5" src={logo}  rounded />
                     </a>
