@@ -19,11 +19,11 @@ function App() {
       <div>
         <Router>
           <Routes>
-            {/* <Route path='/' exact element={<HomePage/>} />  */}
+            <Route path='/' exact element={<HomePage/>} />
             <Route path='/register' element={<Register/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/auction' element={<Auction/>} />
-            <Route path='/' exact element={<Home/>} />         
+            <Route path='/home' exact element={<Home/>} />         
             <Route path='/cart' element={<Cart/>} />
             <Route path='/profile' element={<Profile/>} />
             <Route path='/changepass' element={<Changepass/>} />

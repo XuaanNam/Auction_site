@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import Header from "../layout/Header";
 import Footer from '../layout/Footer';
 import logo from "../images/img-login.jpg";
+//
+import axios from "../../api/axios"; 
+import { useNavigate } from 'react-router-dom';
+
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div`
@@ -154,6 +158,22 @@ const ShopButton = styled.button`
 
 const Cart = () => {
 
+    let navigate = useNavigate();
+    let isAuth = 0;
+    useEffect(()=>{
+        axios.get("isAuth",)
+            .then((Response) => {
+            if(Response.data.isAuth){
+                isAuth = 1;
+            }
+            })
+            .catch(error => { console.log(error);})
+            .then(function () {
+            if(isAuth !== 1){
+                navigate('/')
+            }       
+            });
+    }, []);
 
     return (
         <Container>
@@ -224,9 +244,7 @@ const Cart = () => {
                                         </ProductAmountContainer>
                                         <ProductPrice>Tổng tiền: $ 49.5</ProductPrice>
                                     </PriceDetail>
-                                </Product>
-                                
-                                
+                                </Product>                   
                             </>
                         </Info>
                         
