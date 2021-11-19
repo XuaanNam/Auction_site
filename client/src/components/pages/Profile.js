@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import Header from "../layout/Header";
 import Footer from '../layout/Footer';
 import { mobile } from '../../responsive';
-
+// import
+import axios from "../../api/axios"; 
+import { useNavigate } from 'react-router-dom';
 
 
 const Container = styled.div`
@@ -247,6 +249,22 @@ const Error = styled.span`
 
 const Profile = () => {
 
+    let navigate = useNavigate();
+    let isAuth = 0;
+    useEffect(()=>{
+        axios.get("isAuth",)
+          .then((Response) => {
+            if(Response.data.isAuth){
+              isAuth = 1;
+            }
+          })
+          .catch(error => { console.log(error);})
+          .then(function () {
+            if(isAuth !== 1){
+              navigate('/')
+            }       
+          });
+    }, []);
 
     return (
         <Container>
