@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const saltRound = 10;
 const encodeToken = require("../../util/encodeToken");
 
+
 class API {
     // [GET] /api
     index(req, res, next) {
@@ -66,7 +67,6 @@ class API {
 
     // [GET] /api/isAuth
     isAuth(req, res, next) {
-        console.log(req.cookies)
         res.status(200).send({ isAuth: true });
     }
 
@@ -84,21 +84,15 @@ class API {
                 bcrypt.compare(MatKhau, results[0].MatKhau, (err, response) => {
                     if (response) {
                         const payload = {
-                            iss: "grey panther auction site",
-                            idTK: results[0].idTK,
-                            TenDN: results[0].TenDN,
-                            PhanQuyen: results[0].PhanQuyen,
+                        iss: "grey panther auction site",
+                        idTK: results[0].idTK,
+                        TenDN: results[0].TenDN,
+                        PhanQuyen: results[0].PhanQuyen,
                         };
                         const token = "Bearer " + encodeToken(payload);
-                        res.cookie('patherid', results[0].idTK, {
-                            maxAge: 60* 60 * 72*1000,
-                            httpOnly: true,
-                        }) 
-                        res.cookie('patherAuth', token, {
-                            maxAge: 60* 60 * 72*1000,
-                            httpOnly: true,
-                        })       
-                        res.send({ isAuth: response});
+                        res.setHeader("isAuth", token);
+
+                        res.send({ isAuth: response, idTK: results[0].idTK, TenDN: results[0].TenDN});
                     } else {
                         res
                         .status(200)

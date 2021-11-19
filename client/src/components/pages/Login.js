@@ -65,7 +65,21 @@ const Login = () => {
       })
       .then((Response) => {
         if (Response.data.isAuth) {
-          
+          cookies.set("userAuth", Response.headers.isauth, {
+            path: "/",
+            maxAge: 1000 * 60 * 60 * 72,
+            //httpOnly: ,
+          });
+          cookies.set("userid", Response.data.idTK, {
+            path: "/",
+            maxAge: 1000 * 60 * 60 * 72,
+            //httpOnly: ,
+          });
+          cookies.set("username", Response.data.TenDN, {
+            path: "/",
+            maxAge: 1000 * 60 * 60 * 72,
+            //httpOnly: ,
+          });
           window.location.reload(false);
         } else if (Response.data.message) {
           setLoginStatus(Response.data.message);
