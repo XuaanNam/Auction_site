@@ -3,10 +3,34 @@ import '../../App.css';
 import {Card,Row,Col,Button, Table } from 'react-bootstrap';
 import Header from "../layout/Header";
 import Footer from '../layout/Footer';
+import { useEffect} from "react";
+import axios from "../../api/axios"; 
+import { useNavigate } from 'react-router-dom';
+
 function Auction() {
+
+
+
+    let navigate = useNavigate();
+    let isAuth = 0;
+    useEffect(()=>{
+        axios.get("isAuth",)
+          .then((Response) => {
+            if(Response.data.isAuth){
+              isAuth = 1;
+            }
+          })
+          .catch(error => { console.log(error);})
+          .then(function () {
+            if(isAuth !== 1){
+              navigate('/')
+            }       
+          });
+    }, []);
+
     return (
         <div>
-            <Header/>
+            <Header isActive={true}/>
             <Card className="body-container pt-2 pl-5 pr-5">
                 <Card.Img variant="top" src='/imp.jpg' />
                 <Card.Body>
