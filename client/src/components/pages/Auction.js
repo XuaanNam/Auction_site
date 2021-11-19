@@ -3,60 +3,83 @@ import '../../App.css';
 import {Card,Row,Col,Button, Table } from 'react-bootstrap';
 import Header from "../layout/Header";
 import Footer from '../layout/Footer';
+import AuctionD from '../assets/AuctionDetail.module.css';
+//Ảnh
+import background from '../images/background.jpg';
+import banner1 from '../images/img-1.png'
+
 function Auction() {
     return (
         <div>
             <Header/>
-            <Card className="body-container pt-2 pl-5 pr-5">
-                <Card.Img variant="top" src='/imp.jpg' />
-                <Card.Body>
-                    <Card.Title>Tên banner</Card.Title>
-                    <div className="pt-4">
-                        <span> Thời gian </span>
-                    </div>
-                    <div className="d-flex pt-4">
-                        <div>
-                            <b className="">Giá đấu hiện tại</b> <br/>
-                            <span className="">giá trị</span>
+            <background style={{ backgroundImage: `url(${background})` }}/>
+                <div className={AuctionD.container}>
+                    <div className={`body-container pt-2 pl-5 pr-5 ${AuctionD.bodyBanner}`}>
+                        <div className={`body-container pt-2 pl-5 pr-5 ${AuctionD.detailCard}`}>
+                            <Card.Img variant="top" src={banner1} className={AuctionD.imgCard}/>
+                            <Card.Body>
+                                {/* vị trí */}
+                                <Card.Title className={AuctionD.auctionTitle}>Vị trí: Top Banner</Card.Title>
+                                {/* kích thước */}
+                                
+                                <span className={AuctionD.auctionSize}>Kích thước: 900x80</span>
+                                
+                                <div className="pt-4">
+                                    <span><strong> Thời gian: 15:00</strong> </span>
+                                </div>
+                                <div className="d-flex pt-4">
+                                    <div>
+                                        <b className={AuctionD.priceCurrent}>Giá đấu hiện tại:</b> <br/>
+                                        <span className={AuctionD.priceShow}>10.000.000 vnđ</span>
+                                    </div>
+                                    <div>
+                                        <b className="player-name">Người chơi:</b> <br/>
+                                        {/* ICON */}
+                                        <span className="player-name pt-2 ">
+                                            <strong>
+                                            User
+                                            </strong>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="d-flex pt-5">
+                                    <div>
+                                        <Button variant="info" style={{ minWidth: "3vw"}}><b>-</b></Button>
+                                        <span className="ml-3 mr-3">
+                                            <b className={AuctionD.priceTurn}>
+                                                2.000.000 vnđ
+                                            </b>
+                                        </span>
+                                        <Button variant="info" style={{ minWidth: "3vw"}}><b>+</b></Button>
+                                    </div>
+                                    <Button variant={`info ${AuctionD.mglButton}`} style={{ minWidth: "12vw"}}><b>Đặt giá thầu</b></Button>
+                                </div>
+                            </Card.Body>
                         </div>
-                        <div>
-                            <b className="player-name">Người chơi</b> <br/>
-                            <span className="player-name pt-2">tên người chơi</span>
-                        </div>
-                    </div>
-                    <div className="d-flex pt-5">
-                        <div>
-                            <Button variant="info" style={{ minWidth: "3vw"}}><b>-</b></Button>
-                            <span className="ml-3 mr-3"><b>giá đấu</b></span>
-                            <Button variant="info" style={{ minWidth: "3vw"}}><b>+</b></Button>
-                        </div>
-                        <Button variant="info ml-4" style={{ minWidth: "12vw"}}><b>Đặt giá thầu</b></Button>
-                    </div>
-                </Card.Body>
-            </Card>
-            <Table responsive className="auction-table">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Người chơi</th>
-                    <th>Giá thầu</th>
-                    <th>Ngày giờ</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <td>1</td>
-                    {Array.from({ length: 3 }).map((_, index) => (
-                        <td key={index}>cc {index}</td>
-                    ))}
-                    </tr>
+                        <Table responsive className="auction-table">
+                            <thead>
+                            <tr className={AuctionD.lineTable}>
+                                <th>Người chơi</th>
+                                <th>Giá thầu</th>
+                                <th>Ngày giờ</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                <td>Unknow</td>
+                                {Array.from({ length: 2 }).map((_, index) => (
+                                    <td key={index}> test {index}</td>
+                                ))}
+                                </tr>
 
-                </tbody>
-            </Table>
-            <div className="description">
-                Mô tả banner
+                            </tbody>
+                        </Table>
+                        <div className="description">
+                            Mô tả:
+                        </div>
+                        <div className="descript">Mô tả</div>
+                </div>
             </div>
-            <div className="descript">Mô tả</div>
             <Footer/>
         </div>
     )

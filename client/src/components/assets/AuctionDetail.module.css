@@ -1,0 +1,73 @@
+.container {
+    width: 100%;
+    padding-top: 70px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.bodyBanner {
+    /* width: 100%; */
+    border-radius: 10px !important;
+    border: 2px solid #121312 !important;
+    box-sizing: border-box;
+    background: #fff;
+}
+
+.detailCard {
+    width: 90%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.664);
+    border-radius: .25rem;
+}
+
+.imgCard {
+    padding-top: 15px;
+    border-radius: 5px;
+}
+
+.auctionTitle {
+    font-size: 20px;
+    font-weight: 620;
+    color: #17a2b8;
+    
+    margin-bottom: 0px;
+}
+
+.auctionSize {
+    font-size: 20px;
+    font-weight: 620;
+    color: #17a2b8;
+}
+
+.priceCurrent {
+    font-size: 15px;
+    font-weight: 620;
+}
+
+.priceShow {
+    color: #3d9e3d;
+    font-weight: 620;
+}
+
+.priceTurn {
+    color: #3d9e3d;
+    font-weight: 620;
+}
+
+.lineTable {
+    border-top: 2px solid #a2a5a2;
+    border-bottom: 1.5px solid #121312;
+    
+}
+
+.mglButton {
+    margin-left: 8rem !important;
+}

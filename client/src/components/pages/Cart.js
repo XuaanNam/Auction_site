@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Header from "../layout/Header";
 import Footer from '../layout/Footer';
+import CartD from '../assets/CartDetail.module.css'
 import logo from "../images/img-login.jpg";
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -12,6 +13,14 @@ const Container = styled.div`
     flex-direction: column;
     flex-wrap: nowrap;
 `;
+
+const ContainerBody = styled.div`
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+`;
+
 const Main = styled.div`
     flex: 1;
     margin-top: 60px;
@@ -20,7 +29,10 @@ const Wrapper = styled.div`
     padding: 20px;
 `;
 const Title = styled.h3`
-    font-weight: 400;
+    padding-top: 25px;
+    padding-bottom: 10px;
+    font-weight: 600;
+    font-size: 25px;
     text-align: center;
     text-transform: uppercase;
 `;
@@ -55,6 +67,7 @@ const Info = styled.div`
 const Product = styled.div`
     display: flex;
     justify-content: space-between;
+    border-radius: 5px !important;
     
 `;
 const ProductDetail = styled.div`
@@ -115,16 +128,18 @@ const Summary = styled.div`
     flex: 1;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 10px;
+    margin-left: 20px;
     padding: 20px;
     height: 50vh;
+    margin-bottom: 50px;
 `;
 const SummaryTitle = styled.h1`
-    font-weight: 200;
+    font-weight: 600;
     font-size: 30px;
     text-align: center;
 `;
 const SummaryItem = styled.div`
-    margin: 24px 0;
+    margin: 35px 0;
     display: flex;
     justify-content: space-between;
     font-weight: ${props => props.type === "total" && "500"};
@@ -136,7 +151,7 @@ const Button = styled.button`
     width: 100%;
 `;
 const Empty = styled.div`
-    height: 30vh;
+    height: 65vh;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -145,7 +160,8 @@ const Empty = styled.div`
     align-items: center;
 `;
 const EmptyCart = styled.img`
-    width: 175px;
+    margin-bottom: 10px;
+    width: 400px;
     height: 180px;
 `;
 const ShopButton = styled.button`
@@ -160,28 +176,37 @@ const Cart = () => {
             <Header></Header>
             <Main className="container">
                 <Wrapper>
-                    <Title>Auction Cart</Title>
-                    <Empty>
+                    <Title>Giỏ hàng</Title>
+                    {/* KHI GIỎ HÀNG TRỐNG */}
+                    {/* <Empty>
                         <EmptyCart src={logo} />
-                        <h4>Giỏ hàng hiện tại đang trống!</h4>
+                        <TopText className={`text-decoration-none alert-danger ${CartD.cartAlert}`}>Số lượng trong giỏ hàng: 0</TopText>
+                        <h4 className={CartD.cartNullTitle}>Bạn hiện không có sản phẩm nào trong giỏ hàng</h4>
                         <Link to="/">
-                            <ShopButton className="btn btn-dark btn-custom">Đấu giá ngay!</ShopButton>
+                            <ShopButton className={`btn btn-dark btn-custom ${CartD.btnNullTitle}`}>Đi đến đấu giá!</ShopButton>
                         </Link>
                     </Empty>
-                    <Top>
-                        <Link to="/">
+                    <Link to="/">
                             <TopButton className="btn btn-outline-dark btn-custom">Tiếp tục đấu giá</TopButton>
-                        </Link>
+                    </Link>
+                    <TopText className={`text-decoration-none alert-danger ${CartD.cartAlert}`}>Số lượng trong giỏ hàng: 0</TopText> */}
+                    {/*  */}
+                    {/* TOP */}
+                    <Top>
+                        <Title>Đấu giá của tôi</Title><br></br>
                         <TopTexts >
-                            <TopText className="text-decoration-none alert-danger">Số lượng trong giỏ hàng(SL)</TopText>
-                            <TopText className="text-decoration-none alert-warning">Bạn đã thắng(0)</TopText>
+                        
+
                         </TopTexts>
                     </Top>
+                    {/* BOTTOM */}
                     <Bottom>
                         {/* Thông tin về sản phẩm đấu giá được */}
                         <Info>
                             <>
                                 <Hr />
+                                <ContainerBody>
+                                    
                                 <Product>
                                     <ProductDetail>
                                         <Image src="" />
@@ -203,46 +228,33 @@ const Cart = () => {
                                         <ProductPrice>Tổng tiền:  $ 49.5</ProductPrice>
                                     </PriceDetail>
                                 </Product>
+                                </ContainerBody>
                                 <Hr />
-                                <Product>
-                                    <ProductDetail>
-                                        <Image src="" />
-                                        <Details>
-                                            <ProductName><b>Banner: </b>Title</ProductName>
-                                            <Button value="" className="btn btn-dark btn-custom btn-remove">Xoá</Button>
-                                        </Details>
-                                    </ProductDetail>
-                                    <PriceDetail>
-                                        <ProductAmountContainer>
-                                            <a className="amount-custom btn-custom">
-                                                xoá
-                                            </a>
-                                            <ProductAmount>1</ProductAmount>
-                                            <a className="amount-custom btn-custom">
-                                                thêm
-                                            </a>
-                                        </ProductAmountContainer>
-                                        <ProductPrice>Tổng tiền: $ 49.5</ProductPrice>
-                                    </PriceDetail>
-                                </Product>
+                               
                                 
                                 
                             </>
                         </Info>
-                        
+                        {/* TỔNG TIỀN */}
                         <Summary>
-                            <SummaryTitle>Tóm tắt đơn hàng</SummaryTitle>
+                            <SummaryTitle>Thành tiền</SummaryTitle>
                             <SummaryItem>
-                                <SummaryItemText>Tổng phụ</SummaryItemText>
+                                <SummaryItemText>Tổng phụ:</SummaryItemText>
                                 <SummaryItemPrice>$ 99</SummaryItemPrice>
                             </SummaryItem>
                             <SummaryItem>
-                                <SummaryItemText>Phụ phí + Thuế</SummaryItemText>
+                                <SummaryItemText>Phụ phí:</SummaryItemText>
                                 <SummaryItemPrice>$ 0</SummaryItemPrice>
                             </SummaryItem>
                             <SummaryItem type="total">
-                                <SummaryItemText>Tổng cộng</SummaryItemText>
+                                <SummaryItemText>Tổng cộng:</SummaryItemText>
                                 <SummaryItemPrice>$ 99</SummaryItemPrice>
+                            </SummaryItem>
+                            <SummaryItem>
+                                {/* Thêm checkout ngay đây */}
+                                <Button className={`btn ${CartD.btnCheckout}`}>
+                                    Thanh toán ngay
+                                </Button>
                             </SummaryItem>
                         </Summary>
                     </Bottom>

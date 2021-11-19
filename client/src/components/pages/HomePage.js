@@ -121,7 +121,7 @@ export default function HomePage() {
 
 // CSS
 const Container = styled.div`
-  width: 100vw;
+  width: 100%;
   padding-top: 200px;
 //   padding-bottom: 200px;
   min-height: 100vh;
