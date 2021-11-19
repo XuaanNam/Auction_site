@@ -7,11 +7,34 @@ import AuctionD from '../assets/AuctionDetail.module.css';
 //Ảnh
 import background from '../images/background.jpg';
 import banner1 from '../images/img-1.png'
+import { useEffect} from "react";
+import axios from "../../api/axios"; 
+import { useNavigate } from 'react-router-dom';
 
 function Auction() {
+
+
+
+    let navigate = useNavigate();
+    let isAuth = 0;
+    useEffect(()=>{
+        axios.get("isAuth",)
+          .then((Response) => {
+            if(Response.data.isAuth){
+              isAuth = 1;
+            }
+          })
+          .catch(error => { console.log(error);})
+          .then(function () {
+            if(isAuth !== 1){
+              navigate('/')
+            }       
+          });
+    }, []);
+
     return (
         <div>
-            <Header/>
+            <Header isActive={true}/>
             <background style={{ backgroundImage: `url(${background})` }}/>
                 <div className={AuctionD.container}>
                     <div className={`body-container pt-2 pl-5 pr-5 ${AuctionD.bodyBanner}`}>

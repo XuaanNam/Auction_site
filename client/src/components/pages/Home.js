@@ -11,7 +11,7 @@ import panther from '../images/Image.png';
 import anh from '../images/a.png';
 import anh2 from '../images/testbanner.jpg'
 //
-import {useState, useEffect} from "react";
+import { useEffect} from "react";
 import axios from "../../api/axios"; 
 import { useNavigate } from 'react-router-dom';
 // import Body from '../body';
@@ -21,7 +21,7 @@ function Home() {
   let navigate = useNavigate();
   let isAuth = 0;
   useEffect(()=>{
-      axios.get("isAuth")
+      axios.get("isAuth",)
         .then((Response) => {
           if(Response.data.isAuth){
             isAuth = 1;
@@ -39,7 +39,7 @@ function Home() {
   
   return (
     <div>
-<Header/>
+<Header isActive={true}/>
 <background style={{ backgroundImage: `url(${background})` }}/>
     <Container>
     <Slogan>Slogan cho trang đấu giá

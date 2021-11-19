@@ -4,16 +4,20 @@ use auctiondata
 ;
 create table taikhoan(
 idTK int not null primary key AUTO_INCREMENT,
-Ho nvarchar(20),
-Ten nvarchar(15),
-NgaySinh datetime,
-Email nvarchar(25),
-TenDN nvarchar(20) not null,
-MatKhau nvarchar(30) not null,
+Ho nvarchar(20) not null,
+Ten nvarchar(15) not null,
+NgaySinh varchar(30),
+Email nvarchar(40) not null unique,
+TenDN nvarchar(30) not null,
+MatKhau nvarchar(200) not null,
 SDT varchar(15),
-PhanQuyen nvarchar(15) not null
-)
-;
+Avt varchar (150),
+PhanQuyen boolean default false
+);
+ALTER TABLE taikhoan AUTO_INCREMENT = 659323832;
+insert into taikhoan (Ho, Ten, Email, TenDN, MatKhau) value ('thu nghiem','nguoi dung','thunghiem@ngonday.com','test','$2b$10$vjyo7Vjv/zBJxB0usRFSsO5JH52WixwQtf.dqWUPfVUTwNbParP7m');
+drop table taikhoan;
+; 
 create table the(
 idThe int not null primary key AUTO_INCREMENT,
 idTK int  not null references taikhoan(idTK),
@@ -52,11 +56,11 @@ idGH int not null primary key AUTO_INCREMENT,
 idTK int  not null references taikhoan(idTK),
 idDG int  not null references daugia(idDG)
 );
-insert into taikhoan value (1,'Pham','Dai','2001/06/20','abcddai123@gmail.com','liluphuong','1234','0377707777','root');
-insert into taikhoan value (2,'Tran','Hung','1999/07/26','bocap@gmail.com','sutu','1234abcd','012345','user');
-insert into taikhoan value (3,'Le','Minh','2004/02/28','hama@gmail.com','hama','12abcd','0123453532','user');
-insert into taikhoan value (4,'Hung','Cuong','1992/03/22','haicau@gmail.com','jack','kimchi','012ss345','user');
-insert into taikhoan value (5,'Phan','Lo','2000/08/26','sutuhadong@gmail.com','noitro','quayxe','lelen','user');
+insert into taikhoan value (1,'Pham','Dai','2001/06/20','abcddai123@gmail.com','liluphuong','1234','0377707777', true);
+insert into taikhoan value (2,'Tran','Hung','1999/07/26','bocap@gmail.com','sutu','1234abcd','012345', false);
+insert into taikhoan value (3,'Le','Minh','2004/02/28','hama@gmail.com','hama','12abcd','0123453532', false);
+insert into taikhoan value (4,'Hung','Cuong','1992/03/22','haicau@gmail.com','jack','kimchi','012ss345', false);
+insert into taikhoan value (5,'Phan','Lo','2000/08/26','sutuhadong@gmail.com','noitro','quayxe','lelen', false);
 
 insert into sanpham value (1,'dogiadung.com','header01',300000,'thue 1 thang');
 insert into sanpham value (2,'baovietnam.net','side02',450000,'thue 1 thang');

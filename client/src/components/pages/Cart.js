@@ -5,6 +5,10 @@ import Header from "../layout/Header";
 import Footer from '../layout/Footer';
 import CartD from '../assets/CartDetail.module.css'
 import logo from "../images/img-login.jpg";
+//
+import axios from "../../api/axios"; 
+import { useNavigate } from 'react-router-dom';
+
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div`
@@ -170,10 +174,26 @@ const ShopButton = styled.button`
 
 const Cart = () => {
 
+    let navigate = useNavigate();
+    let isAuth = 0;
+    useEffect(()=>{
+        axios.get("isAuth",)
+            .then((Response) => {
+            if(Response.data.isAuth){
+                isAuth = 1;
+            }
+            })
+            .catch(error => { console.log(error);})
+            .then(function () {
+            if(isAuth !== 1){
+                navigate('/')
+            }       
+            });
+    }, []);
 
     return (
         <Container>
-            <Header></Header>
+            <Header isActive={true} />
             <Main className="container">
                 <Wrapper>
                     <Title>Giỏ hàng</Title>
@@ -230,9 +250,27 @@ const Cart = () => {
                                 </Product>
                                 </ContainerBody>
                                 <Hr />
-                               
-                                
-                                
+                                <Product>
+                                    <ProductDetail>
+                                        <Image src="" />
+                                        <Details>
+                                            <ProductName><b>Banner: </b>Title</ProductName>
+                                            <Button value="" className="btn btn-dark btn-custom btn-remove">Xoá</Button>
+                                        </Details>
+                                    </ProductDetail>
+                                    <PriceDetail>
+                                        <ProductAmountContainer>
+                                            <a className="amount-custom btn-custom">
+                                                xoá
+                                            </a>
+                                            <ProductAmount>1</ProductAmount>
+                                            <a className="amount-custom btn-custom">
+                                                thêm
+                                            </a>
+                                        </ProductAmountContainer>
+                                        <ProductPrice>Tổng tiền: $ 49.5</ProductPrice>
+                                    </PriceDetail>
+                                </Product>                   
                             </>
                         </Info>
                         {/* TỔNG TIỀN */}

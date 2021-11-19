@@ -2,7 +2,6 @@ const pool = require("../models/pool");
 const bcrypt = require("bcrypt");
 const saltRound = 10;
 const encodeToken = require("../../util/encodeToken");
-const Cookies = require("universal-cookie");
 
 
 class API {

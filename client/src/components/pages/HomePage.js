@@ -28,6 +28,7 @@ export default function HomePage() {
         .catch(error => console.error(error));
     }, []);
 
+    
     return (
         <div>
     <Header/>
