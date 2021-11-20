@@ -1,7 +1,7 @@
 module.exports = {
     host     : 'localhost',
     user     : 'root',
-    password : '123123123',
+    password : 'nam123',
     database : 'auctiondata',
     clearExpired: true,
     checkExpirationInterval: 900000,

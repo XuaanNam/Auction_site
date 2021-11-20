@@ -9,6 +9,111 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
+
+
+const ChangePass = () => {
+
+    const [MkCu, setMatKhauCu] = useState("");
+    const [MkMoi, setMatKhauMoi] = useState("");
+    const [error, setError] = useState("");
+    const userid = cookies.get('userid') ? cookies.get('userid'): null;
+    const username = cookies.get('username') ? cookies.get('username'): null;
+
+    let navigate = useNavigate();
+
+    const handleChangePassword = (event) => {
+        event.preventDefault();
+        if(MkCu === MkMoi) {
+            setError('Mật khẩu mới trùng với mật khẩu cũ!')
+        }
+        axios.patch("update/password", {
+            MkCu, MkMoi, userid, username
+        })
+            .then((Response) =>{
+                console.log(Response.data) ;
+
+                if(Response.data.message) {    
+                    setError(Response.data.message)        
+                } else if(isAuth===false) {
+                    navigate('/login');
+                } else {
+                    setError('Cập nhật mật khẩu thành công!')  
+                }                   
+            })
+            .catch(() => {
+                setError("Đã có một lỗi bất thường xảy ra, vui lòng thử lại sau ít phút!")
+            }) 
+    };
+
+    let isAuth = 0;
+    useEffect(()=>{
+        axios.get("isAuth")
+          .then((Response) => {
+            if(Response.data.isAuth){
+              isAuth = 1;
+            }
+          })
+          .catch(error => { console.log(error);})
+          .then(function () {
+            if(isAuth !== 1){
+              navigate('/login');
+            }       
+          });
+    }, []);
+
+    return (
+        <Container>
+            <Header isActive={true}/>
+            <Main>
+                <SideBar>
+                    <HeaderBar>
+                        <Avatar src=""></Avatar>
+                        <FullName>Họ và tên</FullName>
+                    </HeaderBar>
+                    <Hr />
+                    <Menu>
+                        <MenuItems className="menu-items" >
+                        <MenuItem className="item active-menu" id="0">
+                                <a href="/profile" style={{ marginRight: "12px" }} > Thông tin cơ bản</a>
+                            </MenuItem>
+                            <MenuItem className="item active-menu" id="0">
+                                <a href="#" style={{ marginRight: "12px" }} > Đổi mật khẩu</a>
+                            </MenuItem>
+                        </MenuItems>
+                    </Menu>
+                </SideBar>
+                <ProfileBar>
+                    <ProfileHeader>
+                        <Title>Thông tin cá nhân</Title>
+                        <SubTitle>Thông tin về cá nhân bạn là hoàn toàn được bảo mật!</SubTitle>
+                    </ProfileHeader>
+                    <ProfileBody>
+                    <ProfileCard className="card-item mobile-active">
+                            <CardHeader>Thay đổi mật khẩu</CardHeader>
+                            <CardBody>
+                                <UserInfo>
+                                    <InfoName>Mật khẩu hiện tại</InfoName>
+                                    <InfoEdit type="password" onChange={(e)=>{setMatKhauCu(e.target.value);}} ></InfoEdit>
+                                </UserInfo>
+                                <UserInfo>
+                                    <InfoName>Mật khẩu mới</InfoName>
+                                    <InfoEdit type="password" onChange={(e)=>{setMatKhauMoi(e.target.value);}} ></InfoEdit>
+                                </UserInfo>
+                            </CardBody>
+                            {error}
+                            <CardFooter>
+                                <EditButton className="btn btn-dark btn-custom basic" onClick={handleChangePassword} >Chỉnh sửa</EditButton>
+                                    {/*Xử lý*/} 
+                            </CardFooter>
+                        </ProfileCard>
+                    </ProfileBody>
+                </ProfileBar>
+            </Main>
+            <Footer></Footer>
+        </Container>
+    )
+};
+
 const Container = styled.div`
     min-height: 100vh;
     display: flex;
@@ -237,108 +342,5 @@ const InfoEdit = styled.input`
     ${mobile({ width: "100%", paddingLeft: "8px" })}
 `;
 
-
-const ChangePass = () => {
-
-    const [MkCu, setMatKhauCu] = useState("");
-    const [MkMoi, setMatKhauMoi] = useState("");
-    const [error, setError] = useState("");
-    const userid = cookies.get('userid') ? cookies.get('userid'): null;
-    const username = cookies.get('username') ? cookies.get('username'): null;
-
-    let navigate = useNavigate();
-
-    const handleChangePassword = (event) => {
-        event.preventDefault();
-        if(MkCu === MkMoi) {
-            setError('Mật khẩu mới trùng với mật khẩu cũ!')
-        }
-        axios.patch("update/password", {
-            MkCu, MkMoi, userid, username
-        })
-            .then((Response) =>{
-                console.log(Response.data) ;
-
-                if(Response.data.message) {    
-                    setError(Response.data.message)        
-                } else if(isAuth===false) {
-                    navigate('/login');
-                } else {
-                    setError('Cập nhật mật khẩu thành công!')  
-                }                   
-            })
-            .catch(() => {
-                setError("Đã có một lỗi bất thường xảy ra, vui lòng thử lại sau ít phút!")
-            }) 
-    };
-
-    let isAuth = 0;
-    useEffect(()=>{
-        axios.get("isAuth")
-          .then((Response) => {
-            if(Response.data.isAuth){
-              isAuth = 1;
-            }
-          })
-          .catch(error => { console.log(error);})
-          .then(function () {
-            if(isAuth !== 1){
-              navigate('/login');
-            }       
-          });
-    }, []);
-
-    return (
-        <Container>
-            <Header isActive={true}/>
-            <Main>
-                <SideBar>
-                    <HeaderBar>
-                        <Avatar src=""></Avatar>
-                        <FullName>Họ và tên</FullName>
-                    </HeaderBar>
-                    <Hr />
-                    <Menu>
-                        <MenuItems className="menu-items" >
-                        <MenuItem className="item active-menu" id="0">
-                                <a href="/profile" style={{ marginRight: "12px" }} > Thông tin cơ bản</a>
-                            </MenuItem>
-                            <MenuItem className="item active-menu" id="0">
-                                <a href="#" style={{ marginRight: "12px" }} > Đổi mật khẩu</a>
-                            </MenuItem>
-                        </MenuItems>
-                    </Menu>
-                </SideBar>
-                <ProfileBar>
-                    <ProfileHeader>
-                        <Title>Thông tin cá nhân</Title>
-                        <SubTitle>Thông tin về cá nhân bạn là hoàn toàn được bảo mật!</SubTitle>
-                    </ProfileHeader>
-                    <ProfileBody>
-                    <ProfileCard className="card-item mobile-active">
-                            <CardHeader>Thay đổi mật khẩu</CardHeader>
-                            <CardBody>
-                                <UserInfo>
-                                    <InfoName>Mật khẩu hiện tại</InfoName>
-                                    <InfoEdit type="password" onChange={(e)=>{setMatKhauCu(e.target.value);}} ></InfoEdit>
-                                </UserInfo>
-                                <UserInfo>
-                                    <InfoName>Mật khẩu mới</InfoName>
-                                    <InfoEdit type="password" onChange={(e)=>{setMatKhauMoi(e.target.value);}} ></InfoEdit>
-                                </UserInfo>
-                            </CardBody>
-                            {error}
-                            <CardFooter>
-                                <EditButton className="btn btn-dark btn-custom basic" onClick={handleChangePassword} >Chỉnh sửa</EditButton>
-                                    {/*Xử lý*/} 
-                            </CardFooter>
-                        </ProfileCard>
-                    </ProfileBody>
-                </ProfileBar>
-            </Main>
-            <Footer></Footer>
-        </Container>
-    )
-};
 
 export default ChangePass
