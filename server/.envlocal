@@ -1,0 +1,7 @@
+
+# Hướng dẫn: Coppy tệp này làm 2, sau đó bỏ đuôi local đi (sẽ trở thành .env), thay đổi pass cho database 
+
+# jwt token 
+JWT_SECRET_KEY = "nhapgicungduoc"
+# nhập pass của mình vào đây
+PASS_DB = nam123

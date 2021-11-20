@@ -105,7 +105,7 @@ const Register = () => {
             }
         })
         .catch(error => console.error(error));
-    }, []);
+    }, [navigate]);
     
     return (
         

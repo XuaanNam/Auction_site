@@ -454,6 +454,33 @@ class API {
         });       
     }
 
+    // [GET] /api/auction/info
+    auctionInfo(req, res, next){
+         1;
+        const sql = "select * from sanpham s, daugia d where s.idSP = d.idSP and idDG = ? ";
+        const idDG = req.query.id;
+
+        pool.query(sql, idDG, function (error, results, fields) {
+            if (error) {
+                res.send({ error: error });
+            }
+            if (results.length > 0) {
+                res.send({  
+                    highestPrice: results[0].GiaKhoiDiem, 
+                    priceStep: results[0].BuocGia,
+                    website: results[0].Website,
+                    position: results[0].ViTri,
+                    bannerSize: results[0].KichThuoc,
+                    urlImage: results[0].HinhAnh,
+                    time: results[0].TgDauGia,
+                    decription: results[0].MoTa
+                });           
+            } else {
+                res.status(200).send({ message: "Sàn đấu giá không tồn tại!" });
+            }
+        });
+    }
+
     // [GET] /api/user
     user(req, res, next) {
         pool.query("SELECT * FROM taikhoan", function (error, results, fields) {

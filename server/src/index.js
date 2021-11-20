@@ -9,6 +9,17 @@ const route = require('./routes');
 const helmet = require("helmet");
 require('dotenv').config();
 
+const socket = require('./app/controllers/Io');
+const portSocket = 4000;
+const { Server} = require('socket.io');
+const http = require('http');
+const server = http.createServer(app);
+const io = new Server (server, {
+    cors: {
+        origin: "http://localhost:3000",
+        method: ["GET", "POST"]
+    }
+});
 
 app.use(
     cors({
@@ -18,16 +29,19 @@ app.use(
         exposedHeaders: 'isAuth',
     }
 ));
-app.use(morgan("combined"));
+//app.use(morgan("combined"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(helmet());
 app.use(methodOverride('_method'));
 
-
 route(app);
-
+socket(io);
+ 
 
 app.listen(port, ()=> {
     console.log(`Server is running on: http://localhost:${port} `);
+});
+server.listen(portSocket, ()=> {
+    console.log(`Server socket is running on: http://localhost:${portSocket} `);
 });
