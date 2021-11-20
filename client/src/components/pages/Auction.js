@@ -97,10 +97,6 @@ function Auction() {
 
                             </tbody>
                         </Table>
-                        <div className="description">
-                            Mô tả:
-                        </div>
-                        <div className="descript">Mô tả</div>
                 </div>
             </div>
             <Footer/>
