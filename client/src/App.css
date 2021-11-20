@@ -42,8 +42,14 @@
   width: 10vw;
 }
 .logo-header{
-  width: 50px;
+  width: 60px;
   height: 100%;
+}
+
+.logo-interest {
+  margin-right: 8px;
+  width: 30px;
+  height: 90%;
 }
 
 /* Home */
