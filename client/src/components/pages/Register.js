@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components"
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
+import { Link } from 'react-router-dom';
 import logo from "../images/img-login.png";
 //dùng để kết nối tới db
 import {useState, useEffect} from "react";
@@ -19,7 +20,8 @@ const Container = styled.div`
    
 `;
 const Main = styled.div`
-    min-height: 110vh;
+    line-height: 1;
+    min-height: 100vh;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -144,19 +146,32 @@ const Register = () => {
                     <Form.Check type="checkbox" label="Subscribe for participate in the auction!" />
                 </Form.Group>
                 <Error>{loginStatus}</Error>
-                <Submit >
+                <br/>
+                <sp>Bạn đã có tài khoản?   
+                    <Link to="/login">
+                    <span> </span>
+                        Đăng nhập
+                    </Link>
+                </sp>
+                <ButtonRegister >
                     <Button variant="dark" size="lg" className="w-100 btn-custom" id="btnSignUp"
                         onClick={handleRegister}
                     >
                         Đăng ký
                     </Button>
-                </Submit>
+                </ButtonRegister>
             </Form>
         </Main>
         <Footer></Footer>
     </div>
     )
 }
+
+const ButtonRegister = styled.div`
+    // width: 100%;
+    padding: 10px 0px 30px 0px;
+`;
+
 
 export default Register;
 

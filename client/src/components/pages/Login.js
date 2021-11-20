@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Form, Button } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import "../../App.css";
@@ -127,9 +128,15 @@ const Login = () => {
               }}
             />
           </Form.Group>
-
           <Error>{loginStatus}</Error>
-          <Submit>
+          <br/>
+          <span>Bạn chưa có tài khoản?   
+            <Link to="/register">
+              <span> </span>
+                 Đăng ký
+            </Link>
+          </span>
+          <SubmitLogin>
             <Button
               variant="dark"
               size="lg"
@@ -140,12 +147,17 @@ const Login = () => {
             >
               Đăng nhập
             </Button>
-          </Submit>
+          </SubmitLogin>
         </Form>
       </Main>
       <Footer></Footer>
     </div>
   );
 };
+
+const SubmitLogin = styled.div`
+  // width: 100%;
+  padding: 20px 0px;
+`
 
 export default Login;
