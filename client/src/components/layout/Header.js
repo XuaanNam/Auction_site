@@ -24,7 +24,7 @@ class Header extends Component{
     render(){
         return (
             <div>
-                <Navbar className="header" style={{top: "0", left: "0", right: "0", zIndex: "2"}} bg="dark" variant="dark">
+                <Navbar className="header" style={{position: "fixed", top: "0", left: "0", right: "0", zIndex: "2"}} bg="dark" variant="dark">
                     
                     <Nav className="mr-auto">
                         <a href="/home">

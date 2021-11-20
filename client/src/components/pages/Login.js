@@ -13,41 +13,41 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
-const Container = styled.div`
-  width: 100vw;
-  padding-top: 30px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-`;
-const Main = styled.div`
-  min-height: 100vh;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-const Logo = styled.img`
-  width: 100%;
-  height: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 50px;
-`;
-const Title = styled.h2`
-  margin-top: 8px;
-`;
+// const Container = styled.div`
+//   width: 100vw;
+//   padding-top: 30px;
+//   min-height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+//   flex-wrap: nowrap;
+// `;
+// const Main = styled.div`
+//   min-height: 100vh;
+//   flex: 1;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+// `;
+// const Logo = styled.img`
+//   width: 100%;
+//   height: 400px;
+//   margin-left: auto;
+//   margin-right: auto;
+//   margin-bottom: 50px;
+// `;
+// const Title = styled.h2`
+//   margin-top: 8px;
+// `;
 
-const Submit = styled.div`
-  // width: 100%;
-  padding: 40px 0px;
-`;
-const Error = styled.span`
-  padding-left: 20px;
-  color: red;
-`;
+// const Submit = styled.div`
+//   // width: 100%;
+//   padding: 40px 0px;
+// `;
+// const Error = styled.span`
+//   padding-left: 20px;
+//   color: red;
+// `;
 
 const Login = () => {
   const [Email, setEmail] = useState("");
@@ -105,8 +105,8 @@ const Login = () => {
       {/* <Logo src={logo}/> */}
       {/* <Navbar></Navbar> */}
       <Header/>
-      <Main className="container">
-        <Title>ĐĂNG NHẬP</Title>
+      <div className="container">
+        <h2 className="title-login">ĐĂNG NHẬP</h2>
         <Form action="#" style={{ minWidth: "40%", marginBottom: "90px" }}>
           <Form.Group className="mb-3 form-custom" controlId="formGridUsername">
             <Form.Label className="d-flex">Email</Form.Label>
@@ -128,7 +128,7 @@ const Login = () => {
               }}
             />
           </Form.Group>
-          <Error>{loginStatus}</Error>
+          <span>{loginStatus}</span>
           <br/>
           <span>Bạn chưa có tài khoản?   
             <Link to="/register">
@@ -149,7 +149,7 @@ const Login = () => {
             </Button>
           </SubmitLogin>
         </Form>
-      </Main>
+      </div>
       <Footer></Footer>
     </div>
   );

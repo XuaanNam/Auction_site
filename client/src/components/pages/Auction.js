@@ -117,4 +117,5 @@ function Auction() {
         </div>
     )
 }
+
 export default Auction;
