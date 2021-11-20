@@ -10,7 +10,7 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 const Container = styled.div`
-    min-height: 100vh;
+    min-height: 130vh;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
