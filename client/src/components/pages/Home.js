@@ -10,6 +10,7 @@ import background from '../images/background.jpg';
 import panther from '../images/Image.png';
 import anh from '../images/a.png';
 import anh2 from '../images/testbanner.jpg'
+import heart from '../images/heart.png'
 //
 import { useEffect} from "react";
 import axios from "../../api/axios"; 
@@ -48,9 +49,9 @@ function Home() {
             </span>
     </Slogan>
     <div src={anh} className="body-container pt-5 pl-5 pr-5 body-banner">
-        {/* TABS */}
+        {/* TABS ĐANG DIỄN RA*/}
         <div className="tabs">
-          <div className="tab-item active">
+          <div className="tab-item  active">
           <span className="auction-title">Đang diễn ra</span>
           </div>
           <div className="tab-item">
@@ -58,7 +59,7 @@ function Home() {
           </div>
           <div className="line"></div>
         </div>
-        {/* Contents */}
+        {/* Contents ĐANG DIỄN RA */}
         <div className="tab-content">
           <div className="tab-pane active">
             {/* DÒNG 1 */}
@@ -75,8 +76,10 @@ function Home() {
                                 <span>Kích thước:</span>
                                 <span className="ml-10">Bước giá:</span>
                             </div>
+                            
                         </Card.Body>
                       </a>
+                      
                     </Card>
                 </Col>
                 <Col xs sm="1"></Col>
@@ -133,12 +136,22 @@ function Home() {
                 </Col>
             </Row>
           </div>
-
-          <div className="tab-pane">
+          {/* TABS SẮP ĐƯỢC ĐẤU GIÁ*/}
+            <div className="tabs">
+              <div className="tab-item">
+              <span className="auction-title">Đang diễn ra</span>
+              </div>
+              <div className="tab-item active">
+              <span className="auction-title">Sắp được đấu giá</span>
+              </div>
+              <div className="line"></div>
+            </div>
+            {/* CONTENTS SẮP DIỄN RA*/}
+          <div className="tab-pane active">
           <Row className="justify-content-md-center pt-5 mg-items">
                 <Col className="col-items" xs sm="5" mr-2 >
                     <Card className="card-items">
-                      <a className="auction-link" href="/auction">
+                      <a className="auction-link" href="/home">
                         <Card.Img variant="top" className="src" src={anh2} />
                         <Card.Body>
                             <Card.Title>Vị trí: <strong>Tên banner 1 </strong> 
@@ -150,12 +163,18 @@ function Home() {
                             </div>
                         </Card.Body>
                       </a>
+                      {/* CHUYỂN TAB TỚI MỤC QUAN TÂM */}
+                      <a href="/interested">
+                        <BtnInterest >
+                          <img className="logo-interest pl-2" src={heart}  rounded />
+                        </BtnInterest>
+                      </a>
                     </Card>
                 </Col>
                 <Col xs sm="1"></Col>
                 <Col xs sm="5" mr-2 >
                     <Card>
-                      <a className="auction-link" href="/auction">
+                      <a className="auction-link" href="/home">
                         <Card.Img variant="top" className="src" src={anh2} />
                         <Card.Body>
                             <Card.Title>Vị trí: <strong>Tên banner 2 </strong> 
@@ -167,13 +186,19 @@ function Home() {
                             </div>
                         </Card.Body>
                       </a>
+                      {/* CHUYỂN TAB TỚI MỤC QUAN TÂM */}
+                      <a href="/interested">
+                        <BtnInterest >
+                          <img className="logo-interest pl-2" src={heart}  rounded />
+                        </BtnInterest>
+                      </a>
                     </Card>
                 </Col>
             </Row>           
             <Row className="justify-content-md-center pt-5 pb-20 ">
                 <Col xs sm="5" mr-2 >
                     <Card>
-                      <a className="auction-link" href="/auction">
+                      <a className="auction-link" href="/home">
                         <Card.Img variant="top" className="src" src={anh2} />
                         <Card.Body>
                             <Card.Title>Vị trí: <strong>Tên banner 3 </strong> 
@@ -185,12 +210,18 @@ function Home() {
                             </div>
                         </Card.Body>
                       </a>
+                      {/* CHUYỂN TAB TỚI MỤC QUAN TÂM */}
+                      <a href="/interested">
+                        <BtnInterest >
+                          <img className="logo-interest pl-2" src={heart}  rounded />
+                        </BtnInterest>
+                      </a>
                     </Card>
                 </Col>
                 <Col xs sm="1"></Col>
                 <Col xs sm="5" mr-2>
                     <Card>
-                      <a className="auction-link" href="/auction">
+                      <a className="auction-link" href="">
                         <Card.Img variant="top" className="src" src={anh2} />
                         <Card.Body>
                             <Card.Title>Vị trí: <strong>Tên banner 4 </strong> 
@@ -201,6 +232,12 @@ function Home() {
                                 <span className="ml-10">Bước giá:</span>
                             </div>
                         </Card.Body>
+                      </a>
+                      {/* CHUYỂN TAB TỚI MỤC QUAN TÂM */}
+                      <a href="/interested">
+                        <BtnInterest >
+                          <img className="logo-interest pl-2" src={heart}  rounded />
+                        </BtnInterest>
                       </a>
                     </Card>
                 </Col>
@@ -241,6 +278,16 @@ const Slogan = styled.div`
     width: 100%;
     height: 50px;
     z-index: 1;
+`;
+
+const BtnInterest = styled.button`
+  position: absolute;
+  background: #287673d4;
+  padding-bottom: 5px;
+  border-radius: 20px;
+  top: -5%;
+  z-index: 1;
+  right: -5%;
 `;
 
 

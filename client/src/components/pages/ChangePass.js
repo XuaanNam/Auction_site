@@ -69,15 +69,16 @@ const ChangePass = () => {
                     <HeaderBar>
                         <Avatar src=""></Avatar>
                         <FullName>Họ và tên</FullName>
+                        <button className="btn btn-dark btn-custom basic" >Đổi ảnh đại diện</button>
                     </HeaderBar>
                     <Hr />
                     <Menu>
                         <MenuItems className="menu-items" >
-                        <MenuItem className="item active-menu" id="0">
-                                <a href="/profile" style={{ marginRight: "12px" }} > Thông tin cơ bản</a>
+                        <MenuItem className="item active-menu btn bg-white" id="0">
+                                <a href="/profile" style={{ textDecoration: "none", color: "#333", marginRight: "12px" }} > Thông tin cơ bản</a>
                             </MenuItem>
-                            <MenuItem className="item active-menu" id="0">
-                                <a href="#" style={{ marginRight: "12px" }} > Đổi mật khẩu</a>
+                            <MenuItem className="item active-menu btn-dark btn btn-custom" id="0">
+                                <a href="#" style={{textDecoration: "none", color: "#fff", marginRight: "12px" }} > Đổi mật khẩu</a>
                             </MenuItem>
                         </MenuItems>
                     </Menu>
@@ -209,7 +210,8 @@ const MenuItem = styled.a`
         color: #343a40;
         cursor: pointer;
         border-color: rgba(0, 0, 0, 0.2);
-        background-color: #eaeaea;
+        opacity: 0.8;
+        background-color: #333;
     }
     &:active {
         box-shadow: 0px 0px 10px 8px rgba(0, 0, 0, 0.05) inset;

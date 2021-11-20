@@ -46,23 +46,28 @@ function Auction() {
                                 {/* kích thước */}
                                 
                                 <span className={AuctionD.auctionSize}>Kích thước: 900x80</span>
+                                <span className={AuctionD.auctionWebsite}>Trang web: animevietsub.tv</span>
                                 
-                                <div className="pt-4">
-                                    <span><strong> Thời gian: 15:00</strong> </span>
-                                </div>
                                 <div className="d-flex pt-4">
+                                    <span><strong> Thời gian: 15:00</strong> </span>
+                                    <span className={AuctionD.auctionWinCurrent}><strong>Người thắng hiện tại:</strong>
+                                        <span><br/>
+                                            User
+                                        </span>
+                                    </span>
+                                </div>
+                                
+                                
+                                <div className="d-flex pt-4">
+                                    {/* Giá bắt đầu */}
                                     <div>
                                         <b className={AuctionD.priceCurrent}>Giá đấu hiện tại:</b> <br/>
                                         <span className={AuctionD.priceShow}>10.000.000 vnđ</span>
                                     </div>
-                                    <div>
-                                        <b className="player-name">Người chơi:</b> <br/>
-                                        {/* ICON */}
-                                        <span className="player-name pt-2 ">
-                                            <strong>
-                                            User
-                                            </strong>
-                                        </span>
+                                    {/* Giá nhảy mỗi lượt */}
+                                    <div className={AuctionD.jumpPriceInfo}>
+                                        <b className={AuctionD.priceJump}>Bước giá:</b> <br/>
+                                        <span className={AuctionD.priceJumpShow}>5.000.000 vnđ</span>
                                     </div>
                                 </div>
                                 <div className="d-flex pt-5">
@@ -88,11 +93,20 @@ function Auction() {
                             </tr>
                             </thead>
                             <tbody>
+                                {/* BINDING DANH SÁCH NGƯỜI ĐANG ĐẤU GIÁ */}
+                                {/* Người chơi 1 */}
                                 <tr>
-                                <td>Unknow</td>
-                                {Array.from({ length: 2 }).map((_, index) => (
-                                    <td key={index}> test {index}</td>
-                                ))}
+                                    <td>Unknow</td>
+                                    {Array.from({ length: 2 }).map((_, index) => (
+                                        <td key={index}> Info {index}</td>
+                                    ))}
+                                </tr>
+                                {/* Người chơi 2 */}
+                                <tr>
+                                    <td>User</td>
+                                    {Array.from({ length: 2 }).map((_, index) => (
+                                        <td key={index}> Info {index}</td>
+                                    ))}
                                 </tr>
 
                             </tbody>

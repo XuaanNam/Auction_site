@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import Header from "../layout/Header";
 import Footer from '../layout/Footer';
 import CartD from '../assets/CartDetail.module.css'
-import logo from "../images/img-login.jpg";
+import banner1 from "../images/img-1.png";
+import logo from "../images/img-login.png"
 //
 import axios from "../../api/axios"; 
 import { useNavigate } from 'react-router-dom';
@@ -37,7 +38,7 @@ const Cart = () => {
             <Header isActive={true} />
             <Main className="container">
                 <Wrapper>
-                    <Title>Giỏ hàng</Title>
+                <Title>Giỏ hàng</Title>
                     {/* KHI GIỎ HÀNG TRỐNG */}
                     {/* <Empty>
                         <EmptyCart src={logo} />
@@ -62,8 +63,11 @@ const Cart = () => {
                     </Top>
                     {/* BOTTOM */}
                     <Bottom>
-                        {/* Thông tin về sản phẩm đấu giá được */}
-                        <Info>
+                        
+
+
+                         {/* Thông tin về sản phẩm đấu giá được */}
+                         <Info>
                             <>
                                 <Hr />
                                 <ContainerBody>
@@ -90,6 +94,7 @@ const Cart = () => {
                                     </PriceDetail>
                                 </Product>
                                 </ContainerBody>
+                                <ContainerBody>
                                 <Hr />
                                 <Product>
                                     <ProductDetail>
@@ -112,8 +117,27 @@ const Cart = () => {
                                         <ProductPrice>Tổng tiền: $ 49.5</ProductPrice>
                                     </PriceDetail>
                                 </Product>                   
+                                    <Product>
+                                        {/* Ảnh Banner */}
+                                        <ProductDetail>
+                                            <Image src={banner1} />
+                                            <span></span> 
+                                        </ProductDetail>
+                                    </Product>
+                                    <ProductDetail>
+                                        <span className={CartD.detailBannerPosition}>Vị trí: </span>
+                                        <span className={CartD.detailBannerSize}>Kích thước:</span>
+                                        <span className={CartD.detailBannerPrice}>Giá:</span>
+                                    </ProductDetail>
+                                    <ShopButton className={`btn btn-dark btn-custom ${CartD.btnRemoveItem}`}>Xoá</ShopButton>
+                                </ContainerBody>
+                                <Hr /> 
+                                {/* Nếu nhiều Items thì được ngăn cách    */}
                             </>
                         </Info>
+
+
+
                         {/* TỔNG TIỀN */}
                         <Summary>
                             <SummaryTitle>Thành tiền</SummaryTitle>
@@ -136,6 +160,10 @@ const Cart = () => {
                                 </Button>
                             </SummaryItem>
                         </Summary>
+
+
+
+
                     </Bottom>
                 </Wrapper>
             </Main>
@@ -151,10 +179,14 @@ const Container = styled.div`
 `;
 
 const ContainerBody = styled.div`
-    min-height: 50vh;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
+    position: relative;
+    border: 2px solid #343a40;
+    border-radius: 10px;
+    margin-left: -65px;
+    padding: 20px;
+    height: 60vh;
+    margin-bottom: 50px;
+    margin-right: 20px;
 `;
 
 const Main = styled.div`
@@ -211,8 +243,11 @@ const ProductDetail = styled.div`
     display: flex;
 `;
 const Image = styled.img`
-    width: 200px;
+    
+    width: 100%;
     height: 250px;
+    border-radius: 5px;
+    //border: 1px solid rgba(0, 0, 0, 0.3);
    
 `;
 const Details = styled.div`
