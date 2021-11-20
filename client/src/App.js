@@ -11,6 +11,7 @@ import HomePage from './components/pages/HomePage';
 import Cart from './components/pages/Cart';
 import Profile from './components/pages/Profile';
 import Changepass from './components/pages/ChangePass';
+import Interested from './components/pages/Interested';
 
 
 function App() {
@@ -23,7 +24,8 @@ function App() {
             <Route path='/register' element={<Register/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/auction' element={<Auction/>} />
-            <Route path='/home' exact element={<Home/>} />         
+            <Route path='/home' exact element={<Home/>} />
+            <Route path='/interested' exact element={<Interested/>} />          
             <Route path='/cart' element={<Cart/>} />
             <Route path='/profile' element={<Profile/>} />
             <Route path='/changepass' element={<Changepass/>} />

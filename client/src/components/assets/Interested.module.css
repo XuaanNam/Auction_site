@@ -1,0 +1,56 @@
+.btnReturnBuy {
+    font-size: 18px;
+    margin: 15px 15px 40px 0px;
+    padding: 5px 15px 5px 15px;
+}
+
+.btnReturnBuy:hover {
+    font-size: 18px;
+    margin: 15px 15px 40px 0px;
+    padding: 5px 15px 5px 15px;
+    color: rgb(243, 237, 237);
+    background: rgb(26, 31, 25);
+}
+
+.amountInterest {
+    padding: 2px 60px 2px 60px;
+    border-radius: 5px;
+    margin-bottom: 70px !important;
+    margin-left: 100px !important;
+}
+
+
+.amountInterest:hover {
+    opacity: 0.9;
+}
+
+.positionBanner {
+    font-size: 20px;
+    font-weight: 601;
+    padding: 15px;
+    margin-left: 25px;
+}
+.sizeBanner {
+    position: absolute;
+    font-size: 20px;
+    font-weight: 601;
+    padding: 15px;
+    bottom: 1%;
+    left: 4%;
+}
+.timeBegunBanner {
+    position: absolute;
+    font-size: 20px;
+    font-weight: 601;
+    padding: 15px;
+    bottom: 10%;
+    left: 50%;
+}
+.priceBegunBanner {
+    position: absolute;
+    font-size: 20px;
+    font-weight: 601;
+    padding: 15px;
+    bottom: 1%;
+    left: 50%;
+}
