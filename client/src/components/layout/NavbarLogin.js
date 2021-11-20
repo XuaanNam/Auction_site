@@ -13,11 +13,7 @@ class NavbarLogin extends Component {
         </a>
         <a href="/interested">
           <Button className="btn-nav mr-2" variant="outline-info">
-<<<<<<< HEAD
-            Thanh toán
-=======
             Quan tâm
->>>>>>> 25328ca38f09e2099cc288c942ba519422f26d9b
           </Button>
         </a>
         <a href="/Cart">

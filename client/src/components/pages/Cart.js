@@ -38,9 +38,9 @@ const Cart = () => {
             <Header isActive={true} />
             <Main className="container">
                 <Wrapper>
-                <Title>Giỏ hàng</Title>
+                    <Title>Giỏ hàng</Title>
                     {/* KHI GIỎ HÀNG TRỐNG */}
-                    {/* <Empty>
+                    <Empty>
                         <EmptyCart src={logo} />
                         <TopText className={`text-decoration-none alert-danger ${CartD.cartAlert}`}>Số lượng trong giỏ hàng: 0</TopText>
                         <h4 className={CartD.cartNullTitle}>Bạn hiện không có sản phẩm nào trong giỏ hàng</h4>
@@ -48,75 +48,22 @@ const Cart = () => {
                             <ShopButton className={`btn btn-dark btn-custom ${CartD.btnNullTitle}`}>Đi đến đấu giá!</ShopButton>
                         </Link>
                     </Empty>
-                    <Link to="/">
-                            <TopButton className="btn btn-outline-dark btn-custom">Tiếp tục đấu giá</TopButton>
-                    </Link>
-                    <TopText className={`text-decoration-none alert-danger ${CartD.cartAlert}`}>Số lượng trong giỏ hàng: 0</TopText> */}
                     {/*  */}
                     {/* TOP */}
                     <Top>
                         <Title>Đấu giá của tôi</Title><br></br>
                         <TopTexts >
-                        
+
 
                         </TopTexts>
                     </Top>
                     {/* BOTTOM */}
                     <Bottom>
-                        
-
-
-                         {/* Thông tin về sản phẩm đấu giá được */}
-                         <Info>
+                        {/* Thông tin về sản phẩm đấu giá được */}
+                        <Info>
                             <>
                                 <Hr />
                                 <ContainerBody>
-                                                
-                                <Product>
-                                    <ProductDetail>
-                                        <Image src="" />
-                                        <Details>
-                                            <ProductName><b>Banner: </b>Title</ProductName>
-                                            <Button value="" className="btn btn-dark btn-custom btn-remove">Xoá</Button>
-                                        </Details>
-                                    </ProductDetail>
-                                    <PriceDetail>
-                                        <ProductAmountContainer>
-                                            <a className="amount-custom btn-custom">
-                                                xoá
-                                            </a>
-                                            <ProductAmount>1</ProductAmount>
-                                            <a className="amount-custom btn-custom">
-                                                thêm
-                                            </a>
-                                        </ProductAmountContainer>
-                                        <ProductPrice>Tổng tiền:  $ 49.5</ProductPrice>
-                                    </PriceDetail>
-                                </Product>
-                                </ContainerBody>
-                                <ContainerBody>
-                                <Hr />
-                                <Product>
-                                    <ProductDetail>
-                                        <Image src="" />
-                                        <Details>
-                                            <ProductName><b>Banner: </b>Title</ProductName>
-                                            <Button value="" className="btn btn-dark btn-custom btn-remove">Xoá</Button>
-                                        </Details>
-                                    </ProductDetail>
-                                    <PriceDetail>
-                                        <ProductAmountContainer>
-                                            <a className="amount-custom btn-custom">
-                                                xoá
-                                            </a>
-                                            <ProductAmount>1</ProductAmount>
-                                            <a className="amount-custom btn-custom">
-                                                thêm
-                                            </a>
-                                        </ProductAmountContainer>
-                                        <ProductPrice>Tổng tiền: $ 49.5</ProductPrice>
-                                    </PriceDetail>
-                                </Product>                   
                                     <Product>
                                         {/* Ảnh Banner */}
                                         <ProductDetail>
@@ -135,9 +82,6 @@ const Cart = () => {
                                 {/* Nếu nhiều Items thì được ngăn cách    */}
                             </>
                         </Info>
-
-
-
                         {/* TỔNG TIỀN */}
                         <Summary>
                             <SummaryTitle>Thành tiền</SummaryTitle>
@@ -160,10 +104,6 @@ const Cart = () => {
                                 </Button>
                             </SummaryItem>
                         </Summary>
-
-
-
-
                     </Bottom>
                 </Wrapper>
             </Main>
@@ -171,6 +111,7 @@ const Cart = () => {
         </Container>
     )
 }
+
 const Container = styled.div`
     min-height: 100vh;
     display: flex;

@@ -124,7 +124,7 @@ const MenuItem = styled.a`
 const ProfileBar = styled.div`
     width: calc(100% - 24vw);
     margin-left: 24vw;
-    padding: 20px 30px;
+    padding: 60px 30px;
     outline: none;
     ${mobile({
     width: "100%",
@@ -143,10 +143,12 @@ const ProfileHeader = styled.div`
 `;
 const Title = styled.h3`
     text-align: center;
+    margin-right: 100px;
     font-weight: 400;
 `;
 const SubTitle = styled.p`
     text-align: center;
+    margin-right: 80px;
 `;
 
 const ProfileBody = styled.div`
@@ -225,6 +227,7 @@ const CardFooter = styled.div`
 `;
 const EditButton = styled.button`
     font-size: 18px;
+    margin-right: 10px;
     text-transform: uppercase;
     width: 20%;
     ${mobile({ width: "100%" })}
@@ -348,5 +351,7 @@ const Profile = () => {
         </Container>
     )
 };
+
+
 
 export default Profile
