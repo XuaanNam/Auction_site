@@ -1,16 +1,37 @@
 function socket(io) {
 
     let dataRoom = [];
+    let listBetHistoryData = [[]];
+    let index = [];
+
+    //countdown
+    let countdown = [];
 
     io.on("connection", (socket) => {
         console.log(`user connected: ${socket.id}`);
 
-     
         socket.on('join_room', (data) => {
-
             socket.join(data);
             console.log(`user id: ${socket.id}, joined room: ${data}`);
         });
+        
+        socket.on('leave_room', (data) => {
+            socket.leave(data);
+            console.log(`user id: ${socket.id}, leave room: ${data}`);
+        });
+
+        socket.on('settimer', (data) => {
+            console.log(`user id: ${socket.id} is setting time countdown`);
+            countdown[data.room] = parseInt(data.time) ? parseInt(data.time) : 15*60;
+            setInterval( () => {  
+                if (countdown[data.room] <= 0) {
+                    return;
+                } else {
+                    countdown[data.room]--;
+                    socket.to(data.room).emit('timer', countdown );
+                }
+            }, 1000);
+        })
 
         socket.on('bet_more', (data) => {
 
@@ -22,8 +43,16 @@ function socket(io) {
 
             // if(highest_price > room_highest_price){
                 let i = parseInt(data.room)-1;
+                if(typeof(index[i])  == "undefined"){ 
+                    index[i] = 0;
+                }
+ 
+                data.id = index[i]++;
                 dataRoom[i] = data;
-                io.in(data.room).emit("receive_data", dataRoom[i]);
+                listBetHistoryData[i].push(dataRoom[i]);
+                //console.log({dataRoom: dataRoom[i], listDataRoom: listBetHistoryData[i]})
+
+                io.in(data.room).emit("receive_data", {dataRoom: dataRoom[i], listDataRoom: listBetHistoryData[i]});
             // } else {
             //     socket.to(data.room).emit("receive_data", dataRoom);
             // }
@@ -32,10 +61,14 @@ function socket(io) {
 
         socket.on('get_data_room', (data) => {
             let i = parseInt(data.room)-1;
+
             if (typeof(dataRoom[i])  == "undefined"){
                 io.in(data.room).emit("receive_data", false);
             } else {     
-                io.in(data.room).emit("receive_data", dataRoom[i]);
+                io.in(data.room).emit("receive_data", { 
+                    dataRoom: dataRoom[i],
+                    listDataRoom: listBetHistoryData[i]
+                });
             }
         });
         
