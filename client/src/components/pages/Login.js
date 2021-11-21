@@ -6,11 +6,14 @@ import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import "../../App.css";
 import logo from "../images/img-login.png";
+import background from "../images/background.jpg"
 //dùng để kết nối tới db
 import { useState, useEffect } from "react";
 import axios from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
+
+
 const cookies = new Cookies();
 
 // const Container = styled.div`
@@ -105,50 +108,54 @@ const Login = () => {
       {/* <Logo src={logo}/> */}
       {/* <Navbar></Navbar> */}
       <Header/>
-      <div className="container">
-        <h2 className="title-login">ĐĂNG NHẬP</h2>
-        <Form action="#" style={{ minWidth: "40%", marginBottom: "90px" }}>
-          <Form.Group className="mb-3 form-custom" controlId="formGridUsername">
-            <Form.Label className="d-flex">Email</Form.Label>
-            <Form.Control
-              type="mail"
-              placeholder="Email"
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3 form-custom" controlId="formGridPassword">
-            <Form.Label className="d-flex">Mật khẩu</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Nhập mật khẩu"
-              onChange={(e) => {
-                setMatKhau(e.target.value);
-              }}
-            />
-          </Form.Group>
-          <span>{loginStatus}</span>
-          <br/>
-          <span>Bạn chưa có tài khoản?   
-            <Link to="/register">
-              <span> </span>
-                 Đăng ký
-            </Link>
-          </span>
-          <SubmitLogin>
-            <Button
-              variant="dark"
-              size="lg"
-              className="w-100 btn-custom"
-              id="btnLogin"
-              onClick={handleLogin}
-              //   disabled={isFetching}
-            >
-              Đăng nhập
-            </Button>
-          </SubmitLogin>
-        </Form>
+      <img  className="img-inout" src={background}></img>
+      <div className="container cont-inout">
+         <div className="subcont-inout">
+          <h2 className="title-inout">Đăng nhập</h2>
+          <Form action="#">
+            <Form.Group className="input-inout mb-3 pt-3 form-custom" controlId="formGridUsername">
+              <Form.Label className="">Email</Form.Label>
+              <Form.Control
+                className="box-inout"
+                type="mail"
+                placeholder="Email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+              </Form.Group>
+              <Form.Group className="input-inout mb-3 form-custom" controlId="formGridPassword">
+                <Form.Label className="d-flex">Mật khẩu</Form.Label>
+                <Form.Control
+                  className="box-inout"          
+                  type="password"
+                  placeholder="Nhập mật khẩu"
+                  onChange={(e) => {
+                    setMatKhau(e.target.value);
+                  }}
+                />
+              </Form.Group>
+              <span className="status-inout">{loginStatus}</span>
+              <div>
+                <Button
+                  className="button-inout"
+                  variant="dark"
+                  size="lg"
+                  style={{width: '13vw', height: '7vh'}}
+                  id="btnLogin"
+                  onClick={handleLogin}
+                  //   disabled={isFetching}
+                >
+                  Đăng nhập
+                </Button>
+                <div className="mess-inout pb-4">Bạn chưa có tài khoản?   
+                  <Link to="/register" className="link-inout ml-2">
+                    Đăng ký
+                  </Link>
+                </div>
+              </div>
+          </Form>
+        </div>
       </div>
       <Footer></Footer>
     </div>

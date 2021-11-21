@@ -5,50 +5,12 @@ import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import { Link } from 'react-router-dom';
 import logo from "../images/img-login.png";
+import background from "../images/background.jpg"
 //dùng để kết nối tới db
 import {useState, useEffect} from "react";
 import axios from "../../api/axios"; 
 import { useNavigate } from 'react-router-dom';
 
-const Container = styled.div`
-    min-height: 120vh;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    width: 100vw;
-    padding-top: 30px;
-   
-`;
-const Main = styled.div`
-    line-height: 1;
-    min-height: 120vh;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`;
-const Logo = styled.img`
-    width: 100%;
-    height: 400px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 50px;
-`;
-const Title = styled.h2`
-    margin-top: 1vh;
-    margin-bottom: 1vh;
-`;
-const Submit = styled.div`
-    // width: 100%;
-    padding: 0px 0px 30px 0px;
-`;
-const Error = styled.span`
-    display: inline-block;
-    margin-bottom: 10px;
-    padding-left: 20px;
-    color: red;
-`;
 
 const Register = () => {
     // const [firstname, setFirstname] = useState("");
@@ -111,57 +73,104 @@ const Register = () => {
         
         <div>
             {/* <Logo src={logo}/> */}
-        <Header/>   
-        <Main className="container">
-        
-            <Title>ĐĂNG KÝ</Title>
-            <Form action="#" >
-                <Row className="mb-3 form-custom">
-                    <Form.Group as={Col} controlId="formGridFirstName">
-                        <Form.Label className="d-flex">Tên</Form.Label>
-                        <Form.Control type="text" placeholder="Nhập tên" onChange={(e)=>{setTen(e.target.value);}} />
+            <Header/>   
+            <img  className="img-inout" src={background}></img>
+            <div className="container cont-inout">
+                <div className="subcont-inout">
+                <h2 className="title-inout">Đăng ký</h2>
+                <Form action="#">
+                    {/* name */}
+                    <Form.Group className="input-inout d-flex mb-3 pt-3 form-custom" controlId="formGridUsername">
+                        <div>
+                            <Form.Label className="">Họ</Form.Label>
+                            <Form.Control
+                                className="box-inout"
+                                type="text"
+                                placeholder="Nhập họ"
+                                onChange={(e) => {
+                                setHo(e.target.value);
+                                }}
+                            />
+                        </div>
+                        <div className="minibox-inout">
+                            <Form.Label className="">Tên</Form.Label>
+                            <Form.Control
+                                className="box-inout"
+                                // style={{marginLeft: 'vw'}}
+                                type="text"
+                                placeholder="Nhập tên"
+                                onChange={(e) => {
+                                setTen(e.target.value);
+                                }}
+                            />
+                        </div>
                     </Form.Group>
-                    <Form.Group as={Col} controlId="formGridLastName">
-                        <Form.Label className="d-flex">Họ</Form.Label>
-                        <Form.Control type="text" placeholder="Nhập họ" onChange={(e)=>{setHo(e.target.value);}} />
+                    {/* email */}
+                    <Form.Group className="input-inout mb-3 form-custom" controlId="formGridUsername">
+                        <Form.Label className="">Email</Form.Label>
+                        <Form.Control
+                            className="box-inout"
+                            type="mail"
+                            placeholder="Nhập Email"
+                            onChange={(e) => {
+                            setEmail(e.target.value);
+                            }}
+                        />
                     </Form.Group>
-                </Row>
-                <Form.Group className="mb-3 form-custom" controlId="formGridEmail">
-                    <Form.Label className="d-flex">Địa chỉ email</Form.Label>
-                    <Form.Control type="mail" placeholder="Nhập địa chỉ email" onChange={(e)=>{setEmail(e.target.value);}} />
-                </Form.Group>
-                <Form.Group className="mb-3 form-custom" controlId="formGridUsername">
-                    <Form.Label className="d-flex">Tên đăng nhập</Form.Label>
-                    <Form.Control type="mail" placeholder="Tên đăng nhập" onChange={(e)=>{setTenDN(e.target.value);}} />
-                </Form.Group>
-                <Form.Group className="mb-3 form-custom" controlId="formGridPassword">
-                    <Form.Label className="d-flex">Mật khẩu</Form.Label>
-                    <Form.Control type="password" placeholder="Mật khẩu" onChange={(e)=>{setMatKhau(e.target.value);}} />
-                </Form.Group>
-                <Form.Group className="mb-3 form-custom" controlId="formGridConfirmPassword">
-                    <Form.Label className="d-flex">Nhập lại mật khẩu</Form.Label>
-                    <Form.Control type="password" placeholder="Nhập lại mật khẩu" />
-                </Form.Group>
-                <Form.Group className="d-flex mb-3 form-custom" id="formGridCheckbox">
-                    <Form.Check type="checkbox" label="Subscribe for participate in the auction!" />
-                </Form.Group>
-                <Error>{loginStatus}</Error>
-                <br/>
-                <sp>Bạn đã có tài khoản?   
-                    <Link to="/login">
-                    <span> </span>
-                        Đăng nhập
-                    </Link>
-                </sp>
-                <ButtonRegister >
-                    <Button variant="dark" size="lg" className="w-100 btn-custom" id="btnSignUp"
+                    {/* tài khoản */}
+                    <Form.Group className="input-inout mb-3 form-custom" controlId="formGridUsername">
+                        <Form.Label className="">Tài khoản</Form.Label>
+                        <Form.Control
+                            className="box-inout"
+                            type="text"
+                            placeholder="Nhập tài khoản"
+                            onChange={(e) => {
+                            setTenDN(e.target.value);
+                            }}
+                        />
+                    </Form.Group>
+                    {/* mật khẩu */}
+                    <Form.Group className="input-inout mb-3 form-custom" controlId="formGridPassword">
+                        <Form.Label className="d-flex">Mật khẩu</Form.Label>
+                        <Form.Control
+                        className="box-inout"          
+                        type="password"
+                        placeholder="Nhập mật khẩu"
+                        onChange={(e) => {
+                            setMatKhau(e.target.value);
+                        }}
+                        />
+                    </Form.Group>
+                    {/* Xác nhận mật khẩu */}
+                    <Form.Group className="input-inout mb-3 form-custom" controlId="formGridUsername">
+                        <Form.Label className="">Xác nhận mật khẩu</Form.Label>
+                        <Form.Control
+                            className="box-inout"
+                            type="password"
+                            placeholder="Nhập lại mật khẩu"
+                        />
+                    </Form.Group>
+                    {/* checkbox */}
+                    <Form.Group className="input-inout d-flex mb-3 form-custom" id="formGridCheckbox">
+                        <Form.Check type="checkbox" label="Tôi đồng ý với các điều khoản và đăng ký!" />
+                    </Form.Group>
+
+                    <span className="status-inout">{loginStatus}</span>
+                    <div className=" pb-4">
+                        <Button
+                        className="button-inout"
+                        variant="dark"
+                        size="lg"
+                        style={{width: '13vw', height: '7vh'}}
+                        id="btnLogin"
                         onClick={handleRegister}
-                    >
+                        >
                         Đăng ký
-                    </Button>
-                </ButtonRegister>
-            </Form>
-        </Main>
+                        </Button>
+                    </div>
+                </Form>
+                </div>
+            </div>
         <Footer></Footer>
     </div>
     )
