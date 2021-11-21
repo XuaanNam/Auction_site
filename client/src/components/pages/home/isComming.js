@@ -11,8 +11,8 @@ class isComming extends Component {
             <div>
             {/* TABS SẮP ĐƯỢC ĐẤU GIÁ*/}
             <div className="tabs">
-                <div className="tab-item">
-                    <span onClick={this.props.onSwitch} className="auction-title">Đang diễn ra</span>
+                <div  onClick={this.props.onSwitch} className="tab-item">
+                    <span className="auction-title">Đang diễn ra</span>
                 </div>
                 <div className="tab-item active">
                     <span className="auction-title">Sắp được đấu giá</span>
