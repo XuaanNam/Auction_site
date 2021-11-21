@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import "../../App.css";
-import AuctionD from "../assets/AuctionDetail.module.css";
+import "../../../App.css";
+import AuctionD from "../../assets/AuctionDetail.module.css";
 import { Table } from "react-bootstrap";
 
 

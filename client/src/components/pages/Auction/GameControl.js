@@ -1,10 +1,10 @@
 import React, { Component} from "react";
-import "../../App.css";
-import AuctionD from "../assets/AuctionDetail.module.css";
+import "../../../App.css";
+import AuctionD from "../../assets/AuctionDetail.module.css";
 import {Button, Card} from "react-bootstrap"
 //Ảnh
-import banner1 from "../images/img-1.png";
-import clock from "../images/clock.png";
+import banner1 from "../../images/img-1.png";
+import clock from "../../images/clock.png";
 
 
 class HistoryTable extends Component {
