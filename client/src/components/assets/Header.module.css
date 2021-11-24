@@ -65,21 +65,35 @@ li:hover {
     transform: rotate(90deg);
 }
 
-.activeRotate {
+/* .activeRotate {
     transform: rotate(-180deg) !important;
     transition: all 3s ease !important;
     
-}
+} */
 
-/* .activeRotate {
+.nonActiveRotate {
     margin: auto;
-    border: 1px solid black;
-    background-color: coral;
+    /* border: 1px solid black;
+    background-color: coral; */
     color: white;
-    animation: mymove 5s ease;
+    animation: mymove2 0.5s ease;
+  }
+  
+  @keyframes mymove2 {
+    0% {transform: rotate(180deg);}
+  }
+
+
+
+.activeRotate {
+    margin: auto;
+    /* border: 1px solid black;
+    background-color: coral; */
+    color: white;
+    animation: mymove 0.5s ease;
   }
   
   @keyframes mymove {
-    50% {transform: rotate(180deg);}
-  } */
+    0% {transform: rotate(-180deg);}
+  }
 
