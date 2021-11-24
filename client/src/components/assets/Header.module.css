@@ -1,0 +1,85 @@
+containerHeader {
+    position: relative;
+  display: inline-block;
+}
+
+.outLineNone {
+    border: none !important;
+}
+
+.dropdownHeader {
+    position: absolute;
+    top: 100%;
+    right: -10px;
+    width: 190px;
+    z-index: 2;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14);
+    /* background */
+    background: #343a40;
+    margin: 0 90px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.headerBtnLogin {
+    padding: 0;
+  width: 50px;
+  border: 0;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  outline: 0;
+  font-size: 40px;
+}
+
+
+ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px 5px 15px 0px;
+}
+
+li {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(102, 85, 85, 0.863);
+}
+
+ul > li:nth-child(1) {
+    border-top: 1px solid rgba(102, 85, 85, 0.863);
+}
+
+ul > li:nth-child(4) {
+    border:none;
+}
+
+
+
+li:hover {
+    background-color: rgba(0, 0, 0, 0.14);
+    cursor: pointer;
+}
+
+.activeMenu {
+    display:block;
+    transform: rotate(90deg);
+}
+
+.activeRotate {
+    transform: rotate(-180deg) !important;
+    transition: all 3s ease !important;
+    
+}
+
+/* .activeRotate {
+    margin: auto;
+    border: 1px solid black;
+    background-color: coral;
+    color: white;
+    animation: mymove 5s ease;
+  }
+  
+  @keyframes mymove {
+    50% {transform: rotate(180deg);}
+  } */
+

@@ -1,9 +1,14 @@
+import {Edit, DoneAll, AccountCircle, Contacts, VpnKey} from '@material-ui/icons';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from "../layout/Header";
 import Footer from '../layout/Footer';
 import { mobile } from '../../responsive';
+//
+import ProfileD from '../assets/Profile.module.css'
 import avatar from '../images/img-login.png'
+import background from "../images/background.jpg";
+//
 import axios from "../../api/axios"; 
 import { useNavigate } from 'react-router-dom';
 import Cookies from "universal-cookie";
@@ -28,14 +33,17 @@ const Main = styled.div`
 })};
 `;
 const SideBar = styled.div`
-    border-right: 1px solid rgba(0, 0, 0, 0.3);
-    position: fixed;
-    top: 75px;
+    position: absolute;
+    border-right: 1px solid rgba(0, 0, 0, 0.91);
+    border-radius: 5px;
+    top: 0px;
     bottom: 0;
     left: 0;
-    width: 24vw;
+    width: 20vw;
     background-color: #f8f9fa;
     padding: 30px 8px 0 0;
+    flex: 1;
+    flex-direction: column;
     ${mobile({
     position: "unset",
     top: "50px",
@@ -51,10 +59,10 @@ const HeaderBar = styled.div`
     justify-content: center;
 `;
 const Avatar = styled.img`
-    width: 150px;
-    height: 150px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    border: 3px solid rgb(53, 209, 217);
     ${mobile({
     width: "120px",
     height: "120px"
@@ -124,9 +132,14 @@ const MenuItem = styled.a`
 `;
 const ProfileBar = styled.div`
     width: calc(100% - 24vw);
-    margin-left: 24vw;
-    padding: 90px 30px;
+    // margin-left: 24vw;
+    padding: 60px 30px;
     outline: none;
+    flex: 3;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
     ${mobile({
     width: "100%",
     marginLeft: "0",
@@ -138,6 +151,7 @@ const ProfileBar = styled.div`
 `;
 const ProfileHeader = styled.div`
     padding-left: 100px;
+    padding-bottom: 50px;
     ${mobile({
     display: "none"
 })}
@@ -218,7 +232,7 @@ const InfoName = styled.div`
 const CardFooter = styled.div`
     display: flex;
     justify-content: center;
-    margin: 20px 0;
+    margin: 40px 0;
 `;
 const EditButton = styled.button`
     font-size: 18px;
@@ -293,57 +307,89 @@ const ChangePass = () => {
     }, []);
 
     return (
-        <Container>
+        <div>
             <Header isActive={true}/>
-            <Main>
-                <SideBar>
-                    <HeaderBar>
-                        <Avatar src={avatar}></Avatar>
-                        <FullName>Họ và tên</FullName>
-                        <button className="btn btn-dark btn-custom basic" >Đổi ảnh đại diện</button>
-                    </HeaderBar>
-                    <Hr />
-                    <Menu>
-                        <MenuItems className="menu-items" >
-                        <MenuItem className="item active-menu btn bg-white" id="0">
-                                <a href="/profile" style={{ textDecoration: "none", color: "#333", marginRight: "12px" }} > Thông tin cơ bản</a>
-                            </MenuItem>
-                            <MenuItem className="item active-menu btn-dark btn btn-custom" id="0">
-                                <a href="#" style={{textDecoration: "none", color: "#fff", marginRight: "12px" }} > Đổi mật khẩu</a>
-                            </MenuItem>
-                        </MenuItems>
-                    </Menu>
-                </SideBar>
-                <ProfileBar>
-                    <ProfileHeader>
-                        <Title>Thông tin cá nhân</Title>
-                        <SubTitle>Thông tin về cá nhân bạn là hoàn toàn được bảo mật!</SubTitle>
-                    </ProfileHeader>
-                    <ProfileBody>
-                    <ProfileCard className="card-item mobile-active">
-                            <CardHeader>Thay đổi mật khẩu</CardHeader>
-                            <CardBody>
-                                <UserInfo>
-                                    <InfoName>Mật khẩu hiện tại</InfoName>
-                                    <InfoEdit type="password" onChange={(e)=>{setMatKhauCu(e.target.value);}} ></InfoEdit>
-                                </UserInfo>
-                                <UserInfo>
-                                    <InfoName>Mật khẩu mới</InfoName>
-                                    <InfoEdit type="password" onChange={(e)=>{setMatKhauMoi(e.target.value);}} ></InfoEdit>
-                                </UserInfo>
-                            </CardBody>
-                            {error}
-                            <CardFooter>
-                                <EditButton className="btn btn-dark btn-custom basic" onClick={handleChangePassword} >Chỉnh sửa</EditButton>
-                                    {/*Xử lý*/} 
-                            </CardFooter>
-                        </ProfileCard>
-                    </ProfileBody>
-                </ProfileBar>
-            </Main>
+            <background style={{ backgroundImage: `url(${background})` }} />
+            <Container>
+            <div className={`${ProfileD.bodyContainerProfile} pt-5 pl-5 pr-5 body-banner`}>
+                {/* check to edit */}
+                    <button>
+                    <Edit class={`${ProfileD.clickToEdit}`}/>
+                    </button>
+                    <SideBar>
+                        <HeaderBar>
+                                    <Avatar src={avatar}></Avatar>
+                                    <FullName>Họ và tên</FullName>
+                                    <button className="btn btn-dark btn-custom basic mb-4 mt-2" >
+                                        <AccountCircle className="mr-1"/>
+                                        Đổi ảnh đại diện
+                                    </button>
+                                </HeaderBar>
+                                <Hr />
+                                <Menu>
+                                    <MenuItems className="menu-items" >
+                                        <MenuItem href="/profile" className="item active-menu btn btn-custom bg-white" id="0">
+                                            <a style={{ textDecoration: "none", color: "#333", marginRight: "12px" }} >
+                                                <Contacts className="mr-2"/>
+                                                Thông tin cơ bản
+                                                </a>
+                                        </MenuItem>
+                                        <MenuItem href="/#" className="item active-menu btn-dark btn btn-custom" id="0">
+                                            <a style={{ textDecoration: "none", color: "#fff", marginRight: "12px" }} >
+                                                <VpnKey className="mr-2 mb-2"/>
+                                                Đổi mật khẩu
+                                                </a>
+                                        </MenuItem>
+                                        
+                                    </MenuItems>
+                                </Menu>
+                    </SideBar>
+                        <ProfileBar>
+                            <ProfileHeader>
+                                <Title>Thông tin cá nhân</Title>
+                                <SubTitle>Thông tin về cá nhân bạn là hoàn toàn được bảo mật!</SubTitle>
+                            </ProfileHeader>
+                            <ProfileBody>
+                            <ProfileCard className="card-item mobile-active">
+                                    <CardHeader>Thay đổi mật khẩu</CardHeader>
+                                    <CardBody>
+                                        <UserInfo>
+                                            <InfoName>Mật khẩu cũ:</InfoName>
+                                            <InputText type="password" onChange={(e)=>{setMatKhauCu(e.target.value);}} ></InputText>
+                                        </UserInfo>
+                                        <UserInfo>
+                                            <InfoName>Mật khẩu mới:</InfoName>
+                                            <InputText type="password" onChange={(e)=>{setMatKhauMoi(e.target.value);}} ></InputText>
+                                        </UserInfo>
+                                        <UserInfo>
+                                            <InfoName>Xác nhận mật khẩu:</InfoName>
+                                            <InputText type="password" onChange={(e)=>{setMatKhauMoi(e.target.value);}} ></InputText>
+                                        </UserInfo>
+                                    </CardBody>
+                                    {error}
+                                    <CardFooter>
+                                        <EditButton className="btn btn-dark btn-custom basic" onClick={handleChangePassword} >
+                                        <DoneAll className="mr-1"/>
+                                            Chỉnh sửa</EditButton>
+                                            {/*Xử lý*/} 
+                                    </CardFooter>
+                                </ProfileCard>
+                            </ProfileBody>
+                        </ProfileBar>
+                </div>
+            </Container>
             <Footer></Footer>
-        </Container>
+        </div>
     )
 };
+
+const InputText = styled.input`
+    width: calc((100%/12)*9);
+    padding: 8px 0;
+    word-wrap: break-word;
+    background-color: rgb(238 206 214);
+    border: 1px solid rgb(238 206 214);
+    border-radius: 5px;
+`;
 
 export default ChangePass

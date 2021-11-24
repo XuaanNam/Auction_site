@@ -28,12 +28,16 @@ TenChuThe nvarchar(30) not null
 ;
 create table sanpham(
 idSP int not null primary key AUTO_INCREMENT,
+HinhAnh varchar(200) not null,
 Website nvarchar(30) not null,
 ViTri nvarchar(30) not null,
+KichThuoc varchar(30),
 Gia double not null,
 MoTa text(1000)
-)
-;
+) 
+; select * from sanpham s, daugia d where s.idSP = d.idSP and idDG = 1;
+select * from sanpham ;
+drop table sanpham;
 create table giaodich(
 idGD int not null primary key AUTO_INCREMENT,
 idSP int  not null references sanpham(idSP),
@@ -62,16 +66,16 @@ insert into taikhoan value (3,'Le','Minh','2004/02/28','hama@gmail.com','hama','
 insert into taikhoan value (4,'Hung','Cuong','1992/03/22','haicau@gmail.com','jack','kimchi','012ss345', false);
 insert into taikhoan value (5,'Phan','Lo','2000/08/26','sutuhadong@gmail.com','noitro','quayxe','lelen', false);
 
-insert into sanpham value (1,'dogiadung.com','header01',300000,'thue 1 thang');
-insert into sanpham value (2,'baovietnam.net','side02',450000,'thue 1 thang');
-insert into sanpham value (3,'chipheo.org','header02',3000000,'thue 1 nam');
-insert into sanpham value (4,'doboi.vlog','header01',200000,'thue 1 thang');
-insert into sanpham value (5,'nuocmam.com','footer01',500000,'thue 1 nam');
+insert into sanpham value (1,'url','dogiadung.com','header01','90 x 70',300000,'thue 1 thang');
+insert into sanpham value (2,'url','baovietnam.net','side02','90 x 70',450000,'thue 1 thang');
+insert into sanpham value (3,'url','chipheo.org','header02','90 x 70',3000000,'thue 1 nam');
+insert into sanpham value (4,'url','doboi.vlog','header01','90 x 70',200000,'thue 1 thang');
+insert into sanpham value (5,'url','nuocmam.com','footer01','90 x 70',500000,'thue 1 nam');
 
 insert into the value (1,1,'Argibank','Dong Nam A','PHAM HONG DAI');
 insert into the value (2,2,'Quoc Te','Dong Nam A','CHI PHEO');
 
-insert into daugia value(1,2,'2021/11/20','00:01:00','450000','Test',100000);
+insert into daugia value(3,2,'2021/11/20','00:01:00','45000000','Test',10000000);
 insert into daugia value(2,1,'2021/11/21','00:00:15','300000','Test',100000);
 
 insert into giaodich value (1,3,1,'Da Ban');

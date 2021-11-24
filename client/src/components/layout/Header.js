@@ -1,6 +1,7 @@
 import React ,{Component} from 'react';
-import NavbarLogin from './NavbarLogin';
 import NavbarDefault from './NavbarDefault';
+import NavbarLogin from './NavbarLogin';
+import NavbarLoginAdmin from './NavbarLoginAdmin';
 import '../../App.css';
 import {BrowserRouter as Route, Link} from 'react-router-dom';
 import {Navbar,Nav,Form,FormControl,Button, Container, Image} from 'react-bootstrap';
@@ -33,7 +34,7 @@ class Header extends Component{
                         <Nav.Link href="/home" className="ml-2">Trang chủ</Nav.Link>
                     </Nav>
 
-                    {this.props.isActive ? <NavbarLogin handleLogout={this.handleLogout}/> : <NavbarDefault/>}
+                    {this.props.isActive ? <NavbarLoginAdmin handleLogout={this.handleLogout}/> : <NavbarDefault/>}
         
                 </Navbar>
             </div>

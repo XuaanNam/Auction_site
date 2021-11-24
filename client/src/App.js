@@ -12,7 +12,7 @@ import Cart from './components/pages/Cart';
 import Profile from './components/pages/Profile';
 import Changepass from './components/pages/ChangePass';
 import Interested from './components/pages/Interested';
-
+import Admin from './components/pages/Admin';
 
 function App() {
   return (
@@ -23,12 +23,13 @@ function App() {
             <Route path='/' exact element={<HomePage/>} />
             <Route path='/register' element={<Register/>} />
             <Route path='/login' element={<Login/>} />
-            <Route path='/auction' element={<Auction/>} />
+            <Route path='/auction/:id' element={<Auction/>} />
             <Route path='/home' exact element={<Home/>} />
             <Route path='/interested' exact element={<Interested/>} />          
             <Route path='/cart' element={<Cart/>} />
             <Route path='/profile' element={<Profile/>} />
             <Route path='/changepass' element={<Changepass/>} />
+            <Route path='/admin' element={<Admin/>} />
           </Routes>
         </Router>
       </div>

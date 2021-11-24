@@ -1,7 +1,9 @@
+require('dotenv').config();
+
 module.exports = {
-    host     : 'localhost',
-    user     : 'root',
-    password : '1322',
+    host     : process.env.DB_HOST,
+    user     : process.env.DB_USER,
+    password : process.env.DB_PASS,
     database : 'auctiondata',
     clearExpired: true,
     checkExpirationInterval: 900000,

@@ -1,8 +1,16 @@
+import {Edit, DoneAll, AccountCircle, Contacts, VpnKey} from '@material-ui/icons';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Header from "../layout/Header";
 import Footer from '../layout/Footer';
 import { mobile } from '../../responsive';
+import avatar from '../images/img-login.png'
+import ProfileD from '../assets/Profile.module.css'
+//
+import background from "../images/background.jpg";
+import panther from "../images/Image.png";
+import anh from "../images/a.png";
+import { Card} from "react-bootstrap";
 // import
 import axios from "../../api/axios"; 
 import { useNavigate } from 'react-router-dom';
@@ -27,14 +35,17 @@ const Main = styled.div`
 })};
 `;
 const SideBar = styled.div`
-    border-right: 1px solid rgba(0, 0, 0, 0.3);
-    position: fixed;
-    top: 75px;
+    position: absolute;
+    border-right: 1px solid rgba(0, 0, 0, 0.91);
+    border-radius: 5px;
+    top: 0px;
     bottom: 0;
     left: 0;
-    width: 24vw;
+    width: 20vw;
     background-color: #f8f9fa;
     padding: 30px 8px 0 0;
+    flex: 1;
+    flex-direction: column;
     ${mobile({
     position: "unset",
     top: "50px",
@@ -50,19 +61,20 @@ const HeaderBar = styled.div`
     justify-content: center;
 `;
 const Avatar = styled.img`
-    width: 150px;
-    height: 150px;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    border: 3px solid rgb(53, 209, 217);
     ${mobile({
     width: "120px",
     height: "120px"
 })}
 `;
 const FullName = styled.h4`
-    padding: 12px 10px 0;
+    padding: 20px 10px 0;
     text-align: center;
-    font-size: 20px;
+    font-size: 17px;
+    font-weight: 601;
     ${mobile({
     fontSize: "18px"
 })}
@@ -123,9 +135,14 @@ const MenuItem = styled.a`
 `;
 const ProfileBar = styled.div`
     width: calc(100% - 24vw);
-    margin-left: 24vw;
+    // margin-left: 24vw;
     padding: 60px 30px;
     outline: none;
+    flex: 3;
+    position: absolute;
+top: 0;
+bottom: 0;
+right: 0;
     ${mobile({
     width: "100%",
     marginLeft: "0",
@@ -209,9 +226,10 @@ const UserInfo = styled.div`
 })}
 `;
 const InfoName = styled.div`
-    width: calc((100%/12)*5);
-    padding: 4px 0;
+    width: calc((100%/12)*3);
+    padding: 4px 20px;
     font-weight: 600;
+
     ${mobile({ width: "100%" })}
 `;
 const Info = styled.div`
@@ -271,87 +289,149 @@ const Profile = () => {
     }, []);
 
     return (
-        <Container>
-            <Header isActive={true}/>
-            <Main>
+        <div>
+        <Header isActive={true}/>
+        <background style={{ backgroundImage: `url(${background})` }} />
+            <Container>
+                {/* sidebar */}
+                <div className={`${ProfileD.bodyContainerProfile} pt-5 pl-5 pr-5 body-banner`}>   
+                
+                    {/* ICON */}
+                    <button>
+                    <Edit class={`${ProfileD.clickToEdit}`}/>
+                    </button>
                 <SideBar>
-                    <HeaderBar>
-                        <Avatar src=""></Avatar>
-                        <FullName>Họ và tên</FullName>
-                        <button className="btn btn-dark btn-custom basic" >Đổi ảnh đại diện</button>
-                    </HeaderBar>
-                    <Hr />
-                    <Menu>
-                        <MenuItems className="menu-items" >
-                            <MenuItem className="item active-menu btn-dark btn btn-custom" id="0">
-                                <a href="#" style={{ textDecoration: "none", color: "#fff", marginRight: "12px" }} > Thông tin cơ bản</a>
-                            </MenuItem>
-                            <MenuItem className="item active-menu btn btn-custom bg-white" id="0">
-                                <a href="/changepass" style={{ textDecoration: "none", color: "#333", marginRight: "12px" }} > Đổi mật khẩu</a>
-                            </MenuItem>
-                            
-                        </MenuItems>
-                    </Menu>
-                </SideBar>
-                <ProfileBar>
-                    <ProfileHeader>
-                        <Title>Thông tin cá nhân</Title>
-                        <SubTitle>Thông tin về cá nhân bạn là hoàn toàn được bảo mật!</SubTitle>
-                    </ProfileHeader>
-                    <ProfileBody>
-                        <ProfileCard className="card-item fade-card mobile-active">
-                            <CardHeader>Thông tin cơ bản</CardHeader>
-                            <CardBody>
-                                <UserInfo>
-                                    <InfoName className="basic">Tên đầy đủ</InfoName>
-                                    <Info className="basic">"Họ và tên"</Info>
-                                    {/* <InfoName className="edit-basic display-none">First Name</InfoName> */}
-                                    {/* Xử lý */}
-                                    {/* <InfoName className="edit-basic display-none">Last Name</InfoName> */}
-                                    {/* Xử lý */}
-                                </UserInfo>
-                                <UserInfo>
-                                    <InfoName>Ngày sinh</InfoName>
-                                    <Info className="basic">"Ngày sinh"</Info>
-                                    {/* Xử lý */}
-                                </UserInfo>
-                                <UserInfo>
-                                    <InfoName>Giới tính</InfoName>
-                                    <Info className="basic">"Giới tính"</Info>
-                                    {/* Xử lý */}
-                                </UserInfo>
-                            </CardBody>
-                            <CardHeader>Contact Info</CardHeader>
-                            <CardBody>
-                                <UserInfo>
-                                    <InfoName>Email</InfoName>
-                                    <Info className="contact">Email</Info>
-                                    {/* xử lý*/}
-                                </UserInfo>
-                                <UserInfo>
-                                    <InfoName>Phone</InfoName>
-                                    <Info className="contact">Số  điện thoại</Info>
-                                    {/* xỬ LÝ */}
-                                </UserInfo>
-                            </CardBody>
-                            <CardFooter>
-                              
-                            </CardFooter>
-                            <CardFooter>
-                                <EditButton
-                                    className="btn btn-dark btn-custom basic"      
-                                >Chỉnh sửa</EditButton>
-                                {/* xử lý */}
-                            </CardFooter>  
-                        </ProfileCard>
-                    </ProfileBody>
-                </ProfileBar>
-            </Main>
-            <Footer style="position: relative!important;"></Footer>
-        </Container>
+                        <HeaderBar>
+                            <Avatar src={avatar}></Avatar>
+                            <FullName>Họ và tên</FullName>
+                            <button className="btn btn-dark btn-custom basic mb-4 mt-2" >
+                                <AccountCircle className="mr-1"/>
+                                Đổi ảnh đại diện
+                            </button>
+                        </HeaderBar>
+                        <Hr />
+                        <Menu>
+                            <MenuItems className="menu-items" >
+                                <MenuItem href="#" className="item active-menu btn-dark btn btn-custom" id="0">
+                                    <a style={{ textDecoration: "none", color: "#fff", marginRight: "12px" }} >
+                                         <Contacts className="mr-2"/>
+                                         Thông tin cơ bản
+                                         </a>
+                                </MenuItem>
+                                <MenuItem href="/changepass" className="item active-menu btn btn-custom bg-white" id="0">
+                                    <a style={{ textDecoration: "none", color: "#333", marginRight: "12px" }} >
+                                         <VpnKey className="mr-2 mb-2"/>
+                                         Đổi mật khẩu
+                                         </a>
+                                </MenuItem>
+                                
+                            </MenuItems>
+                        </Menu>
+                    </SideBar>
+                    {/* profile */}
+                    <ProfileBar>
+                        <ProfileHeader>
+                            <Title>Thông tin cá nhân</Title>
+                            <SubTitle>Thông tin về cá nhân bạn là hoàn toàn được bảo mật!</SubTitle>
+                        </ProfileHeader>
+                        <ProfileBody>
+                            <ProfileCard className="card-item fade-card mobile-active">
+                                <CardHeader>Thông tin cơ bản</CardHeader>
+                                <CardBody>
+                                    <UserInfo>
+                                        <InfoName className="basic">Tên người dùng:</InfoName>
+                                        <InputText className="basic"></InputText>
+                                        {/* <InfoName className="edit-basic display-none">First Name</InfoName> */}
+                                        {/* Xử lý */}
+                                        {/* <InfoName className="edit-basic display-none">Last Name</InfoName> */}
+                                        {/* Xử lý */}
+                                    </UserInfo>
+                                    <UserInfo>
+                                        <InfoName>Họ & tên</InfoName>
+                                        <InputTextDouble className="basic"/>
+                                        <InputTextDouble className={`basic ${ProfileD.marginforDouble}`}/>
+                                        {/* Xử lý */}
+                                    </UserInfo>
+                                    <UserInfo>
+                                        <InfoName>Ngày sinh:</InfoName>
+                                        <InputText className="basic"/>
+                                        {/* Xử lý */}
+                                    </UserInfo>
+                                    <UserInfo>
+                                        <InfoName>Giới tính:</InfoName>
+                                        <InputText className="basic"/>
+                                        {/* Xử lý */}
+                                    </UserInfo>
+                                </CardBody>
+                                </ProfileCard>
+                            </ProfileBody>
+                            <ProfileBody className="pt-3">
+                                <ProfileCard>
+                                <CardHeader>Thông tin liên lạc</CardHeader>
+                                <CardBody>
+                                    <UserInfo>
+                                        <InfoName>Email:</InfoName>
+                                        <InputText className="contact"/>
+                                        {/* xử lý*/}
+                                    </UserInfo>
+                                    <UserInfo>
+                                        <InfoName>Phone:</InfoName>
+                                        <InputText className="contact"></InputText>
+                                        {/* xỬ LÝ */}
+                                    </UserInfo>
+                                </CardBody>
+                                <CardFooter>
+                                
+                                </CardFooter>
+                                <CardFooter>
+                                    <EditButton
+                                        className="btn btn-dark btn-custom basic"      
+                                    >
+                                        <DoneAll className="mr-1"/>
+                                        Chỉnh sửa
+                                        </EditButton>
+                                    {/* xử lý */}
+                                </CardFooter>  
+                            </ProfileCard>
+                        </ProfileBody>
+                    </ProfileBar>
+                    </div>
+                
+      </Container>
+    <Footer style="position: relative!important;"></Footer>
+    </div>
     )
 };
 
+const Slogan = styled.div`
+  position: relative;
+  color: #fff;
+  padding-bottom: 40vh;
+  font-size: 2rem;
+  padding-left: 5rem;
+  width: 100%;
+  height: 50px;
+  z-index: 1;
+`;
+
+const InputText = styled.input`
+    width: calc((100%/12)*9);
+    padding: 8px 0;
+    word-wrap: break-word;
+    background-color: rgb(238 206 214);
+    border: 1px solid rgb(238 206 214);
+    border-radius: 5px;
+`;
+
+const InputTextDouble = styled.input`
+    width: calc((100%/12)*4);
+    padding: 8px 0;
+    word-wrap: break-word;
+    background-color: rgb(238 206 214);
+    border: 1px solid rgb(238 206 214);
+    border-radius: 5px;
+`;
 
 
-export default Profile
+export default Profile;
+                

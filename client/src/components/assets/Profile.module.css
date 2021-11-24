@@ -1,0 +1,23 @@
+.bodyContainerProfile {
+    position: relative;
+    text-align: left;
+    width: 80%;
+    height: 50vw;
+    margin: 20vh auto 5vh;
+    display: inline-flex;
+}
+
+.marginforDouble {
+    margin-left: 4.5rem !important;
+}
+
+.clickToEdit {
+    position: absolute;
+    width: 40px;
+    top: 5%;
+    right: 5%;
+    border: 1px solid #17a2b8;
+    border-radius: 50%;
+    z-index: 1;
+    background: #17a2b8;
+}

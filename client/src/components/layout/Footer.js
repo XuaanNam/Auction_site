@@ -9,21 +9,21 @@ function Footer() {
       <div className='footer-links'>
         <div className='footer-link-wrapper'>
           <div className='footer-link-items'>
-            <h2>Thông tin</h2>
+            <h3>Thông tin</h3>
             <Link to='/'>Về chúng tôi</Link>
             <Link to='/'>Chính sách bảo mật</Link>
             <Link to='/'>Thông tin công ty</Link>
             <Link to='/'>Điều khoản sử dụng</Link>
           </div>
           <div className='footer-link-items'>
-            <h2>Phương tiện</h2>
+            <h3>Phương tiện</h3>
             <Link to='/'>Instagram</Link>
             <Link to='/'>Facebook</Link>
             <Link to='/'>Youtube</Link>
             <Link to='/'>Twitter</Link>
           </div>
           <div className='footer-link-items'>
-            <h2>Liên hệ</h2>
+            <h3>Liên hệ</h3>
             <Link to='/'>Liên hệ</Link>
             <Link to='/'>Trợ giúp</Link>
           </div>
