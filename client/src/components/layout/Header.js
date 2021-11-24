@@ -6,7 +6,6 @@ import {Navbar,Nav} from 'react-bootstrap';
 import logo from '../images/Logo.png'
 import Cookies from "universal-cookie";
 
-
 class Header extends Component{
 
     handleLogout = (e) => {

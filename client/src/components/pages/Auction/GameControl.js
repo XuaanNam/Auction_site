@@ -8,6 +8,7 @@ import clock from "../../images/clock.png";
 
 
 class HistoryTable extends Component {
+    
     render() {
         return (
             <div
@@ -33,10 +34,11 @@ class HistoryTable extends Component {
                     {/* current time & the current winner */}
                     <div className="d-flex pt-4">
                         <span>
-                            <strong> Thời gian: 
+                            <strong> Thời gian:{" "}
                                 <Card.Img style={{maxWidth:20, marginBottom: 3}} src={clock}/>
+                                {" "}
                                 {this.props.currentTime}
-                            </strong>{" "}
+                            </strong>
                         </span>
                         <span className={AuctionD.auctionWinCurrent}>
                             <strong>Người thắng hiện tại: </strong>
@@ -49,43 +51,66 @@ class HistoryTable extends Component {
                         <div>
                             <b className={AuctionD.priceCurrent}>Giá cao nhất hiện tại:</b>{" "}
                             <br />
-                            <b className={AuctionD.priceShow}  ><span id="highest-price">{this.props.highestPrice}</span> VNĐ</b>
+                            <b className={AuctionD.priceShow}>{this.props.highestPrice} VNĐ</b>
                         </div>
 
                         {/*price Step */}
                         <div className={AuctionD.jumpPriceInfo}>
                             <b className={AuctionD.priceJump}>Bước giá:</b><br />
-                            <b className={AuctionD.priceJumpShow}><span id = "price-step">{this.props.priceStep}</span> VNĐ</b>
+                            <b className={AuctionD.priceJumpShow}>{this.props.priceStep} VNĐ</b>
                         </div>
                     </div>
-                    <div className="d-flex pt-5">
+                    {this.props.isPrepare ? 
                         <div>
+                            <strong className={AuctionD.priceJumpShow}>Vui lòng đợi đến giờ cuộc đấu giá bắt đầu</strong>
+                        </div>
+                        : <div></div>
+                    }
+                    { this.props.isStart ? 
+                        <div className="d-flex pt-5">
+                            <div>
+                                <Button
+                                    onClick={this.props.handleDecrement}
+                                    variant="info"
+                                    style={{ minWidth: "3vw" }}
+                                >
+                                    <b>-</b>
+                                </Button>
+                                <span className="ml-3 mr-3">
+                                    <b className={AuctionD.priceTurn}>{this.props.currentPrice}VNĐ</b>
+                                </span>
+                                <Button
+                                    onClick={this.props.handleIncrement}
+                                    variant="info"
+                                    style={{ minWidth: "3vw" }}
+                                >
+                                    <b>+</b>
+                                </Button>
+                            </div>
                             <Button
-                                onClick={this.props.handleDecrement}
-                                variant="info"
-                                style={{ minWidth: "3vw" }}
+                                onClick={this.props.handleBet}
+                                variant={`info ${AuctionD.mglButton}`}
+                                style={{ minWidth: "12vw" }}
                             >
-                                <b>-</b>
-                            </Button>
-                            <span className="ml-3 mr-3">
-                                <b className={AuctionD.priceTurn}><span id="current-price" >{this.props.currentPrice}</span> VNĐ</b>
-                            </span>
-                            <Button
-                                onClick={this.props.handleIncrement}
-                                variant="info"
-                                style={{ minWidth: "3vw" }}
-                            >
-                                <b>+</b>
+                                <b>Đặt giá thầu</b>
                             </Button>
                         </div>
-                        <Button
-                            onClick={this.props.handleBet}
-                            variant={`info ${AuctionD.mglButton}`}
-                            style={{ minWidth: "12vw" }}
-                        >
-                            <b>Đặt giá thầu</b>
-                        </Button>
-                    </div>
+                        : <div></div>
+                    }
+                    { this.props.isEnding ? 
+                        <div>
+                            <span className={AuctionD.auctionWinCurrent}>
+                                <strong>
+                                    Chúc mừng ông/bà <span>{this.props.userWinner}</span> đã chiến thắng !!
+                                </strong>
+                                <strong>
+                                    Tổng số tiền là: <b className={AuctionD.priceShow}>{this.props.highestPrice} VNĐ</b> 
+                                </strong>
+                                                        
+                            </span>
+                        </div>
+                        : <div></div>
+                    }
                 </Card.Body>
             </div>
         );

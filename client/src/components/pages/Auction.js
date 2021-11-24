@@ -21,6 +21,9 @@ function Auction() {
     let params = useParams();
 
     const [listBetHistory, setListBetHistory] = useState([]);
+    const [isPrepare, setIsPrepare] = useState(true);
+    const [isStart, setIsStart] = useState(false);
+    const [isEnding, setIsEnding] = useState(false);
 
     const [currentPrice, setCurrentPrice] = useState("");
     const [highestPrice, setHighestPrice] = useState("");
@@ -30,7 +33,7 @@ function Auction() {
     const [position, setPosition] = useState("");
     const [bannerSize, setBannerSize] = useState("");
     const [urlImage, setUrlImage] = useState("");
-    const [currentTime, setCurrentTime] = useState("")
+    const [currentTime, setCurrentTime] = useState("");
 
     let navigate = useNavigate();
     let isAuth = 0;
@@ -85,6 +88,14 @@ function Auction() {
 
         socket.on("timer", data => {
             setCurrentTime(data);
+            if(isStart === false){
+                setIsPrepare(false);
+                setIsStart(true);
+            }
+            if(parseInt(data) === 0){      
+                setIsStart(false);
+                setIsEnding(true);
+            }
         })
     }, [socket])
 
@@ -131,7 +142,11 @@ function Auction() {
                             + new Date(Date.now()).getMinutes() + ':' 
                             + new Date(Date.now()).getSeconds() 
             }
-            await socket.volatile.emit('bet_more', auctionData);
+            await socket.emit('bet_more', auctionData);
+
+            if(parseInt(currentTime) <= 30 ){
+                await socket.emit('setHaftMinLast', {room: params.id, time: 30})
+            }
             //setListBetHistory( list =>[...list, auctionData]);
         }
     };
@@ -164,6 +179,9 @@ function Auction() {
                 <div className={`body-container pt-2 pl-5 pr-5 ${AuctionD.bodyBanner}`}>
                     
                     <GameControl
+                        isPrepare = {isPrepare}
+                        isStart = {isStart}
+                        isEnding = {isEnding}
                         urlImage = {urlImage}
                         position = {position}
                         bannerSize = {bannerSize}
@@ -173,6 +191,7 @@ function Auction() {
                         highestPrice = {highestPrice}
                         priceStep = {priceStep}
                         currentPrice = {currentPrice}
+                        handleIncrement = {handleIncrement}
                         handleDecrement = {handleDecrement}
                         handleBet = {handleBet}
                     />  
