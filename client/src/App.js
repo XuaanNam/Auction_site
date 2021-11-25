@@ -11,7 +11,9 @@ import HomePage from './components/pages/HomePage';
 import Cart from './components/pages/Cart';
 import Profile from './components/pages/Profile';
 import Interested from './components/pages/Interested';
-import Admin from './components/pages/Admin';
+import AddProduct from './components/pages/Admin/AddProduct';
+import List from './components/pages/Admin/List';
+import AddAuction from './components/pages/Admin/AddAuction';
 
 function App() {
   return (
@@ -27,7 +29,10 @@ function App() {
             <Route path='/interested' exact element={<Interested/>} />          
             <Route path='/cart' element={<Cart/>} />
             <Route path='/profile' element={<Profile/>} />
-            <Route path='/admin' element={<Admin/>} />
+            <Route path='/admin/addproduct' element={<AddProduct/>} />
+            <Route path='/admin/list' element={<List/>} />
+            <Route path='/admin/addauction' element={<AddAuction/>} />
+
           </Routes>
         </Router>
       </div>

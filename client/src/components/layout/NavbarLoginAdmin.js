@@ -4,7 +4,7 @@
   import "../../App.css";
   import { Form, Button} from "react-bootstrap";
   import HeaderD from '../assets/Header.module.css'
-  import Admin from '../pages/Admin'
+  import Admin from '../pages/Admin/AddProduct'
   class NavbarLoginAdmin extends Component {
     
     test = (e) => {
@@ -57,13 +57,13 @@
       return (
         <Form inline className="mr-5">
           <div className="containerHeader" ref={this.container}>
-            <a href="/interested">
+            <a href="/admin/list">
               <Button className={`btn-nav ${HeaderD.outLineNone}`} variant="outline-info">
                 <Assignment className="mr-2"/>
                 Danh sách
               </Button>
             </a>
-            <a href="/admin">
+            <a href="/admin/addproduct">
               <Button className={`btnnav-admin btn-nav ${HeaderD.outLineNone}`} variant="outline-info">
               <AddShoppingCart className="mr-2"/>
                 Thêm sản phẩm
