@@ -15,58 +15,65 @@ class API {
 
     // [POST] /api/register
     register(req, res, next) {
-        const insertSql =
-        "insert into taikhoan (Ho, Ten, Email, TenDN, MatKhau) value (?,?,?,?,?)";
+        const insertSql = "insert into taikhoan (Ho, Ten, Email, TenDN, MatKhau) value (?,?,?,?,?)";
         const selectSql = "select Email from taikhoan where Email = ?";
-        const messEmail =
-        "Email đã được dùng để đăng kí tài khoản. Vui lòng chọn quên mật khẩu!";
+        const messEmail = "Email đã được dùng để đăng kí tài khoản. Vui lòng chọn quên mật khẩu!";
 
         const Ho = req.body.Ho;
         const Ten = req.body.Ten;
         const Email = req.body.Email;
         const TenDN = req.body.TenDN;
         const MatKhau = req.body.MatKhau;
+        const CFMatKhau = req.body.CFMatKhau;
 
-        bcrypt.hash(MatKhau, saltRound, (err, hash) => {
-            if (err) {
-                res.status(200).send({ message: "Mật khẩu không được mã hóa" });
-            }
-            console.log('hash:', hash, Ho, Ten, TenDN, Email);
-            pool.getConnection(function (err, connection) {
-                if (err) throw err; // not connected!
-
-                // Use the connection
-                connection.query(selectSql, Email, function (error, results, fields) {
-                    if (error) {
-                        res.status(200).send({ message: "Kết nối DataBase thất bại" });
-                    } else {
-                        if (results.length > 0) {
-                        res.status(200).send({ message: messEmail });
+        if(CFMatKhau !== MatKhau){
+            res.status(200).send({ message: "Mật khẩu xác nhận không khớp!" });
+        } else {
+            bcrypt.hash(MatKhau, saltRound, (err, hash) => {
+                if (err) {
+                    res.status(200).send({ message: "Mật khẩu không được mã hóa" });
+                }
+                console.log('hash:', hash, Ho, Ten, TenDN, Email);
+                pool.getConnection(function (err, connection) {
+                    if (err) throw err; // not connected!
+    
+                    // Use the connection
+                    connection.query(selectSql, Email, function (error, results, fields) {
+                        if (error) {
+                            res.status(200).send({ message: "Kết nối DataBase thất bại" });
                         } else {
-                        connection.query(
-                            insertSql,
-                            [Ho, Ten, Email, TenDN, hash],
-                            function (error, results, fields) {
-                                if (error) {
-                                    res
-                                    .status(200)
-                                    .send({ message: "Kết nối DataBase thất bại, lỗi cú pháp" });
-                                } else {
-                                    res.send(results);
+                            if (results.length > 0) {
+                                res.status(200).send({ message: messEmail });
+                            } else {
+                            connection.query(
+                                insertSql,
+                                [Ho, Ten, Email, TenDN, hash],
+                                function (error, results, fields) {
+                                    if (error) {
+                                        res
+                                        .status(200)
+                                        .send({ message: "Kết nối DataBase thất bại, lỗi cú pháp" });
+                                    } else {
+                                        res.send(results);
+                                    }
                                 }
+                            );
                             }
-                        );
+                            connection.release();
                         }
-                        connection.release();
-                    }
-                });            
+                    });            
+                });
             });
-        });
+        }
     }
 
     // [GET] /api/isAuth
     isAuth(req, res, next) {
-        res.status(200).send({ isAuth: true });
+        const PQ =  req.user[0].PhanQuyen;
+
+        res.status(200).send({ isAuth: true, PQ: PQ });
+ 
+       
     }
 
     // [POST] /api/login
@@ -92,7 +99,7 @@ class API {
                         const token = "Bearer " + encodeToken(payload);
                         res.setHeader("isAuth", token);
 
-                        res.send({ isAuth: response});
+                        res.send({ isAuth: response, TenDN: results[0].TenDN, PQ: results[0].PhanQuyen});
                     } else {
                         res
                         .status(200)

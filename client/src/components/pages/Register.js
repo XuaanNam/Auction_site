@@ -12,52 +12,19 @@ import axios from "../../api/axios";
 import { useNavigate } from 'react-router-dom';
 
 
-const Register = () => {
-    // const [firstname, setFirstname] = useState("");
-    // const [lastname, setLastname] = useState("");
-    // const [email, setEmail] = useState("");
-    // const [username, setUsername] = useState("");
-    // const [password, setPassword] = useState("");
-
-    // const dispatch = useDispatch();
-    // const { isFetching, error } = useSelector(state => state.user);
-
-    // useEffect(() => {
-    //     dispatch(refresh());
-    // }, [dispatch]);
-
-    // const handleRegister = (e) => {
-    //     e.preventDefault();
-    //     const btnSignUp = document.getElementById("btnSignUp");
-    //     btnSignUp.disabled = isFetching;
-    //     register(dispatch, { firstname, lastname, username, email, password });
-    // }
+function Register() {
 
     const [Ho, setHo] = useState("");
     const [Ten, setTen] = useState("");
     const [Email, setEmail] = useState("");
     const [TenDN, setTenDN] = useState("");
     const [MatKhau, setMatKhau] = useState("");
+    const [CFMatKhau, setCFMatKhau] = useState("");
     const [loginStatus, setLoginStatus] = useState("");
+    const [validated, setValidated] = useState(false);
 
     let navigate = useNavigate();
     
-    const handleRegister = (event) => {
-        event.preventDefault();
-        axios.post("register", {
-            Ho, Ten, Email, TenDN, MatKhau
-        })
-            .then((Response) =>{
-                if(Response.data.message) {
-                    setLoginStatus(Response.data.message );                       
-                } else {
-                    navigate('/login'); 
-                }                   
-            })
-            .catch(() => {
-                setLoginStatus("Đã có một lỗi bất thường xảy ra, vui lòng đăng kí lại!")
-            }) 
-    };
     useEffect(()=>{
         axios.get("isAuth")
             .then((Response) => {
@@ -69,17 +36,30 @@ const Register = () => {
         .catch(error => console.error(error));
     }, [navigate]);
     
-    const [validated, setValidated] = useState(false);
 
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    setValidated(true);
-  };
+    const handleSubmit = (event) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            event.preventDefault();
+            axios.post("register", {
+                Ho, Ten, Email, TenDN, MatKhau, CFMatKhau
+            })
+                .then((Response) =>{
+                    if(Response.data.message) {
+                        setLoginStatus(Response.data.message );                       
+                    } else {
+                        navigate('/login'); 
+                    }                   
+                })
+                .catch(() => {
+                    setLoginStatus("Đã có một lỗi bất thường xảy ra, vui lòng đăng kí lại!")
+                })
+        }
+        setValidated(true);
+    };
     return (
         
         <div>
@@ -169,16 +149,20 @@ const Register = () => {
                             className="box-inout"
                             type="password"
                             placeholder="Nhập lại mật khẩu"
+                            onChange={(e) => {
+                                setCFMatKhau(e.target.value);
+                            }}
                         />
                         <Form.Control.Feedback type="invalid"> Vui lòng xác nhận mật khẩu </Form.Control.Feedback>
                     </Form.Group>
                     {/* checkbox */}
-                    <Form.Group className="input-inout d-flex mb-3 form-custom" id="formGridCheckbox">
-                        <Form.Check type="checkbox" label="Tôi đồng ý với các điều khoản và đăng ký!" required />
+                    <Form.Group className="input-inout d-flex form-custom" id="formGridCheckbox">
+                        <Form.Check type="checkbox" id="checkBoxAgree"  label ="Tôi đồng ý với các điều khoản và đăng ký!" 
+                            style={{userSelect : "none"}} required />
                     </Form.Group>
 
                     <span className="status-inout">{loginStatus}</span>
-                    <div className=" pb-4">
+                    <div className="mt-5 pb-4">
                         <Button
                         type="summit"
                         className="button-inout"
@@ -186,7 +170,6 @@ const Register = () => {
                         size="lg"
                         style={{width: '13vw', height: '7vh'}}
                         id="btnLogin"
-                        // onClick={handleRegister}
                         >
                         Đăng ký
                         </Button>
@@ -194,16 +177,10 @@ const Register = () => {
                 </Form>
                 </div>
             </div>
-        <Footer></Footer>
-    </div>
+            <Footer/>
+        </div>
     )
 }
-
-const ButtonRegister = styled.div`
-    // width: 100%;
-    padding: 10px 0px 30px 0px;
-`;
-
 
 export default Register;
 

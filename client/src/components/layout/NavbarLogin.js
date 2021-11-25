@@ -53,11 +53,9 @@ class NavbarLogin extends Component {
       });
     }
   };
-  
-  
 
   render() {
-
+    
     return (
       <Form inline className="mr-5">
         <div className="containerHeader" ref={this.container}>

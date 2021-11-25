@@ -35,7 +35,7 @@ function Home() {
       .catch((error) => {
         console.log(error);
       })
-      .then(function () {
+      .then( () => {
         if (isAuth !== 1) {
           navigate("/");
         }
