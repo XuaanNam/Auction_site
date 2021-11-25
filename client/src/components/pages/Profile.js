@@ -50,10 +50,12 @@ const Profile = () => {
     const handleSwitchTab = () => {
         setChangePass( changePass ? false : true);
     }
+
     const chooseAvt = () => {
         const avt = document.getElementById('avt');
         avt.click();
     }
+
     const submitAvt = () => {
         const avt = document.getElementById('avt');
 
@@ -79,7 +81,7 @@ const Profile = () => {
                             <HeaderBar>
                                 <Avatar src={avatar}></Avatar>
                                 <FullName>{username}</FullName>
-                                <form id='form-avt' style={{display: 'none'}} hiden action="/stored/avatar" method="post" enctype="multipart/form-data">
+                                <form id='form-avt' style={{display: 'none'}}  action="/stored/avatar" method="post" enctype="multipart/form-data">
                                     <input type="file" name="avatar" id='avt'/>
                                 </form>
                                     <button onClick={chooseAvt} className="btn btn-dark btn-custom basic mb-4 mt-2" >
@@ -109,7 +111,9 @@ const Profile = () => {
                                 <SubTitle>Thông tin về cá nhân bạn là hoàn toàn được bảo mật!</SubTitle>
                             </ProfileHeader>
                             <ProfileBody>
+
                                 {changePass ? <ChangePass/> : <Information/> }
+                                
                             </ProfileBody>
                         </ProfileBar>
 

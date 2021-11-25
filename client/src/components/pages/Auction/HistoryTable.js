@@ -17,13 +17,12 @@ class HistoryTable extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {/* .slice(1, listBetHistory.length) */}
                     {this.props.listBetHistory.map((list ) => { 
                         return (    
                             <tr>    
                                 <td>{list.id}</td>
-                                <td id="time">{list.userWinner}</td>
-                                <td id="author">{list.highestPrice}</td>
+                                <td>{list.userWinner}</td>
+                                <td>{list.highestPrice}</td>
                                 <td>{list.currentTime}</td>
                             </tr>
                         );

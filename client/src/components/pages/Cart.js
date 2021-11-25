@@ -14,7 +14,7 @@ const KEY = process.env.REACT_APP_STRIPE;
 
 
 
-const Cart = () => {
+function Cart() {
 
     let navigate = useNavigate();
     let isAuth = 0;

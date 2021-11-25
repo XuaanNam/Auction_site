@@ -5,9 +5,14 @@ import styled from 'styled-components';
 import "../../App.css";
 import { Form, Button} from "react-bootstrap";
 import HeaderD from '../assets/Header.module.css'
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
+const user = cookies.get('username') ? cookies.get('username'): "null";
 
 class NavbarLogin extends Component {
+
   
+
   test = (e) => {
     e.target.classList.toggle("activeRotate");
   }
@@ -53,8 +58,6 @@ class NavbarLogin extends Component {
 
   render() {
 
-  
-
     return (
       <Form inline className="mr-5">
         <div className="containerHeader" ref={this.container}>
@@ -74,7 +77,7 @@ class NavbarLogin extends Component {
           {/* USER _ HAS TOGGLE */}
           <Button type="headerBtnLogin" className={`headerBtnLogin btn-nav mr-1 ${HeaderD.outLineNone}`} style={{minWidth: '20vw'}} variant="outline-info" onClick={this.handleButtonClick}>
             <Person className="mr-1"/>
-            Xin chào, User <span>LUCIFER</span>
+            Xin chào, <span>{user}</span>
             {!this.state.open && (<KeyboardArrowDown className={`ml-1 ${HeaderD.nonActiveRotate}`} />)}
             
             {this.state.open && ( <KeyboardArrowUp className={`ml-1 ${HeaderD.activeRotate}`} /> )}

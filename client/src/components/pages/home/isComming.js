@@ -6,6 +6,10 @@ import styled from "styled-components";
 
 
 class isComming extends Component {
+
+    handleLiked = () => {
+        
+    }
     render() {
         return (
             <div>
@@ -41,45 +45,17 @@ class isComming extends Component {
                         {/* CHUYỂN TAB TỚI MỤC QUAN TÂM */}
                         <a href="/interested">
                             <BtnInterest>
-                            <img
-                                className="logo-interest pl-2"
-                                alt=""
-                                src={heart}
-                                rounded
-                            />
+                                <img
+                                    className="logo-interest pl-2"
+                                    alt=""
+                                    src={heart}
+                                    rounded
+                                    onClick={this.handleLiked}
+                                />
                             </BtnInterest>
                         </a>
                         </Card>
-                    </Col>
-                    <Col xs sm="1"></Col>
-                    <Col xs sm="5" mr-2>
-                        <Card>
-                            <a className="auction-link" href="/home">
-                                <Card.Img variant="top" className="src" src={anh2} />
-                                <Card.Body>
-                                <Card.Title>
-                                    Vị trí: <strong>Tên banner 2 </strong>
-                                    <span className="ml-5">Thời gian:</span>
-                                </Card.Title>
-                                <div className="d-flex pt-1">
-                                    <span>Kích thước:</span>
-                                    <span className="ml-10">Bước giá:</span>
-                                </div>
-                                </Card.Body>
-                            </a>
-                            {/* CHUYỂN TAB TỚI MỤC QUAN TÂM */}
-                            <a href="/interested">
-                                <BtnInterest>
-                                <img
-                                    alt=""
-                                    className="logo-interest pl-2"
-                                    src={heart}
-                                    rounded
-                                />
-                                </BtnInterest>
-                            </a>
-                        </Card>
-                    </Col>
+                    </Col>               
                 </Row>
             </div>
             </div>
