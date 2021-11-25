@@ -3,11 +3,8 @@ import NavbarDefault from './NavbarDefault';
 import NavbarLogin from './NavbarLogin';
 import NavbarLoginAdmin from './NavbarLoginAdmin';
 import '../../App.css';
-import {BrowserRouter as Route, Link} from 'react-router-dom';
-import {Navbar,Nav,Form,FormControl,Button, Container, Image} from 'react-bootstrap';
+import {Navbar,Nav} from 'react-bootstrap';
 import logo from '../images/Logo.png'
-import {useEffect} from "react";
-import axios from "../../api/axios"; 
 import Cookies from "universal-cookie";
 
 

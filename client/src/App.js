@@ -10,7 +10,6 @@ import Auction from './components/pages/Auction';
 import HomePage from './components/pages/HomePage';
 import Cart from './components/pages/Cart';
 import Profile from './components/pages/Profile';
-import Changepass from './components/pages/ChangePass';
 import Interested from './components/pages/Interested';
 import Admin from './components/pages/Admin';
 
@@ -28,7 +27,6 @@ function App() {
             <Route path='/interested' exact element={<Interested/>} />          
             <Route path='/cart' element={<Cart/>} />
             <Route path='/profile' element={<Profile/>} />
-            <Route path='/changepass' element={<Changepass/>} />
             <Route path='/admin' element={<Admin/>} />
           </Routes>
         </Router>

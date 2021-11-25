@@ -1,5 +1,5 @@
 import {Gavel, KeyboardArrowDown, ShoppingCartOutlined,
-  AccountBalanceWallet, AddShoppingCart, Person, VerifiedUser, ExitToApp } from '@material-ui/icons';
+  AccountBalanceWallet, AddShoppingCart, Person, VerifiedUser, ExitToApp, KeyboardArrowUp } from '@material-ui/icons';
 import React, { Component} from "react";
 import styled from 'styled-components';
 import "../../App.css";
@@ -75,9 +75,9 @@ class NavbarLogin extends Component {
           <Button type="headerBtnLogin" className={`headerBtnLogin btn-nav mr-1 ${HeaderD.outLineNone}`} style={{minWidth: '20vw'}} variant="outline-info" onClick={this.handleButtonClick}>
             <Person className="mr-1"/>
             Xin chào, User <span>LUCIFER</span>
-            {!this.state.open && (<KeyboardArrowDown className={`ml-1`} />)}
+            {!this.state.open && (<KeyboardArrowDown className={`ml-1 ${HeaderD.nonActiveRotate}`} />)}
             
-            {this.state.open && ( <KeyboardArrowDown className={`ml-1 ${HeaderD.activeRotate}`} /> )}
+            {this.state.open && ( <KeyboardArrowUp className={`ml-1 ${HeaderD.activeRotate}`} /> )}
           </Button>
           {/* Toggle */}
           {this.state.open && (
