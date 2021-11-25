@@ -1,18 +1,24 @@
-import {React, useState} from 'react';
-import '../../App.css';
-import {Card,Row,Col,Button, Table } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import "../../App.css";
 import Header from "../layout/Header";
-import Footer from '../layout/Footer';
-import AuctionD from '../assets/AuctionDetail.module.css';
-//Ảnh
-import background from '../images/background.jpg';
-import banner1 from '../images/img-1.png'
-import { useEffect} from "react";
-import axios from "../../api/axios"; 
-import { useNavigate } from 'react-router-dom';
-import GameControl from './Auction/GameControl'
-import HistoryTable from './Auction/HistoryTable'
+import Footer from "../layout/Footer";
+import AuctionD from "../assets/AuctionDetail.module.css";
+import GameControl from './Auction/GameControl';
+import HistoryTable from './Auction/HistoryTable';
+//áº¢nh
+import background from "../images/background.jpg";
+//backend
+import axios from "../../api/axios";
+import { useNavigate, useParams } from "react-router-dom";
+import io from "socket.io-client";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
+const socket = io.connect("http://localhost:4000");
+const username = cookies.get('username') ? cookies.get('username'): null;
+
 function Auction() {
+    let params = useParams();
 
     const [listBetHistory, setListBetHistory] = useState([]);
     const [isPrepare, setIsPrepare] = useState(true);
@@ -195,8 +201,10 @@ function Auction() {
 
                 </div>
             </div>
-            <Footer/>
+
+            <Footer />
         </div>
-    )
+    );
 }
+
 export default Auction;
