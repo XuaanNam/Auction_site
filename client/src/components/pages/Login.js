@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Form, Button } from "react-bootstrap";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import "../../App.css";
@@ -71,16 +71,6 @@ const Login = () => {
             maxAge: 1000 * 60 * 60 * 72,
             //httpOnly: ,
           });
-          cookies.set("userid", Response.data.idTK, {
-            path: "/",
-            maxAge: 1000 * 60 * 60 * 72,
-            //httpOnly: ,
-          });
-          cookies.set("username", Response.data.TenDN, {
-            path: "/",
-            maxAge: 1000 * 60 * 60 * 72,
-            //httpOnly: ,
-          });
           window.location.reload(false);
         } else if (Response.data.message) {
           setLoginStatus(Response.data.message);
@@ -90,21 +80,22 @@ const Login = () => {
         setLoginStatus("Đăng nhập thất bại");
       }, []);
   };
-  useEffect(()=>{
-    axios.get("isAuth")
-        .then((Response) => {
-        if(Response.data.isAuth) {
-            navigate('/home');
+  useEffect(() => {
+    axios
+      .get("isAuth")
+      .then((Response) => {
+        if (Response.data.isAuth) {
+          navigate("/home");
         }
-    })
-    .catch(error => console.error(error));
+      })
+      .catch((error) => console.error(error));
   }, []);
 
   return (
     <div>
       {/* <Logo src={logo}/> */}
       {/* <Navbar></Navbar> */}
-      <Header/>
+      <Header />
       <Main className="container">
         <Title>ĐĂNG NHẬP</Title>
         <Form action="#" style={{ minWidth: "40%", marginBottom: "90px" }}>
@@ -129,11 +120,12 @@ const Login = () => {
             />
           </Form.Group>
           <Error>{loginStatus}</Error>
-          <br/>
-          <span>Bạn chưa có tài khoản?   
+          <br />
+          <span>
+            Bạn chưa có tài khoản?
             <Link to="/register">
               <span> </span>
-                 Đăng ký
+              Đăng ký
             </Link>
           </span>
           <SubmitLogin>
@@ -158,6 +150,6 @@ const Login = () => {
 const SubmitLogin = styled.div`
   // width: 100%;
   padding: 20px 0px;
-`
+`;
 
 export default Login;
