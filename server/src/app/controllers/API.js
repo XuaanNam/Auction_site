@@ -182,7 +182,7 @@ class API {
         const updateSql = "update taikhoan set Avt = ? where idTK = ?";
                 
         const idTK =  req.user[0].idTK; 
-        const   Avt = req.file.path;
+        const Avt = req.file.path;
 
         pool.query(updateSql, [Avt, idTK], function (err, results, fields) {
             if (error) {
@@ -205,7 +205,7 @@ class API {
         const HinhAnh = req.file.path
               idSP = req.body.idSP;
 
-        if(PQ === false){
+        if(PQ === 0){
             res.send({message: "Bạn chưa được cấp quyền admin để thêm ảnh cho SP này!"})
         } else {
             pool.query(updateSql, [HinhAnh, idSP], function (err, results, fields) {
@@ -232,7 +232,7 @@ class API {
                 Gia = req.body.Gia, 
                 MoTa = req.body.MoTa
 
-        if(PQ === false){
+        if(PQ === 0){
             res.send({message: "Bạn chưa được cấp quyền admin để lưu trữ SP này!"})
         } else {
             pool.query(insertSql, [Website, ViTri, Gia, MoTa], function (err, results, fields) {
@@ -260,7 +260,7 @@ class API {
                 MoTa = req.body.MoTa,
                 idSP = req.body.idSP
 
-        if(PQ === false){
+        if(PQ === 0){
             res.send({message: "Bạn chưa được cấp quyền admin để chỉnh sửa nội dung SP này!"})
         } else {
             pool.query(updateSql, [Website, ViTri, Gia, MoTa, idSP], function (err, results, fields) {
@@ -284,7 +284,7 @@ class API {
         const PQ =  req.user[0].PhanQuyen; 
         const   idSP = req.body.idSP;
 
-        if(PQ === false){
+        if(PQ === 0){
             res.send({message: "Bạn chưa được cấp quyền admin để xóa SP này!"})
         } else {
             pool.query(deleteSql, idSP, function (err, results, fields) {
@@ -313,7 +313,7 @@ class API {
                 TrangThai = req.body.TrangThai, 
                 BuocGia = req.body.BuocGia
 
-        if(PQ === false){
+        if(PQ === 0){
             res.send({message: "Bạn chưa được cấp quyền admin để thêm game ĐG này!"})
         } else {
             pool.query(insertSql, [idSP, TgBatDau, TgDauGia, GiaKhoiDiem, TrangThai, BuocGia], function (err, results, fields) {
@@ -343,7 +343,7 @@ class API {
                 BuocGia = req.body.BuocGia,
                 idDG = req.body.idDG;
 
-        if(PQ === false){
+        if(PQ === 0){
             res.send({message: "Bạn chưa được cấp quyền admin để chỉnh sửa game ĐG này!"})
         } else {
             pool.query(updateSql, [idSP, TgBatDau, TgDauGia, GiaKhoiDiem, TrangThai, BuocGia, idDG], function (err, results, fields) {
@@ -367,7 +367,7 @@ class API {
         const PQ =  req.user[0].PhanQuyen; 
         const idDG = req.body.idDG
 
-        if(PQ === false){
+        if(PQ === 0){
             res.send({message: "Bạn chưa được cấp quyền admin để xóa game ĐG này!"})
         } else {
             pool.query(deleteSql, idDG, function (err, results, fields) {
@@ -414,7 +414,7 @@ class API {
     // [POST] /api/admin/auction/settimer
     setTimer(req, res, next) { 
         const PQ =  req.user[0].PhanQuyen;
-        if(PQ === false){
+        if(PQ === 0){
             res.send({message: "Bạn chưa được cấp quyền admin để sắp dặt thời gian đấu giá!"})
         } else {
             const idDG = req.body.idDG;

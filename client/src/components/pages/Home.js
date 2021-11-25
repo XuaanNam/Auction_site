@@ -8,15 +8,16 @@ import "../../App.css";
 //VIDEO - ANH
 import background from "../images/background.jpg";
 import panther from "../images/Image.png";
-import anh from "../images/a.png";
 
 
 //
 import { useState, useEffect } from "react";
 import axios from "../../api/axios";
 import { useNavigate } from "react-router-dom";
-import  IsHappening from './home/isHappenning'
-import  IsComming from './home/isComming'
+import  IsHappening from './home/isHappening'
+import  IsComing from './home/isComing'
+import TabComing from "./home/tabComing";
+import TabHappening from "./home/tabHappening"
 // import Body from '../body';
 
 function Home() {
@@ -50,42 +51,27 @@ function Home() {
     <div>
       <Header isActive={true} />
       <background style={{ backgroundImage: `url(${background})` }} />
-      <Container>
-        <Slogan>
+      <div className = "home-container">
+        <div className= "home-sologan">
           Slogan cho trang đấu giá
           <span className="panner">
             <Card.Img src={panther}></Card.Img>
           </span>
-        </Slogan>
-        <div src={anh} className="body-container pt-5 pl-5 pr-5 body-banner">   
-          {happening? <IsHappening onSwitch={handleSwitchTab}/> : <IsComming onSwitch={handleSwitchTab}/>}
         </div>
-      </Container>
+        <div className="body-container pt-5 pl-5 pr-5 body-banner">   
+                 {/* TABS SẮP ĐƯỢC ĐẤU GIÁ*/}
+                 
+          {happening? 
+            <TabComing handleSwitchTab = {handleSwitchTab}/>
+          : 
+            <TabHappening handleSwitchTab = {handleSwitchTab}/>
+          }
+          {happening? <IsHappening /> : <IsComing />}
+        </div>
+      </div>
       <Footer />
     </div>
   );
 }
-
-// CSS
-const Container = styled.div`
-  width: 100%;
-  padding-top: 200px;
-  //   padding-bottom: 200px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-`;
-const Slogan = styled.div`
-  position: relative;
-  color: #fff;
-  padding-bottom: 40vh;
-  font-size: 2rem;
-  padding-left: 5rem;
-  width: 100%;
-  height: 50px;
-  z-index: 1;
-`;
-
 
 export default Home;
