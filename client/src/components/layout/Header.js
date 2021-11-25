@@ -1,6 +1,7 @@
 import React ,{Component} from 'react';
-import NavbarLogin from './NavbarLogin';
 import NavbarDefault from './NavbarDefault';
+import NavbarLogin from './NavbarLogin';
+import NavbarLoginAdmin from './NavbarLoginAdmin';
 import '../../App.css';
 import {Navbar,Nav} from 'react-bootstrap';
 import logo from '../images/Logo.png'
@@ -29,7 +30,7 @@ class Header extends Component{
                         <Nav.Link href="/home" className="ml-2">Trang chủ</Nav.Link>
                     </Nav>
 
-                    {this.props.isActive ? <NavbarLogin handleLogout={this.handleLogout}/> : <NavbarDefault/>}
+                    {this.props.isActive ? <NavbarLoginAdmin handleLogout={this.handleLogout}/> : <NavbarDefault/>}
         
                 </Navbar>
             </div>

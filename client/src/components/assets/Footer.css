@@ -54,7 +54,9 @@
 .footer-link-wrapper {
   display: flex;
 }
-
+h3{
+  color: #fff;
+}
 .footer-link-items {
   display: flex;
   flex-direction: column;
@@ -63,6 +65,7 @@
   text-align: left;
   width: 200px;
   box-sizing: border-box;
+  font-size: 18px;
 }
 
 .footer-link-items h2 {

@@ -97,14 +97,6 @@ class NavbarLogin extends Component {
                 <li>
                   <a href="/#">
                     <Button className={`btn-nav mr-2 ${HeaderD.outLineNone}`} variant="outline-info">
-                      <AccountBalanceWallet className="mr-2"/>
-                      Ví của tôi
-                    </Button>
-                  </a>
-                </li>
-                <li>
-                  <a href="/#">
-                    <Button className={`btn-nav mr-2 ${HeaderD.outLineNone}`} variant="outline-info">
                       <AddShoppingCart className="mr-2"/>
                       Đơn hàng
                     </Button>

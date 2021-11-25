@@ -39,7 +39,7 @@
   font-size: 24px;
 }
 .btn-nav{
-  width: 10vw;
+  width: 11vw;
 }
 .logo-header{
   width: 60px;
@@ -91,4 +91,117 @@
 }
 .descript{
   margin: 3vh 5vw 15vh;
+}
+/* Login */
+
+.cont-inout{
+  padding-top: 20vh;
+  height: auto;
+  width: 70vw!important;
+  padding-bottom: 10vh;
+  z-index: 1;
+  position: relative;
+}
+.subcont-inout{
+  border: solid 2px;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  box-sizing:border-box;
+}
+.title-inout{
+  margin-top: 7vh;
+  text-align: center;
+}
+.img-inout{
+  object-fit: cover; 
+  width: 100%;
+  height: 100%;
+  position: fixed!important;
+  z-index: 0!important;
+}
+.input-inout{
+  margin-right: 20%;
+  margin-left: 20%;
+}
+.box-inout{
+  width: 100%!important;
+  height: 7vh!important;
+  background-color: #fff0!important;
+  border: solid 1.5px!important;
+}
+.minibox-inout{
+  margin-left: 8vw!important;
+}
+.status-inout{
+  color: red !important;;
+  margin-left: 13.5vw;
+}
+.button-inout{
+  margin-right: 40%;
+  margin-left: 40%;
+}
+.mess-inout{
+  padding-top: 4vh!important;
+  text-align: center;
+}
+.link-inout{
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+.link-inout:hover{
+  color: #000;
+}
+/* Admin */
+.cont-admin{
+  padding-top: 18vh;
+  height: auto;
+  width: 60vw;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 15vh;
+  z-index: 1;
+  position: relative;
+}
+.subcont-admin{
+  margin-left: auto;
+  margin-right: auto; 
+  border: solid 2px;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  box-sizing:border-box;
+}
+.title-admin{
+  margin-top: 4vh;
+  text-align: center;
+  color: #17A2B8;
+}
+.group-admin{
+  margin-left: 8vw!important;
+  margin-bottom:2vh;
+  width: 80vw;
+
+}
+.label-admin{
+  width:9vw!important;
+}
+.input-admin{
+  width: 50%!important;
+  border-radius: 5px!important;
+}
+.btn-admin{
+  width: 10vw;
+  margin: 2vh 0 5vh 18vw;
+  background-color: #1e6275!important;
+}
+.btn-admin:hover{
+  background-color:#17A2B8!important;
+}
+.img-admin{
+  margin-left: 1.2vw;
+}
+.btnnav-admin{
+  width: 25vh!important;
 }

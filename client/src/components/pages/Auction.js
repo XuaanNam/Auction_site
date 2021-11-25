@@ -5,7 +5,7 @@ import Footer from "../layout/Footer";
 import AuctionD from "../assets/AuctionDetail.module.css";
 import GameControl from './Auction/GameControl';
 import HistoryTable from './Auction/HistoryTable';
-//Ảnh
+//áº¢nh
 import background from "../images/background.jpg";
 //backend
 import axios from "../../api/axios";

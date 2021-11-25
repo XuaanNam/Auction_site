@@ -67,7 +67,7 @@ function Cart() {
                                     <Product>
                                         {/* Ảnh Banner */}
                                         <ProductDetail>
-                                            <Image src={banner1} />
+                                            {/* <Image src={} /> */}
                                             <span></span> 
                                         </ProductDetail>
                                     </Product>

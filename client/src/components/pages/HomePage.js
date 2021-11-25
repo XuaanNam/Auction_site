@@ -30,7 +30,7 @@ export default function HomePage() {
 
     
     return (
-        <div>
+    <div>
     <Header/>
     <background style={{ backgroundImage: `url(${background})` }}/>
         <Container>
