@@ -48,14 +48,21 @@ const Profile = () => {
         setChangePass( changePass ? false : true);
     }
 
-    const chooseAvt = () => {
+    const chooseAvt = async() => {
         const avt = document.getElementById('avt');
         avt.click();
-    
+        var formData = new FormData();
+        formData.append("avatar", avt.files[0]);
         if(avt.files.length === 0 ){
             return
         } else {
-            document.getElementById('form-avt').submit();
+            await axios.post('/stored/avatar', formData, {
+                headers: {'Content-Type': 'multipart/form-data'}
+            })
+                .then((Response) => {
+                    alert(Response.data.message);
+                })
+                .catch((err) => {})   
         }
     }
     return (
@@ -74,9 +81,9 @@ const Profile = () => {
                             <div className="profile-HeaderBar">
                                 <img className="profile-Avatar" src={avatar} alt="avatar"/>
                                 <h4 className="profile-FullName">{username}</h4>
-                                <form id='form-avt' style={{display: 'none'}}  action="/stored/avatar" method="post" enctype="multipart/form-data">
-                                    <input type="file" name="avatar" id='avt'/>
-                                </form>
+                                
+                                    <input type="file" style={{display: 'none'}} name="avatar" id='avt'/>
+                               
                                     <button onClick={chooseAvt} className="btn btn-dark btn-custom basic mb-4 mt-2" >
                                         <AccountCircle className="mr-1"/> 
                                         Đổi ảnh đại diện

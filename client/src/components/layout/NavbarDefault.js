@@ -7,7 +7,7 @@ import HeaderD from '../assets/Header.module.css'
 class NavbarDefault extends Component {
     render() {
         return (
-            <Form inline className="mr-5">
+            <Form className="mr-5">
                 <a href="/login">
                     <Button className={`btn-nav mr-2 ${HeaderD.outLineNone}`} variant="outline-info">
                        <MeetingRoom className="mr-2 mb-1"/>

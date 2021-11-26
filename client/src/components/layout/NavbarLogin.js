@@ -11,15 +11,13 @@ const user = cookies.get('username') ? cookies.get('username'): "null";
 
 class NavbarLogin extends Component {
 
-  
+  state = {
+    open: false,
+  };
 
   test = (e) => {
     e.target.classList.toggle("activeRotate");
   }
-
-  state = {
-    open: false,
-  };
   handleButtonClick = (e) => {
     e.preventDefault();
     this.setState((state) => {
@@ -31,9 +29,6 @@ class NavbarLogin extends Component {
 
   // click ra ngoài
   container = React.createRef();
-  state = {
-    open: false,
-  };
   // 
   componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);

@@ -1,12 +1,31 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import '../../../App.css'
 import Header from "../../layout/Header";
 import Footer from '../../layout/Footer';
 import {Form, Row, Col, Button} from 'react-bootstrap'
+import axios from "../../../api/axios";
+import { useNavigate} from "react-router-dom";
 function AddProduct() {
+    let navigate = useNavigate();
+    let isAuth = 0;
+    useEffect(()=>{
+        axios.get("isAuth",)
+            .then((Response) => {
+            if(Response.data.PQ === 1){
+                isAuth = 1;
+            }
+            })
+            .catch(error => { console.log(error);})
+            .then(function () {
+            if(isAuth !== 1){
+                navigate('/')
+            }       
+            });
+    }, []);
+
     return (
         <div>
-            <Header isActive={true}/>
+            <Header isAdmin={true}/>
             <div className="cont-admin">
                 <div className="subcont-admin">
                     <h3 className="title-admin">Thêm sản phẩm mới</h3> <br/>

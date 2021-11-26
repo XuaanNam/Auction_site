@@ -189,9 +189,9 @@ class API {
                 res.status(200).send({  message: "Kết nối DataBase thất bại"  });
             } else { 
                 if(results){
-                    res.send({check: "Cập nhật ảnh đại diện thành công"});
+                    res.send({message: "Cập nhật ảnh đại diện thành công"});
                 } else { 
-                    res.send({check: "Cập nhật ảnh đại diện thất bại, lỗi cú pháp!"});
+                    res.send({message: "Cập nhật ảnh đại diện thất bại, lỗi cú pháp!"});
                 }
             }
         })

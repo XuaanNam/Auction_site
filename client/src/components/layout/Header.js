@@ -13,7 +13,6 @@ class Header extends Component{
         e.preventDefault(e);
         const cookies = new Cookies();
         cookies.remove("userAuth");
-        cookies.remove("userid");
         cookies.remove("username");
         window.location.reload(false);
     }
@@ -23,14 +22,25 @@ class Header extends Component{
             <div>
                 <Navbar className="header" style={{position: "fixed", top: "0", left: "0", right: "0", zIndex: "2"}} bg="dark" variant="dark">
                     
-                    <Nav className="mr-auto">
-                        <a href="/home">
-                            <img className="logo-header ml-5" src={logo}  rounded />
-                        </a>
-                        <Nav.Link href="/home" className="ml-2">Trang chủ</Nav.Link>
-                    </Nav>
 
-                    {this.props.isActive ? <NavbarLoginAdmin handleLogout={this.handleLogout}/> : <NavbarDefault/>}
+                    {this.props.isAdmin? 
+                        <Nav className="mr-auto">
+                         
+                            <img className="logo-header ml-5" src={logo} alt="logo gray panther" />
+                          
+                        </Nav>
+                    : 
+                        <Nav className="mr-auto">
+                            <a href="/home">
+                                <img className="logo-header ml-5" src={logo} alt="logo gray panther" />
+                            </a>
+                            <Nav.Link href="/home" className="ml-2">Trang chủ</Nav.Link>
+                        </Nav>
+                    }
+                    
+                    {this.props.isAdmin ? <NavbarLoginAdmin handleLogout={this.handleLogout}/> : <span></span>}
+                    {this.props.isActive ? <NavbarLogin handleLogout={this.handleLogout}/> : <span></span>}
+                    {this.props.isGuest ? <NavbarDefault/> : <span></span>}
         
                 </Navbar>
             </div>

@@ -1,12 +1,30 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import '../../../App.css'
 import Header from "../../layout/Header";
 import Footer from '../../layout/Footer';
 import {Form, Row, Col, Button} from 'react-bootstrap'
+import axios from "../../../api/axios";
+import { useNavigate} from "react-router-dom";
 function List() {
+    let navigate = useNavigate();
+    let isAuth = 0;
+    useEffect(()=>{
+        axios.get("isAuth",)
+            .then((Response) => {
+            if(Response.data.PQ === 1){
+                isAuth = 1;
+            }
+            })
+            .catch(error => { console.log(error);})
+            .then(function () {
+            if(isAuth !== 1){
+                navigate('/')
+            }       
+            });
+    }, []);
     return (
         <div>
-            <Header isActive={true}/>
+            <Header isAdmin={true}/>
             <h3 className="title-list">Danh sách sản phẩm</h3> <br/>
             <div className="">
                 <div className="d-flex pt-2">

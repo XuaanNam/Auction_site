@@ -42,6 +42,7 @@ const Login = () => {
       event.preventDefault();
       event.stopPropagation();
     } else {
+      event.preventDefault();
       axios.post("login", {
           Email,
           MatKhau,
@@ -59,7 +60,7 @@ const Login = () => {
               //httpOnly: ,
             });
             if(Response.data.PQ === 0){
-              window.location.reload(false);
+              isAdmin = 0;
             } else {
               isAdmin = 1;
             }
@@ -73,6 +74,8 @@ const Login = () => {
         .then( () => {
           if (isAdmin === 1) {
             navigate("/admin/list");
+          } else {
+            window.location.reload(false);
           }
         });
     }
@@ -81,7 +84,7 @@ const Login = () => {
 
   return (
     <div>
-      <Header />
+      <Header isGuest={true}/>
       <img className="img-inout" src={background} alt=""></img>
       <div className="container cont-inout" id="form-reg">
         <div className="subcont-inout">

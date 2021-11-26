@@ -31,7 +31,7 @@ export default function HomePage() {
     
     return (
     <div>
-    <Header/>
+    <Header isGuest={true}/>
     <background style={{ backgroundImage: `url(${background})` }}/>
         <Container>
         <Slogan>Slogan cho trang đấu giá

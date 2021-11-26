@@ -64,7 +64,7 @@ function Register() {
         
         <div>
             {/* <Logo src={logo}/> */}
-            <Header/>   
+            <Header isGuest={true}/>   
             <img  className="img-inout" src={background}></img>
             <div className="container cont-inout">
                 <div className="subcont-inout">

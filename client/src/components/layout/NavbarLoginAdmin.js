@@ -1,120 +1,123 @@
-  import {Gavel, KeyboardArrowDown, Assignment, AddShoppingCart, Person, VerifiedUser, ExitToApp } from '@material-ui/icons';
-  import React, { Component} from "react";
-  import styled from 'styled-components';
-  import "../../App.css";
-  import { Form, Button} from "react-bootstrap";
-  import HeaderD from '../assets/Header.module.css'
-  import Admin from '../pages/Admin/AddProduct'
-  class NavbarLoginAdmin extends Component {
-    
-    test = (e) => {
-      e.target.classList.toggle("activeRotate");
-    }
+import {Gavel, KeyboardArrowDown, Assignment, AddShoppingCart, Person, VerifiedUser, ExitToApp } from '@material-ui/icons';
+import React, { Component} from "react";
+import styled from 'styled-components';
+import "../../App.css";
+import { Form, Button} from "react-bootstrap";
+import HeaderD from '../assets/Header.module.css'
+import Admin from '../pages/Admin/AddProduct'
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
+const user = cookies.get('username') ? cookies.get('username'): "null";
+
+class NavbarLoginAdmin extends Component {
   
-    state = {
-      open: false,
-    };
-    handleButtonClick = (e) => {
-      e.preventDefault();
-      this.setState((state) => {
-        return {
-          open: !state.open,
-        };
-      });
-    };
-  
-    // click ra ngoài
-    container = React.createRef();
-    state = {
-      open: false,
-    };
-    // 
-    componentDidMount() {
-      document.addEventListener("mousedown", this.handleClickOutside);
-    }
-    componentWillUnmount() {
-      document.removeEventListener("mousedown", this.handleClickOutside);
-    }
-  
-   
-    handleClickOutside = (event) => {
-      if (
-        this.container.current &&
-        !this.container.current.contains(event.target)
-      ) {
-        this.setState({
-          open: false,
-        });
-      }
-    };
-    
-    
-  
-    render() {
-  
-    
-  
-      return (
-        <Form inline className="mr-5">
-          <div className="containerHeader" ref={this.container}>
-            <a href="/admin/list">
-              <Button className={`btn-nav ${HeaderD.outLineNone}`} variant="outline-info">
-                <Assignment className="mr-2"/>
-                Danh sách
-              </Button>
-            </a>
-            <a href="/admin/addproduct">
-              <Button className={`btnnav-admin btn-nav ${HeaderD.outLineNone}`} variant="outline-info">
-              <AddShoppingCart className="mr-2"/>
-                Thêm sản phẩm
-              </Button>
-            </a>
-            {/* USER _ HAS TOGGLE */}
-            <Button type="headerBtnLogin" className={`headerBtnLogin btn-nav mr-1 ${HeaderD.outLineNone}`} style={{minWidth: '20vw'}} variant="outline-info" onClick={this.handleButtonClick}>
-              <Person className="mr-1"/>
-              Xin chào, User <span>LUCIFER</span>
-              {!this.state.open && (<KeyboardArrowDown className={`ml-1`} />)}
-              
-              {this.state.open && ( <KeyboardArrowDown className={`ml-1 ${HeaderD.activeRotate}`} /> )}
-            </Button>
-            {/* Toggle */}
-            {this.state.open && (
-              <div className={HeaderD.dropdownHeader}>
-                <ul>
-                  <li>
-                    <a href="/profile">
-                      <Button className={`btn-nav mr-2 ${HeaderD.outLineNone}`} variant="outline-info">
-                        <VerifiedUser className="mr-2"/>
-                        Cá nhân
-                      </Button>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/">
-                      <Button
-                        className={`btn-nav ${HeaderD.outLineNone}`}
-                        variant="outline-info"
-                        onClick={this.props.handleLogout}
-                      >
-                        <ExitToApp className="mr-2"/>
-                        Đăng xuất
-                      </Button>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>
-        </Form>
-      );
-    }
+  test = (e) => {
+    e.target.classList.toggle("activeRotate");
   }
+
+  state = {
+    open: false,
+  };
+  handleButtonClick = (e) => {
+    e.preventDefault();
+    this.setState((state) => {
+      return {
+        open: !state.open,
+      };
+    });
+  };
+
+  // click ra ngoài
+  container = React.createRef();
+  state = {
+    open: false,
+  };
+  // 
+  componentDidMount() {
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  }
+
   
-  const Hr = styled.hr`
-      background-color: #fff;
-      border: none;
-      height: 1px;
-  `;
+  handleClickOutside = (event) => {
+    if (
+      this.container.current &&
+      !this.container.current.contains(event.target)
+    ) {
+      this.setState({
+        open: false,
+      });
+    }
+  };
   
-  export default NavbarLoginAdmin;
   
+
+  render() {
+
+  
+
+    return (
+      <Form inline className="mr-5">
+        <div className="containerHeader" ref={this.container}>
+          <a href="/admin/list">
+            <Button className={`btn-nav ${HeaderD.outLineNone}`} variant="outline-info">
+              <Assignment className="mr-2"/>
+              Danh sách
+            </Button>
+          </a>
+          <a href="/admin/addproduct">
+            <Button className={`btnnav-admin btn-nav ${HeaderD.outLineNone}`} variant="outline-info">
+            <AddShoppingCart className="mr-2"/>
+              Thêm sản phẩm
+            </Button>
+          </a>
+          {/* USER _ HAS TOGGLE */}
+          <Button type="headerBtnLogin" className={`headerBtnLogin btn-nav mr-1 ${HeaderD.outLineNone}`} style={{minWidth: '20vw'}} variant="outline-info" onClick={this.handleButtonClick}>
+            <Person className="mr-1"/>
+            Xin chào, <span>{user}</span>
+            {!this.state.open && (<KeyboardArrowDown className={`ml-1`} />)}
+            
+            {this.state.open && ( <KeyboardArrowDown className={`ml-1 ${HeaderD.activeRotate}`} /> )}
+          </Button>
+          {/* Toggle */}
+          {this.state.open && (
+            <div className={HeaderD.dropdownHeader}>
+              <ul>
+                <li>
+                  <a href="/profile">
+                    <Button className={`btn-nav mr-2 ${HeaderD.outLineNone}`} variant="outline-info">
+                      <VerifiedUser className="mr-2"/>
+                      Cá nhân
+                    </Button>
+                  </a>
+                </li>
+                <li>
+                  <a href="/">
+                    <Button
+                      className={`btn-nav ${HeaderD.outLineNone}`}
+                      variant="outline-info"
+                      onClick={this.props.handleLogout}
+                    >
+                      <ExitToApp className="mr-2"/>
+                      Đăng xuất
+                    </Button>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          )}
+        </div>
+      </Form>
+    );
+  }
+}
+
+const Hr = styled.hr`
+    background-color: #fff;
+    border: none;
+    height: 1px;
+`;
+
+export default NavbarLoginAdmin;

@@ -1,5 +1,4 @@
 import { Card} from "react-bootstrap";
-import styled from "styled-components";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import "../assets/Home.css";
