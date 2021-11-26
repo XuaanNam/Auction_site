@@ -54,9 +54,9 @@
 .footer-link-wrapper {
   display: flex;
 }
-h3{
+/* h3{
   color: #fff;
-}
+} */
 .footer-link-items {
   display: flex;
   flex-direction: column;

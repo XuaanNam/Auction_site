@@ -1,36 +1,43 @@
 import React, { Component } from "react";
-import "../../../App.css";
-import AuctionD from "../../assets/AuctionDetail.module.css";
+import "../../assets/Auction.css";
 import { Table } from "react-bootstrap";
 
 
 class HistoryTable extends Component {
     render() {
-        return (
-            <Table responsive className="auction-table">
-                <thead>
-                    <tr className={AuctionD.lineTable}>
-                        <th>#</th>
-                        <th>Người chơi</th>
-                        <th>Giá thầu</th>
-                        <th>Ngày giờ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.props.listBetHistory.map((list ) => { 
-                        return (    
-                            <tr>    
-                                <td>{list.id}</td>
-                                <td>{list.userWinner}</td>
-                                <td>{list.highestPrice}</td>
-                                <td>{list.currentTime}</td>
-                            </tr>
-                        );
-                    })}
+        console.log(this.props.listBetHistory)
+        if(this.props.listBetHistory.length === 0) {
+            return(<span></span>);
+        } else {
+            return (
+                <Table responsive className="auction-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Người chơi</th>
+                            <th>Giá thầu</th>
+                            <th>Ngày giờ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.props.listBetHistory
+                            .sort((a, b) => {return parseInt(a.id) > parseInt(b.id) ? -1 : 1})
+                            .map((list ) => { 
+                            return (    
+                                <tr>    
+                                    <td>{list.id}</td>
+                                    <td>{list.userWinner}</td>
+                                    <td>{list.highestPrice}</td>
+                                    <td>{list.currentTime}</td>
+                                </tr>
+                            );
+                        })}
+            
+                    </tbody>
+                </Table>
+            );
+        }
         
-                </tbody>
-            </Table>
-        );
     }
 } 
 

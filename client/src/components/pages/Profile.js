@@ -2,7 +2,6 @@ import {Edit, AccountCircle} from '@material-ui/icons';
 import React, { useState, useEffect } from 'react';
 import Header from "../layout/Header";
 import Footer from '../layout/Footer';
-import avatar from '../images/img-login.png'
 import '../assets/Profile.css'
 import ChangePass from './Profile/ChangePass';
 import Information from './Profile/Infomation'
@@ -16,13 +15,10 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
-
-
-
-
 const Profile = () => {
 
     const [changePass, setChangePass] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
     
     const username = cookies.get('username') ? cookies.get('username'): null;
 
@@ -32,14 +28,20 @@ const Profile = () => {
     useEffect(()=>{
         axios.get("isAuth",)
           .then((Response) => {
+              console.log(Response);
+            if(Response.data.PQ === 1){
+              setIsAdmin(true);
+              
+            } 
             if(Response.data.isAuth){
+              console.log(isAuth);
               isAuth = 1;
             }
           })
           .catch(error => { console.log(error);})
           .then(function () {
             if(isAuth !== 1){
-              navigate('/')
+              navigate('/');
             }       
           });
     }, []);
@@ -67,7 +69,11 @@ const Profile = () => {
     }
     return (
         <div>
-            <Header isActive={true}/>
+            {isAdmin?
+                <Header isAdmin={true}/> 
+            :
+                <Header isActive={true}/> 
+            }
             <background style={{ backgroundImage: `url(${background})` }} />
                 <div className="profile-Container">
                     {/* sidebar */}
@@ -79,7 +85,7 @@ const Profile = () => {
                         </button>
                         <div className="profile-SideBar">
                             <div className="profile-HeaderBar">
-                                <img className="profile-Avatar" src={avatar} alt="avatar"/>
+                                <img className="profile-Avatar" src="" alt="avatar"/>
                                 <h4 className="profile-FullName">{username}</h4>
                                 
                                     <input type="file" style={{display: 'none'}} name="avatar" id='avt'/>

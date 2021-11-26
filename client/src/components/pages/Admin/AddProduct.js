@@ -7,20 +7,14 @@ import axios from "../../../api/axios";
 import { useNavigate} from "react-router-dom";
 function AddProduct() {
     let navigate = useNavigate();
-    let isAuth = 0;
     useEffect(()=>{
         axios.get("isAuth",)
             .then((Response) => {
-            if(Response.data.PQ === 1){
-                isAuth = 1;
-            }
+                if(Response.data.PQ !== 1){
+                    navigate('/')
+                }
             })
-            .catch(error => { console.log(error);})
-            .then(function () {
-            if(isAuth !== 1){
-                navigate('/')
-            }       
-            });
+            .catch(error => { console.log(error);});
     }, []);
 
     return (

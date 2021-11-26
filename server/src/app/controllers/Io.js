@@ -53,7 +53,7 @@ function socket(io) {
                 }
 
                 data.id = ++index[i];
-                
+                data.highestPrice = data.highestPrice + " VNĐ"; 
                 dataRoom[i] = data;
                 if(data.id == 1){
                     listBetHistoryData[i] = []; 
@@ -61,7 +61,7 @@ function socket(io) {
                 listBetHistoryData[i][data.id-1] = dataRoom[i];
                 //console.log({listDataRoom: listBetHistoryData[i]})
 
-                io.in(data.room).emit("receive_data", {dataRoom: dataRoom[i], listDataRoom: listBetHistoryData[i]});
+                io.in(data.room).emit("receive_data", {dataRoom: data, listDataRoom: listBetHistoryData[i]});
             // } else {
             //     socket.to(data.room).emit("receive_data", dataRoom);
             // }

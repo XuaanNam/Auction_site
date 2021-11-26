@@ -1,11 +1,9 @@
 import React from "react";
-import styled from "styled-components";
-import { Form, Button, Col, Row, InputGroup } from "react-bootstrap";
+import { Form, Button} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import "../../App.css";
-import logo from "../images/img-login.png";
 import background from "../images/background.jpg";
 //dùng để kết nối tới db
 import { useState, useEffect } from "react";
@@ -22,17 +20,21 @@ const Login = () => {
 
   axios.defaults.withCredentials = true;
   let navigate = useNavigate();
-  let isAdmin = 0;
   useEffect(() => {
     axios
       .get("isAuth")
       .then((Response) => {
-        if (Response.data.isAuth) {
-          navigate("/home");
+        if (Response.data.PQ) {
+          if(Response.data.PQ===1){
+            navigate("/admin/list");
+          }
+          else {
+            navigate("/home");
+          }
         }
       })
       .catch((error) => console.error(error));
-  }, []);
+  }, [navigate]);
 
   const [validated, setValidated] = useState(false);
 
@@ -59,11 +61,6 @@ const Login = () => {
               maxAge: 1000 * 60 * 60 * 72,
               //httpOnly: ,
             });
-            if(Response.data.PQ === 0){
-              isAdmin = 0;
-            } else {
-              isAdmin = 1;
-            }
           } else if (Response.data.message) {
             setLoginStatus(Response.data.message);
           }
@@ -72,11 +69,7 @@ const Login = () => {
           setLoginStatus("Đăng nhập thất bại");  
         })
         .then( () => {
-          if (isAdmin === 1) {
-            navigate("/admin/list");
-          } else {
             window.location.reload(false);
-          }
         });
     }
     setValidated(true);

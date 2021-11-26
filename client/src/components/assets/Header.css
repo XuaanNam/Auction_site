@@ -1,4 +1,4 @@
-containerHeader {
+.containerHeader {
     position: relative;
   display: inline-block;
 }
@@ -23,14 +23,16 @@ containerHeader {
 }
 
 .headerBtnLogin {
-    padding: 0;
+    /* padding: 0;
   width: 50px;
   border: 0;
   background-color: #fff;
   color: #333;
   cursor: pointer;
   outline: 0;
-  font-size: 40px;
+  padding: .375rem .75rem;
+  font-size: 1.2rem;
+  font-weight: 400; */
 }
 
 

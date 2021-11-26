@@ -1,23 +1,20 @@
-import {Gavel, KeyboardArrowDown, Assignment, AddShoppingCart, Person, VerifiedUser, ExitToApp } from '@material-ui/icons';
+import {KeyboardArrowDown, Assignment, AddShoppingCart, Person, VerifiedUser, ExitToApp } from '@material-ui/icons';
 import React, { Component} from "react";
-import styled from 'styled-components';
-import "../../App.css";
 import { Form, Button} from "react-bootstrap";
-import HeaderD from '../assets/Header.module.css'
-import Admin from '../pages/Admin/AddProduct'
+
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 const user = cookies.get('username') ? cookies.get('username'): "null";
 
 class NavbarLoginAdmin extends Component {
-  
+  state = {
+    open: false,
+  };
+
   test = (e) => {
     e.target.classList.toggle("activeRotate");
   }
 
-  state = {
-    open: false,
-  };
   handleButtonClick = (e) => {
     e.preventDefault();
     this.setState((state) => {
@@ -29,9 +26,7 @@ class NavbarLoginAdmin extends Component {
 
   // click ra ngoài
   container = React.createRef();
-  state = {
-    open: false,
-  };
+
   // 
   componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
@@ -56,38 +51,36 @@ class NavbarLoginAdmin extends Component {
 
   render() {
 
-  
-
     return (
-      <Form inline className="mr-5">
+      <Form className="mr-5">
         <div className="containerHeader" ref={this.container}>
           <a href="/admin/list">
-            <Button className={`btn-nav ${HeaderD.outLineNone}`} variant="outline-info">
+            <Button className="btn-nav outLineNone" variant="outline-info">
               <Assignment className="mr-2"/>
               Danh sách
             </Button>
           </a>
           <a href="/admin/addproduct">
-            <Button className={`btnnav-admin btn-nav ${HeaderD.outLineNone}`} variant="outline-info">
+            <Button className="btnnav-admin btn-nav outLineNone" variant="outline-info">
             <AddShoppingCart className="mr-2"/>
               Thêm sản phẩm
             </Button>
           </a>
           {/* USER _ HAS TOGGLE */}
-          <Button type="headerBtnLogin" className={`headerBtnLogin btn-nav mr-1 ${HeaderD.outLineNone}`} style={{minWidth: '20vw'}} variant="outline-info" onClick={this.handleButtonClick}>
+          <Button className="btn-nav mr-1 outLineNone" style={{minWidth: '20vw'}} variant="outline-info" onClick={this.handleButtonClick}>
             <Person className="mr-1"/>
             Xin chào, <span>{user}</span>
-            {!this.state.open && (<KeyboardArrowDown className={`ml-1`} />)}
+            {!this.state.open && (<KeyboardArrowDown className="ml-1" />)}
             
-            {this.state.open && ( <KeyboardArrowDown className={`ml-1 ${HeaderD.activeRotate}`} /> )}
+            {this.state.open && ( <KeyboardArrowDown className="ml-1 activeRotate" /> )}
           </Button>
           {/* Toggle */}
           {this.state.open && (
-            <div className={HeaderD.dropdownHeader}>
+            <div className="dropdownHeader">
               <ul>
                 <li>
                   <a href="/profile">
-                    <Button className={`btn-nav mr-2 ${HeaderD.outLineNone}`} variant="outline-info">
+                    <Button className="btn-nav mr-2 outLineNone" variant="outline-info">
                       <VerifiedUser className="mr-2"/>
                       Cá nhân
                     </Button>
@@ -96,7 +89,7 @@ class NavbarLoginAdmin extends Component {
                 <li>
                   <a href="/">
                     <Button
-                      className={`btn-nav ${HeaderD.outLineNone}`}
+                      className="btn-nav outLineNone"
                       variant="outline-info"
                       onClick={this.props.handleLogout}
                     >
@@ -113,11 +106,5 @@ class NavbarLoginAdmin extends Component {
     );
   }
 }
-
-const Hr = styled.hr`
-    background-color: #fff;
-    border: none;
-    height: 1px;
-`;
 
 export default NavbarLoginAdmin;

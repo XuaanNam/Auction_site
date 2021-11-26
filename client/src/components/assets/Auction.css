@@ -1,0 +1,101 @@
+.auc-layout {
+    width: 100%;
+    padding: 22vh 7vw 5vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.auc-game {
+    width: 100%;
+    height: 100% !important;
+    border-radius: 10px !important;
+    border: 2px solid rgb(106, 167, 104) !important;
+    box-sizing: border-box;
+    background: #fff;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto;
+}
+
+.auc-game-control {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color: #fff;
+    background-clip: border-box;
+    border-radius: 10px !important;
+    box-sizing: border-box;
+    padding: 10px;
+    
+    
+}
+
+.auc-game-control .img-banner {
+    width:60%;
+    height: fit-content;
+    border-radius: 10px !important;
+    border: 2px solid rgb(106, 167, 104) !important;
+}
+.auc-info {
+    padding: 1rem;
+    border: 1px solid rgb(106, 167, 104);
+    margin-bottom: 1rem;
+}
+.auc-info div span{   
+    font-size: 1rem;
+    font-weight: bold;
+    color: #2cc3c9;
+    
+    margin: auto;
+}
+.auc-info .auc-site span{
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #c91717;
+    margin: auto;
+}
+.auc-game-control span strong{
+    padding: 0 0 0 2rem;
+}
+.auc-game-control .auc-price div{
+
+    margin: auto;
+}
+.auc-game-control .auc-price span{       
+    color: #3d9e3d;
+    font-weight: 700;
+}
+
+.auc-game-control .mess-prepare{
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    border-radius: 20px;
+    padding: 1rem 2rem;
+    margin: auto;
+}
+
+/*history table*/
+.auction-table thead tr{
+    border:none;
+}
+.auction-table tbody tr:first-child {
+
+    background: rgb(255, 230, 0);
+    border: none;
+}
+.auction-table tbody tr:first-child td:first-child {
+    border-top-left-radius: 70px;
+    border-bottom-left-radius: 70px;
+   
+    background: rgb(228, 64, 64);
+}
+.auction-table tbody tr:first-child td:last-child {
+    border-top-right-radius: 70px;
+    border-bottom-right-radius: 70px;
+   
+    background: rgb(54, 158, 132);
+}
+
+
+

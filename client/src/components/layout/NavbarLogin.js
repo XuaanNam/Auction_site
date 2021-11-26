@@ -1,10 +1,8 @@
 import {Gavel, KeyboardArrowDown, ShoppingCartOutlined,
-  AccountBalanceWallet, AddShoppingCart, Person, VerifiedUser, ExitToApp, KeyboardArrowUp } from '@material-ui/icons';
+  AddShoppingCart, Person, VerifiedUser, ExitToApp, KeyboardArrowUp } from '@material-ui/icons';
 import React, { Component} from "react";
-import styled from 'styled-components';
-import "../../App.css";
 import { Form, Button} from "react-bootstrap";
-import HeaderD from '../assets/Header.module.css'
+
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 const user = cookies.get('username') ? cookies.get('username'): "null";
@@ -52,36 +50,36 @@ class NavbarLogin extends Component {
   render() {
     
     return (
-      <Form inline className="mr-5">
+      <Form className="mr-5">
         <div className="containerHeader" ref={this.container}>
           <a href="/interested">
-            <Button className={`btn-nav ${HeaderD.outLineNone}`} variant="outline-info">
+            <Button className="btn-nav outLineNone" variant="outline-info">
               <Gavel className="mr-2"/>
               Quan tâm
             </Button>
           </a>
           <a href="/Cart">
-            <Button className={`btn-nav ${HeaderD.outLineNone}`} variant="outline-info">
+            <Button className="btn-nav outLineNone" variant="outline-info">
             <ShoppingCartOutlined className="mr-2"/>
               Giỏ hàng
               
             </Button>
           </a>
           {/* USER _ HAS TOGGLE */}
-          <Button type="headerBtnLogin" className={`headerBtnLogin btn-nav mr-1 ${HeaderD.outLineNone}`} style={{minWidth: '20vw'}} variant="outline-info" onClick={this.handleButtonClick}>
+          <Button className="btn-nav mr-1 outLineNone" style={{minWidth: '20vw'}} variant="outline-info" onClick={this.handleButtonClick}>
             <Person className="mr-1"/>
             Xin chào, <span>{user}</span>
-            {!this.state.open && (<KeyboardArrowDown className={`ml-1 ${HeaderD.nonActiveRotate}`} />)}
+            {!this.state.open && (<KeyboardArrowDown className="ml-1 nonActiveRotate" />)}
             
-            {this.state.open && ( <KeyboardArrowUp className={`ml-1 ${HeaderD.activeRotate}`} /> )}
+            {this.state.open && ( <KeyboardArrowUp className="ml-1 activeRotate" /> )}
           </Button>
           {/* Toggle */}
           {this.state.open && (
-            <div className={HeaderD.dropdownHeader}>
+            <div className="dropdownHeader">
               <ul>
                 <li>
                   <a href="/profile">
-                    <Button className={`btn-nav mr-2 ${HeaderD.outLineNone}`} variant="outline-info">
+                    <Button className="btn-nav mr-2 outLineNone" variant="outline-info">
                       <VerifiedUser className="mr-2"/>
                       Cá nhân
                     </Button>
@@ -89,7 +87,7 @@ class NavbarLogin extends Component {
                 </li>
                 <li>
                   <a href="/#">
-                    <Button className={`btn-nav mr-2 ${HeaderD.outLineNone}`} variant="outline-info">
+                    <Button className="btn-nav mr-2 outLineNone" variant="outline-info">
                       <AddShoppingCart className="mr-2"/>
                       Đơn hàng
                     </Button>
@@ -98,7 +96,7 @@ class NavbarLogin extends Component {
                 <li>
                   <a href="/">
                     <Button
-                      className={`btn-nav ${HeaderD.outLineNone}`}
+                      className="btn-nav outLineNone"
                       variant="outline-info"
                       onClick={this.props.handleLogout}
                     >
@@ -115,11 +113,5 @@ class NavbarLogin extends Component {
     );
   }
 }
-
-const Hr = styled.hr`
-    background-color: #fff;
-    border: none;
-    height: 1px;
-`;
 
 export default NavbarLogin;

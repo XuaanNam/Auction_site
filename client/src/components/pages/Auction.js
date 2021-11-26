@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "../../App.css";
+import "../assets/Auction.css";
+//page
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
-import AuctionD from "../assets/AuctionDetail.module.css";
 import GameControl from './Auction/GameControl';
 import HistoryTable from './Auction/HistoryTable';
-//áº¢nh
+//ảnh
 import background from "../images/background.jpg";
 //backend
 import axios from "../../api/axios";
@@ -42,6 +42,7 @@ function Auction() {
             .get("isAuth")
             .then((Response) => {
                 if (Response.data.isAuth) {
+                    // eslint-disable-next-line react-hooks/exhaustive-deps
                     isAuth = 1;
                     socket.emit("join_room", params.id);
 
@@ -79,9 +80,10 @@ function Auction() {
         socket.on("receive_data", (data) =>{
             if(data === false) {
             } else {
+                const hP = data.dataRoom.highestPrice.split(" ")[0];
                 setUserWinner(data.dataRoom.userWinner);
-                setHighestPrice(data.dataRoom.highestPrice);
-                setCurrentPrice(data.dataRoom.highestPrice);
+                setHighestPrice(hP);
+                setCurrentPrice(hP);
                 setListBetHistory(data.listDataRoom);   
             } 
         });
@@ -97,7 +99,7 @@ function Auction() {
                 setIsEnding(true);
             }
         })
-    }, [socket])
+    }, [isStart]) //co the bug
 
     const parseInterger = (intCurrency) => {
         return parseInt(intCurrency.split(',')[0] + intCurrency.split(',')[1] + intCurrency.split(',')[2]);
@@ -175,8 +177,8 @@ function Auction() {
             <Header isActive={true} /> 
             <background style={{ backgroundImage: `url(${background})` }} />
 
-            <div className={AuctionD.container}>
-                <div className={`body-container pt-2 pl-5 pr-5 ${AuctionD.bodyBanner}`}>
+            <div className= "auc-layout">
+                <div className="auc-game">
                     
                     <GameControl
                         isPrepare = {isPrepare}

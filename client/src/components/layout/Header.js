@@ -2,21 +2,23 @@ import React ,{Component} from 'react';
 import NavbarDefault from './NavbarDefault';
 import NavbarLogin from './NavbarLogin';
 import NavbarLoginAdmin from './NavbarLoginAdmin';
-import '../../App.css';
+import '../assets/Header.css';
 import {Navbar,Nav} from 'react-bootstrap';
-import logo from '../images/Logo.png'
+import logo from '../images/Logo.png';
 import Cookies from "universal-cookie";
 
 class Header extends Component{
-
+ 
     handleLogout = (e) => {
         e.preventDefault(e);
         const cookies = new Cookies();
+
         cookies.remove("userAuth");
         cookies.remove("username");
-        window.location.reload(false);
+        setTimeout(()=>{
+            window.location.reload(false);
+        }, 100) ;
     }
-    
     render(){
         return (
             <div>

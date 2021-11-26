@@ -197,6 +197,29 @@ class API {
         })
     }
 
+    // [GET] /api/admin/get/product
+    getProduct(req, res, next){
+        const selectSql = "select * from sanpham";
+
+        const PQ =  req.user[0].PhanQuyen;
+
+        if(PQ === 0){
+            res.send({message: "Bạn chưa được cấp quyền admin để thêm ảnh cho SP này!"})
+        } else {
+            pool.query(selectSql, function (err, results, fields) {
+                if (error) {
+                    res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+                } else { 
+                    if(results){
+                        res.send(results);
+                    } else { 
+                        res.send({check: "Không thể lấy dữ liệu"});
+                    }
+                }
+            });
+        }
+    }
+
     // [POST] /api/admin/stored/img/product
     storedImgProduct(req, res, next){
         const updateSql = "update sanpham set HinhAnh = ? where idSP = ?";
