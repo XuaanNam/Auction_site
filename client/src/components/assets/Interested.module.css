@@ -1,22 +1,40 @@
 .btnReturnBuy {
     font-size: 18px;
-    margin: 15px 15px 40px 0px;
-    padding: 5px 15px 5px 15px;
+    margin: 0.9375rem 0.9375rem 2.5rem 0px;
+    padding: 0,3125rem 0.9375rem 0,3125rem 0.9375rem;
 }
 
 .btnReturnBuy:hover {
     font-size: 18px;
-    margin: 15px 15px 40px 0px;
-    padding: 5px 15px 5px 15px;
+    /* margin: 0.9375rem 0.9375rem 2.5rem 2.5rem; */
+    /* padding: 0.3125rem 0.9375rem 0.3125rem 0.9375rem; */
     color: rgb(243, 237, 237);
-    background: rgb(26, 31, 25);
+    border: 1px solid #17a2b8;
+    background: #17a2b8;
+}
+
+.btnRemoveIn {
+
+    font-size: 16px;
+    position: absolute;
+    margin-right: 0.3125rem;
+    width: 25%;
+    height: 30%;
+    top: 25%;
+    right: 0%;
+}
+
+.btnRemoveIn:hover {
+
+    /* color: ; */
+    background: #b81747;;
 }
 
 .amountInterest {
-    padding: 2px 60px 2px 60px;
+    padding: 0,125rem 3.75rem 0,125rem 3.75rem;
     border-radius: 5px;
-    margin-bottom: 70px !important;
-    margin-left: 100px !important;
+    margin-bottom: 4.35rem !important;
+    margin-left: 6.25rem !important;
 }
 
 
@@ -25,32 +43,36 @@
 }
 
 .positionBanner {
+    position: absolute;
+    bottom: 5%;
     font-size: 20px;
     font-weight: 601;
-    padding: 15px;
-    margin-left: 25px;
+    padding: 0.9375rem;
+    margin-left: 1.5625rem;
 }
 .sizeBanner {
     position: absolute;
     font-size: 20px;
+    height: 3rem;
     font-weight: 601;
-    padding: 15px;
-    bottom: 1%;
+    padding: 0.9375rem;
+    bottom: 0%;
     left: 4%;
 }
 .timeBegunBanner {
     position: absolute;
     font-size: 20px;
     font-weight: 601;
-    padding: 15px;
-    bottom: 10%;
-    left: 50%;
+    padding: 0.9375rem;
+    bottom: 5%;
+    left: 40%;
 }
 .priceBegunBanner {
     position: absolute;
     font-size: 20px;
     font-weight: 601;
-    padding: 15px;
-    bottom: 1%;
-    left: 50%;
+    padding: 0.9375rem;
+    height: 3rem;
+    bottom: 0%;
+    left: 40%;
 }
