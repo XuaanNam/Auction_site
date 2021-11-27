@@ -1,4 +1,8 @@
 const pool = require("../models/pool");
+const fs = require('fs');
+const express = require('express');
+const path = require('path'); 
+
 const bcrypt = require("bcrypt");
 const saltRound = 10;
 const encodeToken = require("../../util/encodeToken");
@@ -211,22 +215,45 @@ class API {
     storedAvatar(req, res, next){
 
         const updateSql = "update taikhoan set Avt = ? where idTK = ?";
-            
+        const selectSql = "select * from taikhoan where idTK = ?"
         const idTK =  req.user[0].idTK;  
         const Avt = "image" + "/" + "AVT" + "/" + req.file.filename;
+        const basePath = path.join(__dirname, '../../../../client','public');
 
-        console.log(Avt);
-        pool.query(updateSql, [Avt, idTK], function (err, results, fields) {
-            if (err) {
-                res.status(200).send({  message: "Kết nối DataBase thất bại"  });
-            } else { 
-                if(results){
-                    res.send({message: "Cập nhật ảnh đại diện thành công"});
-                } else { 
-                    res.send({message: "Cập nhật ảnh đại diện thất bại, lỗi cú pháp!"});
+        pool.getConnection(function (err, connection) {
+            if (err) throw err; // not connected!
+
+            // Use the connection
+            connection.query(selectSql, idTK, function (error, results, fields) {
+                if (error) {
+                    res.status(200).send({ message: "Kết nối DataBase thất bại" });
+                } else {
+                    const filePath = basePath + "/" + results[0].Avt; 
+                    
+                    
+                    connection.query(updateSql, [Avt, idTK], function (err, rs, fields) {
+                        if (err) {
+                            res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+                        } else { 
+                            if(rs){
+                                if(results[0].Avt !== ""){
+                                    fs.unlink(filePath, function (err) {
+                                        if (err) throw err;
+                                        console.log('ảnh đại diện cũ đã bị xóa!');
+                                    });
+                                }
+                                
+                                res.send({message: "Cập nhật ảnh đại diện thành công"});
+                            } else { 
+                                res.send({message: "Cập nhật ảnh đại diện thất bại, lỗi cú pháp!"});
+                            }
+                        }
+                    })
+                    
+                    connection.release();
                 }
-            }
-        })
+            });            
+        });
     }
 
     // [GET] /api/admin/get/product
