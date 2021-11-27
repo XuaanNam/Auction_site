@@ -164,7 +164,7 @@ class API {
                         if (response) {
                             bcrypt.hash(MkMoi, saltRound, (err, hash) => {
                                 connection.query(updateSql, [hash, idTK], function (err, results, fields) {
-                                    if (error) {
+                                    if (err) {
                                         res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                                     } else {
                                         res.send({message: "Đổi mật khẩu thành công!"});
@@ -211,12 +211,13 @@ class API {
     storedAvatar(req, res, next){
 
         const updateSql = "update taikhoan set Avt = ? where idTK = ?";
-                
-        const idTK =  req.user[0].idTK; 
-        const Avt = req.file.path;
+            
+        const idTK =  req.user[0].idTK;  
+        const Avt = "image" + "/" + "AVT" + "/" + req.file.filename;
 
+        console.log(Avt);
         pool.query(updateSql, [Avt, idTK], function (err, results, fields) {
-            if (error) {
+            if (err) {
                 res.status(200).send({  message: "Kết nối DataBase thất bại"  });
             } else { 
                 if(results){
@@ -238,7 +239,7 @@ class API {
             res.send({message: "Bạn chưa được cấp quyền admin để thêm ảnh cho SP này!"})
         } else {
             pool.query(selectSql, function (err, results, fields) {
-                if (error) {
+                if (err) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
@@ -263,7 +264,7 @@ class API {
             res.send({message: "Bạn chưa được cấp quyền admin để thêm ảnh cho SP này!"})
         } else {
             pool.query(updateSql, [HinhAnh, idSP], function (err, results, fields) {
-                if (error) {
+                if (err) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
@@ -290,7 +291,7 @@ class API {
             res.send({message: "Bạn chưa được cấp quyền admin để lưu trữ SP này!"})
         } else {
             pool.query(insertSql, [Website, ViTri, Gia, MoTa], function (err, results, fields) {
-                if (error) {
+                if (err) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
@@ -318,7 +319,7 @@ class API {
             res.send({message: "Bạn chưa được cấp quyền admin để chỉnh sửa nội dung SP này!"})
         } else {
             pool.query(updateSql, [Website, ViTri, Gia, MoTa, idSP], function (err, results, fields) {
-                if (error) {
+                if (err) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
@@ -342,7 +343,7 @@ class API {
             res.send({message: "Bạn chưa được cấp quyền admin để xóa SP này!"})
         } else {
             pool.query(deleteSql, idSP, function (err, results, fields) {
-                if (error) {
+                if (err) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
@@ -371,7 +372,7 @@ class API {
             res.send({message: "Bạn chưa được cấp quyền admin để thêm game ĐG này!"})
         } else {
             pool.query(insertSql, [idSP, TgBatDau, TgDauGia, GiaKhoiDiem, TrangThai, BuocGia], function (err, results, fields) {
-                if (error) {
+                if (err) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
@@ -401,7 +402,7 @@ class API {
             res.send({message: "Bạn chưa được cấp quyền admin để chỉnh sửa game ĐG này!"})
         } else {
             pool.query(updateSql, [idSP, TgBatDau, TgDauGia, GiaKhoiDiem, TrangThai, BuocGia, idDG], function (err, results, fields) {
-                if (error) {
+                if (err) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
@@ -425,7 +426,7 @@ class API {
             res.send({message: "Bạn chưa được cấp quyền admin để xóa game ĐG này!"})
         } else {
             pool.query(deleteSql, idDG, function (err, results, fields) {
-                if (error) {
+                if (err) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){

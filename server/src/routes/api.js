@@ -12,7 +12,7 @@ router.get('/isAuth', passport.authenticate('jwt', { session: false }), api.isAu
 
 router.get('/get/user', passport.authenticate('jwt', {session: false}), api.user);
 router.patch('/update/password', passport.authenticate('jwt', {session: false}), api.updatePassword);
-router.post('/stored/avatar',  passport.authenticate('jwt', {session: false}),  upload.single('Avatar'), api.storedAvatar);
+router.post('/stored/avatar', passport.authenticate('jwt', {session: false}), upload.single('avatar'), api.storedAvatar);
 router.patch('/update/profile', passport.authenticate('jwt', {session: false}), api.updateProfile);
 
 router.post('/admin/get/product', passport.authenticate('jwt', {session: false}), api.getProduct);

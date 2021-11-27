@@ -19,7 +19,7 @@ function Profile() {
     let isAuth = 0;
     const [changePass, setChangePass] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
-    const [hasImg, setHasImg] = useState(false);
+    const [file, setFile] = useState(null);
 
     const [Ho, setHo] = useState("");
     const [Ten, setTen] = useState("");
@@ -29,7 +29,7 @@ function Profile() {
     const [Email, setEmail] = useState("");
     const [Avt, setAvt] = useState("");
     const username = cookies.get('username') ? cookies.get('username'): null;
-    const avt = "/image/AVT/Avatar_24-10-2021_406043921.jpg"
+   
     useEffect(()=>{
         axios.get("get/user")
             .then((Response) => {
@@ -72,23 +72,31 @@ function Profile() {
         setChangePass( changePass ? false : true);
     }
 
+    const handleFile = (e) => {
+        setFile(e.target.files[0])
+    }
+
     const chooseAvt = () => {
         const avt = document.getElementById('avt');
         avt.click();
     }
 
     const submitAvt = async() => {
-        var formData = new FormData();
-        formData.append("avatar", avt.files[0]);
-        if(hasImg){
-            await axios.post('/stored/avatar', formData, {
-                headers: {'Content-Type': 'multipart/form-data'}
-            })
-                .then((Response) => {
-                    alert(Response.data.message);
-                })
-                .catch((err) => {}) 
-        }    
+        const image = new FormData();
+        image.append("avatar", file);
+
+        try {
+            await axios.post('/stored/avatar', image)
+                    .then((res) => {
+                        alert(res.data.message)
+                    })
+                    .catch(err => {console.log(err)})
+                    .then(() => {
+                        window.location.reload(false);
+                    })
+        } catch (error) {
+            throw error
+        }
     }
     return (
         <div>
@@ -103,33 +111,30 @@ function Profile() {
                 <div className="main-container">   
                     <div className="slide-bar">
                         <div className="avatar">
-                            <img src={avt} alt=""/>
+                            <img src={Avt} alt=""/>
                             <h4>{username}</h4>
+                            {/* form ẩn */}
                             
-                            <input type="file" style={{display: 'none'}} 
-                                name="avatar" id='avt' 
-                                onChange={(e) => {setHasImg(true);}}
-                            />
                             <div className="d-flex">
-                                <button onClick={chooseAvt} className="btn btn-dark btn-custom basic mb-4 mt-2" >
+                                <input type="file"  style={{display: 'none'}} name="Avatar" id='avt' onChange={ (e)=>{handleFile(e)} }/>
+                                
+                                <button onClick={chooseAvt} className="btn btn-info btn-sm" >
+                                    Chọn ảnh
+                                </button> 
+                                <button onClick={submitAvt} className="btn btn-dark btn-sm" >
                                     <AccountCircle className="mr-1"/> 
                                     Đổi ảnh đại diện
                                 </button> 
-                                <span onClick={submitAvt} className="ml-4 mr-4 mt-3 mb-4" >
-                                    <AccountCircle /> 
-                                    
-                                </span> 
                             </div>
-                            
-                             
+                            <div className="btn-switch" >
+                                {changePass ?
+                                    <MenuInfo handleSwitchTab = {handleSwitchTab}/>
+                                    :
+                                    <MenuChangePass handleSwitchTab = {handleSwitchTab}/>
+                                }
+                            </div>
                         </div>
-                        <div className="btn-switch" >
-                            {changePass ?
-                                <MenuInfo handleSwitchTab = {handleSwitchTab}/>
-                                :
-                                <MenuChangePass handleSwitchTab = {handleSwitchTab}/>
-                            }
-                        </div>
+                        
                         
                     </div>
                     {/* profile */}
