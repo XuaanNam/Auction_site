@@ -14,7 +14,7 @@ class API {
     }
 
     // [POST] /api/register
-    regiitster(req, res, next) {
+    register(req, res, next) {
         const insertSql = "insert into taikhoan (Ho, Ten, Email, TenDN, MatKhau) value (?,?,?,?,?)";
         const selectSql = "select Email from taikhoan where Email = ?";
         const messEmail = "Email đã được dùng để đăng kí tài khoản. Vui lòng chọn quên mật khẩu!";

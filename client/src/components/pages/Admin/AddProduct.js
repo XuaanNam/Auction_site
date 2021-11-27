@@ -21,22 +21,22 @@ function AddProduct() {
     }, []);
     const [loginStatus, setLoginStatus] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
-    const handleSubmit = (event) => {
-        event.preventDefault();
-            axios.post("storedProduct", {
-                Ho, Ten, Email, TenDN, MatKhau, CFMatKhau
-            })
-            .then((Response) =>{
-                if(Response.data.message) {
-                    setLoginStatus(Response.data.message );                       
-                } else {
-                    navigate('/login'); 
-                }                   
-            })
-            .catch(() => {
-                setLoginStatus("Đã có một lỗi bất thường xảy ra, vui lòng đăng kí lại!")
-            })
-    }
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //         axios.post("storedProduct", {
+                
+    //         })
+    //         .then((Response) =>{
+    //             if(Response.data.message) {
+    //                 setLoginStatus(Response.data.message );                       
+    //             } else {
+    //                 navigate('/login'); 
+    //             }                   
+    //         })
+    //         .catch(() => {
+    //             setLoginStatus("Đã có một lỗi bất thường xảy ra, vui lòng đăng kí lại!")
+    //         })
+    // }
     return (
         <div>
             <Header isAdmin={true}/>

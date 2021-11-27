@@ -7,7 +7,7 @@ const upload = require('../app/middleware/upload')
 
 router.post('/register', api.register);
 router.post('/login', api.login);
-router.get('/logout', api.logout);
+// router.get('/logout', api.logout);
 router.get('/isAuth', passport.authenticate('jwt', { session: false }), api.isAuth);
 
 router.get('/get/user', passport.authenticate('jwt', {session: false}), api.user);
