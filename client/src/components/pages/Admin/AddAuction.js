@@ -18,7 +18,8 @@ function AddAuction() {
                     isAdmin = 1;
                 }
             })
-            .catch(error => { console.log(error);}).then(()=>{if(isAdmin !==1){navigate('/')}})
+            .catch(error => { console.log(error);})
+            .then(()=>{if(isAdmin !==1){navigate('/')}})
     }, []);
 
     return (

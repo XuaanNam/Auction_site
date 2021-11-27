@@ -16,9 +16,27 @@ function AddProduct() {
                     isAdmin = 1;
                 }
             })
-            .catch(error => { console.log(error);}).then(()=>{if(isAdmin !==1){navigate('/')}})
+            .catch(error => { console.log(error);})
+            .then(()=>{if(isAdmin !==1){navigate('/')}})
     }, []);
+    const [loginStatus, setLoginStatus] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+            axios.post("storedProduct", {
+                Ho, Ten, Email, TenDN, MatKhau, CFMatKhau
+            })
+            .then((Response) =>{
+                if(Response.data.message) {
+                    setLoginStatus(Response.data.message );                       
+                } else {
+                    navigate('/login'); 
+                }                   
+            })
+            .catch(() => {
+                setLoginStatus("Đã có một lỗi bất thường xảy ra, vui lòng đăng kí lại!")
+            })
+    }
     return (
         <div>
             <Header isAdmin={true}/>
@@ -50,6 +68,12 @@ function AddProduct() {
                             Website:
                             </label>
                             <Form.Control className="input-admin" type="text" placeholder="Vd: vuighe.net" />
+                        </Row>
+                        <Row className="group-admin">
+                            <label className="label-admin">
+                            Mô tả:
+                            </label>
+                            <Form.Control className="input-admin" type="text" placeholder="Vd: 10000000" />
                         </Row>
                         <Row className="group-admin">
                             <label className="label-admin">

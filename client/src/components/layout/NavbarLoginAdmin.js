@@ -67,7 +67,7 @@ class NavbarLoginAdmin extends Component {
             </Button>
           </a>
           {/* USER _ HAS TOGGLE */}
-          <Button className="btnnav-admin btn-nav mr-1 outLineNone" style={{minWidth: '20vw'}} variant="outline-info" onClick={this.handleButtonClick}>
+          <Button className="btnnav-admin btn-nav mr-1 outLineNone" variant="outline-info" onClick={this.handleButtonClick}>
             <Person className="mr-1"/>
             Xin chào, <span>{user}</span>
             {!this.state.open && (<KeyboardArrowDown className="ml-1" />)}

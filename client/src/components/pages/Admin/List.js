@@ -2,8 +2,7 @@ import React, {useEffect, useState} from 'react'
 import '../../../App.css'
 import Header from "../../layout/Header";
 import Footer from '../../layout/Footer';
-import {Form, Row, Col, Button} from 'react-bootstrap'
-import {Alert, AlertTitle} from '@material-ui/lab'
+import {Row, Col, Button, Modal} from 'react-bootstrap'
 import axios from "../../../api/axios";
 import { useNavigate} from "react-router-dom";
 function List() {
@@ -20,8 +19,32 @@ function List() {
             .catch(error => { console.log(error);}).then(()=>{if(isAdmin !==1){navigate('/')}})
     }, []);
 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true); 
+
     return (
         <div>
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header>
+                <Modal.Title>Xóa banner</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Bạn có chắc muốn xóa banner này chứ ?
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Đóng
+                </Button>
+                <Button variant="primary">Xóa vội</Button>
+                </Modal.Footer>
+            </Modal>
+
             <Header isAdmin={true}/>
             <h3 className="title-list">Danh sách sản phẩm</h3> <br/>
             <div className="">
@@ -46,7 +69,7 @@ function List() {
                                 <Button className="mt-3 btn-list" href="/admin/addauction">Chi tiết</Button>
                                 </div>
                                 <div className="pl-5">
-                                <Button className="mt-3 btn-list" >Xóa</Button>
+                                <Button className="mt-3 btn-list" onClick={handleShow}>Xóa</Button>
                                 </div>
                             </div>
                         </Col>
@@ -84,6 +107,7 @@ function List() {
                 </div>
                 <hr width="90%" align="center"></hr>
             </div>
+            
             <Footer/>
         </div>
     )

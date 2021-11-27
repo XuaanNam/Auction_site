@@ -1,8 +1,4 @@
 const pool = require("../models/pool");
-const fs = require('fs');
-const express = require('express');
-const path = require('path'); 
-
 const bcrypt = require("bcrypt");
 const saltRound = 10;
 const encodeToken = require("../../util/encodeToken");
@@ -18,7 +14,7 @@ class API {
     }
 
     // [POST] /api/register
-    register(req, res, next) {
+    regiitster(req, res, next) {
         const insertSql = "insert into taikhoan (Ho, Ten, Email, TenDN, MatKhau) value (?,?,?,?,?)";
         const selectSql = "select Email from taikhoan where Email = ?";
         const messEmail = "Email đã được dùng để đăng kí tài khoản. Vui lòng chọn quên mật khẩu!";
@@ -116,37 +112,6 @@ class API {
         });
     }
 
-    // [GET] /api/logout
-    logout(req, res, next){
-        res.clearCookie("userAuth", { path: "/" });
-        res.clearCookie("username", { path: "/" });
-        res.status(200).json({ success: true, message: "User logged out successfully" });
-    };
-  
-     // [GET] /api/get/user
-     user(req, res, next) {
-        const idTK =  req.user[0].idTK;
-        const selectSql = "select * from taikhoan where idTK = ?";
-
-        pool.query(selectSql, idTK, function (error, results, fields) {
-            if (error) {
-                res.send({
-                    message: "Cập nhật thông tin không thành công"
-                });
-            } else {
-                res.send({
-                    Ten: results[0].Ten,
-                    Ho: results[0].Ho,
-                    NgaySinh: results[0].NgaySinh,
-                    Email: results[0].Email,
-                    SDT: results[0].SDT,
-                    Avt: results[0].Avt,
-                    message: "Cập nhật thông tin thành công"
-                });
-            }
-        });
-    }
-
     // [PATCH] /api/update/password
     updatePassword(req, res, next) {
        
@@ -168,16 +133,16 @@ class API {
                         if (response) {
                             bcrypt.hash(MkMoi, saltRound, (err, hash) => {
                                 connection.query(updateSql, [hash, idTK], function (err, results, fields) {
-                                    if (err) {
+                                    if (error) {
                                         res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                                     } else {
-                                        res.send({message: "Đổi mật khẩu thành công!"});
+                                        res.send({check: "Đổi mk thành công"});
                                     }
                                 })
                                 connection.release();
                             });
                         } else {
-                            res.status(200).send({ message: "Mật khẩu cũ không đúng!" });
+                            res.status(200).send({ message: "Mật khẩu không đúng!" });
                         }
                     });
                 } else { 
@@ -190,22 +155,22 @@ class API {
     // [PATCH] /api/update/profile
     updateProfile(req, res, next){     
 
-        const updateSql = "update taikhoan set Ho = ? , Ten = ?, TenDN = ? , NgaySinh = ?, SDT = ? where idTK = ?";
+        const updateSql = "update taikhoan set Ho = ? , Ten = ? , NgaySinh = ? , Email = ? , SDT = ? where idTK = ?";
 
         const idTK =  req.user[0].idTK;
-        const   Ho = req.body.ho, 
-                Ten = req.body.ten, 
-                TenDN = req.body.tenDN,     
-                NgaySinh = req.body.ngaySinh ? req.body.ngaySinh: "",
-                SDT = req.body.sDT ? req.body.sDT : "";
-        pool.query(updateSql, [Ho, Ten, TenDN, NgaySinh, SDT, idTK], function (err, results, fields) {
-            if (err) {
+        const   Ho = req.body.Ho, 
+                Ten = req.body.Ten,      
+                NgaySinh = req.body.NgaySinh ? req.body.NgaySinh: "",
+                SDT = req.body.SDT ? req.body.SDT : "";
+
+        pool.query(updateSql, [Ho, Ten, NgaySinh, Email, SDT, idTK], function (err, results, fields) {
+            if (error) {
                 res.status(200).send({  message: "Kết nối DataBase thất bại"  });
             } else { 
                 if(results){
-                    res.send({message: "Cập nhật thông tin thành công"});
+                    res.send({check: "Cập nhật thông tin thành công"});
                 } else { 
-                    res.send({message: "Cập nhật thông tin thất bại, lỗi cú pháp!"});
+                    res.send({check: "Cập nhật thông tin thất bại, lỗi cú pháp!"});
                 }
             }
         });     
@@ -215,45 +180,21 @@ class API {
     storedAvatar(req, res, next){
 
         const updateSql = "update taikhoan set Avt = ? where idTK = ?";
-        const selectSql = "select * from taikhoan where idTK = ?"
-        const idTK =  req.user[0].idTK;  
-        const Avt = "image" + "/" + "AVT" + "/" + req.file.filename;
-        const basePath = path.join(__dirname, '../../../../client','public');
+                
+        const idTK =  req.user[0].idTK; 
+        const Avt = req.file.path;
 
-        pool.getConnection(function (err, connection) {
-            if (err) throw err; // not connected!
-
-            // Use the connection
-            connection.query(selectSql, idTK, function (error, results, fields) {
-                if (error) {
-                    res.status(200).send({ message: "Kết nối DataBase thất bại" });
-                } else {
-                    const filePath = basePath + "/" + results[0].Avt; 
-                    
-                    
-                    connection.query(updateSql, [Avt, idTK], function (err, rs, fields) {
-                        if (err) {
-                            res.status(200).send({  message: "Kết nối DataBase thất bại"  });
-                        } else { 
-                            if(rs){
-                                if(results[0].Avt !== ""){
-                                    fs.unlink(filePath, function (err) {
-                                        if (err) throw err;
-                                        console.log('ảnh đại diện cũ đã bị xóa!');
-                                    });
-                                }
-                                
-                                res.send({message: "Cập nhật ảnh đại diện thành công"});
-                            } else { 
-                                res.send({message: "Cập nhật ảnh đại diện thất bại, lỗi cú pháp!"});
-                            }
-                        }
-                    })
-                    
-                    connection.release();
+        pool.query(updateSql, [Avt, idTK], function (err, results, fields) {
+            if (error) {
+                res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+            } else { 
+                if(results){
+                    res.send({message: "Cập nhật ảnh đại diện thành công"});
+                } else { 
+                    res.send({message: "Cập nhật ảnh đại diện thất bại, lỗi cú pháp!"});
                 }
-            });            
-        });
+            }
+        })
     }
 
     // [GET] /api/admin/get/product
@@ -266,7 +207,7 @@ class API {
             res.send({message: "Bạn chưa được cấp quyền admin để thêm ảnh cho SP này!"})
         } else {
             pool.query(selectSql, function (err, results, fields) {
-                if (err) {
+                if (error) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
@@ -291,7 +232,7 @@ class API {
             res.send({message: "Bạn chưa được cấp quyền admin để thêm ảnh cho SP này!"})
         } else {
             pool.query(updateSql, [HinhAnh, idSP], function (err, results, fields) {
-                if (err) {
+                if (error) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
@@ -318,7 +259,7 @@ class API {
             res.send({message: "Bạn chưa được cấp quyền admin để lưu trữ SP này!"})
         } else {
             pool.query(insertSql, [Website, ViTri, Gia, MoTa], function (err, results, fields) {
-                if (err) {
+                if (error) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
@@ -346,7 +287,7 @@ class API {
             res.send({message: "Bạn chưa được cấp quyền admin để chỉnh sửa nội dung SP này!"})
         } else {
             pool.query(updateSql, [Website, ViTri, Gia, MoTa, idSP], function (err, results, fields) {
-                if (err) {
+                if (error) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
@@ -370,7 +311,7 @@ class API {
             res.send({message: "Bạn chưa được cấp quyền admin để xóa SP này!"})
         } else {
             pool.query(deleteSql, idSP, function (err, results, fields) {
-                if (err) {
+                if (error) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
@@ -399,7 +340,7 @@ class API {
             res.send({message: "Bạn chưa được cấp quyền admin để thêm game ĐG này!"})
         } else {
             pool.query(insertSql, [idSP, TgBatDau, TgDauGia, GiaKhoiDiem, TrangThai, BuocGia], function (err, results, fields) {
-                if (err) {
+                if (error) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
@@ -429,7 +370,7 @@ class API {
             res.send({message: "Bạn chưa được cấp quyền admin để chỉnh sửa game ĐG này!"})
         } else {
             pool.query(updateSql, [idSP, TgBatDau, TgDauGia, GiaKhoiDiem, TrangThai, BuocGia, idDG], function (err, results, fields) {
-                if (err) {
+                if (error) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
@@ -453,7 +394,7 @@ class API {
             res.send({message: "Bạn chưa được cấp quyền admin để xóa game ĐG này!"})
         } else {
             pool.query(deleteSql, idDG, function (err, results, fields) {
-                if (err) {
+                if (error) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
@@ -527,7 +468,13 @@ class API {
         }
     }
 
-   
+    // [GET] /api/user
+    user(req, res, next) {
+        pool.query("SELECT * FROM taikhoan", function (error, results, fields) {
+            if (error) throw error;
+            res.send(results);
+        });
+    }
 }
 
 module.exports = new API();

@@ -53,20 +53,20 @@ class NavbarLogin extends Component {
       <Form className="mr-5">
         <div className="containerHeader" ref={this.container}>
           <a href="/interested">
-            <Button className="btn-nav outLineNone" variant="outline-info">
+            <Button className="btnnav-admin btn-nav outLineNone" variant="outline-info">
               <Gavel className="mr-2"/>
               Quan tâm
             </Button>
           </a>
           <a href="/Cart">
-            <Button className="btn-nav outLineNone" variant="outline-info">
+            <Button className="btnnav-admin btn-nav outLineNone" variant="outline-info">
             <ShoppingCartOutlined className="mr-2"/>
               Giỏ hàng
               
             </Button>
           </a>
           {/* USER _ HAS TOGGLE */}
-          <Button className="btn-nav mr-1 outLineNone" style={{minWidth: '20vw'}} variant="outline-info" onClick={this.handleButtonClick}>
+          <Button className="btnnav-admin btn-nav mr-1 outLineNone" variant="outline-info" onClick={this.handleButtonClick}>
             <Person className="mr-1"/>
             Xin chào, <span>{user}</span>
             {!this.state.open && (<KeyboardArrowDown className="ml-1 nonActiveRotate" />)}
