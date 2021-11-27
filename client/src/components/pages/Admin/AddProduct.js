@@ -26,7 +26,7 @@ function AddProduct() {
                 <div className="subcont-admin">
                     <h3 className="title-admin">Thêm sản phẩm mới</h3> <br/>
                     <div className="box-admin">
-                        <Row className="group-admin">
+                        <Row className="group-admin" >
                             <label className="label-admin">
                             Vị trí:
                             </label>

@@ -1,8 +1,9 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import '../../../App.css'
 import Header from "../../layout/Header";
 import Footer from '../../layout/Footer';
 import {Form, Row, Col, Button} from 'react-bootstrap'
+import {Alert, AlertTitle} from '@material-ui/lab'
 import axios from "../../../api/axios";
 import { useNavigate} from "react-router-dom";
 function List() {
@@ -34,6 +35,7 @@ function List() {
             }
         });
     }, []);
+
     return (
         <div>
             <Header isAdmin={true}/>
@@ -46,15 +48,23 @@ function List() {
                     <Row className="group-list" >
                         <Col>
                             <div className="pt-2">
-                                <label className="label-admin" column lg={2}>Vị trí:</label>
+                                <label className="label-admin" >Vị trí:</label>
                                 <span>Top banner</span>
                             </div>
                             
                             <div className="pt-3">
-                                <label className="label-admin" column lg={2}>Website:</label>
+                                <label className="label-admin" >Website:</label>
                                 <span>vuighe.net</span>
                             </div>
-                            <Button className="mt-3 btn-list" href="/admin/addauction">Chi tiết</Button>
+
+                            <div className="d-flex">
+                                <div>
+                                <Button className="mt-3 btn-list" href="/admin/addauction">Chi tiết</Button>
+                                </div>
+                                <div className="pl-5">
+                                <Button className="mt-3 btn-list" >Xóa</Button>
+                                </div>
+                            </div>
                         </Col>
                     </Row>
                 </div>
@@ -69,15 +79,22 @@ function List() {
                     <Row className="group-list" >
                         <Col>
                             <div className="pt-2">
-                                <label className="label-admin" column lg={2}>Vị trí:</label>
+                                <label className="label-admin">Vị trí:</label>
                                 <span>Right banner</span>
                             </div>
                             
                             <div className="pt-3">
-                                <label className="label-admin" column lg={2}>Website:</label>
+                                <label className="label-admin">Website:</label>
                                 <span>fulltruyen.vn</span>
                             </div>
-                            <Button className="mt-3 btn-list" href="/admin/addauction">Chi tiết</Button>
+                            <div className="d-flex">
+                                <div>
+                                <Button className="mt-3 btn-list" href="/admin/addauction">Chi tiết</Button>
+                                </div>
+                                <div className="pl-5">
+                                <Button className="mt-3 btn-list">Xóa</Button>
+                                </div>
+                            </div>
                         </Col>
                     </Row>
                 </div>
