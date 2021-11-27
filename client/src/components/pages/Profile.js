@@ -13,20 +13,44 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
-const Profile = () => {
-
-    const [changePass, setChangePass] = useState(false);
-    const [isAdmin, setIsAdmin] = useState(false);
-    
-    const username = cookies.get('username') ? cookies.get('username'): null;
+function Profile() {
 
     let navigate = useNavigate();
     let isAuth = 0;
-    
+    const [changePass, setChangePass] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [file, setFile] = useState(null);
+
+    const [Ho, setHo] = useState("");
+    const [Ten, setTen] = useState("");
+    const [TenDN, setTenDN] = useState("");
+    const [NgaySinh, setNgaySinh] = useState("");
+    const [SDT, setSDT] = useState("");
+    const [Email, setEmail] = useState("");
+    const [Avt, setAvt] = useState("");
+    const username = cookies.get('username') ? cookies.get('username'): null;
+   
+    useEffect(()=>{
+        axios.get("get/user")
+            .then((Response) => {
+                if (Response.data.message) {
+                    setTenDN(username);
+                    setHo(Response.data.Ho);
+                    setTen(Response.data.Ten);
+                    setNgaySinh(Response.data.NgaySinh);
+                    setSDT(Response.data.SDT);
+                    setEmail(Response.data.Email);
+                    setAvt(Response.data.Avt);
+                } 
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+    },[])
+
     useEffect(()=>{
         axios.get("isAuth",)
           .then((Response) => {
-              console.log(Response);
             if(Response.data.PQ === 1){
               setIsAdmin(true);
               
@@ -48,21 +72,30 @@ const Profile = () => {
         setChangePass( changePass ? false : true);
     }
 
-    const chooseAvt = async() => {
+    const handleFile = (e) => {
+        setFile(e.target.files[0])
+    }
+
+    const chooseAvt = () => {
         const avt = document.getElementById('avt');
         avt.click();
-        var formData = new FormData();
-        formData.append("avatar", avt.files[0]);
-        if(avt.files.length === 0 ){
-            return
-        } else {
-            await axios.post('/stored/avatar', formData, {
-                headers: {'Content-Type': 'multipart/form-data'}
-            })
-                .then((Response) => {
-                    alert(Response.data.message);
-                })
-                .catch((err) => {})   
+    }
+
+    const submitAvt = async() => {
+        const image = new FormData();
+        image.append("avatar", file);
+
+        try {
+            await axios.post('/stored/avatar', image)
+                    .then((res) => {
+                        alert(res.data.message)
+                    })
+                    .catch(err => {console.log(err)})
+                    .then(() => {
+                        window.location.reload(false);
+                    })
+        } catch (error) {
+            throw error
         }
     }
     return (
@@ -73,57 +106,68 @@ const Profile = () => {
                 <Header isActive={true}/> 
             }
             <background style={{ backgroundImage: `url(${background})` }} />
-                <div className="profile-Container">
-                    {/* sidebar */}
-                    <div className="bodyContainerProfile pt-5 pl-5 pr-5 body-banner">   
-                    
-                        {/* ICON */}
-                        <button>
-                        <Edit class="clickToEdit"/>
-                        </button>
-                        <div className="profile-SideBar">
-                            <div className="profile-HeaderBar">
-                                <img className="profile-Avatar" src="" alt="avatar"/>
-                                <h4 className="profile-FullName">{username}</h4>
+
+            <div className="profile-layout">
+                <div className="main-container">   
+                    <div className="slide-bar">
+                        <div className="avatar">
+                            <img src={Avt} alt=""/>
+                            <h4>{username}</h4>
+                            {/* form ẩn */}
+                            
+                            <div className="d-flex">
+                                <input type="file"  style={{display: 'none'}} name="Avatar" id='avt' onChange={ (e)=>{handleFile(e)} }/>
                                 
-                                    <input type="file" style={{display: 'none'}} name="avatar" id='avt'/>
-                               
-                                    <button onClick={chooseAvt} className="btn btn-dark btn-custom basic mb-4 mt-2" >
-                                        <AccountCircle className="mr-1"/> 
-                                        Đổi ảnh đại diện
-                                    </button> 
-                                    {/* <span onClick={submitAvt} className="btn btn-dark btn-custom basic mb-4 mt-2" >
-                                        <AccountCircle className="mr-1"/> 
-                                        Thay đổi ngay
-                                    </span> */}
+                                <button onClick={chooseAvt} className="btn btn-info btn-sm" >
+                                    Chọn ảnh
+                                </button> 
+                                <button onClick={submitAvt} className="btn btn-dark btn-sm" >
+                                    <AccountCircle className="mr-1"/> 
+                                    Đổi ảnh đại diện
+                                </button> 
                             </div>
-                            <div className="profile-Hr" />
-                            <div className="profile-Menu">
-                                <div className="profile-MenuItems menu-items" >
-                                    {changePass ?
-                                        <MenuInfo handleSwitchTab = {handleSwitchTab}/>
-                                        :
-                                        <MenuChangePass handleSwitchTab = {handleSwitchTab}/>
-                                    }
-                                </div>
+                            <div className="btn-switch" >
+                                {changePass ?
+                                    <MenuInfo handleSwitchTab = {handleSwitchTab}/>
+                                    :
+                                    <MenuChangePass handleSwitchTab = {handleSwitchTab}/>
+                                }
                             </div>
                         </div>
-                        {/* profile */}
-                        <div className="profile-ProfileBar">
-                            <div className="profile-ProfileHeader">
-                                <h3 className="profile-Title">Thông tin cá nhân</h3>
-                                <p className="profile-SubTitle">Thông tin về cá nhân bạn là hoàn toàn được bảo mật!</p>
-                            </div>
-                            <div className="profile-ProfileBody">
-
-                                {changePass ? <ChangePass/> : <Information/> }
-                                
-                            </div>
-                        </div>
-
+                        
+                        
                     </div>
-                    
+                    {/* profile */}
+                    <div className="article">
+                        <div className="title-art">
+                         
+                            <Edit class="clickToEdit"/>
+                        
+                            <h3>Thông tin cá nhân</h3>
+                            <h6>Thông tin về cá nhân bạn là hoàn toàn được bảo mật!</h6>
+                        </div>
+                        <div className="input-art">
+
+                            {changePass ? <ChangePass/> 
+                            :
+                            <Information
+                                Ho={Ho}
+                                Ten={Ten}
+                                Email={Email}
+                                TenDN={TenDN}
+                                NgaySinh={NgaySinh}
+                                SDT={SDT}
+
+                            /> 
+                            }
+                            
+                        </div>
+                    </div>
+
                 </div>
+                
+            </div>
+
             <Footer/>
         </div>
     )

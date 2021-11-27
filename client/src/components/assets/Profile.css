@@ -1,17 +1,92 @@
 
-.bodyContainerProfile {
+.profile-layout {
+    width: 100%;
+    height: 100vh;
+    padding: 20vh 15vw 7vh;
+    box-sizing: border-box;
+}
+
+.profile-layout .main-container {
     position: relative;
-    text-align: left;
-    width: 80%;
-    height: 50vw;
-    margin: 20vh auto 5vh;
-    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    border: 3px solid #1790c9;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: 100%;
 }
+/*navbar*/
+.profile-layout .main-container .slide-bar{
 
-.marginforDouble {
-    margin-left: 4.5rem !important;
+    width: 95%;
+    height: 95%;
+    background-color: #f8f9faa4;
+    padding: 20px;
+    border-radius: 15px;
+    margin: auto;
+    @media only screen and (max-width: 414px) {
+        position: "unset";
+        top: "50px";
+        width: "100%";
+        padding: "10px 10px 0 10px"
+    }
 }
-
+.profile-layout .main-container .avatar {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+}
+.profile-layout .main-container .avatar > .d-flex {
+    padding: 0 0 20px 0;
+    border-bottom: 1px solid rgb(136, 136, 136);
+}
+.profile-layout .main-container .avatar > .d-flex .btn-info {
+    margin: 0 10px 0 0;
+    border: 1px solid rgb(136, 136, 136);
+}
+.profile-layout .main-container .avatar img{
+  
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 3px solid #1790c9;
+    @media only screen and (max-width: 414px) {
+        width: "120px";
+        height: "120px"
+    }
+  
+}
+.profile-layout .main-container .avatar h4{
+    padding: 20px;
+    margin: 0;
+    text-align: center;
+    font-size: 1.5rem;
+    @media only screen and (max-width: 414px) {
+        fontSize: "18px"
+    }
+}
+.profile-layout .main-container .btn-switch{
+    width: 100%;
+    padding-top: 20px;
+    @media only screen and (max-width: 414px) {
+        overflowX: "scroll"
+    }
+}
+.profile-layout .main-container .btn-switch span{
+    width:100%;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 1px solid rgba(109, 109, 109, 0.699);
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+.profile-layout .main-container .btn-switch span:hover{
+    background-color: rgba(83, 153, 25, 0.829)
+}
+/*input*/
 .clickToEdit {
     position: absolute;
     width: 40px;
@@ -22,177 +97,46 @@
     z-index: 1;
     background: #17a2b8;
 }
-
-.profile-Container {
-      min-height: 130vh;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-}
-.profile-Main {
-      flex: 1;
-    min-height: 100%;
-    margin-top: 60px;
-    margin-right: 200px;
-    @media only screen and (max-width: 414px) {
-        marginTop: "10px";
-        display: "flex";
-        flexDirection: "column";
-        marginRight: "0"
-    }
-}
-
-.profile-SideBar {
-      position: absolute;
-    border-right: 1px solid rgba(0, 0, 0, 0.91);
-    border-radius: 5px;
-    top: 0px;
-    bottom: 0;
-    left: 0;
-    width: 20vw;
-    background-color: #f8f9fa;
-    padding: 30px 8px 0 0;
-    flex: 1;
-    flex-direction: column;
-    @media only screen and (max-width: 414px) {
-        position: "unset";
-        top: "50px";
-        width: "100%";
-        padding: "10px 10px 0 10px"
-    }
-}
-
-.profile-HeaderBar {
-      display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: center;
-}
-.profile-Avatar {
-      width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    border: 3px solid rgb(53, 209, 217);
-    @media only screen and (max-width: 414px) {
-        width: "120px";
-        height: "120px"
-    }
-}
-.profile-FullName {
-     padding: 12px 10px 0;
-    text-align: center;
-    font-size: 20px;
-    @media only screen and (max-width: 414px) {
-        fontSize: "18px"
-    }
-}
-
-.profile-Menu {
-    @media only screen and (max-width: 414px) {
-        overflowX: "scroll"
-    }
-}
-
-.profile-MenuItems {
-      display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: center;
-    @media only screen and (max-width: 414px) {
-        flexDirection: "row";
-        width: "120%";
-        whiteSpace: "nowrap"
-    }
-}
-  
-
-.profile-MenuItem :hover {
-    color: #343a40;
-    cursor: pointer;
-    border-color: rgba(0, 0, 0, 0.2);
-    opacity: 0.8;
-    background-color: #333;
-}
-.profile-MenuItem :active{
-    box-shadow: 0px 0px 10px 8px rgba(0, 0, 0, 0.05) inset;
-}
-.profile-MenuItem {
-    display: flex;
-    align-items: center;
+.profile-layout .main-container .article {
     width: 100%;
-    padding: 10px 10px 10px 16px;
-    vertical-align: middle;
-    text-decoration: none;
-    color: #343a40;
-    font-size: 17px;
-    font-weight: 500;
-    border: 0.5px solid transparent;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    border-top-right-radius: 100px;
-    border-bottom-right-radius: 100px;
-    user-select: none;
-    @media only screen and (max-width: 414px) {
-        width: "30%";
-        padding: "5px 10px";
-        fontSize: "15px";
-        borderTopRightRadius: "6px";
-        borderTopLeftRadius: "6px";
-        borderBottomRightRadius: "0";
-        borderBottomLeftRadius: "0";
-        justifyContent: "center"
-    }
-}
-.profile-ProfileBar {
-    width: calc(100% - 24vw);
-    padding: 60px 30px;
-    outline: none;
-    flex: 3;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    @media only screen and (max-width: 414px) {
-        
-        width: "100%",
-        marginLeft: "0",
-        padding: "20px 0"
-        @media only screen and (max-width: 414px) {
-            transform: translateX(${props => props.tabIndex * -100}%)};
+    height: 100%;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 20% 80%;
+ 
+    @media only screen and (max-width: 414px) {       
+        width: "100%";
+        marginLeft: "0";
+        padding: "20px 0";
     }
 }
 
-.profile-ProfileHeader {
-      padding-left: 100px;
-    padding-bottom: 50px;
+.profile-layout .main-container .article .title-art{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 10px 10px 20px;
     @media only screen and (max-width: 414px) {
         display: "none"
+    }    
+} 
+
+.profile-layout .main-container .article .input-art {
+    padding: 0 20px;
+    overflow-x: hidden;
+    overflow-y: auto; 
+    @media only screen and (max-width: 414px) {
+      height: "60vh";
+      overflowY: "scroll";
+      display: "flex";
+      width: "300%"
     }
 }
- 
-
-.profile-Title {
-     text-align: center;
-    margin-right: 100px;
-    font-weight: 400;
-}
-.profile-SubTitle {
-    text-align: center;
-    margin-right: 90px;
-}
-
-.profile-ProfileBody {
-      text-align: center;
-      @media only screen and (max-width: 414px) {
-        height: "60vh";
-        overflowY: "scroll";
-        display: "flex";
-        width: "300%"
-        }
-}
-.profile-ProfileCard {
-      text-align: left;
-    margin-bottom: 1.5rem;
+.profile-layout .main-container .article .input-art .info {
+    margin: 0 0 15px 0;
     @media only screen and (max-width: 414px) {
         height: "fit-content";
         width: "33.3333%";
@@ -201,141 +145,78 @@
         transition: "opacity 0.5s ease"
     }
 }
-.profile-Hr {
-      margin: 0.75rem 0;
-    color: inherit;
-    border: 0.5px solid currentColor;
-    opacity: .25;
-}
-
-.profile-CardHeader {
-     padding: 10px 16px;
-    font-weight: 600;
+.profile-layout .main-container .article .input-art .info h4{
+    padding: 10px 10px;
+    font-weight: 500;
     font-size: 18px;
-    margin-bottom: 0;
-    background-color: #f8f9fa;
+    color: rgb(255, 255, 255);
+    margin: 0;
+    background-color: #5495d6cb;
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
     border: 1px solid rgba(0, 0, 0, 0.3);
 }
-.profile-CardBody {
-      padding: 8px 16px;
+.profile-layout .main-container .article .input-art .info > div{
+    padding: 10px 10px;
+    background-color: #f0f0f0cb;
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-top: none;
 }
-.profile-UserInfo :last-child {
-    border-bottom: none;
+.profile-layout .info .d-grid{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: auto;
 }
-.profile-UserInfo {
-      display: flex;
-    flex-wrap: nowrap;
-    padding: 6px 8px 6px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-    @media only screen and (max-width: 414px) {
-        flexDirection: "column";
-        flexWrap: "wrap"
-    }
+.profile-layout .main-container .info .d-grid > label {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px 30px 0 0px;
+    margin: 0;
+    text-align:end;
+    vertical-align: middle;
 }
-.profile-InputTextDouble {
-  width: calc((100% / 12) * 4);
-  padding: 8px 0;
-  word-wrap: break-word;
-  background-color: rgb(238 206 214);
-  border: 1px solid rgb(238 206 214);
-  border-radius: 5px;
-}
-.profile-InfoName {
-      width: calc((100%/12)*5);
-    padding: 4px 0;
-    font-weight: 600;
-    @media only screen and (max-width: 414px) {
-        width: "100%" 
-    }
-}
-
-.profile-CardFooter {
-      display: flex;
-    justify-content: center;
-    margin: 40px 0;
-}
-.profile-EditButton {
-
-    font-size: 18px;
-    margin-right: 10px;
-    text-transform: uppercase;
-    width: 20%;
-    @media only screen and (max-width: 414px) {
-        width: "100%" 
-    }
-}
-
-.profile-InfoEdit:focus {
-    border-color: #343a40;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
-}
-.profile-InfoEdit {
-        width: calc((100%/12)*7);
-    padding: 4px 10px;
-    outline: none;
-    border: 1px solid;
-    border-color: rgba(0, 0, 0, 0.25);
-    border-radius: 6px;
-    
-    @media only screen and (max-width: 414px) {
-        width: "100%" ;
-        paddingLeft: "8px"
-    }
-}
-
-
-.profile-InputText {
-        width: calc((100%/12)*9);
-    padding: 8px 0;
-    word-wrap: break-word;
-    background-color: rgb(238 206 214);
+.profile-layout .main-container .info .d-grid > input{
+    height: 45px;
+    padding: 0 20px;
+    margin: 5px 0;
+    background-color: #ee71cfe8;
     border: 1px solid rgb(238 206 214);
     border-radius: 5px;
 }
-
-.profile-MenuItem:hover {
-    color: #343a40;
-    cursor: pointer;
-    border-color: rgba(0, 0, 0, 0.2);
-    opacity: 0.8;
-    background-color: #333;
-}
-.profile-MenuItem:active {
-    box-shadow: 0px 0px 10px 8px rgba(0, 0, 0, 0.05) inset;
-}
-.profile-MenuItem {
+.profile-layout  .d-grid > span {
     display: flex;
-    align-items: center;
-    width: 100%;
-    padding: 10px 10px 10px 16px;
-    vertical-align: middle;
-    text-decoration: none;
-    color: #343a40;
-    font-size: 17px;
-    font-weight: 500;
-    border: 0.5px solid transparent;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    border-top-right-radius: 100px;
-    border-bottom-right-radius: 100px;
-    user-select: none;
-    @media only screen and (max-width: 414px) {
-        width: "30%";
-        padding: "5px 10px";
-        fontSize: "15px";
-        borderTopRightRadius: "6px";
-        borderTopLeftRadius: "6px";
-        borderBottomRightRadius: "0";
-        borderBottomLeftRadius: "0";
-        justifyContent: "center"
-    }
 }
-
-.profile-btnchangepass:hover{
-    background-color: rgb(255, 255, 255);
+.profile-layout .d-grid > span input:first-child {
+    width: 45%;
+    height: 45px;
+    padding: 0 20px;
+    margin: 5px auto 5px 0;
+    background-color: #ee71cfe8;
+    border: 1px solid rgb(238 206 214);
+    border-radius: 5px;
+}
+.profile-layout .d-grid > span input:last-child {
+    width: 45%;
+    height: 45px;
+    padding: 0 20px;
+    margin: 5px 0 5px auto;
+    background-color: #ee71cfe8;
+    border: 1px solid rgb(238 206 214);
+    border-radius: 5px;
+}
+.profile-layout .main-container .article .input-art div > button{
+    background-color: #5495d6cb;
+    color: #FFF;
+}
+.main-container .article .input-art .btn-edit{
+    text-align: center;
+    margin: 0 auto 40px ;
+}
+.profile-layout .cp-err{
+    padding: 0 20px;
+    border-radius: 40px;
+    background-color: rgb(248, 248, 248);
+    color: red;
 }

@@ -17,27 +17,35 @@ const Login = () => {
   const [Email, setEmail] = useState("");
   const [MatKhau, setMatKhau] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
+  const [validated, setValidated] = useState(false);
 
+  let isAuth = 0;
+  let isCorr = 0;
   axios.defaults.withCredentials = true;
   let navigate = useNavigate();
   useEffect(() => {
     axios
       .get("isAuth")
-      .then((Response) => {
-        if (Response.data.PQ) {
-          if(Response.data.PQ===1){
-            navigate("/admin/list");
-          }
-          else {
-            navigate("/home");
-          }
+      .then((Response) => {  
+        if(Response.data.PQ===1){
+          isAuth = 2;
+        }
+        else if(Response.data.PQ===0){
+          isAuth = 1;
         }
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.error(error))
+      .then(()=>{
+        if(isAuth === 2){
+          navigate("/admin/list");
+        }
+        else if(isAuth === 1){
+          navigate("/home");
+        } 
+      })
   }, [navigate]);
 
-  const [validated, setValidated] = useState(false);
-
+  
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -61,15 +69,19 @@ const Login = () => {
               maxAge: 1000 * 60 * 60 * 72,
               //httpOnly: ,
             });
+            isCorr = 1;
           } else if (Response.data.message) {
             setLoginStatus(Response.data.message);
+            isCorr = 0;
           }
         })
         .catch(() => {
           setLoginStatus("Đăng nhập thất bại");  
         })
-        .then( () => {
-            window.location.reload(false);
+        .then( () => {  
+            if(isCorr === 1) {
+              window.location.reload(false);
+            }
         });
     }
     setValidated(true);

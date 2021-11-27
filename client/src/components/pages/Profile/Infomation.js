@@ -1,84 +1,103 @@
 import { DoneAll } from "@material-ui/icons";
-import React, { useState } from "react";
-//
+import React, { useState, useEffect } from "react";
 //
 import axios from "../../../api/axios";
-import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
-const cookies = new Cookies();
 
-const Infomation = () => {
+function Infomation(props) {
   const [error, setError] = useState("");
-  const userid = cookies.get("userid") ? cookies.get("userid") : null;
-  const username = cookies.get("username") ? cookies.get("username") : null;
+  const [ho, setHo] = useState("");
+  const [ten, setTen] = useState("");
+  const [tenDN, setTenDN] = useState("");
+  const [ngaySinh, setNgaySinh] = useState("");
+  const [sDT, setSDT] = useState("");
 
-  let navigate = useNavigate();
-  let isAuth = 0;
+  useEffect(()=>{
+    setHo(props.Ho);
+    setTen(props.Ten);
+    setTenDN(props.TenDN);
+    setNgaySinh(props.NgaySinh);
+    setSDT(props.SDT);
+  }, [props.Ho, props.NgaySinh, props.SDT, props.Ten, props.TenDN])
 
-  const handleEdit = () => {};
+  const handleEdit = (event) => {
+    event.preventDefault();
+    if(ho === "" || ten === "" || tenDN === ""){
+      setError("Vui lòng không để trống trường Họ & Tên, Tên người dùng!");
+    } else { console.log(ho, ten, tenDN, ngaySinh, sDT)
+      axios
+        .patch("update/profile", {
+          ho, ten, tenDN, ngaySinh, sDT
+        })
+        .then((Response) => {
+          if (Response.data.message) {
+            setError(Response.data.message);
+          } 
+        })
+        .catch(() => {
+          setError(
+            "Đã có một lỗi bất thường xảy ra, vui lòng thử lại sau ít phút!"
+          );
+        })
+        .then(() => {
+          window.location.reload(false);
+        })
+    }
+  };
   return (
     <div>
-      <div className="profile-ProfileBody">
-        <div className="profile-ProfileCard card-item fade-card mobile-active">
-          <h4 className="profile-CardHeader">Thông tin cơ bản</h4>
-          <div className="profile-CardBody">
-            <div className="profile-UserInfo">
-              <div className="profile-InfoName basic">Tên người dùng:</div>
-              <input className="profile-InputText basic" />
-              {/* <InfoName className="edit-basic display-none">First Name</InfoName> */}
-              {/* Xử lý */}
-              {/* <InfoName className="edit-basic display-none">Last Name</InfoName> */}
-              {/* Xử lý */}
+     
+        <div className="info">
+          <h4>Thông tin cơ bản</h4>
+          <div>
+            <div className="d-grid">
+              <label>Tên người dùng:</label>
+              <input type="text" value={tenDN} onChange={(e) => {setTenDN(e.target.value);}}/>
             </div>
-            <div className="profile-UserInfo">
-              <div className="profile-InfoName">Họ & tên</div>
-              <input className="profile-InputTextDouble basic" />
-              <input className="profile-InputTextDouble marginforDouble" />
-              {/* Xử lý */}
-            </div>
-            <div className="profile-UserInfo">
-              <div className="profile-InfoName">Ngày sinh:</div>
-              <input className="profile-InputText basic" />
-              {/* Xử lý */}
-            </div>
-            <div className="profile-UserInfo">
-              <div className="profile-InfoName">Giới tính:</div>
-              <input className="profile-InputText basic" />
-              {/* Xử lý */}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="profile-ProfileBody pt3">
-        <div className="profile-ProfileCard">
-          <h4 className="profile-CardHeader">Thông tin liên lạc</h4>
 
-          <div className="profile-CardBody">
-            <div className="profile-UserInfo">
-              <div className="profile-InfoName">Email:</div>
-              <input className="profile-InputText contact" />
-              {/* xử lý*/}
+            <div className="d-grid">
+              <label>Họ & tên:</label>
+              
+              <span>
+                <input type="text" value={ho} onChange={(e) => {setHo(e.target.value);}}/>
+                <input type="text" value={ten} onChange={(e) => {setTen(e.target.value);}}/>  
+              </span>
+              
             </div>
-            <div className="profile-UserInfo">
-              <div className="profile-InfoName">Số điện thoại:</div>
-              <input className="profile-InputText contact" />
-              {/* xỬ LÝ */}
+
+            <div className="d-grid">
+              <label c>Ngày sinh:</label>
+              <input type="date" value={ngaySinh} onChange={(e) => {setNgaySinh(e.target.value);}}/>
             </div>
-          </div>
-          <div className="profile-CardFooter"></div>
-          <div className="profile-CardFooter">
-            <button
-              className="profile-EditButton"
-              onClick={handleEdit}
-              className="btn btn-dark btn-custom basic"
-            >
-              <DoneAll className="mr-1" />
-              Chỉnh sửa
-            </button>
-            {/* xử lý */}
+
           </div>
         </div>
-      </div>
+   
+        <div className="info">
+          <h4 >Thông tin liên lạc</h4>
+
+          <div >
+            <div className="d-grid">
+              <label>Email:</label>
+              <input value={props.Email} disabled="disabled"/>
+            </div>
+            <div className="d-grid">
+              <label>Số điện thoại:</label>
+              <input type="number" value={sDT} onChange={(e) => {setSDT(e.target.value.toString());}}/>
+            </div>
+          </div>
+        </div>
+        <div className="btn-edit">
+          {error?  <span className="cp-err">{error}</span> : <span></span>}
+          <br/><br/>
+          <button
+            className="btn"
+            onClick={handleEdit}
+          >
+            <DoneAll className="mr-1" />
+            Chỉnh sửa
+          </button>
+        </div>
+        
     </div>
   );
 };
