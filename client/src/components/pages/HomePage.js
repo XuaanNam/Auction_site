@@ -26,7 +26,7 @@ export default function HomePage() {
             }
         })
         .catch(error => console.error(error));
-    }, []);
+    }, [navigate]);
 
     
     return (
@@ -34,7 +34,7 @@ export default function HomePage() {
     <Header isGuest={true}/>
     <background style={{ backgroundImage: `url(${background})` }}/>
         <Container>
-        <Slogan>Slogan cho trang đấu giá
+        <Slogan>Slogan cho trang đấu giá 〽️
             <span className="panner">
                 <Card.Img src={panther}></Card.Img>
             </span>
@@ -132,7 +132,8 @@ const Container = styled.div`
 `;
 const Slogan = styled.div`
     position: relative;
-    color: #fff;
+    color: #000;
+    font-weight: 601;
     padding-bottom: 40vh;
     font-size: 2rem;    
     padding-left: 5rem;

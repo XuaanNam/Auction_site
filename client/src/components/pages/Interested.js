@@ -1,3 +1,5 @@
+import {Gavel,Cancel,BorderHorizontal, GpsFixed,
+         Timer, AttachMoney} from '@material-ui/icons';
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -15,24 +17,83 @@ const Interested = () => {
         <Container>
             <Header isActive={true} />
             <Main className="container">
-            <Title>Ồ ! Là thứ bạn quan tâm đến</Title>
-                    <Link to="/">
-                            <TopButton className={`btn btn-dark ${Interest.btnReturnBuy}`}>Tiếp tục đấu giá</TopButton>
-                    </Link>
-                    <Link to="/cart" className="text-decoration-none">
-                        <TopText className={`text-decoration-none alert-danger ${Interest.amountInterest}`}>Số lượng trong giỏ hàng: 1</TopText>
-                    </Link>
-                    <Having>
-                        <Image src={banner1} />
-                        <ProductDetail>
-                                        <span className={Interest.positionBanner}>Vị trí: Top Banner</span>
-                                        <span className={Interest.sizeBanner}>Kích thước: 980 x 200</span>
-                                        <span className={Interest.timeBegunBanner}>Thời gian: 3/12/2021 19:30</span>
-                                        <span className={Interest.priceBegunBanner}>Giá khởi điểm: 7.000.000 vnđ</span>
-                        </ProductDetail>
-                    </Having>
-                    
-                    
+                <Title>Bạn quan tâm 💜</Title>
+                        <Link to="/">
+                                <TopButton className={`btn btn-dark ${Interest.btnReturnBuy}`}>
+                                    <Gavel className ="mr-1"/>
+                                    Tiếp tục đấu giá</TopButton>
+                        </Link>
+                        <Link to="/cart" className="text-decoration-none">
+                            <TopText className={`text-decoration-none alert-danger ${Interest.amountInterest}`}>Số lượng trong giỏ hàng: 1</TopText>
+                        </Link>
+                        {/* ITEM BẮT ĐẦU */}
+                        <Having>
+                            {/*  */}
+                            <Image src={banner1} />
+                            <ProductDetail>
+                                            <span className={Interest.positionBanner}>
+                                                <GpsFixed className="mr-1"/>
+                                                Vị trí: 
+                                                <span className="text-warning"> Top Banner</span>
+                                            </span>
+
+                                            <span className={Interest.sizeBanner}>
+                                                <BorderHorizontal className="mr-1"/>
+                                                Kích thước:
+                                                <span className="text-warning"> 980 x 200</span>
+                                            </span>
+
+                                            <span className={Interest.timeBegunBanner}>
+                                                ⏱ Thời gian:
+                                                <span className="text-warning"> 3/12/2021 19:30</span>
+                                                
+                                            </span>
+
+                                            <span className={Interest.priceBegunBanner}>
+                                                💸 Giá khởi điểm:
+                                                <span className="text-warning"> 7.000.000 vnđ</span>
+                                            </span>
+
+                                            <button class={`btn btn-dark ${Interest.btnRemoveIn}`}>
+                                                XOÁ KHỎI YÊU THÍCH 
+                                                <Cancel className="ml-1"/>
+                                                </button>
+                            </ProductDetail>
+                        </Having>
+                        {/* Ngăn cách các item */}
+                        <Having>
+                            {/*  */}
+                            <Image src={banner1} />
+                            <ProductDetail>
+                                            <span className={Interest.positionBanner}>
+                                                <GpsFixed className="mr-1"/>
+                                                Vị trí: 
+                                                <span className="text-warning"> Top Banner</span>
+                                            </span>
+
+                                            <span className={Interest.sizeBanner}>
+                                                <BorderHorizontal className="mr-1"/>
+                                                Kích thước:
+                                                <span className="text-warning"> 980 x 200</span>
+                                            </span>
+
+                                            <span className={Interest.timeBegunBanner}>
+                                                ⏱ Thời gian:
+                                                <span className="text-warning"> 3/12/2021 19:30</span>
+                                                
+                                            </span>
+
+                                            <span className={Interest.priceBegunBanner}>
+                                                💸 Giá khởi điểm:
+                                                <span className="text-warning"> 7.000.000 vnđ</span>
+                                            </span>
+
+                                            <button class={`btn btn-dark ${Interest.btnRemoveIn}`}>
+                                                XOÁ KHỎI YÊU THÍCH 
+                                                <Cancel className="ml-1"/>
+                                                </button>
+                            </ProductDetail>
+                        </Having>
                     {/*  */}
             </Main>
             <Footer></Footer>
@@ -41,8 +102,9 @@ const Interested = () => {
 }
 
 const Title = styled.h3`
-    padding-top: 50px;
-    padding-bottom: 30px;
+    
+    padding-top: 6.125rem;
+    padding-bottom: 1.875rem;
     font-weight: 600;
     font-size: 25px;
     text-align: center;
@@ -58,24 +120,25 @@ const Container = styled.div`
 
 const Main = styled.div`
     flex: 1;
-    margin-top: 60px;
+    height: 100%;
+    margin-top: 3.75rem;
 `;
 
 const Having = styled.div`
     position: relative;
     border: 2px solid #343a40;
     border-radius: 10px;
-    margin-left: -65px;
-    padding: 20px;
-    height: 50vh;
-    margin-bottom: 50px;
-    margin-right: 20px;
+    margin-left: -4.125rem;
+    padding: 1.25rem 1.25rem 5rem 1.25rem;
+    height: 100%;
+    margin-bottom: 4.125rem;
+    margin-right: 1.25rem;
 `;
 
 const EmptyCart = styled.img`
-    margin-bottom: 10px;
-    width: 400px;
-    height: 180px;
+    margin-bottom: 0.625rem;
+    width: 25rem;
+    height: 11.25rem;
 `;
 
 
@@ -83,11 +146,11 @@ const EmptyCart = styled.img`
 const TopText = styled.span`
     text-decoration: underline;
     cursor: pointer;
-    margin: 0 20px;
+    margin: 0 1.25rem;
 `;
 
 const ShopButton = styled.button`
-    margin-top: 5px;
+    margin-top: 0.3125rem;
 `;
 
 const TopButton = styled.button`
@@ -96,8 +159,8 @@ const TopButton = styled.button`
 
 const Image = styled.img`
     
-    width: 100%;
-    height: 250px;
+    width: 75%;
+    height: 16rem;
     border-radius: 5px;
     //border: 1px solid rgba(0, 0, 0, 0.3);
    

@@ -28,6 +28,7 @@ const Login = () => {
       .get("isAuth")
       .then((Response) => {  
         if(Response.data.PQ===1){
+          // eslint-disable-next-line react-hooks/exhaustive-deps
           isAuth = 2;
         }
         else if(Response.data.PQ===0){

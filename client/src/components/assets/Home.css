@@ -39,7 +39,7 @@ background {
   bottom: 10vh;
   right: 30vh;
   top: -8vh;
-  width: 700px;
+  width: 43.75rem;
 }
 
 .mg-items {
@@ -129,12 +129,13 @@ background {
 
 .home-container .home-sologan {
   position: relative;
-  color: #fff;
+  color: rgb(0, 0, 0);
+  font-weight: 601;
   padding-bottom: 40vh;
   font-size: 2rem;
   padding-left: 5rem;
   width: 100%;
-  height: 50px;
+  height: 3.125rem;
   z-index: 1;
 }
 .home-container{

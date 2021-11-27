@@ -1,10 +1,7 @@
-import { Form, Row, Col, Button } from "react-bootstrap"
+import { Form, Button } from "react-bootstrap"
 import React from "react";
-import styled from "styled-components"
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
-import { Link } from 'react-router-dom';
-import logo from "../images/img-login.png";
 import background from "../images/background.jpg"
 //dùng để kết nối tới db
 import {useState, useEffect} from "react";
@@ -65,7 +62,7 @@ function Register() {
         <div>
             {/* <Logo src={logo}/> */}
             <Header isGuest={true}/>   
-            <img  className="img-inout" src={background}></img>
+            <img alt="" className="img-inout" src={background}></img>
             <div className="container cont-inout">
                 <div className="subcont-inout">
                 <h2 className="title-inout">Đăng ký</h2>

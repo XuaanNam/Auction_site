@@ -26,6 +26,7 @@ router.patch('/admin/update/auction', passport.authenticate('jwt', {session: fal
 router.delete('/admin/delete/auction', passport.authenticate('jwt', {session: false}), api.updateAuction);
 router.post('/admin/auction/settimer',passport.authenticate('jwt', {session: false}), api.setTimer);
 
+router.get('/get/all/auction', passport.authenticate('jwt', {session: false}), api.getAuction);
 router.get('/auction/info', passport.authenticate('jwt', {session: false}), api.auctionInfo);
 
 router.post('/', api.index);
