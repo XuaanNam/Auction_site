@@ -123,8 +123,8 @@ class API {
         res.status(200).json({ success: true, message: "User logged out successfully" });
     };
   
-     // [GET] /api/get/user
-     user(req, res, next) {
+    // [GET] /api/get/user
+    user(req, res, next) {
         const idTK =  req.user[0].idTK;
         const selectSql = "select * from taikhoan where idTK = ?";
 
@@ -217,7 +217,7 @@ class API {
         const updateSql = "update taikhoan set Avt = ? where idTK = ?";
         const selectSql = "select * from taikhoan where idTK = ?"
         const idTK =  req.user[0].idTK;  
-        const Avt = "image" + "/" + "AVT" + "/" + req.file.filename;
+        const Avt = "image" + "/" + "AVT" + "/" + req.file.filename; 
         const basePath = path.join(__dirname, '../../../../client','public');
 
         pool.getConnection(function (err, connection) {
@@ -236,7 +236,9 @@ class API {
                             res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                         } else { 
                             if(rs){
-                                if(results[0].Avt !== ""){
+                                if(results[0].Avt === "" || results[0].Avt === null || results[0].Avt ==='undefined'){
+                                    
+                                } else {
                                     fs.unlink(filePath, function (err) {
                                         if (err) throw err;
                                         console.log('ảnh đại diện cũ đã bị xóa!');
@@ -282,42 +284,69 @@ class API {
     // [POST] /api/admin/stored/img/product
     storedImgProduct(req, res, next){
         const updateSql = "update sanpham set HinhAnh = ? where idSP = ?";
+        const selectSql = "select * from sanpham where idSP = ?"
+
+        const HinhAnh = "image" + "/" + "BANNER" + "/" + req.file.filename; 
+        const basePath = path.join(__dirname, '../../../../client','public');
 
         const PQ =  req.user[0].PhanQuyen;
-        const HinhAnh = req.file.path
-              idSP = req.body.idSP;
+        const idSP = req.body.idSP;
 
         if(PQ === 0){
             res.send({message: "Bạn chưa được cấp quyền admin để thêm ảnh cho SP này!"})
         } else {
-            pool.query(updateSql, [HinhAnh, idSP], function (err, results, fields) {
-                if (err) {
-                    res.status(200).send({  message: "Kết nối DataBase thất bại"  });
-                } else { 
-                    if(results){
-                        res.send({check: "Thêm ảnh cho SP thành công"});
-                    } else { 
-                        res.send({check: "Thêm ảnh cho SP thất bại, lỗi cú pháp!"});
+            pool.getConnection(function (err, connection) {
+                if (err) throw err; // not connected!
+    
+                // Use the connection
+                connection.query(selectSql, idTK, function (error, results, fields) {
+                    if (error) {
+                        res.status(200).send({ message: "Kết nối DataBase thất bại" });
+                    } else {
+                        const filePath = basePath + "/" + results[0].Avt; 
+                        
+                        connection.query(updateSql, [HinhAnh, idSP], function (err, rs, fields) {
+                            if (err) {
+                                res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+                            } else { 
+                                if(rs){
+                                    if(results[0].Avt === "" || results[0].Avt === null || results[0].Avt ==='undefined'){    
+                                    } else {
+                                        fs.unlink(filePath, function (err) {
+                                            if (err) throw err;
+                                            console.log('ảnh đại diện cũ đã bị xóa!');
+                                        });
+                                    }
+                                    res.send({check: "Thêm ảnh cho SP thành công"});
+                                } else { 
+                                    res.send({check: "Thêm ảnh cho SP thất bại, lỗi cú pháp!"});
+                                }
+                            }
+                        });
+           
+                        
+                        connection.release();
                     }
-                }
+                });            
             });
         }
     }
 
     // [POST] /api/admin/stored/product
     storedProduct(req, res, next){
-        const insertSql = "insert into sanpham ( Website, ViTri, Gia, MoTa) values (?, ?, ?, ?)";
+        const insertSql = "insert into sanpham ( Website, ViTri, KichThuoc, Gia, MoTa) values (?, ?, ?, ?, ?)";
         
         const PQ =  req.user[0].PhanQuyen; 
         const   Website = req.body.Website,      
                 ViTri = req.body.ViTri, 
+                KichThuoc = req.body.KichThuoc, 
                 Gia = req.body.Gia, 
                 MoTa = req.body.MoTa
 
         if(PQ === 0){
             res.send({message: "Bạn chưa được cấp quyền admin để lưu trữ SP này!"})
         } else {
-            pool.query(insertSql, [Website, ViTri, Gia, MoTa], function (err, results, fields) {
+            pool.query(insertSql, [Website, ViTri, KichThuoc, Gia, MoTa], function (err, results, fields) {
                 if (err) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
@@ -466,6 +495,22 @@ class API {
         }       
     }
 
+    // [GET] /api/get/all/auction
+    getAuction(req, res, next){
+        const selectSql = "select * from sanpham s, daugia d where s.idSP = d.idSP and TrangThai = true"
+        pool.query(selectSql, function (err, results, fields) {
+            if (err) {
+                res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+            } else { 
+                if(results){
+                    res.send(results);
+                } else { 
+                    res.send({message: "Lấy phiên đấu giá thất bại, lỗi cú pháp!"});
+                }
+            }
+        });
+    }
+
     // [GET] /api/auction/info
     auctionInfo(req, res, next){
         
@@ -526,6 +571,7 @@ class API {
             res.send({message: "Đã lên lịch cho game đấu giá này!"});
         }
     }
+
 
    
 }

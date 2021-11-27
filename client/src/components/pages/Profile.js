@@ -46,7 +46,7 @@ function Profile() {
             .catch((err) => {
                 console.log(err)
             });
-    },[])
+    },[username])
 
     useEffect(()=>{
         axios.get("isAuth",)
@@ -57,6 +57,7 @@ function Profile() {
             } 
             if(Response.data.isAuth){
               console.log(isAuth);
+              // eslint-disable-next-line react-hooks/exhaustive-deps
               isAuth = 1;
             }
           })
@@ -88,7 +89,7 @@ function Profile() {
         try {
             await axios.post('/stored/avatar', image)
                     .then((res) => {
-                        alert(res.data.message)
+                        alert(res.data.message);
                     })
                     .catch(err => {console.log(err)})
                     .then(() => {
