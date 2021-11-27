@@ -6,11 +6,11 @@ import Header from "../layout/Header";
 import Footer from '../layout/Footer';
 import '../assets/HomePage.css'
 import { useNavigate } from 'react-router-dom';
-import background from '../images/background.jpg';
+import background from '../images/background3.png';
 import panther from '../images/Image.png';
 import anh from '../images/a.png';
 
-import {Card,Row,Col,Button } from 'react-bootstrap';
+import {Card,Row,Col} from 'react-bootstrap';
 
 
 

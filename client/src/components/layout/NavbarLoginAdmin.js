@@ -55,7 +55,7 @@ class NavbarLoginAdmin extends Component {
       <Form className="mr-5">
         <div className="containerHeader" ref={this.container}>
           <a href="/admin/list">
-            <Button className="btn-nav outLineNone" variant="outline-info">
+            <Button className="btnnav-admin btn-nav outLineNone" variant="outline-info">
               <Assignment className="mr-2"/>
               Danh sách
             </Button>
@@ -67,7 +67,7 @@ class NavbarLoginAdmin extends Component {
             </Button>
           </a>
           {/* USER _ HAS TOGGLE */}
-          <Button className="btn-nav mr-1 outLineNone" style={{minWidth: '20vw'}} variant="outline-info" onClick={this.handleButtonClick}>
+          <Button className="btnnav-admin btn-nav mr-1 outLineNone" style={{minWidth: '20vw'}} variant="outline-info" onClick={this.handleButtonClick}>
             <Person className="mr-1"/>
             Xin chào, <span>{user}</span>
             {!this.state.open && (<KeyboardArrowDown className="ml-1" />)}

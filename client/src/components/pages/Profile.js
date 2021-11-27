@@ -7,9 +7,7 @@ import ChangePass from './Profile/ChangePass';
 import Information from './Profile/Infomation'
 import MenuInfo from './Profile/MenuInfo'
 import MenuChangePass from './Profile/MenuChangePass'
-//
 import background from "../images/background.jpg";
-// import
 import axios from "../../api/axios"; 
 import { useNavigate } from 'react-router-dom';
 import Cookies from "universal-cookie";

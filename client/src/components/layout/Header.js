@@ -23,7 +23,7 @@ class Header extends Component{
         });
         setTimeout(()=>{
             window.location.reload(false);
-        }, 100) ;
+        }, 500) ;
     }
     render(){
         return (
