@@ -13,8 +13,14 @@ class Header extends Component{
         e.preventDefault(e);
         const cookies = new Cookies();
 
-        cookies.remove("userAuth");
-        cookies.remove("username");
+        cookies.remove("userAuth", {
+            path: "/",
+            maxAge: 500,
+        });
+        cookies.remove("username",{
+            path: "/",
+            maxAge: 500,
+        });
         setTimeout(()=>{
             window.location.reload(false);
         }, 100) ;

@@ -8,14 +8,15 @@ import { useNavigate} from "react-router-dom";
 function AddAuction() {
 
     let navigate = useNavigate();
+    let isAdmin = 0;
     useEffect(()=>{
         axios.get("isAuth",)
             .then((Response) => {
-                if(Response.data.PQ !== 1){
-                    navigate('/')
+                if(Response.data.PQ === 1){
+                    isAdmin = 1;
                 }
             })
-            .catch(error => { console.log(error);});
+            .catch(error => { console.log(error);}).then(()=>{if(isAdmin !==1){navigate('/')}})
     }, []);
 
     return (

@@ -1,7 +1,7 @@
 const express = require('express');
 const multer  = require('multer');
 const path = require('path'); 
-const dirPath = path.join(__dirname, '../../../../resources', 'static', 'assets', 'tmp');
+const dirPath = path.join(__dirname, '../../../../../client'+'public'+'image'+'AVT');
 
 const storage = multer.diskStorage({
 

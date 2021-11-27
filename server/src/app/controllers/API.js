@@ -112,6 +112,37 @@ class API {
         });
     }
 
+    // [GET] /api/logout
+    logout(req, res, next){
+        res.clearCookie("userAuth", { path: "/" });
+        res.clearCookie("username", { path: "/" });
+        res.status(200).json({ success: true, message: "User logged out successfully" });
+    };
+  
+     // [GET] /api/get/user
+     user(req, res, next) {
+        const idTK =  req.user[0].idTK;
+        const selectSql = "select * from taikhoan where idTK = ?";
+
+        pool.query(selectSql, idTK, function (error, results, fields) {
+            if (error) {
+                res.send({
+                    message: "Cập nhật thông tin không thành công"
+                });
+            } else {
+                res.send({
+                    Ten: results[0].Ten,
+                    Ho: results[0].Ho,
+                    NgaySinh: results[0].NgaySinh,
+                    Email: results[0].Email,
+                    SDT: results[0].SDT,
+                    Avt: results[0].Avt,
+                    message: "Cập nhật thông tin thành công"
+                });
+            }
+        });
+    }
+
     // [PATCH] /api/update/password
     updatePassword(req, res, next) {
        
@@ -136,13 +167,13 @@ class API {
                                     if (error) {
                                         res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                                     } else {
-                                        res.send({check: "Đổi mk thành công"});
+                                        res.send({message: "Đổi mật khẩu thành công!"});
                                     }
                                 })
                                 connection.release();
                             });
                         } else {
-                            res.status(200).send({ message: "Mật khẩu không đúng!" });
+                            res.status(200).send({ message: "Mật khẩu cũ không đúng!" });
                         }
                     });
                 } else { 
@@ -155,22 +186,22 @@ class API {
     // [PATCH] /api/update/profile
     updateProfile(req, res, next){     
 
-        const updateSql = "update taikhoan set Ho = ? , Ten = ? , NgaySinh = ? , Email = ? , SDT = ? where idTK = ?";
+        const updateSql = "update taikhoan set Ho = ? , Ten = ?, TenDN = ? , NgaySinh = ?, SDT = ? where idTK = ?";
 
         const idTK =  req.user[0].idTK;
-        const   Ho = req.body.Ho, 
-                Ten = req.body.Ten,      
-                NgaySinh = req.body.NgaySinh ? req.body.NgaySinh: "",
-                SDT = req.body.SDT ? req.body.SDT : "";
-
-        pool.query(updateSql, [Ho, Ten, NgaySinh, Email, SDT, idTK], function (err, results, fields) {
-            if (error) {
+        const   Ho = req.body.ho, 
+                Ten = req.body.ten, 
+                TenDN = req.body.tenDN,     
+                NgaySinh = req.body.ngaySinh ? req.body.ngaySinh: "",
+                SDT = req.body.sDT ? req.body.sDT : "";
+        pool.query(updateSql, [Ho, Ten, TenDN, NgaySinh, SDT, idTK], function (err, results, fields) {
+            if (err) {
                 res.status(200).send({  message: "Kết nối DataBase thất bại"  });
             } else { 
                 if(results){
-                    res.send({check: "Cập nhật thông tin thành công"});
+                    res.send({message: "Cập nhật thông tin thành công"});
                 } else { 
-                    res.send({check: "Cập nhật thông tin thất bại, lỗi cú pháp!"});
+                    res.send({message: "Cập nhật thông tin thất bại, lỗi cú pháp!"});
                 }
             }
         });     
@@ -468,13 +499,7 @@ class API {
         }
     }
 
-    // [GET] /api/user
-    user(req, res, next) {
-        pool.query("SELECT * FROM taikhoan", function (error, results, fields) {
-            if (error) throw error;
-            res.send(results);
-        });
-    }
+   
 }
 
 module.exports = new API();

@@ -6,33 +6,17 @@ import {Form, Row, Col, Button} from 'react-bootstrap'
 import axios from "../../../api/axios";
 import { useNavigate} from "react-router-dom";
 function List() {
+ 
     let navigate = useNavigate();
-    // useEffect(()=>{
-    //     axios.get("isAuth",)
-    //         .then((Response) => {
-    //             if(Response.data.PQ !== 1){
-    //                 navigate('/')
-    //             }
-    //         })
-    //         .catch(error => { console.log(error);});
-    // }, [navigate]);
-    let isAuth = 0;
-    useEffect(() => {
-        axios
-        .get("isAuth")
-        .then((Response) => {
-            if (Response.data.isAuth) {
-                isAuth = 1;
-            }
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-        .then( () => {
-            if (isAuth !== 1) {
-                navigate("/");
-            }
-        });
+    let isAdmin = 0;
+    useEffect(()=>{
+        axios.get("isAuth",)
+            .then((Response) => {
+                if(Response.data.PQ === 1){
+                    isAdmin = 1;
+                }
+            })
+            .catch(error => { console.log(error);}).then(()=>{if(isAdmin !==1){navigate('/')}})
     }, []);
     return (
         <div>
