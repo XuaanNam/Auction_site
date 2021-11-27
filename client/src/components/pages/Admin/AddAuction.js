@@ -5,6 +5,8 @@ import Footer from '../../layout/Footer';
 import {Form, Row, Col, Button} from 'react-bootstrap'
 import axios from "../../../api/axios";
 import { useNavigate} from "react-router-dom";
+import background from "../../images/background2.png";
+
 function AddAuction() {
 
     let navigate = useNavigate();
@@ -21,66 +23,53 @@ function AddAuction() {
     return (
         <div>
             <Header isAdmin={true}/>
-            <div className="cont-admin" style={{width: '70vw'}}>
+            <img className="img-inout" src={background} alt=""></img>
+            <div className="cont-admin">
                 <div className="subcont-admin">
                     <h3 className="title-admin">Thêm phiên đấu giá mới</h3> <br/>
-                    <div className="box-admin" style={{marginLeft: '14vw'}}>
+                    <div className="box-admin" >
                         <Row className="img-detail"></Row>
                         <Row className="group-admin">
-                            <label className="label-admin" column lg={2}>
+                            <label className="label-admin">
                             Vị trí:
                             </label>
-                            <Col>
                             <Form.Control className="input-admin" type="text" placeholder="Vd: Top banner" disabled style={{backgroundColor: '#FFF00'}}/>
-                            </Col>
                         </Row>
                         <Row className="group-admin">
-                            <label className="label-admin" column lg={2}>
+                            <label className="label-admin">
                             Kích thước:
                             </label>
-                            <Col>
                             <Form.Control className="input-admin" type="text" placeholder="Vd: 720x300" disabled style={{backgroundColor: '#FFF00'}}/>
-                            </Col>
                         </Row>
                         <Row className="group-admin">
-                            <label className="label-admin" column lg={2}>
+                            <label className="label-admin">
                             Giá khởi điểm:
                             </label>
-                            <Col>
                             <Form.Control className="input-admin" type="text" placeholder="Vd: 10000000" disabled style={{backgroundColor: '#FFF00'}}/>
-                            </Col>
                         </Row>
                         <Row className="group-admin">
-                            <label className="label-admin" column lg={2}>
-                            Bước giá:
-                            </label>
-                            <Col>
-                            <Form.Control className="input-admin" type="text" placeholder="Vd: 3000000" disabled style={{backgroundColor: '#FFF00'}}/>
-                            </Col>
-                        </Row>
-                        <Row className="group-admin">
-                            <label className="label-admin" column lg={2}>
+                            <label className="label-admin">
                             Website:
                             </label>
-                            <Col>
                             <Form.Control className="input-admin" type="text" placeholder="Vd: vuighe.net" disabled style={{backgroundColor: '#FFF00'}}/>
-                            </Col>
                         </Row>
                         <Row className="group-admin">
-                            <label className="label-admin" column lg={2}>
+                            <label className="label-admin">
+                            Bước giá:
+                            </label>
+                            <Form.Control className="input-admin" type="text" placeholder="Vd: 3000000" />
+                        </Row>
+                        <Row className="group-admin">
+                            <label className="label-admin">
                             Ngày diễn ra:
                             </label>
-                            <Col>
                             <Form.Control className="input-admin" type="text" placeholder="Vd: 20/11/2021" />
-                            </Col>
                         </Row>
                         <Row className="group-admin">
-                            <label className="label-admin" column lg={2}>
+                            <label className="label-admin">
                             Mô tả:
                             </label>
-                            <Col>
                             <Form.Control className="input-admin" type="text" />
-                            </Col>
                         </Row>
                         <Button className="btn-admin" href="/home">Thêm</Button>
                     </div>

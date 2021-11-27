@@ -17,7 +17,7 @@ class Header extends Component{
         cookies.remove("username");
         setTimeout(()=>{
             window.location.reload(false);
-        }, 100) ;
+        }, 500) ;
     }
     render(){
         return (

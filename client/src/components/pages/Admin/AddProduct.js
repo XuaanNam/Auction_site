@@ -1,10 +1,11 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import '../../../App.css'
 import Header from "../../layout/Header";
 import Footer from '../../layout/Footer';
-import {Form, Row, Col, Button} from 'react-bootstrap'
+import {Form, Row, Button} from 'react-bootstrap'
 import axios from "../../../api/axios";
 import { useNavigate} from "react-router-dom";
+import background from "../../images/background2.png";
 function AddProduct() {
     let navigate = useNavigate();
     useEffect(()=>{
@@ -16,63 +17,60 @@ function AddProduct() {
             })
             .catch(error => { console.log(error);});
     }, []);
-
+    const [selectedImage, setSelectedImage] = useState(null);
     return (
         <div>
             <Header isAdmin={true}/>
+            <img className="img-inout" src={background} alt=""></img>
             <div className="cont-admin">
                 <div className="subcont-admin">
                     <h3 className="title-admin">Thêm sản phẩm mới</h3> <br/>
                     <div className="box-admin">
                         <Row className="group-admin">
-                            <label className="label-admin" column lg={2}>
+                            <label className="label-admin">
                             Vị trí:
                             </label>
-                            <Col>
                             <Form.Control className="input-admin" type="text" placeholder="Vd: Top banner" />
-                            </Col>
                         </Row>
                         <Row className="group-admin">
-                            <label className="label-admin" column lg={2}>
+                            <label className="label-admin">
                             Kích thước:
                             </label>
-                            <Col>
                             <Form.Control className="input-admin" type="text" placeholder="Vd: 720x300" />
-                            </Col>
                         </Row>
                         <Row className="group-admin">
-                            <label className="label-admin" column lg={2}>
+                            <label className="label-admin">
                             Giá khởi điểm:
                             </label>
-                            <Col>
                             <Form.Control className="input-admin" type="text" placeholder="Vd: 10000000" />
-                            </Col>
                         </Row>
                         <Row className="group-admin">
-                            <label className="label-admin" column lg={2}>
-                            Bước giá:
-                            </label>
-                            <Col>
-                            <Form.Control className="input-admin" type="text" placeholder="Vd: 3000000" />
-                            </Col>
-                        </Row>
-                        <Row className="group-admin">
-                            <label className="label-admin" column lg={2}>
+                            <label className="label-admin">
                             Website:
                             </label>
-                            <Col>
                             <Form.Control className="input-admin" type="text" placeholder="Vd: vuighe.net" />
-                            </Col>
                         </Row>
                         <Row className="group-admin">
-                            <label className="label-admin" column lg={2}>
+                            <label className="label-admin">
                             Banner:
                             </label>
-                            <input className="img-admin" type="file" />
-                            {/* <Col>
-                            <Form.Control className="input-admin" type="text"  style={{height: '15vh'}}/>
-                            </Col> */}
+                            <div className="btn-file"> 
+                            <input
+                                className="img-admin"
+                                type="file"
+                                name="myImage"
+                                onChange={(event) => {
+                                console.log(event.target.files[0]);
+                                setSelectedImage(event.target.files[0]);
+                                }}
+                            />
+                            </div>
                         </Row>
+                        {selectedImage && (
+                            <div>
+                                <img className="img-detail" alt="not found" src={URL.createObjectURL(selectedImage)} />
+                            </div>
+                        )}
                         <Button className="btn-admin" href="/home">Thêm</Button>
                     </div>
                 </div>

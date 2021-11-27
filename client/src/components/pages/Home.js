@@ -5,7 +5,7 @@ import "../assets/Home.css";
 import React from "react";
 import "../../App.css";
 //VIDEO - ANH
-import background from "../images/background.jpg";
+import background from "../images/background3.png";
 import panther from "../images/Image.png";
 
 
