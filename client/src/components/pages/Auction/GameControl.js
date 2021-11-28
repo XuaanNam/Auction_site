@@ -24,20 +24,27 @@ class HistoryTable extends Component {
                             <span>Kích thước: {this.props.bannerSize}</span>            
                         </div>                       
                     </div>
-                    { this.props.isStart ? 
+                    { this.props.isStart && 
                         <span>
                             <strong>Người thắng hiện tại: Ông/Bà {this.props.userWinner}</strong>
                         </span>
-                        : <span></span>
                     }
                     
                     <div className="d-flex pt-3">
                         <span>
-                            <strong> Thời gian:{" "}
-                                <Card.Img style={{maxWidth:20, marginBottom: 3}} src={clock}/>
-                                {" "}
-                                {this.props.currentTime}
-                            </strong>
+                            {this.props.isStart ? 
+                                <strong> Thời gian còn lại:{" "} 
+                                    <Card.Img style={{maxWidth:20, marginBottom: 3}} src={clock}/>
+                                    {" "}
+                                    {this.props.currentTime}
+                                </strong>                            
+                            : 
+                                <strong> Thời gian bắt đầu:{" "} 
+                                    <Card.Img style={{maxWidth:20, marginBottom: 3}} src={clock}/>
+                                    {" "}
+                                    {this.props.currentTime}
+                                </strong>
+                            }
                         </span>
                     </div>
                     
@@ -56,13 +63,12 @@ class HistoryTable extends Component {
                         </div>
                     </div>
 
-                    {this.props.isPrepare ? 
+                    {this.props.isPrepare &&
                         <span className="d-flex">
                             <strong className = "mess-prepare">Vui lòng đợi đến giờ cuộc đấu giá bắt đầu!!!</strong>
                         </span>
-                        : <div></div>
                     }
-                    { this.props.isStart ? 
+                    { this.props.isStart && 
                         <div className="d-flex">
                             <div className="mr-3" style={{margin:"auto"}}>
                                 <Button
@@ -91,9 +97,8 @@ class HistoryTable extends Component {
                                 <b>Đặt giá thầu</b>
                             </Button>
                         </div>
-                        : <div></div>
                     }
-                    { this.props.isEnding  ? 
+                    { this.props.isEnding  && 
                         <div>
                             <span className = "auc-price">
                                 <strong>
@@ -105,7 +110,6 @@ class HistoryTable extends Component {
                                                         
                             </span>
                         </div>
-                        : <div></div>
                     }
                 </Card.Body>
             </div>

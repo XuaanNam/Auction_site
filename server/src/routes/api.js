@@ -12,8 +12,9 @@ router.get('/isAuth', passport.authenticate('jwt', { session: false }), api.isAu
 
 router.get('/get/user', passport.authenticate('jwt', {session: false}), api.user);
 router.patch('/update/password', passport.authenticate('jwt', {session: false}), api.updatePassword);
-router.post('/stored/avatar', passport.authenticate('jwt', {session: false}), upload.single('avatar'), api.storedAvatar);
 router.patch('/update/profile', passport.authenticate('jwt', {session: false}), api.updateProfile);
+router.post('/stored/avatar', passport.authenticate('jwt', {session: false}), upload.single('avatar'), api.storedAvatar);
+router.patch('/delete/avatar', passport.authenticate('jwt', {session: false}), api.deleteAvatar);
 
 router.post('/admin/get/product', passport.authenticate('jwt', {session: false}), api.getProduct);
 router.post('/admin/stored/img/product', passport.authenticate('jwt', {session: false}), upload.single('Image'), api.storedImgProduct);
@@ -28,6 +29,8 @@ router.post('/admin/auction/settimer',passport.authenticate('jwt', {session: fal
 
 router.get('/get/all/auction', passport.authenticate('jwt', {session: false}), api.getAuction);
 router.get('/auction/info', passport.authenticate('jwt', {session: false}), api.auctionInfo);
+router.get('/get/auction/iscoming', api.getComingAuction);
+router.post('/auction/loved', passport.authenticate('jwt', {session: false}), api.auctionLoved);
 
 router.post('/', api.index);
 

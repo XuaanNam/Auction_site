@@ -215,7 +215,7 @@ class API {
     storedAvatar(req, res, next){
 
         const updateSql = "update taikhoan set Avt = ? where idTK = ?";
-        const selectSql = "select * from taikhoan where idTK = ?"
+        const selectSql = "select * from taikhoan where idTK = ?";
         const idTK =  req.user[0].idTK;  
         const Avt = "image" + "/" + "AVT" + "/" + req.file.filename; 
         const basePath = path.join(__dirname, '../../../../client','public');
@@ -237,17 +237,58 @@ class API {
                         } else { 
                             if(rs){
                                 if(results[0].Avt === "" || results[0].Avt === null || results[0].Avt ==='undefined'){
-                                    
+                                    res.send({message: "Cập nhật ảnh đại diện thành công"});
                                 } else {
                                     fs.unlink(filePath, function (err) {
                                         if (err) throw err;
-                                        console.log('ảnh đại diện cũ đã bị xóa!');
+                                        //console.log('ảnh đại diện cũ đã bị xóa!');
                                     });
-                                }
-                                
-                                res.send({message: "Cập nhật ảnh đại diện thành công"});
+                                    res.send({message: "Cập nhật ảnh đại diện thành công, dữ liệu cũ đã bị xóa!"});
+                                }                               
                             } else { 
                                 res.send({message: "Cập nhật ảnh đại diện thất bại, lỗi cú pháp!"});
+                            }
+                        }
+                    })
+                    
+                    connection.release();
+                }
+            });            
+        });
+    }
+
+    // [PATCH] /api/delete/avatar
+    deleteAvatar(req, res, next) {
+        const updateSql = "update taikhoan set Avt = '' where idTK = ?";
+        const selectSql = "select * from taikhoan where idTK = ?";
+        const idTK =  req.user[0].idTK;  
+        const basePath = path.join(__dirname, '../../../../client','public');
+
+        pool.getConnection(function (err, connection) {
+            if (err) throw err; // not connected!
+
+            // Use the connection
+            connection.query(selectSql, idTK, function (error, results, fields) {
+                if (error) {
+                    res.status(200).send({ message: "Kết nối DataBase thất bại" });
+                } else {
+                    const filePath = basePath + "/" + results[0].Avt; 
+                    connection.query(updateSql, idTK, function (err, rs, fields) {
+                        if (err) {
+                            res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+                        } else { 
+                            if(rs){
+                                if(results[0].Avt === "" || results[0].Avt === null || results[0].Avt ==='undefined'){
+                                    res.send({message: "Bạn chưa đặt ảnh đại diện"});
+                                } else {
+                                    fs.unlink(filePath, function (err) {
+                                        if (err) throw err;
+                                        //console.log('ảnh đại diện cũ đã bị xóa!');
+                                    });
+                                    res.send({message: "Đã xóa ảnh đại diện!"});
+                                }                             
+                            } else { 
+                                res.send({message: "Xóa ảnh đại diện thất bại, lỗi cú pháp!"});
                             }
                         }
                     })
@@ -495,19 +536,75 @@ class API {
         }       
     }
 
+    // [POST] /api/admin/auction/settimer
+    setTimer(req, res, next) { 
+        const sql = "update daugia set TrangThai = '1' where idDG = ?";
+        const PQ =  req.user[0].PhanQuyen;
+        if(PQ === 0){
+            res.send({message: "Bạn chưa được cấp quyền admin để sắp dặt thời gian đấu giá!"})
+        } else {
+            const idDG = req.body.idDG;
+            const TgBatDau = req.body.TgBatDau; //2021-11-21 00:00:00
+            const TgDauGia = parseInt(req.body.TgDauGia) * 60;    
+
+            const getDate = TgBatDau.split(' ')[0].split('-');
+            const getTime = TgBatDau.split(' ')[1].split(':');
+            const y = parseInt(getDate[0]);
+            const m = (parseInt(getDate[1]) - 1);
+            const d = parseInt(getDate[2]);
+            const h = parseInt(getTime[0]);
+            const mi = parseInt(getTime[1]);
+            const s = parseInt(getTime[2]);
+
+            const date = new Date(y, m, d, h, mi, s);
+
+            job[parseInt(idDG)] = new CronJob(date, function() {  
+                pool.query(sql, idDG, function (error, results, fields) {
+                    console.log('Thay đổi trạng thái game đấu qua đang diễn ra');
+                });
+                //console.log('Đấu giá bắt đầu')
+                const socket = io.connect("http://localhost:4000");
+                
+                socket.emit('settimer', {room: idDG, time: TgDauGia});
+                setTimeout( () => {  
+                    socket.emit("leave_room", idDG);
+                }, 2000);
+            }, null, true);
+            res.send({message: "Đã lên lịch cho game đấu giá này!"});
+        }
+    }
+
+
     // [GET] /api/get/all/auction
     getAuction(req, res, next){
-        const selectSql = "select * from sanpham s, daugia d where s.idSP = d.idSP and TrangThai = true"
-        pool.query(selectSql, function (err, results, fields) {
-            if (err) {
-                res.status(200).send({  message: "Kết nối DataBase thất bại"  });
-            } else { 
-                if(results){
-                    res.send(results);
+        const selectSql0 = "select * from sanpham s, daugia d where s.idSP = d.idSP and TrangThai = '0'";
+        const selectSql1 = "select * from sanpham s, daugia d where s.idSP = d.idSP and TrangThai = '1'";
+
+        pool.getConnection(function (err, connection) {
+            if (err) throw err; // not connected!
+            connection.query(selectSql0, function (err, results, fields) {
+                if (err) {
+                    res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
-                    res.send({message: "Lấy phiên đấu giá thất bại, lỗi cú pháp!"});
+                    if(results){
+                        connection.query(selectSql1, function (err, rs, fields) {
+                            if (err) {
+                                res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+                            } else { 
+            
+                                if(rs){
+                                    res.send({isComing: results, isHappening: rs});
+                                } else { 
+                                    res.send({message: "Lấy phiên đấu giá thất bại, lỗi cú pháp!"});
+                                }
+                            }
+                        });
+                    } else { 
+                        res.send({message: "Lấy phiên đấu giá thất bại, lỗi cú pháp!"});
+                    }
                 }
-            }
+            });
+            connection.release();
         });
     }
 
@@ -529,7 +626,7 @@ class API {
                     position: results[0].ViTri,
                     bannerSize: results[0].KichThuoc,
                     urlImage: results[0].HinhAnh,
-                    dateTime: results[0].TgDauGia,
+                    dateTime: results[0].TgBatDau,
                     decription: results[0].MoTa
                 });           
             } else {
@@ -538,42 +635,34 @@ class API {
         });
     }
 
-    // [POST] /api/admin/auction/settimer
-    setTimer(req, res, next) { 
-        const PQ =  req.user[0].PhanQuyen;
-        if(PQ === 0){
-            res.send({message: "Bạn chưa được cấp quyền admin để sắp dặt thời gian đấu giá!"})
-        } else {
-            const idDG = req.body.idDG;
-            const TgBatDau = req.body.TgBatDau; //2021-11-21 00:00:00
-            const TgDauGia = parseInt(req.body.TgDauGia) * 60;    
-
-            const getDate = TgBatDau.split(' ')[0].split('-');
-            const getTime = TgBatDau.split(' ')[1].split(':');
-            const y = parseInt(getDate[0]);
-            const m = (parseInt(getDate[1]) - 1);
-            const d = parseInt(getDate[2]);
-            const h = parseInt(getTime[0]);
-            const mi = parseInt(getTime[1]);
-            const s = parseInt(getTime[2]);
-
-            const date = new Date(y, m, d, h, mi, s);
-
-            job[parseInt(idDG)] = new CronJob(date, function() {   
-                //console.log('Đấu giá bắt đầu')
-                const socket = io.connect("http://localhost:4000");
-                
-                socket.emit('settimer', {room: idDG, time: TgDauGia});
-                setTimeout( () => {  
-                    socket.emit("leave_room", idDG);
-                }, 2000);
-            }, null, true);
-            res.send({message: "Đã lên lịch cho game đấu giá này!"});
-        }
+    // [GET] /api/get/auction/iscoming
+    getComingAuction(req, res, next) {
+        const selectSql0 = "select * from sanpham s, daugia d where s.idSP = d.idSP and TrangThai = '0'";
+        pool.query(selectSql0, function (err, results, fields) {
+            if (err) {
+                res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+            } else { 
+                if(results){                 
+                     res.send({isComing: results});              
+                } else { 
+                    res.send({message: "Lấy phiên đấu giá thất bại, lỗi cú pháp!"});
+                }
+            }
+        });
     }
-
-
    
+    //[POST] /api/auction/loved
+    auctionLoved(req, res, next){
+        const idTK =  req.user[0].idTK;  
+        const idDG = req.body.idDG;
+        const sql = 'insert into quantam (idTK, idDG) values (?, ?)';
+        pool.query(sql, [idTK, idDG], function (error, results, fields) {
+            if (error) {
+                res.status(200).send({ message: "Sàn đấu giá không tồn tại!" });
+            }
+            res.status(200).send({ message: "Đã thêm vào quan tâm!" });
+        });
+    }
 }
 
 module.exports = new API();

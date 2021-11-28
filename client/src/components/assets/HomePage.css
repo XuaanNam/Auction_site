@@ -4,7 +4,25 @@
     left: 0;
     right: 0;
 }
-
+.home-container{
+    width: 100%;
+    padding-top: 200px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.home-sologan{
+    position: relative;
+    color: #000;
+    font-weight: 601;
+    padding-bottom: 40vh;
+    font-size: 2rem;    
+    padding-left: 5rem;
+    width: 100%;
+    height: 50px;
+    z-index: 1;
+}
 .body-banner {
     padding-top: 50px;
     padding-left: 30px;
@@ -29,7 +47,22 @@ background {
     z-index: -1;
     background-repeat: round;
   }
-
+  #slogan{
+    background-color: rgba(114, 136, 139, 0.712);
+    padding: 10px 20px;
+    border-radius: 30px;
+  
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif; 
+    font-size: 2.5rem; 
+    font-style: italic; 
+    font-variant: normal; 
+    font-weight: 700; 
+    line-height: 25px;
+    letter-spacing: 1px;
+  }
+  #slogan > span{
+    font-weight: 100; 
+  }
 .iconPanner {
     position: absolute;
     right: 40vh;

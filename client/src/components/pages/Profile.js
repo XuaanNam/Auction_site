@@ -1,5 +1,6 @@
 import {Edit, AccountCircle} from '@material-ui/icons';
 import React, { useState, useEffect } from 'react';
+import avtpanther from '../images/Logo.png'
 import Header from "../layout/Header";
 import Footer from '../layout/Footer';
 import '../assets/Profile.css'
@@ -99,6 +100,18 @@ function Profile() {
             throw error
         }
     }
+
+    const deleteAvt = () => {
+        axios.patch('/delete/avatar')
+            .then((res) => {
+                alert(res.data.message);
+            })
+            .catch(err => {console.log(err)})
+            .then(() => {
+                window.location.reload(false);
+            })
+    }
+
     return (
         <div>
             {isAdmin?
@@ -112,7 +125,7 @@ function Profile() {
                 <div className="main-container">   
                     <div className="slide-bar">
                         <div className="avatar">
-                            <img src={Avt} alt=""/>
+                            <img src={Avt?Avt:avtpanther} alt=""/>
                             <h4>{username}</h4>
                             {/* form ẩn */}
                             
@@ -120,12 +133,20 @@ function Profile() {
                                 <input type="file"  style={{display: 'none'}} name="Avatar" id='avt' onChange={ (e)=>{handleFile(e)} }/>
                                 
                                 <button onClick={chooseAvt} className="btn btn-info btn-sm" >
+                                    {/* <AccountCircle className="mr-1"/>  */}
                                     Chọn ảnh
                                 </button> 
-                                <button onClick={submitAvt} className="btn btn-dark btn-sm" >
-                                    <AccountCircle className="mr-1"/> 
-                                    Đổi ảnh đại diện
-                                </button> 
+                                {file ?
+                                    <button onClick={submitAvt} className="btn btn-dark btn-sm" >
+                                        <AccountCircle className="mr-1"/> 
+                                        Đổi ảnh đại diện
+                                    </button>
+                                :
+                                    <button onClick={deleteAvt} className="btn btn-danger btn-sm" >
+                                        <AccountCircle className="mr-1"/> 
+                                        Xóa ảnh
+                                    </button>
+                                }
                             </div>
                             <div className="btn-switch" >
                                 {changePass ?

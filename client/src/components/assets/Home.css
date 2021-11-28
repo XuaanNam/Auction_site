@@ -20,6 +20,22 @@
     margin-bottom: 0px;
 }
 
+#slogan{
+  background-color: rgba(114, 136, 139, 0.712);
+  padding: 10px 20px;
+  border-radius: 30px;
+
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif; 
+  font-size: 2.5rem; 
+  font-style: italic; 
+  font-variant: normal; 
+  font-weight: 700; 
+  line-height: 25px;
+  letter-spacing: 1px;
+}
+#slogan > span{
+  font-weight: 100; 
+}
 background {
     object-fit: cover;
     width: 100%;
@@ -47,7 +63,7 @@ background {
 }
 
 .col-items {
-    
+  margin: 30px 35px;
 }
 
 .card-items {

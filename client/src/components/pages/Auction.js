@@ -49,7 +49,7 @@ function Auction() {
                     axios.get("auction/info", { params: { id: params.id } })
                         .then((Response) => {
                             if(Response.data.message) {
-                                navigate("/");
+                                navigate("/login");
                             } else {   
                                 setCurrentPrice(convertPrice(Response.data.highestPrice));
                                 setHighestPrice(convertPrice(Response.data.highestPrice));
@@ -68,7 +68,7 @@ function Auction() {
             })
             .then(function () {
                 if (isAuth !== 1) {
-                navigate("/");
+                navigate("/login");
                 } else {
                     socket.emit("get_data_room", {room: params.id});
                 }

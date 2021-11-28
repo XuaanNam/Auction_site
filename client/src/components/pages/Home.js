@@ -13,15 +13,16 @@ import panther from "../images/Image.png";
 import { useState, useEffect } from "react";
 import axios from "../../api/axios";
 import { useNavigate } from "react-router-dom";
-import  IsHappening from './home/isHappening'
-import  IsComing from './home/isComing'
+import  IsHappening from './home/isHappening';
+import  IsComing from './home/isComing';
 import TabComing from "./home/tabComing";
 import TabHappening from "./home/tabHappening"
 // import Body from '../body';
 
 function Home() {
   const [happening, setHappening] = useState(true);
-  const [listAuctionGame, setListAuctionGame] = useState([]);
+  const [listAuctionComing, setListAuctionComing] = useState([]);
+  const [listAuctionHappening, setListAuctionHappening] = useState([]);
   
 
   let navigate = useNavigate();
@@ -47,7 +48,8 @@ function Home() {
   useEffect(() => {
     axios.get("get/all/auction")
       .then((res) => {
-        setListAuctionGame(res.data);
+        setListAuctionComing(res.data.isComing);
+        setListAuctionHappening(res.data.isHappening);
       })
   }, []);
 
@@ -56,23 +58,18 @@ function Home() {
     setHappening( happening ? false : true);
   }
 
-  const handleLiked = () => {
-        
-  }
   return (
     <div>
       <Header isActive={true} />
       <background style={{ backgroundImage: `url(${background})` }} />
       <div className = "home-container">
         <div className= "home-sologan">
-          Slogan cho trang đấu giá 〽️
+          <span id ="slogan">Đấu giá Panther - Tranh đoạt Banner<span>〽️</span> </span>
           <span className="panner">
             <Card.Img src={panther}></Card.Img>
           </span>
         </div>
         <div className="body-container pt-5 pl-5 pr-5 body-banner">   
-                 {/* TABS SẮP ĐƯỢC ĐẤU GIÁ*/}
-                
           {happening? 
             <TabHappening handleSwitchTab = {handleSwitchTab}/>
 
@@ -81,9 +78,9 @@ function Home() {
 
           }
           {happening? 
-            <IsHappening listAuc={listAuctionGame} handleLiked={handleLiked}/> 
+            <IsHappening listAucH={listAuctionHappening}/> 
           : 
-            <IsComing listAuc={listAuctionGame} handleLiked={handleLiked}/>
+            <IsComing listAucC={listAuctionComing}/>
           }
         </div>
       </div>

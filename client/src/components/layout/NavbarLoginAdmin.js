@@ -2,9 +2,6 @@ import {KeyboardArrowDown, Assignment, AddShoppingCart, Person, VerifiedUser, Ex
 import React, { Component} from "react";
 import { Form, Button} from "react-bootstrap";
 
-import Cookies from "universal-cookie";
-const cookies = new Cookies();
-const user = cookies.get('username') ? cookies.get('username'): "null";
 
 class NavbarLoginAdmin extends Component {
   state = {
@@ -69,7 +66,7 @@ class NavbarLoginAdmin extends Component {
           {/* USER _ HAS TOGGLE */}
           <Button className="btnnav-admin btn-nav mr-1 outLineNone" style={{minWidth: '20vw'}} variant="outline-info" onClick={this.handleButtonClick}>
             <Person className="mr-1"/>
-            Xin chào, <span>{user}</span>
+            Xin chào, <span>{this.props.user}</span>
             {!this.state.open && (<KeyboardArrowDown className="ml-1" />)}
             
             {this.state.open && ( <KeyboardArrowDown className="ml-1 activeRotate" /> )}
