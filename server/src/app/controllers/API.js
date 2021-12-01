@@ -216,7 +216,7 @@ class API {
 
         const updateSql = "update taikhoan set Avt = ? where idTK = ?";
         const selectSql = "select * from taikhoan where idTK = ?";
-        const idTK =  req.user[0].idTK;  
+        const idTK =  req.user[0].idTK;  console.log(req.file)
         const Avt = "image" + "/" + "AVT" + "/" + req.file.filename; 
         const basePath = path.join(__dirname, '../../../../client','public');
 

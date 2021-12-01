@@ -8,7 +8,7 @@ import background from '../images/background3.png';
 import panther from '../images/Image.png';
 import panther_img from '../images/a.png';
 
-import {Card,Row,Col} from 'react-bootstrap';
+import {Card} from 'react-bootstrap';
 import  IsComing from './home/isComing';
 
 

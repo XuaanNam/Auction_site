@@ -32,6 +32,7 @@ function Home() {
       .get("isAuth")
       .then((res) => {
         if (res.data.isAuth) {
+          // eslint-disable-next-line react-hooks/exhaustive-deps
           isAuth = 1;
         }
       })

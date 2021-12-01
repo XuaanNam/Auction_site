@@ -41,7 +41,7 @@ function Profile() {
                     setNgaySinh(Response.data.NgaySinh);
                     setSDT(Response.data.SDT);
                     setEmail(Response.data.Email);
-                    setAvt(Response.data.Avt);
+                    setAvt(Response.data.Avt);                    
                 } 
             })
             .catch((err) => {
