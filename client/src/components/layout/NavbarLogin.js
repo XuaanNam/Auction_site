@@ -1,4 +1,4 @@
-import {Gavel, KeyboardArrowDown, ShoppingCartOutlined,
+import {Gavel, KeyboardArrowDown,
   AddShoppingCart, Person, VerifiedUser, ExitToApp, KeyboardArrowUp } from '@material-ui/icons';
 import React, { Component} from "react";
 import { Form, Button} from "react-bootstrap";
@@ -57,8 +57,8 @@ class NavbarLogin extends Component {
           </a>
           <a href="/Cart">
             <Button className="btn-nav outLineNone" variant="outline-info">
-            <ShoppingCartOutlined className="mr-2"/>
-              Giỏ hàng
+            <AddShoppingCart className="mr-2"/>
+              Đơn hàng
               
             </Button>
           </a>
@@ -79,14 +79,6 @@ class NavbarLogin extends Component {
                     <Button className="btn-nav mr-2 outLineNone" variant="outline-info">
                       <VerifiedUser className="mr-2"/>
                       Cá nhân
-                    </Button>
-                  </a>
-                </li>
-                <li>
-                  <a href="/#">
-                    <Button className="btn-nav mr-2 outLineNone" variant="outline-info">
-                      <AddShoppingCart className="mr-2"/>
-                      Đơn hàng
                     </Button>
                   </a>
                 </li>

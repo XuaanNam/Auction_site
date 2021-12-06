@@ -88,7 +88,7 @@ function Profile() {
         image.append("avatar", file);
 
         try {
-            await axios.post('/stored/avatar', image)
+            await axios.post('stored/avatar', image)
                     .then((res) => {
                         alert(res.data.message);
                     })
@@ -125,12 +125,11 @@ function Profile() {
                 <div className="main-container">   
                     <div className="slide-bar">
                         <div className="avatar">
-                            <img src={Avt?Avt:avtpanther} alt=""/>
+                            <img src={Avt||avtpanther} alt=""/>
                             <h4>{username}</h4>
-                            {/* form ẩn */}
                             
                             <div className="d-flex">
-                                <input type="file"  style={{display: 'none'}} name="Avatar" id='avt' onChange={ (e)=>{handleFile(e)} }/>
+                                <input type="file"  style={{display: 'none'}} name="avatar" id='avt' onChange={ (e)=>{handleFile(e)} }/>
                                 
                                 <button onClick={chooseAvt} className="btn btn-info btn-sm" >
                                     {/* <AccountCircle className="mr-1"/>  */}

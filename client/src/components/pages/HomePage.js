@@ -29,7 +29,10 @@ export default function HomePage() {
     useEffect(() => {
         axios.get("get/auction/iscoming")
         .then((res) => {
-            setListAuctionComing(res.data.isComing);
+            if(res.data !== ""){
+                setListAuctionComing(res.data.isComing);
+            }
+           
         })
     }, []);
     
@@ -38,7 +41,7 @@ export default function HomePage() {
     return (
     <div>
     <Header isGuest={true}/>
-    <background style={{ backgroundImage: `url(${background})` }}/>
+    <div className="background" style={{ backgroundImage: `url(${background})` }}/>
         <div className = "home-container">
             <div className= "home-sologan">
                 <span id ="slogan">Đấu giá Panther - Tranh đoạt Banner<span>〽️</span> </span>

@@ -7,7 +7,6 @@ export default function LoveButton (props) {
                 className="logo-interest pl-2"
                 alt=""
                 src={heart}
-                rounded
                 onClick={props.handleLiked}
             />
         </button>

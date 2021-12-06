@@ -8,6 +8,7 @@ const saltRound = 10;
 const encodeToken = require("../../util/encodeToken");
 const CronJob = require('cron').CronJob;
 const io = require("socket.io-client");
+const { Console } = require("console");
 const job = [];
 
 class API {
@@ -20,8 +21,10 @@ class API {
     // [POST] /api/register
     register(req, res, next) {
         const insertSql = "insert into taikhoan (Ho, Ten, Email, TenDN, MatKhau) value (?,?,?,?,?)";
-        const selectSql = "select Email from taikhoan where Email = ?";
+        const selectSql1 = "select Email from taikhoan where Email = ?";
+        const selectSql2 = "select TenDN from taikhoan where TenDN = ?";
         const messEmail = "Email đã được dùng để đăng kí tài khoản. Vui lòng chọn quên mật khẩu!";
+        const messTenDN = "Tên tài khoản đã được dùng để đăng kí tài khoản. Vui lòng chọn tên tài khoản khác!";
 
         const Ho = req.body.Ho;
         const Ten = req.body.Ten;
@@ -42,26 +45,36 @@ class API {
                     if (err) throw err; // not connected!
     
                     // Use the connection
-                    connection.query(selectSql, Email, function (error, results, fields) {
+                    connection.query(selectSql1, Email, function (error, results, fields) {
                         if (error) {
                             res.status(200).send({ message: "Kết nối DataBase thất bại" });
                         } else {
                             if (results.length > 0) {
                                 res.status(200).send({ message: messEmail });
                             } else {
-                            connection.query(
-                                insertSql,
-                                [Ho, Ten, Email, TenDN, hash],
-                                function (error, results, fields) {
+                                connection.query(selectSql2, TenDN, function (error, results, fields) {
                                     if (error) {
-                                        res
-                                        .status(200)
-                                        .send({ message: "Kết nối DataBase thất bại, lỗi cú pháp" });
+                                        res.status(200).send({ message: "Kết nối DataBase thất bại" });
                                     } else {
-                                        res.send(results);
+                                        if (results.length > 0) {
+                                            res.status(200).send({ message: messTenDN });
+                                        } else {
+                                            connection.query(
+                                                insertSql,
+                                                [Ho, Ten, Email, TenDN, hash],
+                                                function (error, results, fields) {
+                                                    if (error) {
+                                                        res
+                                                        .status(200)
+                                                        .send({ message: "Kết nối DataBase thất bại, lỗi cú pháp" });
+                                                    } else {
+                                                        res.send(results);
+                                                    }
+                                                }
+                                            );
+                                        }
                                     }
-                                }
-                            );
+                                }); 
                             }
                             connection.release();
                         }
@@ -217,7 +230,7 @@ class API {
         const updateSql = "update taikhoan set Avt = ? where idTK = ?";
         const selectSql = "select * from taikhoan where idTK = ?";
         const idTK =  req.user[0].idTK;  console.log(req.file)
-        const Avt = "image" + "/" + "AVT" + "/" + req.file.filename; 
+        const Avt = "image" + "/" + req.file.filename; 
         const basePath = path.join(__dirname, '../../../../client','public');
 
         pool.getConnection(function (err, connection) {
@@ -299,16 +312,40 @@ class API {
         });
     }
 
-    // [GET] /api/admin/get/product
-    getProduct(req, res, next){
-        const selectSql = "select * from sanpham";
+    // [GET] /api/admin/get/all/product (for List.js only)
+    getAllProduct(req, res, next){
+        const selectSql = "select * from sanpham where TrangThai = 0";
 
         const PQ =  req.user[0].PhanQuyen;
 
         if(PQ === 0){
-            res.send({message: "Bạn chưa được cấp quyền admin để thêm ảnh cho SP này!"})
+            res.send({message: "Bạn chưa được cấp quyền admin để xem thông tin SP này!"})
         } else {
             pool.query(selectSql, function (err, results, fields) {
+                if (err) {
+                    res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+                } else { 
+                    if(results){ 
+                        res.send(results);
+                    } else { 
+                        res.send({message: "Không thể lấy dữ liệu"});
+                    }
+                }
+            });
+        }
+    }
+
+    // [GET] /api/admin/get/product (for addAuction.js only)
+    getProduct(req, res, next){
+        const selectSql = "select * from sanpham where idSP = ?";
+
+        const PQ =  req.user[0].PhanQuyen;
+        const idSP =  req.query.idSP; 
+
+        if(PQ === 0){
+            res.send({message: "Bạn chưa được cấp quyền admin để xem thông tin SP này!"})
+        } else {
+            pool.query(selectSql, idSP, function (err, results, fields) {
                 if (err) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
@@ -322,12 +359,12 @@ class API {
         }
     }
 
-    // [POST] /api/admin/stored/img/product
-    storedImgProduct(req, res, next){
+    // [POST] /api/admin/update/img/product
+    updateImgProduct(req, res, next) {
         const updateSql = "update sanpham set HinhAnh = ? where idSP = ?";
-        const selectSql = "select * from sanpham where idSP = ?"
+        const selectSql = "select * from sanpham where idSP = ?";
 
-        const HinhAnh = "image" + "/" + "BANNER" + "/" + req.file.filename; 
+        const HinhAnh = "image" + "/" + req.file.filename; 
         const basePath = path.join(__dirname, '../../../../client','public');
 
         const PQ =  req.user[0].PhanQuyen;
@@ -340,7 +377,7 @@ class API {
                 if (err) throw err; // not connected!
     
                 // Use the connection
-                connection.query(selectSql, idTK, function (error, results, fields) {
+                connection.query(selectSql, idSP, function (error, results, fields) {
                     if (error) {
                         res.status(200).send({ message: "Kết nối DataBase thất bại" });
                     } else {
@@ -355,7 +392,6 @@ class API {
                                     } else {
                                         fs.unlink(filePath, function (err) {
                                             if (err) throw err;
-                                            console.log('ảnh đại diện cũ đã bị xóa!');
                                         });
                                     }
                                     res.send({check: "Thêm ảnh cho SP thành công"});
@@ -364,8 +400,6 @@ class API {
                                 }
                             }
                         });
-           
-                        
                         connection.release();
                     }
                 });            
@@ -375,54 +409,55 @@ class API {
 
     // [POST] /api/admin/stored/product
     storedProduct(req, res, next){
-        const insertSql = "insert into sanpham ( Website, ViTri, KichThuoc, Gia, MoTa) values (?, ?, ?, ?, ?)";
+        const insertSql = "insert into sanpham ( Website, ViTri, KichThuoc, Gia, MoTa, HinhAnh) values (?, ?, ?, ?, ?, ?)";
         
-        const PQ =  req.user[0].PhanQuyen; 
+        const   PQ =  req.user[0].PhanQuyen; 
         const   Website = req.body.Website,      
                 ViTri = req.body.ViTri, 
                 KichThuoc = req.body.KichThuoc, 
-                Gia = req.body.Gia, 
+                Gia = parseInt(req.body.Gia), 
                 MoTa = req.body.MoTa
 
+        const   HinhAnh = "image" + "/" + req.file.filename; console.log(req.file);
         if(PQ === 0){
             res.send({message: "Bạn chưa được cấp quyền admin để lưu trữ SP này!"})
         } else {
-            pool.query(insertSql, [Website, ViTri, KichThuoc, Gia, MoTa], function (err, results, fields) {
+            pool.query(insertSql, [Website, ViTri, KichThuoc, Gia, MoTa, HinhAnh], function (err, results, fields) {
                 if (err) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
-                        res.send({check: "Thêm SP thành công"});
+                        res.send({message: "Thêm SP thành công"});
                     } else { 
-                        res.send({check: "Thêm SP thất bại, lỗi cú pháp!"});
+                        res.send({message: "Thêm SP thất bại, lỗi cú pháp!"});
                     }
                 }
             });
-        }      
+        }  
     }
 
     // [PATCH] /api/admin/update/product
     updateProduct(req, res, next){
-        const updateSql = "update sanpham set Website = ?, ViTri = ?, Gia = ?, MoTa = ? where idSP = ?";
+        const updateSql = "update sanpham set Website = ?, ViTri = ?, KichThuoc = ?, Gia = ?, MoTa = ? where idSP = ?";
         
         const PQ =  req.user[0].PhanQuyen; 
         const   Website = req.body.Website,      
                 ViTri = req.body.ViTri, 
+                KichThuoc = req.body.KichThuoc,
                 Gia = req.body.Gia, 
                 MoTa = req.body.MoTa,
                 idSP = req.body.idSP
-
         if(PQ === 0){
             res.send({message: "Bạn chưa được cấp quyền admin để chỉnh sửa nội dung SP này!"})
         } else {
-            pool.query(updateSql, [Website, ViTri, Gia, MoTa, idSP], function (err, results, fields) {
+            pool.query(updateSql, [Website, ViTri, KichThuoc, Gia, MoTa, idSP], function (err, results, fields) {
                 if (err) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
-                        res.send({check: "Cập nhật SP thành công"});
+                        res.send({message: "Cập nhật SP thành công"});
                     } else { 
-                        res.send({check: "Cập nhật SP thất bại, lỗi cú pháp!"});
+                        res.send({message: "Cập nhật SP thất bại, lỗi cú pháp!"});
                     }
                 }
             });  
@@ -432,52 +467,106 @@ class API {
     // [DELETE] /api/admin/delete/product
     deleteProduct(req, res, next){
         const deleteSql = "delete from sanpham where idSP = ?";
-        
-        const PQ =  req.user[0].PhanQuyen; 
-        const   idSP = req.body.idSP;
+        const selectSql = "select * from sanpham where idSP = ?";
 
+        const PQ =  req.user[0].PhanQuyen; 
+        const idSP = req.body.idSP; 
+        const basePath = path.join(__dirname, '../../../../client','public');
         if(PQ === 0){
             res.send({message: "Bạn chưa được cấp quyền admin để xóa SP này!"})
         } else {
-            pool.query(deleteSql, idSP, function (err, results, fields) {
-                if (err) {
-                    res.status(200).send({  message: "Kết nối DataBase thất bại"  });
-                } else { 
-                    if(results){
-                        res.send({check: "Xóa SP thành công"});
-                    } else { 
-                        res.send({check: "Xóa SP thất bại, lỗi cú pháp!"});
+            pool.getConnection(function (err, connection) {
+                if (err) throw err; // not connected!
+                // Use the connection
+                connection.query(selectSql, idSP, function (error, results, fields) {
+                    if (error) {
+                        res.status(200).send({ message: "Kết nối DataBase thất bại" });
+                    } else {
+                        const HA = results[0].HinhAnh;
+                        const filePath = basePath + "/" + HA; 
+                        console.log(deleteSql, idSP);
+                        connection.query(deleteSql, idSP, function (err, rs, fields) {
+                            if (err) {
+                                console.log(err);
+                                res.status(200).send({  message: "Kết nối DataBase thất bại2"  });
+                            } else { 
+                                if(rs){
+                                    if(HA === "" || HA === null || HA ==='undefined'){    
+                                    } else {
+                                        fs.unlink(filePath, function (er) {
+                                            if (er) throw er;
+                                        });
+                                    }
+                                    res.send();
+                                } else { 
+                                    res.send({message: "Xóa SP thất bại, lỗi cú pháp!"});
+                                }
+                            }
+                        });
+           
+                        
+                        connection.release();
                     }
-                }
-            });
+                });            
+            });          
         }      
     }
 
     // [POST] /api/admin/stored/auction
     storedAuction(req, res, next){
-        const insertSql = "insert into daugia (idSP, TgBatDau, TgDauGia, GiaKhoiDiem, TrangThai, BuocGia) values (?, ?,?,?,?,?)";
+        const updateSql = "update daugia set TrangThai = 1 where idDG = ?";
+        const updateSqlSP = "update sanpham set TrangThai = 1 where idSP = ?";
+        const insertSql = "insert into daugia (idSP, TgBatDau, TgDauGia, BuocGia) values (?, ?, ?, ?)";
         
-        const PQ =  req.user[0].PhanQuyen;   
+        const   PQ =  req.user[0].PhanQuyen;  
         const   idSP = req.body.idSP, 
-                TgBatDau = req.body.TgBatDau, 
-                TgDauGia = req.body.TgDauGia     
-                GiaKhoiDiem = req.body.GiaKhoiDiem, 
-                TrangThai = req.body.TrangThai, 
+                TgBatDau = req.body.TgBatDau,   //2021-11-21T00:00:00 
+                TgDauGia = req.body.TgDauGia,    
                 BuocGia = req.body.BuocGia
 
-        if(PQ === 0){
+        if(PQ === 0){ 
             res.send({message: "Bạn chưa được cấp quyền admin để thêm game ĐG này!"})
         } else {
-            pool.query(insertSql, [idSP, TgBatDau, TgDauGia, GiaKhoiDiem, TrangThai, BuocGia], function (err, results, fields) {
-                if (err) {
-                    res.status(200).send({  message: "Kết nối DataBase thất bại"  });
-                } else { 
-                    if(results){
-                        res.send({check: "Thêm game ĐG thành công"});
+            pool.getConnection(function (err, connection) {
+                if (err) throw err; // not connected!
+                connection.query(insertSql, [idSP, TgBatDau, TgDauGia, BuocGia], function (err, results, fields) {
+                    if (err) {
+                        res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                     } else { 
-                        res.send({check: "Thêm game ĐG thất bại, lỗi cú pháp!"});
+                        if(results){
+                            connection.query(updateSqlSP, idSP);
+
+                            const idDG = results.insertId.toString();   
+                            const TgDG = parseInt(TgDauGia) * 60;    
+
+                            const getDate = TgBatDau.split('T')[0].split('-');
+                            const getTime = TgBatDau.split('T')[1].split('.')[0].split(':');
+                            const y = parseInt(getDate[0]);
+                            const m = (parseInt(getDate[1]) - 1);
+                            const d = parseInt(getDate[2]);
+                            const h = parseInt(getTime[0]);
+                            const mi = parseInt(getTime[1]);
+                            const s = 0;
+                            const date = new Date(y, m, d, h, mi, s);
+                         
+                            job[parseInt(idDG)] = new CronJob(date, function() {  
+                                pool.query(updateSql, idDG, function (error, results, fields) {
+                                    console.log('chuyển đổi trạng thái game đấu từ sắp -> đang diễn ra');
+                                });
+                                const socket = io.connect("http://localhost:4000");
+                                
+                                socket.emit('settimer', {room: idDG, time: TgDG});
+                                setTimeout( () => {  
+                                    socket.emit("leave_room", idDG);
+                                }, 2000);
+                            }, null, true);
+                            res.send({message: "Đã lên lịch cho game đấu giá này!", done : true});
+                            
+                        } else { 
+                            res.send({message: "Thêm game ĐG thất bại, lỗi cú pháp!"});
+                        }
                     }
-                }
+                });
             });
         }      
     }
@@ -513,7 +602,7 @@ class API {
     }
 
     // [DELETE] /api/admin/delete/auction
-    deleteProduct(req, res, next){
+    deleteAuction(req, res, next){
         const deleteSql = "delete from daugia where idDG = ?";
         
         const PQ =  req.user[0].PhanQuyen; 
@@ -536,54 +625,61 @@ class API {
         }       
     }
 
-    // [POST] /api/admin/auction/settimer
-    setTimer(req, res, next) { 
-        const sql = "update daugia set TrangThai = '1' where idDG = ?";
-        const PQ =  req.user[0].PhanQuyen;
-        if(PQ === 0){
-            res.send({message: "Bạn chưa được cấp quyền admin để sắp dặt thời gian đấu giá!"})
-        } else {
-            const idDG = req.body.idDG;
-            const TgBatDau = req.body.TgBatDau; //2021-11-21 00:00:00
-            const TgDauGia = parseInt(req.body.TgDauGia) * 60;    
+    // [POST] /api/set/trading/session
+    tradingSession(req, res, next){
+        const sqlSelect = 'select * daugia where idDG = ?';
+        const sqlUpdateDG = 'update daugia set TrangThai = 2 where idDG = ?';
+        const sqlUpdateSP = 'update sanpham set TrangThai = 2 where idSP = ?';
+        const sqlInsert = 'insert into giaodich (idSP, idTK, NgayDG, ThongTinGD) value (?, ?, ?, ?)';
 
-            const getDate = TgBatDau.split(' ')[0].split('-');
-            const getTime = TgBatDau.split(' ')[1].split(':');
-            const y = parseInt(getDate[0]);
-            const m = (parseInt(getDate[1]) - 1);
-            const d = parseInt(getDate[2]);
-            const h = parseInt(getTime[0]);
-            const mi = parseInt(getTime[1]);
-            const s = parseInt(getTime[2]);
+        const idDG = req.body.idDG;
+        const idTK =  req.user[0].idTK;  
+        const NgayDG = new Date(Date.now());
+        
+        pool.getConnection(function (error, connection) {
+            if (error) throw error; // not connected!
+            connection.query(sqlSelect, idDG, function (err, results, fields) {
+                if (err) {
+                    res.status(200).send({  message: "Kết nối DataBase thất bại"  });
+                } else { 
+                    if(results){
+                        const idSP = results[0].idSP;
+                        const ThongTinGD = 'Người dùng' + req.user[0].TenDN + 'Đã chiến thắng sản phẩm có id = ' +
+                            idSP + '. Số tiền:' + req.body.price;
 
-            const date = new Date(y, m, d, h, mi, s);
-
-            job[parseInt(idDG)] = new CronJob(date, function() {  
-                pool.query(sql, idDG, function (error, results, fields) {
-                    console.log('Thay đổi trạng thái game đấu qua đang diễn ra');
-                });
-                //console.log('Đấu giá bắt đầu')
-                const socket = io.connect("http://localhost:4000");
-                
-                socket.emit('settimer', {room: idDG, time: TgDauGia});
-                setTimeout( () => {  
-                    socket.emit("leave_room", idDG);
-                }, 2000);
-            }, null, true);
-            res.send({message: "Đã lên lịch cho game đấu giá này!"});
-        }
+                        connection.query(sqlUpdateDG, idDG, function (err1) {
+                            if (err1) {
+                                res.status(200).send({  message: "set trạng thái Đấu giá thất bại"  });
+                            } 
+                        });
+                        connection.query(sqlUpdateSP, idSP, function (err2) {
+                            if (err2) {
+                                res.status(200).send({  message: "set trạng thái Sản Phẩm thất bại"  });
+                            } 
+                        });
+                        connection.query(sqlInsert, [idSP, idTK, NgayDG, ThongTinGD], function (err3) {
+                            if (err3) {
+                                res.status(200).send({  message: "set trạng thái Sản Phẩm thất bại"  });
+                            } 
+                        });
+                    } else { 
+                        res.send({message: "Tạo phiên giao dịch thất bại, lỗi cú pháp!"});
+                    }
+                }
+            });
+            connection.release();
+        });
     }
 
-
-    // [GET] /api/get/all/auction
+    // [GET] /api/get/all/auction (for home)
     getAuction(req, res, next){
-        const selectSql0 = "select * from sanpham s, daugia d where s.idSP = d.idSP and TrangThai = '0'";
-        const selectSql1 = "select * from sanpham s, daugia d where s.idSP = d.idSP and TrangThai = '1'";
+        const selectSql0 = "select * from sanpham s, daugia d where s.idSP = d.idSP and d.TrangThai = 0";
+        const selectSql1 = "select * from sanpham s, daugia d where s.idSP = d.idSP and d.TrangThai = 1";
 
-        pool.getConnection(function (err, connection) {
-            if (err) throw err; // not connected!
-            connection.query(selectSql0, function (err, results, fields) {
-                if (err) {
+        pool.getConnection(function (error, connection) {
+            if (error) throw error; // not connected!
+            connection.query(selectSql0, function (er, results, fields) {
+                if (er) {
                     res.status(200).send({  message: "Kết nối DataBase thất bại"  });
                 } else { 
                     if(results){
@@ -620,7 +716,7 @@ class API {
             }
             if (results.length > 0) {
                 res.send({  
-                    highestPrice: results[0].GiaKhoiDiem, 
+                    highestPrice: results[0].Gia, 
                     priceStep: results[0].BuocGia,
                     website: results[0].Website,
                     position: results[0].ViTri,
@@ -635,9 +731,9 @@ class API {
         });
     }
 
-    // [GET] /api/get/auction/iscoming
+    // [GET] /api/get/auction/iscoming (for homepage only)
     getComingAuction(req, res, next) {
-        const selectSql0 = "select * from sanpham s, daugia d where s.idSP = d.idSP and TrangThai = '0'";
+        const selectSql0 = "select * from sanpham s, daugia d where s.idSP = d.idSP and d.TrangThai = 0";
         pool.query(selectSql0, function (err, results, fields) {
             if (err) {
                 res.status(200).send({  message: "Kết nối DataBase thất bại"  });
@@ -661,6 +757,44 @@ class API {
                 res.status(200).send({ message: "Sàn đấu giá không tồn tại!" });
             }
             res.status(200).send({ message: "Đã thêm vào quan tâm!" });
+        });
+    }
+
+    // [GET] /api/my/cart
+    myCart(req, res, next) {
+        const selectSql = 'select s.ViTri, s.KichThuoc, s.Website, s.HinhAnh, g.idGD, g.NgayDG, g.GiaTien, g.ThongTinGD from sanpham s, giaodich g where s.idSP = g.idSP and idTK = ?';
+        const idTK =  req.user[0].idTK; 
+        pool.query(selectSql, idTK, function (error, results, fields) { 
+            if (error) {
+                throw error;
+            } else { 
+                res.send(results); 
+            }
+        });
+    }
+
+    // [GET] /api/my/loved
+    myLoved(req, res, next) {
+        const selectSql = 'select s.ViTri, s.KichThuoc, s.Website, s.HinhAnh, s.Gia, d.TgBatDau, d.TgDauGia, d.BuocGia, q.idQT from sanpham s, daugia d, quantam q where s.idSP = d.idSP and q.idDG = d.idDG and idTK = ?';
+        const idTK =  req.user[0].idTK; 
+        pool.query(selectSql, idTK, function (error, results, fields) { 
+            if (error) {
+                throw error;
+            } else { 
+                res.send(results); 
+            }
+        });
+    }
+
+    //[POST] /api/delete/my/loved
+    deleteMyLoved(req, res, next){ 
+        const idQT = req.body.idQT;
+        const sql = 'delete from quantam where idQT = ?';
+        pool.query(sql, idQT, function (error, results, fields) {
+            if (error) {
+                res.status(200).send({ message: "Sàn đấu giá không tồn tại!" });
+            }
+            res.send();
         });
     }
 }

@@ -82,7 +82,12 @@ function Infomation(props) {
             </div>
             <div className="d-grid">
               <label>Số điện thoại:</label>
-              <input type="number" value={sDT} onChange={(e) => {setSDT(e.target.value.toString());}}/>
+              <input 
+                type="tel" 
+                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" 
+                value={sDT} 
+                onChange={(e) => {setSDT(e.target.value.toString());}}
+              />
             </div>
           </div>
         </div>

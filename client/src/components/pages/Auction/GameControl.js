@@ -3,15 +3,20 @@ import "../../assets/Auction.css";
 import {Button, Card} from "react-bootstrap"
 //Ảnh
 import clock from "../../images/clock.png";
-import imas from "../../images/img-1.png";
 
 
 class HistoryTable extends Component {
-    
+    state = {
+        haveWinner: false,
+    }
+
     render() {
+        if(this.props.userWinner !== "" && this.state.haveWinner === false) {
+            this.setState({haveWinner: true});
+        }
         return (
             <div className="auc-game-control">
-                <img alt="" src={imas} className="img-banner"/>
+                <img alt="" src={('../' + this.props.urlImage)} className="img-banner"/>
                 <Card.Body>
                     <div className="auc-info">
                         <div className="d-flex auc-site">
@@ -98,17 +103,24 @@ class HistoryTable extends Component {
                             </Button>
                         </div>
                     }
-                    { this.props.isEnding  && 
+                    { this.props.isEnding && 
                         <div>
-                            <span className = "auc-price">
-                                <strong>
-                                    Chúc mừng ông/bà <span>{this.props.userWinner}</span> đã chiến thắng !!
-                                </strong><br/>
-                                <strong>
-                                    Tổng số tiền là: <span >{this.props.highestPrice} VNĐ</span> 
-                                </strong>
-                                                        
-                            </span>
+                            {this.state.haveWinner ?
+                                <span className = "auc-price">
+                                    <strong>
+                                        Chúc mừng ông/bà <span>{this.props.userWinner}</span> đã chiến thắng !!
+                                    </strong><br/>
+                                    <strong>
+                                        Tổng số tiền là: <span >{this.props.highestPrice} VNĐ</span> 
+                                    </strong>                
+                                </span>
+                                : 
+                                <span className = "auc-price">
+                                    <strong>
+                                        Chưa có ai thắng game đấu này! Vui lòng đợi lần đấu giá tiếp theo
+                                    </strong>              
+                                </span>
+                            }
                         </div>
                     }
                 </Card.Body>

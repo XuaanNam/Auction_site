@@ -11,92 +11,66 @@ import banner1 from "../images/img-1.png";
 //
 import axios from "../../api/axios"; 
 import { useNavigate } from 'react-router-dom';
+import ProductLoved from './Interested/productLoved';
 
 const Interested = () => {
+
+    const [isEmpty, setIsEmpty] = useState(true);
+    const [listLoved, setListLoved] = useState([]);
+
+    let navigate = useNavigate();
+    let isAuth = 0;
+    useEffect(()=>{
+        axios.get("isAuth")
+            .then((Response) => {
+                if(Response.data.isAuth){
+                    // eslint-disable-next-line react-hooks/exhaustive-deps
+                    isAuth = 1;
+                    axios.get("my/loved")
+                        .then((res) =>{ 
+                            if(res.data ){ 
+                                setListLoved(res.data);  
+                                setIsEmpty(false);
+                            }
+                        })
+                }
+            })
+            .catch(error => { console.log(error);})
+            .then(function () {
+                if(isAuth !== 1){
+                    navigate('/')
+                }       
+            });
+    }, []);
+
+  
+
     return (
         <Container>
             <Header isActive={true} />
             <Main className="container">
                 <Title>Bạn quan tâm 💜</Title>
-                        <Link to="/">
-                                <TopButton className={`btn btn-dark ${Interest.btnReturnBuy}`}>
-                                    <Gavel className ="mr-1"/>
-                                    Tiếp tục đấu giá</TopButton>
-                        </Link>
-                        <Link to="/cart" className="text-decoration-none">
-                            <TopText className={`text-decoration-none alert-danger ${Interest.amountInterest}`}>Số lượng trong giỏ hàng: 1</TopText>
-                        </Link>
-                        {/* ITEM BẮT ĐẦU */}
-                        <Having>
-                            {/*  */}
-                            <Image src={banner1} />
-                            <ProductDetail>
-                                            <span className={Interest.positionBanner}>
-                                                <GpsFixed className="mr-1"/>
-                                                Vị trí: 
-                                                <span className="text-warning"> Top Banner</span>
-                                            </span>
-
-                                            <span className={Interest.sizeBanner}>
-                                                <BorderHorizontal className="mr-1"/>
-                                                Kích thước:
-                                                <span className="text-warning"> 980 x 200</span>
-                                            </span>
-
-                                            <span className={Interest.timeBegunBanner}>
-                                                ⏱ Thời gian:
-                                                <span className="text-warning"> 3/12/2021 19:30</span>
-                                                
-                                            </span>
-
-                                            <span className={Interest.priceBegunBanner}>
-                                                💸 Giá khởi điểm:
-                                                <span className="text-warning"> 7.000.000 vnđ</span>
-                                            </span>
-
-                                            <button class={`btn btn-dark ${Interest.btnRemoveIn}`}>
-                                                XOÁ KHỎI YÊU THÍCH 
-                                                <Cancel className="ml-1"/>
-                                                </button>
-                            </ProductDetail>
-                        </Having>
-                        {/* Ngăn cách các item */}
-                        <Having>
-                            {/*  */}
-                            <Image src={banner1} />
-                            <ProductDetail>
-                                            <span className={Interest.positionBanner}>
-                                                <GpsFixed className="mr-1"/>
-                                                Vị trí: 
-                                                <span className="text-warning"> Top Banner</span>
-                                            </span>
-
-                                            <span className={Interest.sizeBanner}>
-                                                <BorderHorizontal className="mr-1"/>
-                                                Kích thước:
-                                                <span className="text-warning"> 980 x 200</span>
-                                            </span>
-
-                                            <span className={Interest.timeBegunBanner}>
-                                                ⏱ Thời gian:
-                                                <span className="text-warning"> 3/12/2021 19:30</span>
-                                                
-                                            </span>
-
-                                            <span className={Interest.priceBegunBanner}>
-                                                💸 Giá khởi điểm:
-                                                <span className="text-warning"> 7.000.000 vnđ</span>
-                                            </span>
-
-                                            <button class={`btn btn-dark ${Interest.btnRemoveIn}`}>
-                                                XOÁ KHỎI YÊU THÍCH 
-                                                <Cancel className="ml-1"/>
-                                                </button>
-                            </ProductDetail>
-                        </Having>
-                    {/*  */}
+                <Link to="/">
+                        <TopButton className={`btn btn-dark ${Interest.btnReturnBuy}`}>
+                            <Gavel className ="mr-1"/>
+                            Tiếp tục đấu giá</TopButton>
+                </Link>
+                <Link to="/cart" className="text-decoration-none">
+                    <TopText className={`text-decoration-none alert-danger ${Interest.amountInterest}`}>Số lượng trong giỏ hàng: 1</TopText>
+                </Link>
+                {isEmpty ?
+                    <div></div>
+                :   
+                    <div>
+                        {listLoved.map(list=>(
+                            <ProductLoved key = {list.idQT} 
+                                list = {list}
+                            />
+                        ))}
+                    </div>   
+                }
             </Main>
-            <Footer></Footer>
+            <Footer/>
         </Container>
     )
 }

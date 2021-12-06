@@ -38,8 +38,7 @@ function Auction() {
     let navigate = useNavigate();
     let isAuth = 0;
     useEffect(() => {
-        axios
-            .get("isAuth")
+        axios.get("isAuth")
             .then((Response) => {
                 if (Response.data.isAuth) {
                     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,8 +87,8 @@ function Auction() {
             } 
         });
 
-        socket.on("timer", data => {
-            setCurrentTime(data);
+        socket.on("timer", (data) => {
+            setCurrentTime(data); 
             if(isStart === false){
                 setIsPrepare(false);
                 setIsStart(true);
@@ -99,7 +98,12 @@ function Auction() {
                 setIsEnding(true);
             }
         })
-    }, [isStart]) //co the bug
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []) //co the bug
+
+    const handletime = () => {
+        socket.emit('settimer', {room: params.id, time: 20});
+    }
 
     const parseInterger = (intCurrency) => {
         return parseInt(intCurrency.split(',')[0] + intCurrency.split(',')[1] + intCurrency.split(',')[2]);
@@ -176,10 +180,10 @@ function Auction() {
             
             <Header isActive={true} /> 
             <background style={{ backgroundImage: `url(${background})` }} />
-
+           
             <div className= "auc-layout">
-                <div className="auc-game">
-                    
+                <div className="auc-game">  
+                <button onClick = {handletime}>time</button>
                     <GameControl
                         isPrepare = {isPrepare}
                         isStart = {isStart}

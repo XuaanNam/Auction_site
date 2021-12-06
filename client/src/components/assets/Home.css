@@ -16,7 +16,7 @@
 
 .auction-title {
     color: #17a2b8;
-    padding-left: 6vw;
+    padding-left: 2vh 0 6vh 0;
     margin-bottom: 0px;
 }
 
@@ -36,7 +36,7 @@
 #slogan > span{
   font-weight: 100; 
 }
-background {
+.background {
     object-fit: cover;
     width: 100%;
     height: 100%;
@@ -87,6 +87,7 @@ background {
 .tabs {
   display: flex;
   position: relative;
+  padding: 0 0 7vh 0;
 }
 .tabs .line {
     position: absolute;
