@@ -749,15 +749,27 @@ class API {
    
     //[POST] /api/auction/loved
     auctionLoved(req, res, next){
+        const insertSql = 'insert into quantam (idTK, idDG) values (?, ?)';
+        const selectSql = 'select * from quantam where idTK = ? and idDG = ?';
+
         const idTK =  req.user[0].idTK;  
         const idDG = req.body.idDG;
-        const sql = 'insert into quantam (idTK, idDG) values (?, ?)';
-        pool.query(sql, [idTK, idDG], function (error, results, fields) {
-            if (error) {
-                res.status(200).send({ message: "Sàn đấu giá không tồn tại!" });
-            }
-            res.status(200).send({ message: "Đã thêm vào quan tâm!" });
+        pool.getConnection(function (err, connection) {
+            if (err) throw err; 
+            connection.query(selectSql, [idTK, idDG], function (error, rs, fields) {
+                if (rs[0]) {
+                    res.status(200).send({ message: "Trận đấu giá này đã được thêm vào quan tâm trước đó" });
+                } else {
+                    connection.query(insertSql, [idTK, idDG], function (error, results, fields) {
+                        if (error) {
+                            res.status(200).send({ message: "Sàn đấu giá không tồn tại!" });
+                        }
+                        res.status(200).send({ message: "Đã thêm vào quan tâm!" });
+                    });
+                }
+            });
         });
+            
     }
 
     // [GET] /api/my/cart
@@ -770,6 +782,18 @@ class API {
             } else {  
                 res.send(results); 
             }
+        });
+    }
+
+    //[DELETE] /api/delete/my/cart
+    deleteMyCart(req, res, next){ 
+        const idGD = req.body.idGD; console.log(req.body);
+        const sql = 'delete from giaodich where idGD = ?';
+        pool.query(sql, idGD, function (error, results, fields) {
+            if (error) { 
+                res.send({ message: "Hóa đơn không tồn tại!" });
+            }
+            res.send();
         });
     }
 
