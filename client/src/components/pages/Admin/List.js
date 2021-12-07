@@ -36,12 +36,14 @@ function List() {
         <div>
             <Header isAdmin={true}/>
             <h3 className="title-list">Danh sách sản phẩm</h3> <br/>
-            {list.map(prod => ( 
-                <Product key={prod.idSP}
-                    hrefSP={"/admin/addauction/" + prod.idSP}
-                    product={prod}
-                />
-            ))}
+            <div className="admins-list-all-product">
+                {list.map(prod => ( 
+                    <Product key={prod.idSP} 
+                        hrefSP={"/admin/addauction/" + prod.idSP}
+                        product={prod}
+                    />
+                ))}
+            </div>
             <Footer/>
         </div>
     )

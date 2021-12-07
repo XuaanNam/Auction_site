@@ -30,40 +30,62 @@ function socket(io) {
             console.log(`user id: ${socket.id} is setting time countdown for room ${data.room}`);
             countdown[data.room] = parseInt(data.time) ? parseInt(data.time) : 15*60;
            
-            IntervalId[data.room] = setInterval( () => {  
+            IntervalId[data.room] = setInterval(() => {  
                 if (countdown[data.room] <= 0) {
                     let i = parseInt(data.room)-1;
                     
                     const sqlSelectDG = 'select * from daugia where idDG = ?';
                     const sqlSelectTK = 'select * from taikhoan where TenDN = ?';
                     const sqlUpdateDG = 'update daugia set TrangThai = 2 where idDG = ?';
-                    const sqlUpdateSP = 'update sanpham set TrangThai = 2 where idSP = ?';
+                    const sqlUpdateSP2 = 'update sanpham set TrangThai = 2 where idSP = ?';
+                    const sqlUpdateSP0 = 'update sanpham set TrangThai = 0 where idSP = ?';
                     const sqlInsert = 'insert into giaodich (idSP, idTK, NgayDG, GiaTien, ThongTinGD) value (?, ?, ?, ?, ?)';
                     
                     clearInterval(IntervalId[data.room]);
+
                     const idDG = data.room
-                    const TenDN =  dataRoom[i].userWinner;
-                    const NgayDG = new Date(Date.now());
-                    const GT = dataRoom[i].highestPrice.split(' ')[0]; 
-                    const GiaTien = parseInt(GT.split(',')[0] + GT.split(',')[1] + GT.split(',')[2]);
+                    let haveWinner = 0;
+                    if(dataRoom[i]){haveWinner = 1}
+                    var TenDN = '', NgayDG = '', GiaTien = '';
+                    if(haveWinner === 1) {
+                        TenDN =  dataRoom[i].userWinner;
+                        NgayDG = new Date(Date.now());
+                        GT = dataRoom[i].highestPrice.split(' ')[0]; 
+                        GiaTien = parseInt(GT.split(',')[0] + GT.split(',')[1] + GT.split(',')[2]);
+                    }
+                   
                     pool.getConnection(function (error, connection) {
                         if (error) throw error; // not connected!
                         connection.query(sqlSelectDG, idDG, function (err, results, fields) { 
                             if(results){ 
                                 const idSP = results[0].idSP;
-                                const ThongTinGD = 'Người dùng ' + TenDN + ' Đã chiến thắng sản phẩm có id = ' +
+
+                                if(haveWinner === 1) {
+                                    const ThongTinGD = 'Người dùng ' + TenDN + ' Đã chiến thắng sản phẩm có id = ' +
                                     idSP + '. Số tiền: ' + GiaTien;
 
-                                connection.query(sqlSelectTK, TenDN, function (er, rs, fields) {
-                                    if(rs) { 
-                                        const idTK = rs[0].idTK;
-                                        connection.query(sqlUpdateDG, idDG, () => {});
-                                        connection.query(sqlUpdateSP, idSP,() => {});
-                                        connection.query(sqlInsert, [idSP, idTK, NgayDG, GiaTien, ThongTinGD],(e) => {
-                                            if(e) {throw e}
-                                        });
-                                    }
-                                });
+                                    connection.query(sqlSelectTK, TenDN, function (er, rs, fields) {
+                                        if(rs) { 
+                                            const idTK = rs[0].idTK;
+                                            connection.query(sqlUpdateDG, idDG,(e) => {
+                                                if(e) {throw e}
+                                            });                                            
+                                            connection.query(sqlUpdateSP2, idSP,(e) => {
+                                                if(e) {throw e}
+                                            });
+                                            connection.query(sqlInsert, [idSP, idTK, NgayDG, GiaTien, ThongTinGD],(e) => {
+                                                if(e) {throw e}
+                                            });
+                                        }
+                                    });
+                                } else {
+                                    connection.query(sqlUpdateDG, idDG,(e) => {
+                                        if(e) {throw e}
+                                    });
+                                    connection.query(sqlUpdateSP0, idSP,(e) => {
+                                        if(e) {throw e}
+                                    });
+                                }
                             }
                         });
                         connection.release();
@@ -92,7 +114,7 @@ function socket(io) {
             listBetHistoryData[i][data.id-1] = dataRoom[i];
             //console.log({listDataRoom: listBetHistoryData[i]})
 
-            io.in(data.room).emit("receive_data", {dataRoom: data, listDataRoom: listBetHistoryData[i]});
+            io.in(data.room).emit("receive_data", {state : 1, dataRoom: data, listDataRoom: listBetHistoryData[i]});
             
         });
 
@@ -100,9 +122,18 @@ function socket(io) {
             let i = parseInt(data.room)-1;
 
             if (typeof(dataRoom[i])  == "undefined"){
-                io.in(data.room).emit("receive_data", false);
-            } else {     
+                io.in(data.room).emit("receive_data", {state : 0});
+            } 
+            else if(countdown[data.room] === 0){
+                io.in(data.room).emit("receive_data", {
+                    state : 2,
+                    dataRoom: dataRoom[i],
+                    listDataRoom: listBetHistoryData[i]
+                });
+            }  
+            else {     
                 io.in(data.room).emit("receive_data", { 
+                    state : 1,
                     dataRoom: dataRoom[i],
                     listDataRoom: listBetHistoryData[i]
                 });

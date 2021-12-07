@@ -13,7 +13,7 @@ class HistoryTable extends Component {
     render() {
         if(this.props.userWinner !== "" && this.state.haveWinner === false) {
             this.setState({haveWinner: true});
-        }
+        } console.log(this.state.haveWinner, this.props.userWinner)
         return (
             <div className="auc-game-control">
                 <img alt="" src={('../' + this.props.urlImage)} className="img-banner"/>
@@ -37,14 +37,22 @@ class HistoryTable extends Component {
                     
                     <div className="d-flex pt-3">
                         <span>
-                            {this.props.isStart ? 
+                            {this.props.isPrepare && 
+                                <strong> Thời gian bắt đầu:{" "} 
+                                    <Card.Img style={{maxWidth:20, marginBottom: 3}} src={clock}/>
+                                    {" "}
+                                    {this.props.currentTime}
+                                </strong>
+                            }
+                            {this.props.isStart && 
                                 <strong> Thời gian còn lại:{" "} 
                                     <Card.Img style={{maxWidth:20, marginBottom: 3}} src={clock}/>
                                     {" "}
                                     {this.props.currentTime}
                                 </strong>                            
-                            : 
-                                <strong> Thời gian bắt đầu:{" "} 
+                            } 
+                            {this.props.isEnding && 
+                                <strong> Đấu giá kết thúc vào lúc:{" "} 
                                     <Card.Img style={{maxWidth:20, marginBottom: 3}} src={clock}/>
                                     {" "}
                                     {this.props.currentTime}
@@ -56,7 +64,9 @@ class HistoryTable extends Component {
                     <div className="d-flex pt-3  pb-4 auc-price">
                         {/* highest Price */}
                         <div>
-                            {this.props.isStart ? <b>Giá cao nhất hiện tại:</b> : <b>Giá khởi điểm:</b>}
+                            {this.props.isPrepare && <b>Giá khởi điểm:</b>}
+                            {this.props.isStart && <b>Giá cao nhất hiện tại:</b>}
+                            {this.props.isEnding && <b>Tổng giá trị:</b>}
                             <br />
                             <span >{this.props.highestPrice} VNĐ</span>
                         </div>
