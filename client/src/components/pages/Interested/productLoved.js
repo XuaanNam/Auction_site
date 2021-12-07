@@ -10,23 +10,25 @@ import axios from "../../../api/axios";
 function ProductLoved (props) {
     const [idQT] = useState(props.list.idQT);
 
-    const handleDeleteLoved = () => { console.log(idQT)
-        axios.post("delete/my/loved", {idQT: idQT })
+    const handleDeleteLoved = () => {
+        axios.delete("delete/my/loved", {data: {idQT}})
             .then((res) =>{ 
                 window.location.reload(false);
             })
     }
 
     return(
-        <Having>
-            <Image src={props.list.HinhAnh} />
+        <Having> 
+            <a href={("/auction/" + props.list.idDG)}>
+                <Image src={props.list.HinhAnh} />
+            </a>
             <ProductDetail>
                 <span className={Interest.urlWebsiteBanner}>
                     <Language className="mr-1"/>
                     Website URL: <span className="text-danger">
-                        <a href={props.list.Website} target="_blank"> 
-                          {/* BIDING ở đây */}
-                          {props.list.Website}
+                        <a href={props.list.Website} target="_blank" rel="noreferrer"> 
+                        {/* BIDING ở đây */}
+                        {props.list.Website}
                         </a>
                     </span>
                 </span>

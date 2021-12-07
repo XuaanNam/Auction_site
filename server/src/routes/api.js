@@ -35,7 +35,8 @@ router.post('/auction/loved', passport.authenticate('jwt', {session: false}), ap
 router.get('/my/cart', passport.authenticate('jwt', {session: false}), api.myCart);
 router.delete('/delete/my/cart', passport.authenticate('jwt', {session: false}), api.deleteMyCart);
 router.get('/my/loved', passport.authenticate('jwt', {session: false}), api.myLoved);
-router.post('/delete/my/loved', passport.authenticate('jwt', {session: false}), api.deleteMyLoved);
+router.delete('/delete/my/loved', passport.authenticate('jwt', {session: false}), api.deleteMyLoved);
+router.get('/my/bill', passport.authenticate('jwt', {session: false}), api.getMyBill);
 
 router.post('/', api.index);
 

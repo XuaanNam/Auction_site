@@ -28,7 +28,7 @@ const Interested = () => {
                     isAuth = 1;
                     axios.get("my/loved")
                         .then((res) =>{ 
-                            if(res.data ){ 
+                            if(res.data){ 
                                 setListLoved(res.data);  
                                 setIsEmpty(false);
                             }

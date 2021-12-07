@@ -799,7 +799,7 @@ class API {
 
     // [GET] /api/my/loved
     myLoved(req, res, next) {
-        const selectSql = 'select s.ViTri, s.KichThuoc, s.Website, s.HinhAnh, s.Gia, d.TgBatDau, d.TgDauGia, d.BuocGia, q.idQT from sanpham s, daugia d, quantam q where s.idSP = d.idSP and q.idDG = d.idDG and idTK = ?';
+        const selectSql = 'select s.ViTri, s.KichThuoc, s.Website, s.HinhAnh, s.Gia, d.idDG, d.TgBatDau, d.TgDauGia, d.BuocGia, q.idQT from sanpham s, daugia d, quantam q where s.idSP = d.idSP and q.idDG = d.idDG and idTK = ?';
         const idTK =  req.user[0].idTK; 
         pool.query(selectSql, idTK, function (error, results, fields) { 
             if (error) {
@@ -810,7 +810,7 @@ class API {
         });
     }
 
-    //[POST] /api/delete/my/loved
+    //[DELETE] /api/delete/my/loved
     deleteMyLoved(req, res, next){ 
         const idQT = req.body.idQT;
         const sql = 'delete from quantam where idQT = ?';
@@ -819,6 +819,19 @@ class API {
                 res.status(200).send({ message: "Sàn đấu giá không tồn tại!" });
             }
             res.send();
+        });
+    }
+
+    // [GET] /api/my/bill
+    getMyBill(req, res, next){
+        const sumSql = 'select sum(GiaTien) as sumGT from auctiondata.giaodich where idTK = ? group by idTK';
+        const idTK =  req.user[0].idTK; 
+        pool.query(sumSql, idTK, function (error, results, fields) { 
+            if (error) {
+                throw error;
+            } else { 
+                res.send(results); 
+            }
         });
     }
 }

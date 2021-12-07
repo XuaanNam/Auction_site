@@ -15,6 +15,8 @@ import { useNavigate } from 'react-router-dom';
 function Cart() {
     const [isEmpty, setIsEmpty] = useState(true);
     const [listProduct, setListProduct] = useState([]);
+    const [bill, setBill] = useState('');
+    const [totalBill, setTotalBill] = useState('');
     const [payment, setPayment] = useState(false);
 
     let navigate = useNavigate();
@@ -26,10 +28,17 @@ function Cart() {
                     // eslint-disable-next-line react-hooks/exhaustive-deps
                     isAuth = 1;
                     axios.get("my/cart")
-                        .then((res) =>{ console.log('success',res.data)
+                        .then((res) =>{ 
                             if(res.data.length > 0 ){ 
                                 setListProduct(res.data);  
                                 setIsEmpty(false);
+                            }
+                        })
+                    axios.get("my/bill")
+                        .then((res) =>{ 
+                            if(res.data.length > 0 ){ 
+                                setBill(convertPrice(res.data[0].sumGT));
+                                setTotalBill(total);  
                             }
                         })
                 }
@@ -44,6 +53,21 @@ function Cart() {
 
     const handlePay = () => {
         setPayment(true);
+    }
+
+    const convertPrice = (price) => { 
+        const formatter = new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 0
+        })
+          
+        return formatter.format(price);
+    }
+    const total = (price) => { 
+        const formatter = new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 0
+        })
+          
+        return formatter.format(price);
     }
 
     return (
@@ -90,7 +114,7 @@ function Cart() {
                                     <SummaryTitle>Thành tiền</SummaryTitle>
                                     <SummaryItem>
                                         <SummaryItemText>Tổng phụ:</SummaryItemText>
-                                        <SummaryItemPrice>$ 99</SummaryItemPrice>
+                                        <SummaryItemPrice><b>{(bill + ' VND')}</b></SummaryItemPrice>
                                     </SummaryItem>
                                     <SummaryItem>
                                         <SummaryItemText>Phụ phí:</SummaryItemText>
