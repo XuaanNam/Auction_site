@@ -27,7 +27,7 @@ function Cart() {
                     isAuth = 1;
                     axios.get("my/cart")
                         .then((res) =>{ console.log('success',res.data)
-                            if(res.data ){ 
+                            if(res.data.length > 0){ 
                                 setListProduct(res.data);  
                                 setIsEmpty(false);
                             }

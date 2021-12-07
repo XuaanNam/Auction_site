@@ -223,6 +223,10 @@
   width: auto!important;
 }
 /* List */
+.admins-list-all-product{
+  min-height: 100vh!important;
+}
+
 .title-list{
   margin-top: 18vh;
   text-align: center;
@@ -242,7 +246,7 @@
 }
 .btn-list{
   width: 10vw;
-  margin: 2vh 0 5vh 0;
+  margin: 2vh 0 5vh 0; 
   background-color: #1e6275!important;
 }
 .btn-list:hover{

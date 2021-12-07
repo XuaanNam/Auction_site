@@ -767,7 +767,7 @@ class API {
         pool.query(selectSql, idTK, function (error, results, fields) { 
             if (error) {
                 throw error;
-            } else { 
+            } else {  
                 res.send(results); 
             }
         });
