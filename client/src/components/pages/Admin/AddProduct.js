@@ -73,7 +73,7 @@ function AddProduct() {
                             <label className="label-admin">
                             Mô tả:
                             </label>
-                            <Form.Control className="input-admin" type="text" placeholder="Vd: 10000000" />
+                            <Form.Control className="input-admin" type="text" />
                         </Row>
                         <Row className="group-admin">
                             <label className="label-admin">
@@ -81,7 +81,7 @@ function AddProduct() {
                             </label>
                             <div className="btn-file"> 
                             <input
-                                className="img-admin"
+                                className="input-admin"
                                 type="file"
                                 name="myImage"
                                 onChange={(event) => {

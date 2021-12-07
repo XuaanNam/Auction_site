@@ -145,7 +145,6 @@ function Profile() {
                             <Edit class="clickToEdit"/>
                         
                             <h3>Thông tin cá nhân</h3>
-                            <h6>Thông tin về cá nhân bạn là hoàn toàn được bảo mật!</h6>
                         </div>
                         <div className="input-art">
 

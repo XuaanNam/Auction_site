@@ -176,7 +176,7 @@
 .title-admin{
   margin-top: 4vh;
   text-align: center;
-  color: #17A2B8;
+  color: #1e6275;
 }
 .box-admin{
   margin-left: 8vw;
@@ -221,9 +221,9 @@
 }
 /* List */
 .title-list{
-  margin-top: 18vh;
+  margin-top: 6vh;
   text-align: center;
-  color: #17A2B8;
+  color: #1e6275;
 }
 .img-list{
   width: 33vw;
@@ -231,7 +231,7 @@
   border: 1px solid;
 }
 .group-list{
-  margin-left: 6vw!important;
+  margin-left: 3vw!important;
 }
 .btn-list{
   width: 10vw;
