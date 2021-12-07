@@ -302,9 +302,11 @@ const ProductPrice = styled.div`
     font-weight: 200;
 `;
 const Hr = styled.hr`
-    background-color: #000;
+    background-color: #5db1e4;
     border: none;
     height: 1px;
+    margin-right: 5rem;
+    margin-bottom: 2rem;
 `;
 
 const Summary = styled.div`
