@@ -94,7 +94,7 @@ export default function Bill (props) {
 
                     </span><br/>
                     <span className={CartD.detailBannerInfo}>
-                    ℹ️ Thông tin GD: <span className="text-danger">{props.list.ThongTinDG} ABCXYZZZZ</span>
+                    ℹ️ Thông tin GD: <span className="text-danger">{props.list.ThongTinGD}</span>
                     </span><br/>
                 </ProductDetail>
                 <ShopButton onClick={handleShow} className={`btn btn-dark btn-custom ${CartD.btnRemoveItem}`}>

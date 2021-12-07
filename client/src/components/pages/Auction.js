@@ -144,7 +144,7 @@ function Auction() {
     }
 
     const parseInterger = (intCurrency) => {
-        return parseInt(intCurrency.split(',')[0] + intCurrency.split(',')[1] + intCurrency.split(',')[2]);
+        return parseInt(intCurrency.split(',')[0] + intCurrency.split(',')[1] + intCurrency.split(',')[2] + intCurrency.split(',')[3])
     }
 
     const calculatePrice = (currentPrice, step, highestPrice, inc) => {

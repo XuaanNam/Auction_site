@@ -16,7 +16,6 @@ function Cart() {
     const [isEmpty, setIsEmpty] = useState(true);
     const [listProduct, setListProduct] = useState([]);
     const [bill, setBill] = useState('');
-    const [totalBill, setTotalBill] = useState('');
     const [payment, setPayment] = useState(false);
 
     let navigate = useNavigate();
@@ -38,7 +37,6 @@ function Cart() {
                         .then((res) =>{ 
                             if(res.data.length > 0 ){ 
                                 setBill(convertPrice(res.data[0].sumGT));
-                                setTotalBill(total);  
                             }
                         })
                 }
@@ -62,12 +60,11 @@ function Cart() {
           
         return formatter.format(price);
     }
-    const total = (price) => { 
-        const formatter = new Intl.NumberFormat('en-US', {
-            minimumFractionDigits: 0
-        })
-          
-        return formatter.format(price);
+    const parseInterger = (intCurrency) => {
+        return parseInt(intCurrency.split(',')[0] + intCurrency.split(',')[1] + intCurrency.split(',')[2] + intCurrency.split(',')[3])
+    }
+    const total = (totalBill, fee) => { 
+        return convertPrice(parseInterger(totalBill) + parseInterger(fee)); 
     }
 
     return (
@@ -113,17 +110,10 @@ function Cart() {
                                 <Summary>
                                     <SummaryTitle>Thành tiền</SummaryTitle>
                                     <SummaryItem>
-                                        <SummaryItemText>Tổng phụ:</SummaryItemText>
+                                        <SummaryItemText><b>Tổng tiền:</b></SummaryItemText>
                                         <SummaryItemPrice><b>{(bill + ' VND')}</b></SummaryItemPrice>
                                     </SummaryItem>
-                                    <SummaryItem>
-                                        <SummaryItemText>Phụ phí:</SummaryItemText>
-                                        <SummaryItemPrice>$ 0</SummaryItemPrice>
-                                    </SummaryItem>
-                                    <SummaryItem type="total">
-                                        <SummaryItemText>Tổng cộng:</SummaryItemText>
-                                        <SummaryItemPrice>$ 99</SummaryItemPrice>
-                                    </SummaryItem>
+
                                     <SummaryItem>
                                         {payment?
                                             <span>
@@ -218,10 +208,10 @@ const Bottom = styled.div`
     display: flex;
     justify-content: space-between;
     padding-bottom: 10rem;
-   
+    
 `;
 const Info = styled.div`
-    flex: 3;
+    flex: 2;
 `;
 const Product = styled.div`
     display: flex;
@@ -291,6 +281,7 @@ const Hr = styled.hr`
 `;
 
 const Summary = styled.div`
+ 
     flex: 1;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 10px;
