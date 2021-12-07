@@ -1,5 +1,5 @@
 import {Gavel,Cancel,BorderHorizontal, GpsFixed,
-   VerifiedUserOutlined} from '@material-ui/icons';
+   VerifiedUserOutlined, Language} from '@material-ui/icons';
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -27,7 +27,7 @@ function Cart() {
                     isAuth = 1;
                     axios.get("my/cart")
                         .then((res) =>{ console.log('success',res.data)
-                            if(res.data ){ 
+                            if(res.data.length > 0 ){ 
                                 setListProduct(res.data);  
                                 setIsEmpty(false);
                             }
@@ -97,13 +97,21 @@ function Cart() {
                                                 </span>
     
                                                 <span className={CartD.detailBannerPrice}>
-                                                    💸 Giá: <span className="text-danger">{list.GiaTien}</span>
+                                                    💸 Giá: <span className="text-success">{list.GiaTien} VNĐ</span>
                                                 </span> <br/>
-                                                <span className={CartD.detailBannerPrice}>
-                                                    Website: <span className="text-danger">{list.Website}</span>
+
+                                                <span className={CartD.detailBannerWebsite}>
+                                                   <Language className="mr-1"/>
+                                                    Website URL: <span className="text-danger">
+                                                        <a href={list.Website} target="_blank">
+                                                            {/* BIDING Ở ĐÂY */}
+                                                            {list.Website}
+                                                        </a>
+                                                </span>
+
                                                 </span><br/>
-                                                <span className={CartD.detailBannerPrice}>
-                                                    Thông tin GD: <span className="text-danger">{list.ThongTinDG}</span>
+                                                <span className={CartD.detailBannerInfo}>
+                                                ℹ️ Thông tin GD: <span className="text-danger">{list.ThongTinDG} ABCXYZZZZ</span>
                                                 </span><br/>
                                             </ProductDetail>
                                             <ShopButton className={`btn btn-dark btn-custom ${CartD.btnRemoveItem}`}>
@@ -132,12 +140,12 @@ function Cart() {
                                         {payment?
                                             <span>
                                                 <Button className={`btn ${CartD.btnCheckout}`}>
-                                                   
-                                                    Credit Card
+                                                    
+                                                    Paypal
                                                 </Button> <br/>
                                                 <Button className={`btn ${CartD.btnCheckout}`}>
                                                    
-                                                    Paypal
+                                                    Credit Card
                                                 </Button>
                                             </span>
                                         :    
@@ -177,6 +185,10 @@ const ContainerBody = styled.div`
     height: 30rem;
     margin-bottom: 3.125rem;
     margin-right: 1.25rem;
+    box-shadow: 0 0 10px rgb(52, 58, 64);
+    &:hover {
+        box-shadow: 0 0 10px rgb(75, 178, 229);
+    }
 `;
 
 const Main = styled.div`
@@ -232,6 +244,7 @@ const Product = styled.div`
 const ProductDetail = styled.div`
     flex: 2;
     display: flex;
+    padding-top: 2.2rem;
 `;
 const Image = styled.img`
     
@@ -258,6 +271,7 @@ const PriceDetail = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    
 `;
 const ProductAmountContainer = styled.div`
     display: flex;
@@ -294,6 +308,10 @@ const Summary = styled.div`
     padding: 1.25rem;
     height: 100%;
     margin-bottom: 3.125rem;
+    box-shadow: 0 0 10px rgb(52, 58, 64);
+    &:hover {
+        box-shadow: 0 0 10px rgb(62, 173, 142);
+    }
 `;
 const SummaryTitle = styled.h1`
     font-weight: 600;

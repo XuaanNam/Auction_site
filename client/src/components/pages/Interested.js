@@ -56,7 +56,7 @@ const Interested = () => {
                             Tiếp tục đấu giá</TopButton>
                 </Link>
                 <Link to="/cart" className="text-decoration-none">
-                    <TopText className={`text-decoration-none alert-danger ${Interest.amountInterest}`}>Số lượng trong giỏ hàng: 1</TopText>
+                    <TopText className={`text-decoration-none alert-danger ${Interest.amountInterest}`}>Số lượng trong giỏ hàng: 0</TopText>
                 </Link>
                 {isEmpty ?
                     <div></div>

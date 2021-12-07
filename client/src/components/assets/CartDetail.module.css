@@ -91,7 +91,7 @@
 
 .detailBannerPosition {
     position: absolute;
-    bottom: 34%;
+    bottom: 30%;
     font-size: 20px;
     font-weight: 601;
     padding: 0.9rem 0 0 0.9rem;
@@ -99,7 +99,7 @@
 
 .detailBannerSize {
     position: absolute;
-    bottom: 34%;
+    bottom: 30%;
     left: 50%;
     font-size: 20px;
     font-weight: 601;
@@ -110,8 +110,23 @@
 .detailBannerPrice {
     position: absolute;
     font-size: 20px;
-    bottom: 18%;
+    bottom: 16%;
     /* margin-left:3.125rem; */
     font-weight: 601;
     padding: 0.9375rem;
+}
+
+.detailBannerWebsite {
+    position: absolute;
+    top: 0%;
+    left: 2%;
+    font-weight: 601;
+}
+
+.detailBannerInfo {
+    position: absolute;
+    bottom:16%;
+    padding: 0.9375rem;
+    font-weight: 601;
+    left: 48%;
 }

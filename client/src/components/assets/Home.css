@@ -144,6 +144,22 @@
   right: -5%
 }
 
+.btn-interested{
+  position: absolute;
+  background: #287673d4;
+  border: 1px solid #287673d4;
+  border-radius: 50%;
+  top: -5%;
+  z-index: 1;
+  right: -5%;
+  
+}
+
+.btn-interested:hover{
+  background: #c71a0ed4;
+  box-shadow: 0 0 10px rgb(207, 67, 67);
+}
+
 .home-container .home-sologan {
   position: relative;
   color: rgb(0, 0, 0);

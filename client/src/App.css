@@ -52,6 +52,11 @@
   height: 90%;
 }
 
+.logo-interested {
+  height: 100%;
+  width: 1.875rem;
+}
+
 /* Home */
 .body-container{
   text-align:left;
@@ -279,3 +284,8 @@
   margin-top: 40px;
   width: 65px;
   overflow-y: scroll; }
+
+.admins-list-all-product{
+ min-height: 100vh!important;
+}
+  

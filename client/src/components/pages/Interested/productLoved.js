@@ -1,4 +1,4 @@
-import {Cancel,BorderHorizontal, GpsFixed,
+import {Cancel,BorderHorizontal, GpsFixed, Language
      } from '@material-ui/icons';
 import React, {  useState } from 'react'
 import styled from 'styled-components';
@@ -21,43 +21,47 @@ function ProductLoved (props) {
         <Having>
             <Image src={props.list.HinhAnh} />
             <ProductDetail>
-                <span className={Interest.positionBanner}>
-                    <GpsFixed className="mr-1"/>
-                    Website: 
-                    <span className="text-warning">{props.list.Website}</span>
+                <span className={Interest.urlWebsiteBanner}>
+                    <Language className="mr-1"/>
+                    Website URL: <span className="text-danger">
+                        <a href={props.list.Website} target="_blank"> 
+                          {/* BIDING ở đây */}
+                          {props.list.Website}
+                        </a>
+                    </span>
                 </span>
 
                 <span className={Interest.positionBanner}>
                     <GpsFixed className="mr-1"/>
                     Vị trí: 
-                    <span className="text-warning">{props.list.ViTri}</span>
+                    <span className="text-warning"> {props.list.ViTri}</span>
                 </span>
 
                 <span className={Interest.sizeBanner}>
                     <BorderHorizontal className="mr-1"/>
                     Kích thước:
-                    <span className="text-warning">{props.list.KichThuoc}</span>
+                    <span className="text-warning"> {props.list.KichThuoc}</span>
                 </span>
 
                 <span className={Interest.timeBegunBanner}>
                     ⏱ Thời gian:
-                    <span className="text-warning">{props.list.TgBatDau}</span>
+                    <span className="text-danger"> {props.list.TgBatDau}</span>
                     
                 </span>
 
-                <span className={Interest.timeBegunBanner}>
-                    ⏱ Thời gian Đấu giá:
-                    <span className="text-warning">{props.list.tgDauGia}</span>
+                <span className={Interest.timePlayBanner}>
+                    ⏳ Thời gian đấu giá:
+                    <span className="text-danger"> {props.list.tgDauGia} 1 phút</span>
                     
                 </span>
 
                 <span className={Interest.priceBegunBanner}>
                     💸 Giá khởi điểm:
-                    <span className="text-warning">{props.list.Gia}</span>
+                    <span className="text-success"> {props.list.Gia} VNĐ</span>
                 </span>
-                <span className={Interest.priceBegunBanner}>
-                    💸 Bước giá:
-                    <span className="text-warning">{props.list.BuocGia}</span>
+                <span className={Interest.priceJumpBanner}>
+                    💰 Bước giá:
+                    <span className="text-success"> {props.list.BuocGia} VNĐ</span>
                 </span>
 
                 <button onClick={handleDeleteLoved} class={`btn btn-dark ${Interest.btnRemoveIn}`}>
@@ -90,11 +94,17 @@ const Having = styled.div`
     border: 2px solid #343a40;
     border-radius: 10px;
     margin-left: -4.125rem;
-    padding: 1.25rem 1.25rem 5rem 1.25rem;
-    height: 100%;
+    padding: 2.25rem 1.25rem 5rem 1.25rem;
+    height: 27rem;
     margin-bottom: 4.125rem;
     margin-right: 1.25rem;
+    box-shadow: 0 0 10px rgb(73, 60, 74);
+    &:hover {
+        box-shadow: 0 0 10px rgb(154, 65, 162);
+        border: 2px solid rgb(154, 65, 162);
+    }
 `;
+
 
 const EmptyCart = styled.img`
     margin-bottom: 0.625rem;
@@ -123,7 +133,7 @@ const Image = styled.img`
     width: 75%;
     height: 16rem;
     border-radius: 5px;
-    //border: 1px solid rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.9);
    
 `;
 
