@@ -7,10 +7,10 @@ import Header from "../layout/Header";
 import Footer from '../layout/Footer';
 import CartD from '../assets/CartDetail.module.css'
 import logo from "../images/img-login.png"
+import Bill from './Cart/Bill'
 //
 import axios from "../../api/axios"; 
 import { useNavigate } from 'react-router-dom';
-
 
 function Cart() {
     const [isEmpty, setIsEmpty] = useState(true);
@@ -75,58 +75,15 @@ function Cart() {
                             </Top>
                     
                             <Bottom>
-                                
-                                    <Info>
+                                <Info>
                                     <>
-                                    {listProduct.map(list=>(
-                                        <div>
-                                        <Hr key={list.idGD}/>
-                                            <ContainerBody >
-                                                <Product>
-                                                    {/* Ảnh Banner */}
-                                                    <ProductDetail>
-                                                        <Image src={(list.HinhAnh)} />
-                                                        <span></span> 
-                                                    </ProductDetail>
-                                                </Product>
-                                                <ProductDetail>
-                                                    <span className={CartD.detailBannerPosition}>
-                                                        <GpsFixed/>
-                                                        Vị trí: <span className="text-danger">{list.ViTri}</span>
-                                                    </span>
-        
-                                                    <span className={CartD.detailBannerSize}>
-                                                        <BorderHorizontal className="mr-1"/>
-                                                        Kích thước: <span className="text-danger">{list.KichThuoc}</span>
-                                                    </span>
-        
-                                                    <span className={CartD.detailBannerPrice}>
-                                                        💸 Giá: <span className="text-success">{list.GiaTien} VNĐ</span>
-                                                    </span> <br/>
-
-                                                    <span className={CartD.detailBannerWebsite}>
-                                                    <Language className="mr-1"/>
-                                                        Website URL: <span className="text-danger">
-                                                            <a href={list.Website} target="_blank">
-                                                                {/* BIDING Ở ĐÂY */}
-                                                                {list.Website}
-                                                            </a>
-                                                    </span>
-
-                                                    </span><br/>
-                                                    <span className={CartD.detailBannerInfo}>
-                                                    ℹ️ Thông tin GD: <span className="text-danger">{list.ThongTinDG} ABCXYZZZZ</span>
-                                                    </span><br/>
-                                                </ProductDetail>
-                                                <ShopButton className={`btn btn-dark btn-custom ${CartD.btnRemoveItem}`}>
-                                                    <Cancel className="mr-2"/>
-                                                    Xoá
-                                                </ShopButton>
-                                            </ContainerBody>
-                                        </div>
-                                           ))}
-                                        </>
-                                    </Info>
+                                        {listProduct.map(list=>(
+                                            <Bill  key={list.idGD}
+                                                list={list}
+                                            />
+                                        ))}
+                                    </>
+                                </Info>
                              
                                 {/* TỔNG TIỀN */}
                                 <Summary>
