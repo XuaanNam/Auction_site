@@ -145,6 +145,8 @@ const Hr = styled.hr`
     background-color: #000;
     border: none;
     height: 1px;
+    margin-right: 5rem !important;
+    margin-bottom: 2rem !important;
 `;
 const ShopButton = styled.button`
     margin-top: 0.3125rem;
