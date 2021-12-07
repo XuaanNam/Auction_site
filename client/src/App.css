@@ -228,6 +228,9 @@
   width: auto!important;
 }
 /* List */
+.admins-list-all-product{
+  min-height: 100vh!important;
+ }
 
 .title-list{
   margin-top: 18vh;

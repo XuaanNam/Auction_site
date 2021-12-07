@@ -75,52 +75,59 @@ function Cart() {
                             </Top>
                     
                             <Bottom>
-                                {listProduct.map(list=>(
-                                    <Info key={list.idGD}>
-                                        <ContainerBody>
-                                            <Product>
-                                                {/* Ảnh Banner */}
+                                
+                                    <Info>
+                                    <>
+                                    {listProduct.map(list=>(
+                                        <div>
+                                        <Hr key={list.idGD}/>
+                                            <ContainerBody >
+                                                <Product>
+                                                    {/* Ảnh Banner */}
+                                                    <ProductDetail>
+                                                        <Image src={(list.HinhAnh)} />
+                                                        <span></span> 
+                                                    </ProductDetail>
+                                                </Product>
                                                 <ProductDetail>
-                                                    <Image src={(list.HinhAnh)} />
-                                                    <span></span> 
+                                                    <span className={CartD.detailBannerPosition}>
+                                                        <GpsFixed/>
+                                                        Vị trí: <span className="text-danger">{list.ViTri}</span>
+                                                    </span>
+        
+                                                    <span className={CartD.detailBannerSize}>
+                                                        <BorderHorizontal className="mr-1"/>
+                                                        Kích thước: <span className="text-danger">{list.KichThuoc}</span>
+                                                    </span>
+        
+                                                    <span className={CartD.detailBannerPrice}>
+                                                        💸 Giá: <span className="text-success">{list.GiaTien} VNĐ</span>
+                                                    </span> <br/>
+
+                                                    <span className={CartD.detailBannerWebsite}>
+                                                    <Language className="mr-1"/>
+                                                        Website URL: <span className="text-danger">
+                                                            <a href={list.Website} target="_blank">
+                                                                {/* BIDING Ở ĐÂY */}
+                                                                {list.Website}
+                                                            </a>
+                                                    </span>
+
+                                                    </span><br/>
+                                                    <span className={CartD.detailBannerInfo}>
+                                                    ℹ️ Thông tin GD: <span className="text-danger">{list.ThongTinDG} ABCXYZZZZ</span>
+                                                    </span><br/>
                                                 </ProductDetail>
-                                            </Product>
-                                            <ProductDetail>
-                                                <span className={CartD.detailBannerPosition}>
-                                                    <GpsFixed/>
-                                                    Vị trí: <span className="text-danger">{list.ViTri}</span>
-                                                </span>
-    
-                                                <span className={CartD.detailBannerSize}>
-                                                    <BorderHorizontal className="mr-1"/>
-                                                    Kích thước: <span className="text-danger">{list.KichThuoc}</span>
-                                                </span>
-    
-                                                <span className={CartD.detailBannerPrice}>
-                                                    💸 Giá: <span className="text-success">{list.GiaTien} VNĐ</span>
-                                                </span> <br/>
-
-                                                <span className={CartD.detailBannerWebsite}>
-                                                   <Language className="mr-1"/>
-                                                    Website URL: <span className="text-danger">
-                                                        <a href={list.Website} target="_blank">
-                                                            {/* BIDING Ở ĐÂY */}
-                                                            {list.Website}
-                                                        </a>
-                                                </span>
-
-                                                </span><br/>
-                                                <span className={CartD.detailBannerInfo}>
-                                                ℹ️ Thông tin GD: <span className="text-danger">{list.ThongTinDG} ABCXYZZZZ</span>
-                                                </span><br/>
-                                            </ProductDetail>
-                                            <ShopButton className={`btn btn-dark btn-custom ${CartD.btnRemoveItem}`}>
-                                                <Cancel className="mr-2"/>
-                                                Xoá
-                                            </ShopButton>
-                                        </ContainerBody>
+                                                <ShopButton className={`btn btn-dark btn-custom ${CartD.btnRemoveItem}`}>
+                                                    <Cancel className="mr-2"/>
+                                                    Xoá
+                                                </ShopButton>
+                                            </ContainerBody>
+                                        </div>
+                                           ))}
+                                        </>
                                     </Info>
-                                ))}
+                             
                                 {/* TỔNG TIỀN */}
                                 <Summary>
                                     <SummaryTitle>Thành tiền</SummaryTitle>
@@ -182,7 +189,7 @@ const ContainerBody = styled.div`
     border-radius: 0.625rem;
     margin-left: -4.125rem;
     padding: 1,25rem;
-    height: 30rem;
+    height: 32rem;
     margin-bottom: 3.125rem;
     margin-right: 1.25rem;
     box-shadow: 0 0 10px rgb(52, 58, 64);
@@ -249,7 +256,7 @@ const ProductDetail = styled.div`
 const Image = styled.img`
     
     width: 100%;
-    height: 15.625rem;
+    height: 18.625rem;
     border-radius: 5px;
     //border: 1px solid rgba(0, 0, 0, 0.3);
    
