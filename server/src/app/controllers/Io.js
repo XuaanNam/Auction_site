@@ -1,4 +1,5 @@
 const pool = require("../models/pool");
+const api = require('./API');
 
 function socket(io) {
     // idDG - 1 = data.room - 1 
@@ -33,14 +34,6 @@ function socket(io) {
             IntervalId[data.room] = setInterval(() => {  
                 if (countdown[data.room] <= 0) {
                     let i = parseInt(data.room)-1;
-                    
-                    const sqlSelectDG = 'select * from daugia where idDG = ?';
-                    const sqlSelectTK = 'select * from taikhoan where TenDN = ?';
-                    const sqlUpdateDG = 'update daugia set TrangThai = 2 where idDG = ?';
-                    const sqlUpdateSP2 = 'update sanpham set TrangThai = 2 where idSP = ?';
-                    const sqlUpdateSP0 = 'update sanpham set TrangThai = 0 where idSP = ?';
-                    const sqlInsert = 'insert into giaodich (idSP, idTK, NgayDG, GiaTien, ThongTinGD) value (?, ?, ?, ?, ?)';
-                    
                     clearInterval(IntervalId[data.room]);
 
                     const idDG = data.room
@@ -49,47 +42,12 @@ function socket(io) {
                     var TenDN = '', NgayDG = '', GiaTien = '';
                     if(haveWinner === 1) {
                         TenDN =  dataRoom[i].userWinner;
-                        NgayDG = new Date(Date.now());
+                        NgayDG = new Date(DateTime.now()); //co the bug
                         GT = dataRoom[i].highestPrice.split(' ')[0]; 
                         GiaTien = parseInt(GT.split(',')[0] + GT.split(',')[1] + GT.split(',')[2]);
                     }
-                   
-                    pool.getConnection(function (error, connection) {
-                        if (error) throw error; // not connected!
-                        connection.query(sqlSelectDG, idDG, function (err, results, fields) { 
-                            if(results){ 
-                                const idSP = results[0].idSP;
-
-                                if(haveWinner === 1) {
-                                    const ThongTinGD = 'Người dùng ' + TenDN + ' Đã chiến thắng sản phẩm có id = ' +
-                                    idSP + '. Số tiền: ' + GiaTien;
-
-                                    connection.query(sqlSelectTK, TenDN, function (er, rs, fields) {
-                                        if(rs) { 
-                                            const idTK = rs[0].idTK;
-                                            connection.query(sqlUpdateDG, idDG,(e) => {
-                                                if(e) {throw e}
-                                            });                                            
-                                            connection.query(sqlUpdateSP2, idSP,(e) => {
-                                                if(e) {throw e}
-                                            });
-                                            connection.query(sqlInsert, [idSP, idTK, NgayDG, GiaTien, ThongTinGD],(e) => {
-                                                if(e) {throw e}
-                                            });
-                                        }
-                                    });
-                                } else {
-                                    connection.query(sqlUpdateDG, idDG,(e) => {
-                                        if(e) {throw e}
-                                    });
-                                    connection.query(sqlUpdateSP0, idSP,(e) => {
-                                        if(e) {throw e}
-                                    });
-                                }
-                            }
-                        });
-                        connection.release();
-                    });
+                    api.tradingSession(idDG, haveWinner, TenDN, NgayDG, GiaTien);
+                    
                 } else {
                     countdown[data.room]--; //socket.to(data.room).emit -- io.emit
                     socket.to(data.room).emit('timer', countdown[data.room] );

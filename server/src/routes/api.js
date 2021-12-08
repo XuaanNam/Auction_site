@@ -26,7 +26,6 @@ router.delete('/admin/delete/product', passport.authenticate('jwt', {session: fa
 router.post('/admin/stored/auction', passport.authenticate('jwt', {session: false}), api.storedAuction);
 router.patch('/admin/update/auction', passport.authenticate('jwt', {session: false}), api.updateAuction);
 router.delete('/admin/delete/auction', passport.authenticate('jwt', {session: false}), api.deleteAuction);
-router.post('/set/trading/session', passport.authenticate('jwt', {session: false}), api.tradingSession);
 
 router.get('/get/all/auction', passport.authenticate('jwt', {session: false}), api.getAuction);
 router.get('/auction/info', passport.authenticate('jwt', {session: false}), api.auctionInfo);

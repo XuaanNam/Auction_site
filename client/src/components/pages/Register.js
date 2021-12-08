@@ -35,6 +35,7 @@ function Register() {
     
 
     const handleSubmit = (event) => {
+        if(TenDN.length >=20 ){alert('Tên DN dưới 20 kí tự'); return;}
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();

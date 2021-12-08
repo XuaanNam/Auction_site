@@ -247,7 +247,7 @@
   grid-template-columns: 55% 45%;
 }
 .group-list{
-  padding: 30px 100px!important;
+  padding: 30px auto!important;
 }
 .btn-list{
   width: 10vw;
