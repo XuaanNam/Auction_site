@@ -70,7 +70,7 @@ export default function Bill (props) {
                 </Product>
                 <ProductDetail>
                     <span className={CartD.detailBannerPosition}>
-                        <GpsFixed/>
+                        <GpsFixed className="mr-1"/>
                         Vị trí: <span className="text-danger">{props.list.ViTri}</span>
                     </span>
 
@@ -94,12 +94,13 @@ export default function Bill (props) {
 
                     </span><br/>
                     <span className={CartD.detailBannerInfo}>
-                    ℹ️ Thông tin GD: <span className="text-danger">{props.list.ThongTinGD}</span>
+                    ℹ️ Thông tin GD: <span className="text-center" style={{fontSize: "15px"}}>
+                        <br/>
+                        ✔️ {props.list.ThongTinGD} VNĐ</span>
                     </span><br/>
                 </ProductDetail>
                 <ShopButton onClick={handleShow} className={`btn btn-dark btn-custom ${CartD.btnRemoveItem}`}>
-                    <Cancel className="mr-2"/>
-                    Xoá
+                    <Cancel className=""/>
                  </ShopButton>
             </ContainerBody>
         </div>
@@ -112,7 +113,7 @@ const ContainerBody = styled.div`
     border-radius: 0.625rem;
     margin-left: -4.125rem;
     padding: 1,25rem;
-    height: 30rem;
+    height: 31rem;
     margin-bottom: 3.125rem;
     margin-right: 1.25rem;
     box-shadow: 0 0 10px rgb(52, 58, 64);
@@ -149,5 +150,4 @@ const Hr = styled.hr`
     margin-bottom: 2rem !important;
 `;
 const ShopButton = styled.button`
-    margin-top: 0.3125rem;
 `;

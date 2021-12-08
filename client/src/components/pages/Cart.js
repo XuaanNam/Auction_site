@@ -326,7 +326,7 @@ const EmptyCart = styled.img`
     height: 11.25rem;
 `;
 const ShopButton = styled.button`
-    margin-top: 0.3125rem;
+    
 `;
 
 export default Cart

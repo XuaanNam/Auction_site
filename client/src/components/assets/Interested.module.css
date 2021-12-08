@@ -18,11 +18,9 @@
 
     font-size: 16px;
     position: absolute;
-    margin-right: 0.3125rem;
-    width: 25%;
-    height: 30%;
-    top: 25%;
-    right: 0%;
+    top: -5%;
+    right: -1%;
+    border-radius: 50%;
 }
 
 .btnRemoveIn:hover {
@@ -30,7 +28,6 @@
     /* color: ; */
     box-shadow: 0 0 10px rgb(228, 43, 43);
     background: #b81747;
-    border: none;
 }
 
 .amountInterest {
@@ -55,43 +52,52 @@
 .positionBanner {
     position: absolute;
     font-weight: 601;
-    bottom: 22%;
-    left: 5%;
+    top: 23%;
+    left: 67%;
 
 }
 .sizeBanner {
     position: absolute;
     font-weight: 601;
-    bottom: 22%;
-    left: 40%;
+    top: 34%;
+    left: 67%;
 }
 
 .timeBegunBanner {
     position: absolute;
-    font-weight: 601;
-    bottom: 14%;
-    left: 5%;
+    font-weight: 701;
+    font-size: 20px;
+    top: 8%;
+    left: 66%;
 }
 
 .timePlayBanner {
     position: absolute;
     font-weight: 601;
-    bottom: 14%;
-    left: 40%;
+    top: 45%;
+    left: 67%;
 }
 
 
 .priceBegunBanner {
     position: absolute;
     font-weight: 601;
-    bottom: 5%;
-    left: 5%;
+    top: 67%;
+    left: 67%;
 }
 
 
 .priceJumpBanner {
     position: absolute;
     font-weight: 601;
-    left: 40%;
-    bottom: 5%;
+    top: 56%;
+    left: 67%;
+}
+
+.notifyInterest {
+    position: absolute;
+    font-size: 20px;
+    font-weight: 601;
+    bottom: 12%;
+    left: 67%;
 }
