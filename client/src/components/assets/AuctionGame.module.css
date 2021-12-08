@@ -1,0 +1,41 @@
+.cartAuctionGame {
+    position: relative;
+    height: 65vh !important;
+    background: aliceblue;
+    border: 1px solid rgb(103, 185, 240);
+}
+
+.cartAuctionGame:hover {
+    box-shadow: 0 0 10px rgb(35 173 255);
+    
+}
+
+.cartGameWebsite {
+    position: absolute;
+    font-weight: 601;
+    bottom: 34%;
+    left: -5%;
+}
+
+.cartGameTime {
+    position: absolute;
+    font-weight: 501;
+    bottom: 24%;
+    left: -5%;
+}
+
+.cartGamePosition {
+    position: absolute;
+    font-weight: 501;
+    bottom: 16%;
+    left: -5%;
+}
+
+
+.cartGamePriceBegun {
+    position: absolute;
+    font-weight: 601;
+    font-size: 20px;
+    bottom: 5%;
+    left: 5%;
+}

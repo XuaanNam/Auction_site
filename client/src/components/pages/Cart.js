@@ -1,39 +1,71 @@
 import {Gavel,Cancel,BorderHorizontal, GpsFixed,
-    Timer, CheckCircleOutline,VerifiedUserOutlined} from '@material-ui/icons';
+   VerifiedUserOutlined, Language} from '@material-ui/icons';
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Header from "../layout/Header";
 import Footer from '../layout/Footer';
 import CartD from '../assets/CartDetail.module.css'
-import banner1 from "../images/img-1.png";
 import logo from "../images/img-login.png"
+import Bill from './Cart/Bill'
 //
 import axios from "../../api/axios"; 
 import { useNavigate } from 'react-router-dom';
 
-const KEY = process.env.REACT_APP_STRIPE;
-
-
-
 function Cart() {
+    const [isEmpty, setIsEmpty] = useState(true);
+    const [listProduct, setListProduct] = useState([]);
+    const [bill, setBill] = useState('');
+    const [payment, setPayment] = useState(false);
 
     let navigate = useNavigate();
     let isAuth = 0;
     useEffect(()=>{
-        axios.get("isAuth",)
+        axios.get("isAuth")
             .then((Response) => {
-            if(Response.data.isAuth){
-                isAuth = 1;
-            }
+                if(Response.data.isAuth){
+                    // eslint-disable-next-line react-hooks/exhaustive-deps
+                    isAuth = 1;
+                    axios.get("my/cart")
+                        .then((res) =>{ 
+                            if(res.data.length > 0 ){ 
+                                setListProduct(res.data);  
+                                setIsEmpty(false);
+                            }
+                        })
+                    axios.get("my/bill")
+                        .then((res) =>{ 
+                            if(res.data.length > 0 ){ 
+                                setBill(convertPrice(res.data[0].sumGT));
+                            }
+                        })
+                }
             })
             .catch(error => { console.log(error);})
             .then(function () {
-            if(isAuth !== 1){
-                navigate('/')
-            }       
+                if(isAuth !== 1){
+                    navigate('/')
+                }       
             });
     }, []);
+
+    const handlePay = () => {
+        setPayment(true);
+    }
+
+    const convertPrice = (price) => { 
+        const formatter = new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 0
+        })
+          
+        return formatter.format(price);
+    }
+    const parseInterger = (intCurrency) => {
+        return parseInt(intCurrency.split(',')[0] + intCurrency.split(',')[1] + intCurrency.split(',')[2] + intCurrency.split(',')[3])
+    }
+    const total = (totalBill, fee) => { 
+        return convertPrice(parseInterger(totalBill) + parseInterger(fee)); 
+    }
 
     return (
         <Container>
@@ -41,136 +73,76 @@ function Cart() {
             <Main className="container">
                 <Wrapper>
                     
-                    {/* KHI GIỎ HÀNG TRỐNG */}
-                    <Empty>
-                    <Title>Giỏ hàng ️🛒</Title>
-                        <EmptyCart src={logo} />
-                        <TopText className={`text-decoration-none alert-danger ${CartD.cartAlert}`}>Số lượng trong giỏ hàng: 0</TopText>
-                        <h4 className={CartD.cartNullTitle}>Bạn hiện không có sản phẩm nào trong giỏ hàng 🔄</h4>
-                        <Link to="/">
-                            <ShopButton className={`btn btn-dark btn-custom ${CartD.btnNullTitle}`}>
-                               <Gavel className="mr-1"/>
-                                Đi đến đấu giá!
-                                </ShopButton>
-                        </Link>
-                    </Empty>
+                    {isEmpty ? 
+                        <Empty>
+                            <Title>Giỏ hàng ️🛒</Title>
+                            <EmptyCart src={logo} />
+                            <TopText className={`text-decoration-none alert-danger ${CartD.cartAlert}`}>Số lượng trong giỏ hàng: 0</TopText>
+                            <h4 className={CartD.cartNullTitle}>Bạn hiện không có sản phẩm nào trong giỏ hàng 🔄</h4>
+                            <Link to="/">
+                                <ShopButton className={`btn btn-dark btn-custom ${CartD.btnNullTitle}`}>
+                                <Gavel className="mr-1"/>
+                                    Đi đến đấu giá!
+                                    </ShopButton>
+                            </Link>
+                        </Empty>
+                    :
+                        <span>
+                            <Top>
+                                <Title>Đấu giá của tôi ️️🏆</Title><br></br>
+                                <TopTexts >
+                                {/* DESCRIPTION cho trang này nếu có */}
+                                </TopTexts>
+                            </Top>
+                    
+                            <Bottom>
+                                <Info>
+                                    <>
+                                        {listProduct.map(list=>(
+                                            <Bill  key={list.idGD}
+                                                list={list}
+                                            />
+                                        ))}
+                                    </>
+                                </Info>
+                             
+                                {/* TỔNG TIỀN */}
+                                <Summary>
+                                    <SummaryTitle>Thành tiền</SummaryTitle>
+                                    <SummaryItem>
+                                        <SummaryItemText><b>Tổng tiền:</b></SummaryItemText>
+                                        <SummaryItemPrice><b>{(bill + ' VND')}</b></SummaryItemPrice>
+                                    </SummaryItem>
 
-
-                    {/* Khi có sản phẩm */}
-                    {/*  */}
-                    {/* TOP */}
-                    <Top>
-                        <Title>Đấu giá của tôi ️️🏆</Title><br></br>
-                        <TopTexts >
-                        {/* DESCRIPTION cho trang này nếu có */}
-                        </TopTexts>
-                    </Top>
-                    {/* BOTTOM */}
-                    <Bottom>
-                        {/* Thông tin về sản phẩm đấu giá được */}
-                        <Info>
-                            <>
-                                {/* item bắt đầu */}
-                                <Hr />
-                                <ContainerBody>
-                                    <Product>
-                                        {/* Ảnh Banner */}
-                                        <ProductDetail>
-                                            <Image src={banner1} />
-                                            <span></span> 
-                                        </ProductDetail>
-                                    </Product>
-                                    <ProductDetail>
-                                        <span className={CartD.detailBannerPosition}>
-                                            <GpsFixed/>
-                                             Vị trí: <span className="text-danger">TOP BANNER</span>
+                                    <SummaryItem>
+                                        {payment?
+                                            <span>
+                                                <Button className={`btn ${CartD.btnCheckout}`}>
+                                                    
+                                                    Paypal
+                                                </Button> <br/>
+                                                <Button className={`btn ${CartD.btnCheckout}`}>
+                                                   
+                                                    Credit Card
+                                                </Button>
                                             </span>
-
-                                        <span className={CartD.detailBannerSize}>
-                                            <BorderHorizontal className="mr-1"/>
-                                             Kích thước: <span className="text-danger">1200 x 300</span>
-                                            </span>
-
-                                        <span className={CartD.detailBannerPrice}>
-                                            💸 Giá: <span className="text-danger">15.000.000 VND</span>
-                                            </span>
-
-                                    </ProductDetail>
-                                    <ShopButton className={`btn btn-dark btn-custom ${CartD.btnRemoveItem}`}>
-                                        <Cancel className="mr-2"/>
-                                        Xoá
-                                        </ShopButton>
-                                </ContainerBody>
-
-                                {/* Nếu nhiều Items thì được ngăn cách    */}
-
-                                <Hr />
-                                <ContainerBody>
-                                    <Product>
-                                        {/* Ảnh Banner */}
-                                        <ProductDetail>
-                                            <Image src={banner1} />
-                                            <span></span> 
-                                        </ProductDetail>
-                                    </Product>
-                                    <ProductDetail>
-                                        <span className={CartD.detailBannerPosition}>
-                                            <GpsFixed/>
-                                             Vị trí: <span className="text-danger">TOP BANNER</span>
-                                            </span>
-
-                                        <span className={CartD.detailBannerSize}>
-                                            <BorderHorizontal className="mr-1"/>
-                                             Kích thước: <span className="text-danger">1200 x 300</span>
-                                            </span>
-
-                                        <span className={CartD.detailBannerPrice}>
-                                            💸 Giá: <span className="text-danger">15.000.000 VND</span>
-                                            </span>
-
-                                    </ProductDetail>
-                                    <ShopButton className={`btn btn-dark btn-custom ${CartD.btnRemoveItem}`}>
-                                        <Cancel className="mr-2"/>
-                                        Xoá
-                                        </ShopButton>
-                                </ContainerBody>
-
-                                {/* test */}
-
-                                
-
-                            </>
-                        </Info>
-                        
-
-                        
-                        {/* TỔNG TIỀN */}
-                        <Summary>
-                            <SummaryTitle>Thành tiền</SummaryTitle>
-                            <SummaryItem>
-                                <SummaryItemText>Tổng phụ:</SummaryItemText>
-                                <SummaryItemPrice>$ 99</SummaryItemPrice>
-                            </SummaryItem>
-                            <SummaryItem>
-                                <SummaryItemText>Phụ phí:</SummaryItemText>
-                                <SummaryItemPrice>$ 0</SummaryItemPrice>
-                            </SummaryItem>
-                            <SummaryItem type="total">
-                                <SummaryItemText>Tổng cộng:</SummaryItemText>
-                                <SummaryItemPrice>$ 99</SummaryItemPrice>
-                            </SummaryItem>
-                            <SummaryItem>
-                                {/* Thêm checkout ngay đây */}
-                                <Button className={`btn ${CartD.btnCheckout}`}>
-                                    <VerifiedUserOutlined class={CartD.iconCheckout}/>
-                                    Thanh toán ngay 💳
-                                </Button>
-                            </SummaryItem>
-                        </Summary>
-                    </Bottom>
+                                        :    
+                                            <Button onClick={handlePay} className={`btn ${CartD.btnCheckout}`}>
+                                                <VerifiedUserOutlined class={CartD.iconCheckout}/>
+                                                Thanh toán ngay 💳
+                                            </Button>
+                                        }
+                                             
+                                    
+                                    </SummaryItem>
+                                </Summary>
+                            </Bottom>
+                        </span>
+                    
+                    }
                 </Wrapper>
             </Main>
-            <Footer></Footer>
+            <Footer/>
         </Container>
     )
 }
@@ -188,9 +160,13 @@ const ContainerBody = styled.div`
     border-radius: 0.625rem;
     margin-left: -4.125rem;
     padding: 1,25rem;
-    height: 30rem;
+    height: 32rem;
     margin-bottom: 3.125rem;
     margin-right: 1.25rem;
+    box-shadow: 0 0 10px rgb(52, 58, 64);
+    &:hover {
+        box-shadow: 0 0 10px rgb(75, 178, 229);
+    }
 `;
 
 const Main = styled.div`
@@ -232,10 +208,10 @@ const Bottom = styled.div`
     display: flex;
     justify-content: space-between;
     padding-bottom: 10rem;
-   
+    
 `;
 const Info = styled.div`
-    flex: 3;
+    flex: 2;
 `;
 const Product = styled.div`
     display: flex;
@@ -246,11 +222,12 @@ const Product = styled.div`
 const ProductDetail = styled.div`
     flex: 2;
     display: flex;
+    padding-top: 2.2rem;
 `;
 const Image = styled.img`
     
     width: 100%;
-    height: 15.625rem;
+    height: 18.625rem;
     border-radius: 5px;
     //border: 1px solid rgba(0, 0, 0, 0.3);
    
@@ -272,6 +249,7 @@ const PriceDetail = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    
 `;
 const ProductAmountContainer = styled.div`
     display: flex;
@@ -295,12 +273,15 @@ const ProductPrice = styled.div`
     font-weight: 200;
 `;
 const Hr = styled.hr`
-    background-color: #000;
+    background-color: #5db1e4;
     border: none;
     height: 1px;
+    margin-right: 5rem !important;
+    margin-bottom: 2rem !important;
 `;
 
 const Summary = styled.div`
+ 
     flex: 1;
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 10px;
@@ -308,6 +289,10 @@ const Summary = styled.div`
     padding: 1.25rem;
     height: 100%;
     margin-bottom: 3.125rem;
+    box-shadow: 0 0 10px rgb(52, 58, 64);
+    &:hover {
+        box-shadow: 0 0 10px rgb(62, 173, 142);
+    }
 `;
 const SummaryTitle = styled.h1`
     font-weight: 600;

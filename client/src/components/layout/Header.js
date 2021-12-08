@@ -6,13 +6,16 @@ import '../assets/Header.css';
 import {Navbar,Nav} from 'react-bootstrap';
 import logo from '../images/Logo.png';
 import Cookies from "universal-cookie";
+const cookies = new Cookies();
+const user = cookies.get('username') ? cookies.get('username'): "null";
 
 class Header extends Component{
- 
+    state = {
+        user: user
+    }
+
     handleLogout = (e) => {
         e.preventDefault(e);
-        const cookies = new Cookies();
-
         cookies.remove("userAuth", {
             path: "/",
             maxAge: 500,
@@ -46,9 +49,9 @@ class Header extends Component{
                         </Nav>
                     }
                     
-                    {this.props.isAdmin ? <NavbarLoginAdmin handleLogout={this.handleLogout}/> : <span></span>}
-                    {this.props.isActive ? <NavbarLogin handleLogout={this.handleLogout}/> : <span></span>}
-                    {this.props.isGuest ? <NavbarDefault/> : <span></span>}
+                    {this.props.isAdmin && <NavbarLoginAdmin handleLogout={this.handleLogout} user={this.state.user}/>}
+                    {this.props.isActive && <NavbarLogin handleLogout={this.handleLogout} user={this.state.user}/>}
+                    {this.props.isGuest && <NavbarDefault/>}
         
                 </Navbar>
             </div>

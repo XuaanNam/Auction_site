@@ -1,33 +1,51 @@
+import {Gavel,Cancel,BorderHorizontal, GpsFixed,
+    VerifiedUserOutlined, Language} from '@material-ui/icons';
 import React from 'react';
-import anh from "../../images/a.png";
-import heart from "../../images/heart.png";
+import banner from "../../images/banner-panther-site.png";
+import AuctionG from "../../assets/AuctionGame.module.css"
 import { Card} from "react-bootstrap";
+import LoveButton from './LoveButton';
+import axios from "../../../api/axios";
+
 
 export default function AuctionGame (props){
+    let idDG = props.auc.idDG;
+
+    const handleLiked = () =>{
+        axios.post('/auction/loved',{idDG})
+            .then((res)=>{
+                alert(res.data.message);
+            })
+            .catch((err)=>{})
+    }
     return(
-        <Card className="card-items">
-            <a className="auction-link" href="/home">
-                <Card.Img variant="top" className="src" src={anh} />
+        <Card className={`card-items ${AuctionG.cartAuctionGame}`}>
+            <a className="auction-link" href={props.idRoom}>
+                <Card.Img variant="top" className="src" src={props.auc.HinhAnh? props.auc.HinhAnh:banner} />
             </a>
             <Card.Body>
-                <Card.Title>
-                    Vị trí: <strong>Tên banner 1 </strong>
-                    <span className="ml-5">Thời gian:</span>
-                </Card.Title>
-                <div className="d-flex pt-1">
-                    <span>Kích thước:</span>
-                    <span className="ml-10">Bước giá:</span>
-                </div>
+                <span className={`ml-5 ${AuctionG.cartGamePosition}`}>
+                    <GpsFixed className="mr-1"/>
+                    Vị trí: {props.auc.ViTri}
+                </span>
+
+                <span className={`ml-5 ${AuctionG.cartGameTime}`}>
+                    
+                    🕒 Thời gian: {props.auc.TgBatDau}
+                </span>
+
+                <span className={`ml-5 text-danger ${AuctionG.cartGameWebsite}`}>
+                    <Language className="mr-1"/>
+                    Website: {props.auc.Website}
+                </span>
+
+                <span className={`ml-5 text-success ${AuctionG.cartGamePriceBegun}`}>
+                    
+                    💸 Giá khởi điểm: {props.auc.Gia} VNĐ
+                </span>
             </Card.Body>
-            <button className="btn-interest">
-                <img
-                    className="logo-interest pl-2"
-                    alt=""
-                    src={heart}
-                    rounded
-                    onClick={props.handleLiked}
-                />
-            </button>
+            {props.handleLiked && <LoveButton handleLiked={handleLiked}/> }
+            
         </Card>
     )
 }

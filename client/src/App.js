@@ -31,7 +31,7 @@ function App() {
             <Route path='/profile' element={<Profile/>} />
             <Route path='/admin/addproduct' element={<AddProduct/>} />
             <Route path='/admin/list' element={<List/>} />
-            <Route path='/admin/addauction' element={<AddAuction/>} />
+            <Route path='/admin/addauction/:id' element={<AddAuction/>} />
 
           </Routes>
         </Router>

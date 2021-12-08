@@ -5,7 +5,6 @@ import { Table } from "react-bootstrap";
 
 class HistoryTable extends Component {
     render() {
-        console.log(this.props.listBetHistory)
         if(this.props.listBetHistory.length === 0) {
             return(<span></span>);
         } else {

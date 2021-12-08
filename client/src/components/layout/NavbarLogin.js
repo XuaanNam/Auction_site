@@ -1,11 +1,8 @@
-import {Gavel, KeyboardArrowDown, ShoppingCartOutlined,
+import {Gavel, KeyboardArrowDown,
   AddShoppingCart, Person, VerifiedUser, ExitToApp, KeyboardArrowUp } from '@material-ui/icons';
 import React, { Component} from "react";
 import { Form, Button} from "react-bootstrap";
 
-import Cookies from "universal-cookie";
-const cookies = new Cookies();
-const user = cookies.get('username') ? cookies.get('username'): "null";
 
 class NavbarLogin extends Component {
 
@@ -59,16 +56,16 @@ class NavbarLogin extends Component {
             </Button>
           </a>
           <a href="/Cart">
-            <Button className="btnnav-admin btn-nav outLineNone" variant="outline-info">
-            <ShoppingCartOutlined className="mr-2"/>
-              Giỏ hàng
+            <Button className="btn-nav outLineNone" variant="outline-info">
+            <AddShoppingCart className="mr-2"/>
+              Đơn hàng
               
             </Button>
           </a>
           {/* USER _ HAS TOGGLE */}
           <Button className="btnnav-admin btn-nav mr-1 outLineNone" variant="outline-info" onClick={this.handleButtonClick}>
             <Person className="mr-1"/>
-            Xin chào, <span>{user}</span>
+            Xin chào, <span>{this.props.user}</span>
             {!this.state.open && (<KeyboardArrowDown className="ml-1 nonActiveRotate" />)}
             
             {this.state.open && ( <KeyboardArrowUp className="ml-1 activeRotate" /> )}
@@ -82,14 +79,6 @@ class NavbarLogin extends Component {
                     <Button className="btn-nav mr-2 outLineNone" variant="outline-info">
                       <VerifiedUser className="mr-2"/>
                       Cá nhân
-                    </Button>
-                  </a>
-                </li>
-                <li>
-                  <a href="/#">
-                    <Button className="btn-nav mr-2 outLineNone" variant="outline-info">
-                      <AddShoppingCart className="mr-2"/>
-                      Đơn hàng
                     </Button>
                   </a>
                 </li>

@@ -34,12 +34,12 @@ function Auction() {
     const [bannerSize, setBannerSize] = useState("");
     const [urlImage, setUrlImage] = useState("");
     const [currentTime, setCurrentTime] = useState("");
+    const [currentTimeS, setCurrentTimeS] = useState("");
 
     let navigate = useNavigate();
     let isAuth = 0;
     useEffect(() => {
-        axios
-            .get("isAuth")
+        axios.get("isAuth")
             .then((Response) => {
                 if (Response.data.isAuth) {
                     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,7 +49,7 @@ function Auction() {
                     axios.get("auction/info", { params: { id: params.id } })
                         .then((Response) => {
                             if(Response.data.message) {
-                                navigate("/");
+                                navigate("/login");
                             } else {   
                                 setCurrentPrice(convertPrice(Response.data.highestPrice));
                                 setHighestPrice(convertPrice(Response.data.highestPrice));
@@ -58,7 +58,7 @@ function Auction() {
                                 setPosition(Response.data.position);
                                 setBannerSize(Response.data.bannerSize);
                                 setUrlImage(Response.data.urlImage);
-                                setCurrentTime(Response.data.dateTime);
+                                setCurrentTime(parseDate(Response.data.dateTime));
                             }
                         })
                 }
@@ -68,7 +68,7 @@ function Auction() {
             })
             .then(function () {
                 if (isAuth !== 1) {
-                navigate("/");
+                navigate("/login");
                 } else {
                     socket.emit("get_data_room", {room: params.id});
                 }
@@ -78,18 +78,32 @@ function Auction() {
 
     useEffect(() =>{
         socket.on("receive_data", (data) =>{
-            if(data === false) {
-            } else {
+            if(parseInt(data.state) === 0) {
+                setIsPrepare(true);
+                setIsStart(false);
+                setIsEnding(false);
+            }else if(parseInt(data.state) === 2) {
+                setIsPrepare(false);
+                setIsStart(false);
+                setIsEnding(true);
+
                 const hP = data.dataRoom.highestPrice.split(" ")[0];
                 setUserWinner(data.dataRoom.userWinner);
                 setHighestPrice(hP);
                 setCurrentPrice(hP);
-                setListBetHistory(data.listDataRoom);   
+                setListBetHistory(data.listDataRoom); 
+            } else if(parseInt(data.state) === 1){
+                const hP = data.dataRoom.highestPrice.split(" ")[0];
+                setUserWinner(data.dataRoom.userWinner);
+                setHighestPrice(hP);
+                setCurrentPrice(hP);
+                setListBetHistory(data.listDataRoom); 
             } 
         });
 
-        socket.on("timer", data => {
-            setCurrentTime(data);
+        socket.on("timer", (data) => {
+            setCurrentTime(parseTime(data)); 
+            setCurrentTimeS(data);
             if(isStart === false){
                 setIsPrepare(false);
                 setIsStart(true);
@@ -97,12 +111,40 @@ function Auction() {
             if(parseInt(data) === 0){      
                 setIsStart(false);
                 setIsEnding(true);
+                setCurrentTime((new Date(Date.now()).getDate() + '/' 
+                + (new Date(Date.now()).getMonth() + 1) + '/' 
+                + new Date(Date.now()).getFullYear() + ' - ' 
+                
+                + new Date(Date.now()).getHours() + ':' 
+                + new Date(Date.now()).getMinutes() + ':' 
+                + new Date(Date.now()).getSeconds()))
             }
         })
-    }, [isStart]) //co the bug
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []) //co the bug
+
+    const parseDate = (date) => {
+        return date.split(' ')[0].split('-')[2] + '-' 
+                + date.split(' ')[0].split('-')[1] + '-' 
+                + date.split(' ')[0].split('-')[0] + ' '
+                + date.split(' ')[1]       
+    }
+
+    // const handletime = () => {
+    //     socket.emit('settimer', {room: params.id, time: 80});
+    // }
+
+    const parseTime = (time) => {
+        var t = parseInt(time);
+        var h = ((t - (t %3600)) /3600) === 0 ? '' : (((t - (t %3600)) /3600).toString() + ':');
+        var m = (((t %3600) - ((t %3600) %60)) /60) === 0 ? '' : ((((t %3600) - ((t %3600) % 60)) /60).toString() + ':');
+        var s = ((t %3600) %60).toString();
+        var ti = (h + m + s); 
+        return ti;
+    }
 
     const parseInterger = (intCurrency) => {
-        return parseInt(intCurrency.split(',')[0] + intCurrency.split(',')[1] + intCurrency.split(',')[2]);
+        return parseInt(intCurrency.split(',')[0] + intCurrency.split(',')[1] + intCurrency.split(',')[2] + intCurrency.split(',')[3])
     }
 
     const calculatePrice = (currentPrice, step, highestPrice, inc) => {
@@ -137,19 +179,19 @@ function Auction() {
                 userWinner: username,
                 highestPrice: currentPrice,
                 currentTime: new Date(Date.now()).getDate() + '/' 
-                            + new Date(Date.now()).getMonth() + '/' 
+                            + (new Date(Date.now()).getMonth() + 1) + '/' 
                             + new Date(Date.now()).getFullYear() + ' - ' 
                             
                             + new Date(Date.now()).getHours() + ':' 
                             + new Date(Date.now()).getMinutes() + ':' 
-                            + new Date(Date.now()).getSeconds() 
+                            + new Date(Date.now()).getSeconds(),
+                  
             }
             await socket.emit('bet_more', auctionData);
 
-            if(parseInt(currentTime) <= 30 ){
+            if(parseInt(currentTimeS) <= 30 ){
                 await socket.emit('setHaftMinLast', {room: params.id, time: 30})
             }
-            //setListBetHistory( list =>[...list, auctionData]);
         }
     };
 
@@ -176,10 +218,10 @@ function Auction() {
             
             <Header isActive={true} /> 
             <background style={{ backgroundImage: `url(${background})` }} />
-
+           
             <div className= "auc-layout">
-                <div className="auc-game">
-                    
+                <div className="auc-game">  
+                {/* <button onClick = {handletime}>time</button> */}
                     <GameControl
                         isPrepare = {isPrepare}
                         isStart = {isStart}

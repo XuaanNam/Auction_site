@@ -52,6 +52,11 @@
   height: 90%;
 }
 
+.logo-interested {
+  height: 100%;
+  width: 1.875rem;
+}
+
 /* Home */
 .body-container{
   text-align:left;
@@ -193,9 +198,12 @@
   width: 66%!important;
   border-radius: 5px!important;
 }
+.div-btn-admin{
+  display: flex!important;
+  padding: 2vh 0 5vh 11vw!important;
+}
 .btn-admin{
   width: 15vw;
-  margin: 2vh 0 5vh 11vw;
   background-color: #1e6275!important;
 }
 .btn-admin:hover{
@@ -220,18 +228,26 @@
   width: auto!important;
 }
 /* List */
+.admins-list-all-product{
+  min-height: 100vh!important;
+ }
+
 .title-list{
   margin-top: 6vh;
   text-align: center;
   color: #1e6275;
 }
-.img-list{
-  width: 33vw;
-  height: 27vh;
-  border: 1px solid;
+.img-list img{
+  max-width: 30vw;
+  max-height: 30vh;
+}
+.Listproduct-container{
+  margin: auto 200px ;
+  display: grid;
+  grid-template-columns: 55% 45%;
 }
 .group-list{
-  margin-left: 3vw!important;
+  padding: 30px 100px!important;
 }
 .btn-list{
   width: 10vw;
@@ -245,11 +261,11 @@
 .img-detail{
   margin-left: 11vw!important;
   margin-bottom: 2vh;
-  width: 34vw;
-  height: 27vh;
-  border: 1px solid;  
 }
-
+.img-detail img{
+  max-width: 34vw;
+  /*max-height: 27vh;*/
+}
 /*====================== scroll ======================*/
 ::-webkit-scrollbar {
   width: 13px;

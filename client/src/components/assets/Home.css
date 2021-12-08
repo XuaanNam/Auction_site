@@ -16,11 +16,27 @@
 
 .auction-title {
     color: #17a2b8;
-    padding-left: 6vw;
+    padding-left: 2vh 0 6vh 0;
     margin-bottom: 0px;
 }
 
-background {
+#slogan{
+  background-color: rgba(114, 136, 139, 0.712);
+  padding: 10px 20px;
+  border-radius: 30px;
+
+  font-family: Futura, "Trebuchet MS", Arial, sans-serif; 
+  font-size: 2.5rem; 
+  font-style: italic; 
+  font-variant: normal; 
+  font-weight: 700; 
+  line-height: 25px;
+  letter-spacing: 1px;
+}
+#slogan > span{
+  font-weight: 100; 
+}
+.background {
     object-fit: cover;
     width: 100%;
     height: 100%;
@@ -47,7 +63,7 @@ background {
 }
 
 .col-items {
-    
+  margin: 30px 35px;
 }
 
 .card-items {
@@ -71,6 +87,7 @@ background {
 .tabs {
   display: flex;
   position: relative;
+  padding: 0 0 7vh 0;
 }
 .tabs .line {
     position: absolute;
@@ -125,6 +142,22 @@ background {
   top: -5%;
   z-index: 1;
   right: -5%
+}
+
+.btn-interested{
+  position: absolute;
+  background: #287673d4;
+  border: 1px solid #287673d4;
+  border-radius: 50%;
+  top: -5%;
+  z-index: 1;
+  right: -5%;
+  
+}
+
+.btn-interested:hover{
+  background: #c71a0ed4;
+  box-shadow: 0 0 10px rgb(207, 67, 67);
 }
 
 .home-container .home-sologan {
