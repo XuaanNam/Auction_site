@@ -181,7 +181,7 @@
 .title-admin{
   margin-top: 4vh;
   text-align: center;
-  color: #1e6275;
+  color: #17A2B8;
 }
 .box-admin{
   margin-left: 8vw;
@@ -197,6 +197,10 @@
   margin-left: 1vw;
   width: 66%!important;
   border-radius: 5px!important;
+}
+.input-name{
+  border-radius: 5px!important;
+  width: 45%!important;
 }
 .div-btn-admin{
   display: flex!important;
@@ -233,9 +237,9 @@
  }
 
 .title-list{
-  margin-top: 6vh;
+  margin-top: 18vh;
   text-align: center;
-  color: #1e6275;
+  color: #17A2B8;
 }
 .img-list img{
   max-width: 30vw;
@@ -247,7 +251,7 @@
   grid-template-columns: 55% 45%;
 }
 .group-list{
-  padding: 30px 100px!important;
+  padding: 30px auto!important;
 }
 .btn-list{
   width: 10vw;

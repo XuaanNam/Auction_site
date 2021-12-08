@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,12 +20,12 @@ function App() {
       <div>
         <Router>
           <Routes>
-            <Route path='/' exact element={<List/>} />
+            <Route path='/' exact element={<HomePage/>} />
             <Route path='/register' element={<Register/>} />
             <Route path='/login' element={<Login/>} />
             <Route path='/auction/:id' element={<Auction/>} />
             <Route path='/home' exact element={<Home/>} />
-            <Route path='/interested' exact element={<Interested/>} />          
+            <Route path='/interested' exact element={<Interested/>} />
             <Route path='/cart' element={<Cart/>} />
             <Route path='/profile' element={<Profile/>} />
             <Route path='/admin/addproduct' element={<AddProduct/>} />

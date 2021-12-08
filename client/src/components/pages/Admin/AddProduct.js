@@ -69,9 +69,7 @@ function AddProduct() {
                     <h3 className="title-admin">Thêm sản phẩm mới</h3> <br/>
                     <div className="box-admin">
                         <Row className="group-admin" >
-                            <label className="label-admin">
-                            Vị trí:
-                            </label>
+                            <label className="label-admin" placeholder="Nhập họ">Vị trí:</label>
                             <Form.Control className="input-admin" type="text" 
                                 onChange={(e) => {
                                     setPosition(e.target.value);
@@ -82,11 +80,25 @@ function AddProduct() {
                             <label className="label-admin">
                             Kích thước:
                             </label>
-                            <Form.Control className="input-admin" type="text" 
-                                onChange={(e) => {
-                                    setBannerSize(e.target.value);
-                                }} 
-                            />
+                            <div className="d-flex input-admin">
+                                <Form.Control 
+                                    className="input-name" 
+                                    type="text" 
+                                    placeholder="Nhập họ"
+                                    onChange={(e) => {
+                                        setBannerSize(e.target.value);
+                                    }} 
+                                />
+                                <Form.Control 
+                                    className="input-name" 
+                                    type="text" 
+                                    placeholder="Nhập tên"
+                                    style={{marginLeft: '3.5vw'}}
+                                    onChange={(e) => {
+                                        setBannerSize(e.target.value);
+                                    }} 
+                                />
+                            </div>
                         </Row>
                         <Row className="group-admin">
                             <label className="label-admin">

@@ -99,7 +99,7 @@ class API {
         const sql = "select * from taikhoan where Email = ? ";
         const Email = req.body.Email;
         const MatKhau = req.body.MatKhau;
-
+        console.log(Email,MatKhau);
         pool.query(sql, Email, function (error, results, fields) {
             if (error) {
                 res.send({ error: error });

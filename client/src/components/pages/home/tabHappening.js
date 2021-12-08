@@ -13,6 +13,5 @@ export default function tabHappening (props) {
         </div>
    
     );
-
 }
 
