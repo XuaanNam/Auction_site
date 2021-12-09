@@ -37,7 +37,7 @@ app.use(methodOverride('_method'));
 
 route(app);
 socket(io);
- 
+  
 
 app.listen(port, ()=> {
     console.log(`Server is running on: http://localhost:${port} `);

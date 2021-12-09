@@ -15,7 +15,7 @@ class isComing extends Component {
                                 <AuctionGame 
                                     idRoom={"auction/" + auc.idDG}
                                     auc={auc}
-                                    handleLiked = {true}
+                                    handleLiked = {this.props.handleLiked}
                                 />    
                             </Col>
                         ))}    
@@ -24,7 +24,7 @@ class isComing extends Component {
                                 <AuctionGame 
                                     idRoom={"auction/" + auc.idDG}
                                     auc={auc}
-                                    handleLiked = {true}
+                                    handleLiked = {this.props.handleLiked}
                                 />    
                             </Col>
                         ))}            

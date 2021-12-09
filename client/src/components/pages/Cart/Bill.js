@@ -96,7 +96,7 @@ export default function Bill (props) {
                     <span className={CartD.detailBannerInfo}>
                     ℹ️ Thông tin GD: <span className="text-center" style={{fontSize: "15px"}}>
                         <br/>
-                        ✔️ {props.list.ThongTinGD} VNĐ</span>
+                        ✔️ {props.list.ThongTinGD}</span>
                     </span><br/>
                 </ProductDetail>
                 <ShopButton onClick={handleShow} className={`btn btn-dark btn-custom ${CartD.btnRemoveItem}`}>
@@ -113,7 +113,7 @@ const ContainerBody = styled.div`
     border-radius: 0.625rem;
     margin-left: -4.125rem;
     padding: 1,25rem;
-    height: 31rem;
+    height: 42rem;
     margin-bottom: 3.125rem;
     margin-right: 1.25rem;
     box-shadow: 0 0 10px rgb(52, 58, 64);
@@ -137,7 +137,7 @@ const ProductDetail = styled.div`
 const Image = styled.img`
     
     width: 100%;
-    height: 15.625rem;
+    //height: 17rem;
     border-radius: 5px;
     //border: 1px solid rgba(0, 0, 0, 0.3);
    

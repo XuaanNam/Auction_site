@@ -88,10 +88,7 @@ class API {
     // [GET] /api/isAuth
     isAuth(req, res, next) {
         const PQ = req.user[0].PhanQuyen;
-
         res.status(200).send({ isAuth: true, PQ: PQ });
-
-
     }
 
     // [POST] /api/login
@@ -639,6 +636,14 @@ class API {
         const sqlInsertGD = 'insert into giaodich (idSP, idTK, NgayDG, GiaTien, ThongTinGD) value (?, ?, ?, ?, ?)';
         const sqlUpdateGD = 'update giaodich set TrangThai = 1 where idDG = ?';
 
+        const y = new Date(Date.now()).getFullYear();
+        const m = new Date(Date.now()).getMonth();
+        const d = new Date(Date.now()).getDate();
+        const h = new Date(Date.now()).getHours();
+        const mi = (new Date(Date.now()).getMinutes() + 10);
+        const s = new Date(Date.now()).getSeconds();
+        const date = new Date(y, m, d, h, mi, s);
+
         pool.getConnection(function (error, connection) {
             if (error) throw error; // not connected!
             connection.query(sqlSelectDG, idDG, function (err, results, fields) {
@@ -646,8 +651,9 @@ class API {
                     const idSP = results[0].idSP;
 
                     if (haveWinner === 1) {
-                        const ThongTinGD = 'Người dùng ' + TenDN + ' Đã chiến thắng sản phẩm có id = ' +
-                            idSP + '. Số tiền: ' + GiaTien;
+                        const ThongTinGD = 'Người dùng ' + TenDN + ' đã chiến thắng sản phẩm có id = ' +
+                            idSP + '. Số tiền: ' + GiaTien + 
+                            '. Sản phẩm này sẽ được thu hồi sau 10 phút nếu bạn không thanh toán. Thời hạn đến: ' + date ;
 
                         connection.query(sqlSelectTK, TenDN, function (er, rs, fields) {
                             if (rs) {
@@ -661,14 +667,6 @@ class API {
                                 connection.query(sqlInsertGD, [idSP, idTK, NgayDG, GiaTien, ThongTinGD], (e, rsl) => {
                                     if (e) { throw e }
                                     const idGD = rsl.insertId.toString();
-
-                                    const y = new Date(Date.now()).getFullYear();
-                                    const m = new Date(Date.now()).getMonth();
-                                    const d = new Date(Date.now()).getDate();
-                                    const h = new Date(Date.now()).getHours();
-                                    const mi = (new Date(Date.now()).getMinutes() + 10);
-                                    const s = new Date(Date.now()).getSeconds();
-                                    const date = new Date(y, m, d, h, mi, s);
 
                                     trading[parseInt(idGD)] = new CronJob(date, function () {
                                         pool.query(sqlUpdateGD, idGD, (e) => {
@@ -859,6 +857,11 @@ class API {
                 res.send(results);
             }
         });
+    }
+
+    // [GET] /api/search
+    search(req, res, next){
+
     }
 }
 

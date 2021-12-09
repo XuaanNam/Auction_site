@@ -42,7 +42,7 @@ function socket(io) {
                     var TenDN = '', NgayDG = '', GiaTien = '';
                     if(haveWinner === 1) {
                         TenDN =  dataRoom[i].userWinner;
-                        NgayDG = new Date(DateTime.now()); //co the bug
+                        NgayDG = new Date(Date.now()); 
                         GT = dataRoom[i].highestPrice.split(' ')[0]; 
                         GiaTien = parseInt(GT.split(',')[0] + GT.split(',')[1] + GT.split(',')[2]);
                     }
