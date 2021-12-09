@@ -86,7 +86,6 @@ function Profile() {
     const submitAvt = async() => {
         const image = new FormData();
         image.append("avatar", file);
-
         try {
             await axios.post('stored/avatar', image)
                     .then((res) => {

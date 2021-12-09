@@ -3,7 +3,7 @@ import { Form, Button} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
-import "../../App.css";
+import "../assets/login-regis.css";
 import background from "../images/background.jpg";
 //dùng để kết nối tới db
 import { useState, useEffect } from "react";
@@ -95,7 +95,7 @@ const Login = () => {
       <div className="container cont-inout" id="form-reg">
         <div className="subcont-inout">
           <h2 className="title-inout">Đăng nhập</h2>
-          <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Form className="form-inout" noValidate validated={validated} onSubmit={handleSubmit}>
             <Form.Group
               className="input-inout mb-3 pt-3 form-custom"
               controlId="formGridEmail"
@@ -107,7 +107,7 @@ const Login = () => {
                 required
                 className="box-inout"
                 type="email"
-                placeholder="Email"
+                placeholder="Nhập email"
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}

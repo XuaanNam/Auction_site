@@ -83,7 +83,7 @@ function Infomation(props) {
             <div className="d-grid">
               <label>Số điện thoại:</label>
               <input 
-                type="tel" 
+                type="number" 
                 pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" 
                 value={sDT} 
                 onChange={(e) => {setSDT(e.target.value.toString());}}

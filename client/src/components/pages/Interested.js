@@ -55,9 +55,9 @@ const Interested = () => {
                             <Gavel className ="mr-1"/>
                             Tiếp tục đấu giá</TopButton>
                 </Link>
-                <Link to="/cart" className="text-decoration-none">
+                {/* <Link to="/cart" className="text-decoration-none">
                     <TopText className={`text-decoration-none alert-danger ${Interest.amountInterest}`}>Số lượng trong giỏ hàng: 0</TopText>
-                </Link>
+                </Link> */}
                 {isEmpty ?
                     <div></div>
                 :   

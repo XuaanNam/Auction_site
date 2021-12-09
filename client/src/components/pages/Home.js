@@ -33,7 +33,7 @@ function Home() {
       .then((res) => {
         if (res.data.isAuth) {
           // eslint-disable-next-line react-hooks/exhaustive-deps
-          isAuth = 1;
+          isAuth = 1; 
         }
       })
       .catch((error) => {
@@ -65,8 +65,7 @@ function Home() {
       <div className="background" style={{ backgroundImage: `url(${background})` }} />
       <div className = "home-container">
         <div className= "home-sologan">
-          <span id ="slogan">Đấu giá Panther - Tranh đoạt Banner<span>〽️</span> </span>
-          <span className="panner">
+          <span className="home-panther">
             <Card.Img src={panther}></Card.Img>
           </span>
         </div>

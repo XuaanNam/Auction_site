@@ -35,6 +35,7 @@ function Register() {
     
 
     const handleSubmit = (event) => {
+        if(TenDN.length >=20 ){alert('Tên DN dưới 20 kí tự'); return;}
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
@@ -67,7 +68,7 @@ function Register() {
                 <div className="subcont-inout">
                 <h2 className="title-inout">Đăng ký</h2>
                     {/* name */}
-                <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Form className="form-inout" noValidate validated={validated} onSubmit={handleSubmit}>
                     <Form.Group className="input-inout d-flex mb-3 pt-3 form-custom" controlId="formGridUsername">
                         <div>
                             <Form.Label className="">Họ</Form.Label>

@@ -10,7 +10,8 @@ import background from "../../images/background2.png";
 function AddProduct() {
     const [selectedImage, setSelectedImage] = useState(null);
     const [position, setPosition] = useState('');
-    const [bannerSize, setBannerSize] = useState('');
+    const [bannerWidth, setBannerWidth] = useState('');
+    const [bannerHeight, setBannerHeight] = useState('');
     const [price, setPrice] = useState('');
     const [website, setWebsite] = useState('');
     const [describe, setDescribe] = useState('');
@@ -34,10 +35,12 @@ function AddProduct() {
         
         if(!selectedImage){setError('Vui lòng chọn hình ảnh minh họa!'); return}
         else if(!position){setError('Vui lòng thêm vị trí banner!'); return}
-        else if(!bannerSize){setError('Vui lòng thêm vị trí banner!'); return}
+        else if(!bannerWidth){setError('Vui lòng thêm chiều rộng banner!'); return}
+        else if(!bannerHeight){setError('Vui lòng thêm chiều cao banner!'); return}
         else if(!price){setError('Vui lòng thêm giá cho banner!'); return}
         else if(!website){setError('Vui lòng thêm địa chỉ website của banner!'); return}
         else {
+            const bannerSize = bannerWidth + "x" + bannerHeight;
             const image = new FormData();
             image.append("banner", selectedImage);
             image.append("ViTri", position);
@@ -69,8 +72,8 @@ function AddProduct() {
                     <h3 className="title-admin">Thêm sản phẩm mới</h3> <br/>
                     <div className="box-admin">
                         <Row className="group-admin" >
-                            <label className="label-admin" placeholder="Nhập họ">Vị trí:</label>
-                            <Form.Control className="input-admin" type="text" 
+                            <label className="label-admin" >Vị trí:</label>
+                            <Form.Control className="input-admin" type="text" placeholder="Nhập tên vị trí"
                                 onChange={(e) => {
                                     setPosition(e.target.value);
                                 }} 
@@ -84,18 +87,18 @@ function AddProduct() {
                                 <Form.Control 
                                     className="input-name" 
                                     type="text" 
-                                    placeholder="Nhập họ"
+                                    placeholder="Nhập chiều rộng"
                                     onChange={(e) => {
-                                        setBannerSize(e.target.value);
+                                        setBannerWidth(e.target.value);
                                     }} 
                                 />
                                 <Form.Control 
                                     className="input-name" 
                                     type="text" 
-                                    placeholder="Nhập tên"
+                                    placeholder="Nhập chiều cao"
                                     style={{marginLeft: '3.5vw'}}
                                     onChange={(e) => {
-                                        setBannerSize(e.target.value);
+                                        setBannerHeight(e.target.value);
                                     }} 
                                 />
                             </div>
@@ -104,7 +107,7 @@ function AddProduct() {
                             <label className="label-admin">
                             Giá khởi điểm:
                             </label>
-                            <Form.Control className="input-admin" type="text" 
+                            <Form.Control className="input-admin" type="text" placeholder="Nhập giá khởi điểm"
                                 onChange={(e) => {
                                     setPrice(e.target.value);
                                 }} 
@@ -114,7 +117,7 @@ function AddProduct() {
                             <label className="label-admin">
                             Website:
                             </label>
-                            <Form.Control className="input-admin" type="text"
+                            <Form.Control className="input-admin" type="text" placeholder="Nhập tên website"
                                 onChange={(e) => {
                                     setWebsite(e.target.value);
                                 }} 

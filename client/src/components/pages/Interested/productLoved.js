@@ -66,9 +66,12 @@ function ProductLoved (props) {
                     <span className="text-success"> {props.list.BuocGia} VNĐ</span>
                 </span>
 
+                <span className={Interest.notifyInterest}>
+                    <span className=""> HÃY CHỜ ĐẾN PHIÊN ĐẤU GIÁ !!</span>
+                </span>
+
                 <button onClick={handleDeleteLoved} class={`btn btn-dark ${Interest.btnRemoveIn}`}>
-                    XOÁ KHỎI YÊU THÍCH 
-                    <Cancel className="ml-1"/>
+                        ❌
                 </button>
             </ProductDetail>
         </Having>
@@ -132,8 +135,8 @@ const TopButton = styled.button`
 
 const Image = styled.img`
     
-    width: 75%;
-    height: 16rem;
+    width: 65%;
+    height: 23rem;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.9);
    

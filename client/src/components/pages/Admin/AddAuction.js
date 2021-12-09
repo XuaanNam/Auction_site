@@ -15,7 +15,8 @@ function AddAuction() {
 
     const [urlImage, setUrlImage] = useState("");
     const [position, setPosition] = useState("");
-    const [bannerSize, setBannerSize] = useState("");
+    const [bannerWidth, setBannerWidth] = useState('');
+    const [bannerHeight, setBannerHeight] = useState('');
     const [price, setPrice] = useState("");
     const [website, setWebsite] = useState("");
     const [datetime, setDatetime] = useState("");
@@ -23,7 +24,7 @@ function AddAuction() {
     const [priceStep, setPriceStep] = useState("");
     const [describe, setDescribe] = useState('');
     const [error, setError] = useState('');
-
+    
     let navigate = useNavigate();
     let isAdmin = 0;
     let done = 0;
@@ -37,7 +38,7 @@ function AddAuction() {
                         .then((res) => {
                             setUrlImage(('../../'+ res.data[0].HinhAnh)); 
                             setPosition(res.data[0].ViTri);
-                            setBannerSize(res.data[0].KichThuoc);
+                            transferSize(res.data[0].KichThuoc);
                             setPrice(res.data[0].Gia);
                             setWebsite(res.data[0].Website);
                             setDescribe(res.data[0].MoTa)
@@ -51,13 +52,17 @@ function AddAuction() {
                 }
             })
     }, []);
-
+    const transferSize= (size) => {
+        setBannerWidth((size.split('x')[0]))
+        setBannerHeight((size.split('x')[1]))
+    }
     const handleUpdate = () => {
-        if(!position){setError('Vui lòng thêm vị trí banner!'); return};
-        if(!bannerSize){setError('Vui lòng thêm vị trí banner!'); return};
-        if(!price){setError('Vui lòng thêm giá cho banner!'); return};
-        if(!website){setError('Vui lòng thêm địa chỉ website của banner!'); return};
-
+        if(!position){setError('Vui lòng thêm vị trí banner!'); return}
+        if(!bannerWidth){setError('Vui lòng thêm chiều rộng banner!'); return}
+        if(!bannerHeight){setError('Vui lòng thêm chiều cao banner!'); return}
+        if(!price){setError('Vui lòng thêm giá cho banner!'); return}
+        if(!website){setError('Vui lòng thêm địa chỉ website của banner!'); return}
+        const bannerSize = bannerWidth + "x" + bannerHeight;
         axios.patch('admin/update/product',{
             ViTri: position, KichThuoc: bannerSize, Gia: price, Website: website, MoTa: describe, idSP: params.id 
         })
@@ -65,9 +70,6 @@ function AddAuction() {
                 setError(res.data.message);
             })
             .catch(err => {console.log(err)})
-            .then(() => {
-                window.location.reload(false);
-            })
     };
 
     const compareDate = (datetime) => {
@@ -83,7 +85,8 @@ function AddAuction() {
         
 
         if(!position){setError('Vui lòng thêm vị trí banner!'); return}
-        else if(!bannerSize){setError('Vui lòng thêm vị trí banner!'); return}
+        else if(!bannerWidth){setError('Vui lòng thêm chiều rộng banner!'); return}
+        else if(!bannerHeight){setError('Vui lòng thêm chiều cao banner!'); return}
         else if(!price){setError('Vui lòng thêm giá cho banner!'); return}
         else if(!website){setError('Vui lòng thêm địa chỉ website của banner!'); return}
         else if(!datetime){setError('Vui lòng thêm thời gian diễn ra đấu giá!'); return}
@@ -130,11 +133,25 @@ function AddAuction() {
                             <label className="label-admin">
                             Kích thước:
                             </label>
-                            <Form.Control className="input-admin" value={bannerSize} type="text"
-                                onChange={(e) => {
-                                    setBannerSize(e.target.value);
-                                }}
-                            />
+                            <div className="d-flex input-admin">
+                                <Form.Control 
+                                    className="input-size" 
+                                    type="text" 
+                                    value={bannerWidth}
+                                    onChange={(e) => {
+                                        setBannerWidth(e.target.value);
+                                    }} 
+                                />
+                                <Form.Control 
+                                    className="input-size" 
+                                    type="text" 
+                                    value={bannerHeight}
+                                    style={{marginLeft: '3.5vw'}}
+                                    onChange={(e) => {
+                                        setBannerHeight(e.target.value);
+                                    }} 
+                                />
+                            </div>
                         </Row>
                         <Row className="group-admin">
                             <label className="label-admin">
