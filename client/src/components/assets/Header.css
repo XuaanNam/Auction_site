@@ -46,18 +46,17 @@
 .inputAllSearch {
   position: absolute;
   top: -14%;
-  left: -56%;
-  width: 40%;
-  margin-right: 4rem;
-  margin-top: 1rem;
-  height: 1.9rem;
+  left: -36%;
+  min-width: 14rem;
+  margin-top: 0.8rem;
+  padding-left: 6px;
+  height: 2.2rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   background: #343a40;
   font-size: inherit;
   color: #fff;
-  padding-left: 6px;
-  z-index: 4;
+
 }
 
 .inputSearch {
