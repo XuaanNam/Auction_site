@@ -1,5 +1,4 @@
-import {Cancel,BorderHorizontal, GpsFixed,
-     Language} from '@material-ui/icons';
+import {Cancel,BorderHorizontal, GpsFixed,Language} from '@material-ui/icons';
 import React, {  useState } from 'react'
 import { Button, Modal} from 'react-bootstrap'
 import styled from 'styled-components';

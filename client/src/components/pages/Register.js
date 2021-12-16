@@ -68,7 +68,7 @@ function Register() {
                 <div className="subcont-inout">
                 <h2 className="title-inout">Đăng ký</h2>
                     {/* name */}
-                <Form noValidate validated={validated} onSubmit={handleRegister}>
+                <Form className="form-inout" noValidate validated={validated} onSubmit={handleRegister}>
                     <Form.Group className="input-inout d-flex mb-3 pt-3 form-custom" controlId="formGridUsername">
                         <div>
                             <Form.Label className="">Họ</Form.Label>

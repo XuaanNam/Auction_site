@@ -3,7 +3,7 @@ import { Row, Col, Button, Modal} from 'react-bootstrap'
 import banner from '../../images/banner-panther-site.png'
 import axios from "../../../api/axios";
 
-export default function List(props) {
+export default function Product(props) {
 
     const [show, setShow] = useState(false);
     const [HinhAnh] = useState(('../' + props.product.HinhAnh));
@@ -47,9 +47,7 @@ export default function List(props) {
                     <b style={{color: 'red'}}>Bạn chắc chắn muốn xóa banner này chứ ? </b>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Đóng
-                    </Button>
+                    <Button variant="secondary" onClick={handleClose}> Đóng</Button>
                     <Button variant="danger" onClick={handleDelete}>Xóa vội</Button>
                 </Modal.Footer>
             </Modal>
@@ -76,7 +74,6 @@ export default function List(props) {
                             <Button className="mt-3 mr-5 btn-info" href={props.hrefSP}>Chi tiết</Button> 
                             <Button className="mt-3 ml-5 btn-danger" onClick={handleShow}>Xóa đấu giá</Button>
                         </div>
-                        
                     </Col>
                 </Row>
             </div>

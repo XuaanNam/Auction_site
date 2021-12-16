@@ -52,19 +52,19 @@ class NavbarLoginAdmin extends Component {
       <Form className="mr-5">
         <div className="containerHeader" ref={this.container}>
           <a href="/admin/list">
-            <Button className="btnnav-admin btn-nav outLineNone" variant="outline-info">
+            <Button className="btn-nav outLineNone" variant="outline-info">
               <Assignment className="mr-2"/>
               Danh sách
             </Button>
           </a>
           <a href="/admin/addproduct">
-            <Button className="btnnav-admin btn-nav outLineNone" variant="outline-info">
+            <Button className="btn-nav outLineNone" variant="outline-info">
             <AddShoppingCart className="mr-2"/>
               Thêm sản phẩm
             </Button>
           </a>
           {/* USER _ HAS TOGGLE */}
-          <Button className="btnnav-admin btn-nav mr-1 outLineNone" style={{minWidth: '20vw'}} variant="outline-info" onClick={this.handleButtonClick}>
+          <Button className="btn-nav mr-1 outLineNone" variant="outline-info" onClick={this.handleButtonClick}>
             <Person className="mr-1"/>
             Xin chào, <span>{this.props.user}</span>
             {!this.state.open && (<KeyboardArrowDown className="ml-1" />)}

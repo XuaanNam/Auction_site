@@ -65,8 +65,7 @@ function Home() {
       <div className="background" style={{ backgroundImage: `url(${background})` }} />
       <div className = "home-container">
         <div className= "home-sologan">
-          <span id ="slogan">Đấu giá Panther - Tranh đoạt Banner<span>〽️</span> </span>
-          <span className="panner">
+          <span className="home-panther">
             <Card.Img src={panther}></Card.Img>
           </span>
         </div>

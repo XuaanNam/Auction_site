@@ -17,8 +17,6 @@ paypal.configure({
     'client_secret': process.env.PP_SECRET_KEY
 });
 
-
-
 class API {
 
     // [POST] /api
@@ -913,7 +911,7 @@ class API {
 
     // [GET] /api/search
     search(req, res, next){
-        const srch = req.query.search;
+        const srch = '%' + req.query.search + '%';
         const selectSql = 'select * from sanpham s, daugia d where s.idSP = d.idSP and d.TrangThai = 0' 
             + 'and (s.Gia like ? or d.TgBatDau like ? or s.MoTa like ? or s.Website like ? or s.ViTri like ? or s.KichThuoc like ?)';
         pool.query(selectSql, [srch, srch, srch, srch, srch, srch], function (err, results, fields) {

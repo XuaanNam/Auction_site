@@ -21,6 +21,7 @@ function List() {
                         .then((res) => { 
                             res.data.message && alert(res.data.message);
                             setList(res.data); 
+                            console.log(res.data);
                         })
                 }
             })
