@@ -8,9 +8,16 @@ const saltRound = 10;
 const encodeToken = require("../../util/encodeToken");
 const CronJob = require('cron').CronJob;
 const io = require("socket.io-client");
-const { Console } = require("console");
 const job = [];
 const trading = [];
+const paypal = require('paypal-rest-sdk');
+paypal.configure({
+    'mode': 'sandbox', //sandbox or live
+    'client_id': process.env.CLIENT_ID, 
+    'client_secret': process.env.PP_SECRET_KEY
+});
+
+
 
 class API {
 
@@ -859,9 +866,67 @@ class API {
         });
     }
 
+    // [POST] /api/payment/paypal
+    paymentByPaypal(req, res, next) {
+        const totalUSD = req.body.totalUSD?30:30;
+        const listWebsite = req.body.listWebsite?'superp.com':'superp.com';
+        const number = req.body.number?1:1;
+        const create_payment_json = {
+            "intent": "sale",
+            "payer": {
+                "payment_method": "paypal"
+            },
+            "redirect_urls": {
+                "return_url": "http://localhost:3000/payment-success",
+                "cancel_url": "http://localhost:3000/cart"
+            },
+            "transactions": [{
+                "item_list": {
+                    "items": [{
+                        "name": listWebsite,
+                        "sku": 'Gồm ' + number + ' sản phẩm',
+                        "price": totalUSD,
+                        "currency": "USD",
+                        "quantity": 1
+                    }]
+                },
+                "amount": {
+                    "currency": "USD",
+                    "total": totalUSD
+                },
+                "description": "Cho nay nhet thang ThongTinGD vao"
+            }]
+        };
+        
+        paypal.payment.create(create_payment_json, function (error, payment) {
+            if (error) {
+                throw error;
+            } else { 
+                for(let i = 0; i < payment.links.length; i++){
+                    if(payment.links[i].rel === 'approval_url'){ //console.log(payment)
+                        res.send({payment_link: payment.links[i].href});
+                    }
+                }
+            }
+        });
+    }
+
     // [GET] /api/search
     search(req, res, next){
-
+        const srch = req.query.search;
+        const selectSql = 'select * from sanpham s, daugia d where s.idSP = d.idSP and d.TrangThai = 0' 
+            + 'and (s.Gia like ? or d.TgBatDau like ? or s.MoTa like ? or s.Website like ? or s.ViTri like ? or s.KichThuoc like ?)';
+        pool.query(selectSql, [srch, srch, srch, srch, srch, srch], function (err, results, fields) {
+            if (err) {
+                res.status(200).send({ message: "Tìm kiếm phiên đấu giá thất bại" });
+            } else {
+                if (results) {
+                    res.send({ isComing: results, message: "Tìm kiếm thành công"});
+                } else {
+                    res.send({ message: "Không tìm thấy phiên đấu giá nào!" });
+                }
+            }
+        });
     }
 }
 

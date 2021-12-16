@@ -1,0 +1,1 @@
+export default function PaymentSuccess () {return(<h1>THANH TOÁN THÀNH CMN CÔNG</h1>)}

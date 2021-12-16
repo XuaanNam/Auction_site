@@ -11,9 +11,10 @@ import Bill from './Cart/Bill'
 //
 import axios from "../../api/axios"; 
 import { useNavigate } from 'react-router-dom';
+import FormRange from 'react-bootstrap/esm/FormRange';
 
 function Cart() {
-    const [isEmpty, setIsEmpty] = useState(true);
+    const [isEmpty, setIsEmpty] = useState(false);
     const [listProduct, setListProduct] = useState([]);
     const [bill, setBill] = useState('');
     const [payment, setPayment] = useState(false);
@@ -63,8 +64,25 @@ function Cart() {
     const parseInterger = (intCurrency) => {
         return parseInt(intCurrency.split(',')[0] + intCurrency.split(',')[1] + intCurrency.split(',')[2] + intCurrency.split(',')[3])
     }
-    const total = (totalBill, fee) => { 
-        return convertPrice(parseInterger(totalBill) + parseInterger(fee)); 
+
+    const paymentByPaypal = () => {
+        const totalUSD = parseInterger(bill)/23020;
+        let listWebsite = '';
+        const number = listProduct.length;
+        let i = 0;
+        for(i; i < listProduct.length;i++){
+            listWebsite += listProduct[i].Website + ' + ';
+        }
+        axios.post("payment/paypal", {
+            totalUSD, listWebsite, number
+        })
+            .then((res) =>{ 
+                if(res.data.payment_link){ 
+                    window.open(res.data.payment_link);
+                   // window.location = res.data.payment_link;
+
+                }
+            })
     }
 
     return (
@@ -75,7 +93,7 @@ function Cart() {
                     
                     {isEmpty ? 
                         <Empty>
-                            <Title>Giỏ hàng ️🛒</Title>
+                            <Title>Giỏ hàng 🛒</Title>
                             <EmptyCart src={logo} />
                             <TopText className={`text-decoration-none alert-danger ${CartD.cartAlert}`}>Số lượng trong giỏ hàng: 0</TopText>
                             <h4 className={CartD.cartNullTitle}>Bạn hiện không có sản phẩm nào trong giỏ hàng 🔄</h4>
@@ -89,7 +107,7 @@ function Cart() {
                     :
                         <span>
                             <Top>
-                                <Title>Đấu giá của tôi ️️🏆</Title><br></br>
+                                <Title>Đấu giá của tôi 🏆</Title><br></br>
                                 <TopTexts >
                                 {/* DESCRIPTION cho trang này nếu có */}
                                 </TopTexts>
@@ -117,7 +135,7 @@ function Cart() {
                                     <SummaryItem>
                                         {payment?
                                             <span>
-                                                <Button className={`btn ${CartD.btnCheckout}`}>
+                                                <Button onClick = {paymentByPaypal} className={`btn ${CartD.btnCheckout}`}>
                                                     
                                                     Paypal
                                                 </Button> <br/>

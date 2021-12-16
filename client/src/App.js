@@ -14,6 +14,8 @@ import Interested from './components/pages/Interested';
 import AddProduct from './components/pages/Admin/AddProduct';
 import List from './components/pages/Admin/List';
 import AddAuction from './components/pages/Admin/AddAuction';
+import PaymentSuccess from './components/pages/Cart/PaymentSuccess';
+
 
 function App() {
   return (
@@ -27,12 +29,12 @@ function App() {
             <Route path='/auction/:id' element={<Auction/>} />
             <Route path='/home' exact element={<Home/>} />
             <Route path='/interested' exact element={<Interested/>} />          
-            <Route path='/cart' element={<Cart/>} />
+            <Route path='/cart' exact element={<Cart/>} />
             <Route path='/profile' element={<Profile/>} />
             <Route path='/admin/addproduct' element={<AddProduct/>} />
             <Route path='/admin/list' element={<List/>} />
             <Route path='/admin/addauction/:id' element={<AddAuction/>} />
-
+            <Route path='/payment-success' element={<PaymentSuccess/>} />
           </Routes>
         </Router>
       </div>

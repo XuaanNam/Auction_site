@@ -1,13 +1,21 @@
 const express = require('express');
 const methodOverride = require('method-override');
 const app = express();
-const port = process.env.port || 5000;
 const cors = require("cors");
 const morgan = require("morgan");
 const { resourceLimits } = require('worker_threads');
 const route = require('./routes');
 const helmet = require("helmet");
 require('dotenv').config();
+const port = parseInt(process.env.PORT);
+const paypal = require('paypal-rest-sdk');
+paypal.configure({
+    'mode': 'sandbox', //sandbox or live
+    'client_id': process.env.CLIENT_ID,
+    'client_secret': process.env.PP_SECRET_KEY
+});
+
+
 
 const socket = require('./app/controllers/Io');
 const portSocket = 4000;

@@ -69,7 +69,7 @@ function socket(io) {
             if(data.id == 1){
                 listBetHistoryData[i] = []; 
             }
-            listBetHistoryData[i][data.id-1] = dataRoom[i];
+            listBetHistoryData[i][data.id-1] = dataRoom[i]; // cần lưu trữ mục này vào db
             //console.log({listDataRoom: listBetHistoryData[i]})
 
             io.in(data.room).emit("receive_data", {state : 1, dataRoom: data, listDataRoom: listBetHistoryData[i]});
