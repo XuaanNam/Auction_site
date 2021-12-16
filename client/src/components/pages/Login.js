@@ -47,7 +47,7 @@ const Login = () => {
   }, [navigate]);
 
   
-  const handleSubmit = (event) => {
+  const handleLogin = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -95,7 +95,7 @@ const Login = () => {
       <div className="container cont-inout" id="form-reg">
         <div className="subcont-inout">
           <h2 className="title-inout">Đăng nhập</h2>
-          <Form className="form-inout" noValidate validated={validated} onSubmit={handleSubmit}>
+          <Form className="form-inout" noValidate validated={validated} onSubmit={handleLogin}>
             <Form.Group
               className="input-inout mb-3 pt-3 form-custom"
               controlId="formGridEmail"

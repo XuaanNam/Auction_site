@@ -80,7 +80,7 @@ function Home() {
           {happening? 
             <IsHappening listAucH={listAuctionHappening}/> 
           : 
-            <IsComing listAucC={listAuctionComing}/>
+            <IsComing handleLiked={true} listAucC={listAuctionComing}/>
           }
         </div>
       </div>

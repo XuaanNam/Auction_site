@@ -160,7 +160,7 @@ const ContainerBody = styled.div`
     border-radius: 0.625rem;
     margin-left: -4.125rem;
     padding: 1,25rem;
-    height: 32rem;
+    height: 39rem;
     margin-bottom: 3.125rem;
     margin-right: 1.25rem;
     box-shadow: 0 0 10px rgb(52, 58, 64);
@@ -212,6 +212,7 @@ const Bottom = styled.div`
 `;
 const Info = styled.div`
     flex: 2;
+    height: 39rem;
 `;
 const Product = styled.div`
     display: flex;

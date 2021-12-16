@@ -85,7 +85,7 @@ function AddProduct() {
                             </label>
                             <div className="d-flex input-admin">
                                 <Form.Control 
-                                    className="input-name" 
+                                    className="input-size" 
                                     type="text" 
                                     placeholder="Nhập chiều rộng"
                                     onChange={(e) => {
@@ -93,7 +93,7 @@ function AddProduct() {
                                     }} 
                                 />
                                 <Form.Control 
-                                    className="input-name" 
+                                    className="input-size" 
                                     type="text" 
                                     placeholder="Nhập chiều cao"
                                     style={{marginLeft: '3.5vw'}}
