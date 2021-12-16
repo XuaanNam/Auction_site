@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import FormRange from 'react-bootstrap/esm/FormRange';
 
 function Cart() {
-    const [isEmpty, setIsEmpty] = useState(false);
+    const [isEmpty, setIsEmpty] = useState(true);
     const [listProduct, setListProduct] = useState([]);
     const [bill, setBill] = useState('');
     const [payment, setPayment] = useState(false);

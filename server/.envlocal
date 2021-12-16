@@ -1,8 +1,14 @@
 # Hướng dẫn: Coppy tệp này làm 2, sau đó bỏ đuôi local đi (sẽ trở thành .env), thay đổi pass cho database 
 
+PORT = 5000
+
 # jwt token 
 JWT_SECRET_KEY = "authenticationforgraypantherauctionbannersite"
 # nhập pass của mình vào đây
 DB_HOST=localhost
 DB_USER=root
 DB_PASS=nam123
+
+#paypal settings
+CLIENT_ID = AXkLFdC2UDshonbewyoCm4w4v3uUCHEkAwL4oEN3RoroJk6cB1176WqkvT3oNZachZE5kN9Du_2M4FTS
+PP_SECRET_KEY = ECg316gkE0N8NIyebvu_bfKcEyVmZfq4y4J7FgX7caoUgrzOIeajAMvIcXSRdvcG9kcbgFA92Rlh-pGj
