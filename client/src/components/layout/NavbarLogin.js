@@ -122,7 +122,7 @@ class NavbarLogin extends Component {
           )}
 
 
-<Button className="btn-nav mr-1 outLineNone" style={{minWidth: '14vw'}} variant="outline-info" onClick={this.handleButtonClick2}>
+          <Button className="btn-nav mr-1 outLineNone" style={{minWidth: '14vw'}} variant="outline-info" onClick={this.handleButtonClick2}>
             <FormatListBulleted className="mr-1"/>
             DANH MỤC<span></span>
             {!this.state.openCategory && (<KeyboardArrowDown className="ml-1 nonActiveRotate" />)}

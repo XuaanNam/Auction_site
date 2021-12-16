@@ -113,20 +113,14 @@ function Profile() {
 
     return (
         <div>
-            {isAdmin?
-                <Header isAdmin={true}/> 
-            :
-                <Header isActive={true}/> 
-            }
-            <background style={{ backgroundImage: `url(${background})` }} />
-
+            {isAdmin ? <Header isAdmin={true}/> : <Header isActive={true}/>}
+            <img alt="" className="img-inout" src={background}></img>
             <div className="profile-layout">
                 <div className="main-container">   
                     <div className="slide-bar">
                         <div className="avatar">
                             <img src={Avt||avtpanther} alt=""/>
                             <h4>{username}</h4>
-                            
                             <div className="d-flex">
                                 <input type="file"  style={{display: 'none'}} name="avatar" id='avt' onChange={ (e)=>{handleFile(e)} }/>
                                 
@@ -167,7 +161,8 @@ function Profile() {
                         </div>
                         <div className="input-art">
 
-                            {changePass ? <ChangePass/> 
+                            {changePass ? 
+                            <ChangePass/> 
                             :
                             <Information
                                 Ho={Ho}
