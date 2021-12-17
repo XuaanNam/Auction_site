@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import '../../../App.css'
 import Header from "../../layout/Header";
 import Footer from '../../layout/Footer';
-import {Form, Row, Button} from 'react-bootstrap'
+import {Form, Row, Button, FormControl} from 'react-bootstrap'
 import axios from "../../../api/axios";
 import banner from '../../images/banner-panther-site.png'
 import { useNavigate, useParams} from "react-router-dom";
@@ -21,6 +21,7 @@ function AddAuction() {
     const [website, setWebsite] = useState("");
     const [datetime, setDatetime] = useState("");
     const [limitTime, setLimitTime] = useState("");
+    const [term, setTerm] = useState("");
     const [priceStep, setPriceStep] = useState("");
     const [describe, setDescribe] = useState('');
     const [error, setError] = useState('');
@@ -93,9 +94,10 @@ function AddAuction() {
         else if(!compareDate(datetime)){setError('Thời gian đấu giá đang nhỏ hơn thời gian hiện tại!'); return}
         else if(!limitTime){setError('Hãy thêm thời lượng đấu giá!'); return}
         else if(!priceStep){setError('Hãy thêm bước giá cho game đấu giá!'); return}
+        else if(!term){setError('Hãy thêm thời hạn treo banner!'); return}
         else {
             axios.post('admin/stored/auction',{
-                idSP: params.id, TgBatDau: datetime, TgDauGia: limitTime, BuocGia: priceStep
+                idSP: params.id, TgBatDau: datetime, TgDauGia: limitTime, BuocGia: priceStep, ThoiHan: term
             })
                 .then((res) => {
                     setError(res.data.message);
@@ -179,6 +181,16 @@ function AddAuction() {
                                 value={describe}
                                 onChange={(e) => {
                                     setDescribe(e.target.value);
+                                }}
+                            />
+                        </Row>
+                        <Row className="group-admin">
+                            <label className="label-admin">
+                            Thời hạn (Tháng):
+                            </label>
+                            <FormControl className="input-admin" type="number"
+                                onChange={(e) => {
+                                    setTerm(e.target.value);
                                 }}
                             />
                         </Row>
