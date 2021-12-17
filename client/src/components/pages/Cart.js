@@ -17,7 +17,9 @@ function Cart() {
     const [isEmpty, setIsEmpty] = useState(true);
     const [listProduct, setListProduct] = useState([]);
     const [bill, setBill] = useState('');
+    const [billUSD, setBillUSD] = useState('');
     const [payment, setPayment] = useState(false);
+    const [tiGia, setTiGia] = useState('');
 
     let navigate = useNavigate();
     let isAuth = 0;
@@ -34,10 +36,11 @@ function Cart() {
                                 setIsEmpty(false);
                             }
                         })
-                    axios.get("my/bill")
-                        .then((res) =>{ 
-                            if(res.data.length > 0 ){ 
-                                setBill(convertPrice(res.data[0].sumGT));
+                    
+                    axios.get('http://api.exchangeratesapi.io/v1/latest?access_key=fc14a7991276f64ded88e84e9e07e31b')
+                        .then((res) => {
+                            if(res.data.success){
+                                setTiGia((parseInt(res.data.rates.USD)/parseInt(res.data.rates.VND)).toString());
                             }
                         })
                 }
@@ -46,7 +49,14 @@ function Cart() {
             .then(function () {
                 if(isAuth !== 1){
                     navigate('/')
-                }       
+                } 
+                axios.get("my/bill")
+                    .then((res) =>{ 
+                        if(res.data.length > 0 ){ 
+                            setBillUSD(convertPrice(res.data[0].sumGT * parseInt(tiGia)));
+                            setBill(convertPrice(res.data[0].sumGT));
+                        }
+                    })      
             });
     }, []);
 
@@ -130,6 +140,9 @@ function Cart() {
                                     <SummaryItem>
                                         <SummaryItemText><b>Tổng tiền:</b></SummaryItemText>
                                         <SummaryItemPrice><b>{(bill + ' VND')}</b></SummaryItemPrice>
+
+                                        <SummaryItemText><b>Quy đổi:</b></SummaryItemText>
+                                        <SummaryItemPrice><b>{(billUSD + ' USD')}</b></SummaryItemPrice>
                                     </SummaryItem>
 
                                     <SummaryItem>

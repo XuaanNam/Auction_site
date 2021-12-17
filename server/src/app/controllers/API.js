@@ -519,20 +519,21 @@ class API {
     storedAuction(req, res, next) {
         const updateSql = "update daugia set TrangThai = 1 where idDG = ?";
         const updateSqlSP = "update sanpham set TrangThai = 1 where idSP = ?";
-        const insertSql = "insert into daugia (idSP, TgBatDau, TgDauGia, BuocGia) values (?, ?, ?, ?)";
+        const insertSql = "insert into daugia (idSP, TgBatDau, TgDauGia, ThoiHan, BuocGia) values (?, ?, ?, ?, ?)";
 
         const PQ = req.user[0].PhanQuyen;
         const idSP = req.body.idSP,
             TgBatDau = req.body.TgBatDau,   //2021-11-21T00:00:00 
             TgDauGia = req.body.TgDauGia,
-            BuocGia = req.body.BuocGia
+            BuocGia = req.body.BuocGia, 
+            ThoiHan = req.body.ThoiHan
 
         if (PQ === 0) {
             res.send({ message: "Bạn chưa được cấp quyền admin để thêm game ĐG này!" })
         } else {
             pool.getConnection(function (err, connection) {
                 if (err) throw err; // not connected!
-                connection.query(insertSql, [idSP, TgBatDau, TgDauGia, BuocGia], function (err, results, fields) {
+                connection.query(insertSql, [idSP, TgBatDau, TgDauGia, ThoiHan, BuocGia], function (err, results, fields) {
                     if (err) {
                         res.status(200).send({ message: "Kết nối DataBase thất bại" });
                     } else {
@@ -656,9 +657,9 @@ class API {
                     const idSP = results[0].idSP;
 
                     if (haveWinner === 1) {
-                        const ThongTinGD = 'Người dùng ' + TenDN + ' đã chiến thắng sản phẩm có id = ' +
+                        const ThongTinGD = 'Chúc mừng ' + TenDN + ' đã chiến thắng sản phẩm có id = ' +
                             idSP + '. Số tiền: ' + GiaTien + 
-                            '. Sản phẩm này sẽ được thu hồi sau 10 phút nếu bạn không thanh toán. Thời hạn đến: ' + date ;
+                            '. Sản phẩm này sẽ được thu hồi sau 10 phút nếu bạn không thanh toán. Thời hạn: ' + date ;
 
                         connection.query(sqlSelectTK, TenDN, function (er, rs, fields) {
                             if (rs) {
@@ -697,6 +698,24 @@ class API {
                 }
             });
             connection.release();
+        });
+    }
+
+    // [GET] /api/search
+    search(req, res, next){
+        const srch = '%' + req.query.search + '%';
+        const selectSql = "select * from sanpham s, daugia d where s.idSP = d.idSP and d.TrangThai = 0" 
+            + " and (s.Gia like ? or d.TgBatDau like ? or s.MoTa like ? or s.Website like ? or s.ViTri like ? or s.KichThuoc like ?)";
+        pool.query(selectSql, [srch, srch, srch, srch, srch, srch], function (err, results, fields) {
+            if (err) { 
+                res.status(200).send({status: "error", message: "Tìm kiếm phiên đấu giá thất bại" });
+            } else {
+                if (results.length > 0) {
+                    res.send({status: "info", isSearching: results, message: "Tìm kiếm thành công"});
+                } else {
+                    res.send({status: "warning", message: "Không tìm thấy phiên đấu giá nào!" });
+                }
+            }
         });
     }
 
@@ -779,28 +798,17 @@ class API {
     //[POST] /api/auction/loved
     auctionLoved(req, res, next) {
         const insertSql = 'insert into quantam (idTK, idDG) values (?, ?)';
-        const selectSql = 'select * from quantam where idTK = ? and idDG = ?';
 
         const idTK = req.user[0].idTK;
         const idDG = req.body.idDG;
-        pool.getConnection(function (err, connection) {
-            if (err) throw err;
-            connection.query(selectSql, [idTK, idDG], function (error, rs, fields) {
-                if (rs[0]) {
-                    res.status(200).send({ status: "error", message: "Trận đấu giá này đã thêm vào quan tâm trước đó!" });
-                    // res.status(200).send({ message: "Trận đấu giá này đã được thêm vào quan tâm trước đó" });
-                } else {
-                    connection.query(insertSql, [idTK, idDG], function (error, results, fields) {
-                        if (error) {
-                            res.status(200).send({ status: "error", message: "Sàn đấu giá không tồn tại!" });
-                            // res.status(200).send({ message: "Sàn đấu giá không tồn tại!" });
-                        } console.log(results)
-                        res.status(200).send({ status: "success", message: "Đã thêm banner vào quan tâm!" });
-                    });
-                }
-            });
-        });
 
+        connection.query(insertSql, [idTK, idDG], function (error, results, fields) {
+            if (error) {
+                res.status(200).send({ status: "error", message: "Đã thêm banner vào quan tâm!" });
+                // res.status(200).send({ message: "Sàn đấu giá không tồn tại!" });
+            } console.log(results)
+            res.status(200).send({ status: "success", message: "Đã thêm banner vào quan tâm!" });
+        });
     }
 
     // [GET] /api/my/cart
@@ -867,17 +875,18 @@ class API {
     }
 
     // [POST] /api/payment/paypal
-    paymentByPaypal(req, res, next) {
-        const totalUSD = req.body.totalUSD?30:30;
+    paymentByPaypal(req, res, next){
+        const idTK = req.user[0].idTK;
+        const totalUSD = req.body.totalUSD?"30.00":"30.00";
         const listWebsite = req.body.listWebsite?'superp.com':'superp.com';
-        const number = req.body.number?1:1;
+        const number = req.body.number?"1":"1";
         const create_payment_json = {
             "intent": "sale",
             "payer": {
                 "payment_method": "paypal"
             },
             "redirect_urls": {
-                "return_url": "http://localhost:3000/payment-success",
+                "return_url": `http://localhost:5000/api/paymentSuccess?idTK=${idTK}`,
                 "cancel_url": "http://localhost:3000/cart"
             },
             "transactions": [{
@@ -911,23 +920,40 @@ class API {
         });
     }
 
-    // [GET] /api/search
-    search(req, res, next){
-        const srch = '%' + req.query.search + '%';
-        const selectSql = "select * from sanpham s, daugia d where s.idSP = d.idSP and d.TrangThai = 0" 
-            + " and (s.Gia like ? or d.TgBatDau like ? or s.MoTa like ? or s.Website like ? or s.ViTri like ? or s.KichThuoc like ?)";
-        pool.query(selectSql, [srch, srch, srch, srch, srch, srch], function (err, results, fields) {
-            if (err) { 
-                res.status(200).send({status: "error", message: "Tìm kiếm phiên đấu giá thất bại" });
-            } else {
-                if (results.length > 0) {
-                    res.send({status: "info", isSearching: results, message: "Tìm kiếm thành công"});
-                } else {
-                    res.send({status: "warning", message: "Không tìm thấy phiên đấu giá nào!" });
+    // [GET] /api/api/paymentSuccess?idTK=${idTK}`
+    paymentSuccess(req ,res ){
+        const idTK = req.query.idTK
+        const updateSql = 'update giaodich set TrangThai = 2 where idTK = ?';
+        const payerId = req.query.PayerID
+        const paymentId = req.query.paymentId;
+        const excute_payment_json={
+            "payer_id" : payerId,
+            "transactions":[{
+                "amount":{
+                    "currency": "USD",
+                    "total": "0.00"
                 }
+            }]
+        };
+        paypal.payment.execute(paymentId, excute_payment_json, function (error, payment) {
+            if (error) {
+                throw error;
+            } else {
+                console.log(payment);            
+                pool.query(updateSql, idTK, function (error, results, fields) {
+                    if (error) {
+                        throw error;
+                    } 
+                    window.location = 'http://localhost:3000/cart';                               
+                });
             }
         });
-    }
+        
+    };
+
+
+
+    
 }
 
 module.exports = new API();
