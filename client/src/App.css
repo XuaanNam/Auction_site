@@ -187,7 +187,7 @@
 .img-list img{
   max-width: 35vw;
   max-height: 35vh;
-  box-shadow: 5px 5px 5px rgb(60, 40, 60);
+  box-shadow: 4px 4px 10px rgb(60, 40, 60);
 }
 .Listproduct-container{
   margin: auto 200px ;
