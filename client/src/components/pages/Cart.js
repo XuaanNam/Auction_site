@@ -77,7 +77,7 @@ function Cart() {
     const paymentByPaypal = () => {
         setToastMessage("success","Thành công", "Vui lòng đợi vài giây để thanh toán!");
 
-        const totalUSD = billUSD(bill)
+        const totalUSD = parseInterger(bill) / parseInt(tiGia)
         let listWebsite = '';
         const number = listProduct.length;
         let i = 0;
@@ -89,8 +89,8 @@ function Cart() {
         })
             .then((res) =>{ 
                 if(res.data.payment_link){ 
-                    window.open(res.data.payment_link);
-                   // window.location = res.data.payment_link;
+                    //window.open(res.data.payment_link);
+                    window.location = res.data.payment_link;
 
                 }
             })
@@ -168,6 +168,7 @@ function Cart() {
                                         {listProduct.map(list=>(
                                             <Bill  key={list.idGD}
                                                 list={list}
+                                                convertPrice ={convertPrice}
                                             />
                                         ))}
                                     </>

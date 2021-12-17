@@ -421,7 +421,7 @@ class API {
             Gia = parseInt(req.body.Gia),
             MoTa = req.body.MoTa
 
-        const HinhAnh = "image" + "/" + req.file.filename; console.log(req.file);
+        const HinhAnh = "image" + "/" + req.file.filename; 
         if (PQ === 0) {
             res.send({ message: "Bạn chưa được cấp quyền admin để lưu trữ SP này!" })
         } else {
@@ -535,7 +535,7 @@ class API {
                 if (err) throw err; // not connected!
                 connection.query(insertSql, [idSP, TgBatDau, TgDauGia, ThoiHan, BuocGia], function (err, results, fields) {
                     if (err) {
-                        res.status(200).send({ message: "Kết nối DataBase thất bại" });
+                        throw err; // not
                     } else {
                         if (results) {
                             connection.query(updateSqlSP, idSP);
@@ -871,7 +871,7 @@ class API {
 
     // [GET] /api/my/bill
     getMyBill(req, res, next) {
-        const sumSql = 'select sum(GiaTien) as sumGT from auctiondata.giaodich where idTK = ? group by idTK';
+        const sumSql = 'select sum(GiaTien) as sumGT from auctiondata.giaodich where TrangThai = 0 and idTK = ? group by idTK';
         const idTK = req.user[0].idTK;
         pool.query(sumSql, idTK, function (error, results, fields) {
             if (error) {
@@ -899,7 +899,7 @@ class API {
     // [POST] /api/payment/paypal
     paymentByPaypal(req, res, next){
         const idTK = req.user[0].idTK;
-        const totalUSD =  +(Math.round(req.body.totalUSD + "e+2") + "e-2");
+        const totalUSD =  +(Math.round(req.body.totalUSD + "e+2") + "e-2"); 
         const listWebsite = req.body.listWebsite;
         const number = req.body.number;
         const create_payment_json = {
@@ -908,7 +908,7 @@ class API {
                 "payment_method": "paypal"
             },
             "redirect_urls": {
-                "return_url": `http://localhost:5000/api/paymentSuccess?idTK=${idTK}`,
+                "return_url": `http://localhost:5000/api/paymentSuccess?idTK=${idTK}&totalUSD=${totalUSD}`,
                 "cancel_url": "http://localhost:3000/cart"
             },
             "transactions": [{
@@ -928,7 +928,7 @@ class API {
                 "description": "Giao dịch mua hàng từ GreyPanther's user"
             }]
         };
-        
+        //console.log("create_payment_json", create_payment_json)
         paypal.payment.create(create_payment_json, function (error, payment) {
             if (error) {
                 throw error;
@@ -945,6 +945,7 @@ class API {
     // [GET] /api/api/paymentSuccess?idTK=${idTK}`
     paymentSuccess(req ,res ){
         const idTK = req.query.idTK
+        const totalUSD = req.query.totalUSD
         const updateSql = 'update giaodich set TrangThai = 2 where idTK = ?';
         const payerId = req.query.PayerID
         const paymentId = req.query.paymentId;
@@ -953,7 +954,7 @@ class API {
             "transactions":[{
                 "amount":{
                     "currency": "USD",
-                    "total": "0.00"
+                    "total": totalUSD
                 }
             }]
         };
@@ -961,12 +962,12 @@ class API {
             if (error) {
                 throw error;
             } else {
-                console.log(payment);            
+                          
                 pool.query(updateSql, idTK, function (error, results, fields) {
                     if (error) {
                         throw error;
                     } 
-                    window.location = 'http://localhost:3000/cart';                               
+                    res.redirect('http://localhost:3000/cart');                               
                 });
             }
         });

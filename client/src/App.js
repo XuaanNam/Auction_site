@@ -13,7 +13,6 @@ import Interested from './components/pages/Interested';
 import AddProduct from './components/pages/Admin/AddProduct';
 import List from './components/pages/Admin/List';
 import AddAuction from './components/pages/Admin/AddAuction';
-import PaymentSuccess from './components/pages/Cart/PaymentSuccess';
 //import axios from "./api/axios";
 
 function App() {
@@ -34,7 +33,6 @@ function App() {
             <Route path='/admin/addproduct' element={<AddProduct/>} />
             <Route path='/admin/list' element={<List/>} />
             <Route path='/admin/addauction/:id' element={<AddAuction/>} />
-            <Route path='/payment-success' element={<PaymentSuccess/>} />
           </Routes>
         </Router>
       </div>

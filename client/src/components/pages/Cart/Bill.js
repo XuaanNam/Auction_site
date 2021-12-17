@@ -79,7 +79,7 @@ export default function Bill (props) {
                     </span>
 
                     <span className={CartD.detailBannerPrice}>
-                        💸 Giá: <span className="text-success">{props.list.GiaTien} VNĐ</span>
+                        💸 Giá: <span className="text-success">{props.convertPrice(props.list.GiaTien)} VNĐ</span>
                     </span> <br/>
 
                     <span className={CartD.detailBannerWebsite}>

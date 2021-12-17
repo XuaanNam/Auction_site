@@ -44,7 +44,7 @@ function socket(io) {
                         TenDN =  dataRoom[i].userWinner;
                         NgayDG = new Date(Date.now()); 
                         GT = dataRoom[i].highestPrice.split(' ')[0]; 
-                        GiaTien = parseInt(GT.split(',')[0] + GT.split(',')[1] + GT.split(',')[2]);
+                        GiaTien = parseInt(GT.split(',')[0] + GT.split(',')[1] + GT.split(',')[2] + GT.split(',')[3] + GT.split(',')[4]);
                     }
                     api.tradingSession(idDG, haveWinner, TenDN, NgayDG, GiaTien);
                     
