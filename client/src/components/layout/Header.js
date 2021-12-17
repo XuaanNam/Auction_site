@@ -51,7 +51,7 @@ class Header extends Component{
                     }
                     
                     {this.props.isAdmin && <NavbarLoginAdmin handleLogout={this.handleLogout} user={this.state.user}/>}
-                    {this.props.isActive && <NavbarLogin handleSearch={this.props.handleSearch} onChange={this.props.onChange} handleLogout={this.handleLogout} user={this.state.user}/>}
+                    {this.props.isActive && <NavbarLogin coudldSearch={this.props.coudldSearch} handleSearch={this.props.handleSearch} onChange={this.props.onChange} handleLogout={this.handleLogout} user={this.state.user}/>}
                     {this.props.isGuest && <NavbarDefault/>}
 
                 </Navbar>

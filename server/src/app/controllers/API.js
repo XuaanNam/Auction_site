@@ -777,7 +777,8 @@ class API {
                     bannerSize: results[0].KichThuoc,
                     urlImage: results[0].HinhAnh,
                     dateTime: results[0].TgBatDau,
-                    decription: results[0].MoTa
+                    decription: results[0].MoTa,
+                    term : results[0].ThoiHan,
                 });
             } else {
                 res.status(200).send({ message: "Sàn đấu giá không tồn tại!" });
@@ -821,7 +822,7 @@ class API {
 
     // [GET] /api/my/cart
     myCart(req, res, next) {
-        const selectSql = 'select s.ViTri, s.KichThuoc, s.Website, s.HinhAnh, g.idGD, g.NgayDG, g.GiaTien, g.ThongTinGD from sanpham s, giaodich g where s.idSP = g.idSP and g.TrangThai = 0 and idTK = ?';
+        const selectSql = 'select s.ViTri, s.KichThuoc, s.Website, s.HinhAnh, g.idGD, g.NgayDG, g.GiaTien, g.ThongTinGD, d.ThoiHan from sanpham s, giaodich g, daugia d where s.idSP = g.idSP and s.idSP = d.idSP and g.TrangThai = 0 and idTK = ?';
         const idTK = req.user[0].idTK;
         pool.query(selectSql, idTK, function (error, results, fields) {
             if (error) {
@@ -846,7 +847,7 @@ class API {
 
     // [GET] /api/my/loved
     myLoved(req, res, next) {
-        const selectSql = 'select s.ViTri, s.KichThuoc, s.Website, s.HinhAnh, s.Gia, d.idDG, d.TgBatDau, d.TgDauGia, d.BuocGia, q.idQT from sanpham s, daugia d, quantam q where s.idSP = d.idSP and q.idDG = d.idDG and idTK = ?';
+        const selectSql = 'select s.ViTri, s.KichThuoc, s.Website, s.HinhAnh, s.Gia, d.idDG, d.TgBatDau, d.TgDauGia, d.BuocGia, d.ThoiHan, q.idQT from sanpham s, daugia d, quantam q where s.idSP = d.idSP and q.idDG = d.idDG and idTK = ?';
         const idTK = req.user[0].idTK;
         pool.query(selectSql, idTK, function (error, results, fields) {
             if (error) {

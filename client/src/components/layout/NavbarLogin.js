@@ -79,20 +79,22 @@ class NavbarLogin extends Component {
     return (
      
       <div className="containerHeader d-flex" ref={this.container}>
-        <Form className="form-search">
-          <InputGroup className="" style={{marginRight: "5vh"}}>
-            <FormControl
-              placeholder="Tìm kiếm game đấu giá ..."
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
-              value={this.state.search}
-              onChange={this.handleChange}
-            />
-            <Button variant="outline-secondary" onClick={this.props.handleSearch} id="button-addon2">
-              <small><Search/></small>
-            </Button>
-          </InputGroup>
-        </Form>
+        {this.props.coudldSearch &&
+          <Form className="form-search">
+            <InputGroup className="" style={{marginRight: "5vh"}}>
+              <FormControl
+                placeholder="Tìm kiếm game đấu giá ..."
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+                value={this.state.search}
+                onChange={this.handleChange}
+              />
+              <Button variant="outline-secondary" onClick={this.props.handleSearch} id="button-addon2">
+                <small><Search/></small>
+              </Button>
+            </InputGroup>
+          </Form> 
+        }
         <Form className="form-links">
           <a href="/interested">
             <Button className="btn-nav outLineNone" variant="outline-info">

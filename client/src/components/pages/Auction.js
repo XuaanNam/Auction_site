@@ -35,6 +35,7 @@ function Auction() {
     const [urlImage, setUrlImage] = useState("");
     const [currentTime, setCurrentTime] = useState("");
     const [currentTimeS, setCurrentTimeS] = useState("");
+    const [term, setTerm] = useState("");
 
     let navigate = useNavigate();
     let isAuth = 0;
@@ -59,6 +60,7 @@ function Auction() {
                                 setBannerSize(Response.data.bannerSize);
                                 setUrlImage(Response.data.urlImage);
                                 setCurrentTime(parseDate(Response.data.dateTime));
+                                setTerm(Response.data.term)
                             }
                         })
                 }
@@ -238,6 +240,7 @@ function Auction() {
                         handleIncrement = {handleIncrement}
                         handleDecrement = {handleDecrement}
                         handleBet = {handleBet}
+                        term = {term}
                     />  
                     <HistoryTable
                         listBetHistory = {listBetHistory}

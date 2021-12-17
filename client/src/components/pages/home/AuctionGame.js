@@ -81,6 +81,10 @@ export default function AuctionGame (props){
 
                 <span className={`ml-5 text-success ${AuctionG.cartGamePriceBegun}`}>
                     
+                    Thời hạn: {props.auc.ThoiHan} Tháng
+                </span>
+                <span className={`ml-5 text-success ${AuctionG.cartGamePriceBegun}`}>
+                    
                     💸 Giá khởi điểm: {props.auc.Gia} VNĐ
                 </span>
             </Card.Body>

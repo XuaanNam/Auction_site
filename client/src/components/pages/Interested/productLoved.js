@@ -44,7 +44,11 @@ function ProductLoved (props) {
                     Kích thước:
                     <span className="text-warning"> {props.list.KichThuoc}</span>
                 </span>
-
+                <span className={Interest.sizeBanner}>
+                    <BorderHorizontal className="mr-1"/>
+                    Thời hạn:
+                    <span className="text-warning"> {props.list.ThoiHan}</span>
+                </span>
                 <span className={Interest.timeBegunBanner}>
                     ⏱ Thời gian:
                     <span className="text-danger"> {props.list.TgBatDau}</span>

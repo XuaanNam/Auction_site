@@ -116,7 +116,7 @@ function Home(props) {
 
   return (
     <div>
-      <Header onChange={onChange} handleSearch={handleSearch} isActive={true} />
+      <Header coudldSearch={true} onChange={onChange} handleSearch={handleSearch} isActive={true} />
       <div className="background" style={{ backgroundImage: `url(${background})` }} />
       <div className = "home-container">
         <div className= "home-sologan">

@@ -90,7 +90,9 @@ export default function Bill (props) {
                                 {props.list.Website}
                             </a>
                     </span>
-
+                    <span className={CartD.detailBannerPrice}>
+                         Thời hạn: <span className="text-success">{props.convertPrice(props.list.ThoiHan)} VNĐ</span>
+                    </span> 
                     </span><br/>
                     <span className={CartD.detailBannerInfo}>
                     ℹ️ Thông tin GD: <span className="text-center" style={{fontSize: "15px"}}>
