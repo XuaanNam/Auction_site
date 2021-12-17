@@ -140,7 +140,8 @@ function Cart() {
                                     <SummaryItem>
                                         <SummaryItemText><b>Tổng tiền:</b></SummaryItemText>
                                         <SummaryItemPrice><b>{(bill + ' VND')}</b></SummaryItemPrice>
-
+                                    </SummaryItem>
+                                    <SummaryItem>
                                         <SummaryItemText><b>Quy đổi:</b></SummaryItemText>
                                         <SummaryItemPrice><b>{(billUSD + ' USD')}</b></SummaryItemPrice>
                                     </SummaryItem>
@@ -243,7 +244,7 @@ const Bottom = styled.div`
 `;
 const Info = styled.div`
     flex: 2;
-    height: 39rem;
+    height: 100%
 `;
 const Product = styled.div`
     display: flex;

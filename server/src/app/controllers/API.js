@@ -802,12 +802,14 @@ class API {
         const idTK = req.user[0].idTK;
         const idDG = req.body.idDG;
 
-        connection.query(insertSql, [idTK, idDG], function (error, results, fields) {
+        pool.query(insertSql, [idTK, idDG], function (error, results, fields) {
             if (error) {
                 res.status(200).send({ status: "error", message: "Đã thêm banner vào quan tâm!" });
                 // res.status(200).send({ message: "Sàn đấu giá không tồn tại!" });
-            } console.log(results)
-            res.status(200).send({ status: "success", message: "Đã thêm banner vào quan tâm!" });
+            }
+            else{
+                res.status(200).send({ status: "success", message: "Đã thêm banner vào quan tâm!" });
+            }
         });
     }
 
