@@ -8,16 +8,19 @@ import Footer from '../layout/Footer';
 import CartD from '../assets/CartDetail.module.css'
 import logo from "../images/img-login.png"
 import Bill from './Cart/Bill'
+import MessageToast from '../pages/ToastMessage/MessageToast' 
 //
 import axios from "../../api/axios"; 
 import { useNavigate } from 'react-router-dom';
 import FormRange from 'react-bootstrap/esm/FormRange';
 
 function Cart() {
+
+    const [toasts, setToasts] = useState([]);
     const [isEmpty, setIsEmpty] = useState(true);
     const [listProduct, setListProduct] = useState([]);
     const [bill, setBill] = useState('');
-    const [payment, setPayment] = useState(false);
+   // const [payment, setPayment] = useState(false);
     const [tiGia, setTiGia] = useState('');
 
     let navigate = useNavigate();
@@ -56,9 +59,9 @@ function Cart() {
             });
     }, []);
 
-    const handlePay = () => {
-        setPayment(true);
-    }
+    // const handlePay = () => {
+    //     setPayment(true);
+    // }
 
     const convertPrice = (price) => { 
         const formatter = new Intl.NumberFormat('en-US', {
@@ -72,7 +75,9 @@ function Cart() {
     }
 
     const paymentByPaypal = () => {
-        const totalUSD = parseInterger(bill)*parseInt(tiGia);
+        setToastMessage("success","Thành công", "Vui lòng đợi vài giây để thanh toán!");
+
+        const totalUSD = billUSD(bill)
         let listWebsite = '';
         const number = listProduct.length;
         let i = 0;
@@ -95,6 +100,39 @@ function Cart() {
 
         return (convertPrice(parseInterger(bill) / parseInt(tiGia)));
     }
+
+    function setToastMessage(status, title, message) {
+        setToasts(prevToast => [
+            ...prevToast,
+            {
+                id: new Date().getTime(),
+                status,
+                title,
+                message
+            }
+        ]); 
+    }
+
+     //close
+     function handleCloseToast(toast) {
+        setToasts(prevToast => prevToast.filter(item => item.id !== toast.id));
+    };
+
+    // animation
+    const [remove, setRemove] = useState(null);
+
+    useEffect(() =>{
+        if (remove) {
+            setToasts(prevToast => prevToast.filter(toast => toast.id !== remove));
+        }
+    }, [remove]);
+
+    useEffect(() =>{
+        if (toasts.length) {
+            setTimeout(() => setRemove(toasts[toasts.length - 1].id), 2000);
+        }
+    }, [toasts]);
+    //
 
     return (
         <Container>
@@ -141,13 +179,14 @@ function Cart() {
                                     <SummaryItem>
                                         <SummaryItemText><b>Tổng tiền:</b></SummaryItemText>
                                         <SummaryItemPrice><b>{(bill + ' VND')}</b></SummaryItemPrice>
-
+                                    </SummaryItem>
+                                    <SummaryItem>
                                         <SummaryItemText><b>Quy đổi:</b></SummaryItemText>
                                         <SummaryItemPrice><b>{(billUSD(bill) + ' USD')}</b></SummaryItemPrice>
                                     </SummaryItem>
 
                                     <SummaryItem>
-                                        {payment?
+                                        {/* {payment?
                                             <span>
                                                 <Button onClick = {paymentByPaypal} className={`btn ${CartD.btnCheckout}`}>
                                                     
@@ -158,12 +197,12 @@ function Cart() {
                                                     Credit Card
                                                 </Button>
                                             </span>
-                                        :    
-                                            <Button onClick={handlePay} className={`btn ${CartD.btnCheckout}`}>
+                                        :     */}
+                                            <Button onClick={paymentByPaypal} className={`btn ${CartD.btnCheckout}`}>
                                                 <VerifiedUserOutlined className={CartD.iconCheckout}/>
                                                 Thanh toán ngay 💳
                                             </Button>
-                                        }
+                                        {/* } */}
                                              
                                     
                                     </SummaryItem>
@@ -174,6 +213,11 @@ function Cart() {
                     }
                 </Wrapper>
             </Main>
+            <MessageToast 
+                toasts={toasts}
+                setToasts={setToasts}
+                handleCloseToast={handleCloseToast}/>
+
             <Footer/>
         </Container>
     )
@@ -244,7 +288,7 @@ const Bottom = styled.div`
 `;
 const Info = styled.div`
     flex: 2;
-    height: 39rem;
+    height: 100%
 `;
 const Product = styled.div`
     display: flex;

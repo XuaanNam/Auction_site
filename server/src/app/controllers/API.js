@@ -812,7 +812,8 @@ class API {
             if (error) {
                 res.status(200).send({ status: "error", message: "Đã thêm banner vào quan tâm!" });
                 // res.status(200).send({ message: "Sàn đấu giá không tồn tại!" });
-            } else {
+            }
+            else{
                 res.status(200).send({ status: "success", message: "Đã thêm banner vào quan tâm!" });
             }
         });
@@ -898,9 +899,9 @@ class API {
     // [POST] /api/payment/paypal
     paymentByPaypal(req, res, next){
         const idTK = req.user[0].idTK;
-        const totalUSD = req.body.totalUSD?"30.00":"30.00";
-        const listWebsite = req.body.listWebsite?'superp.com':'superp.com';
-        const number = req.body.number?"1":"1";
+        const totalUSD =  +(Math.round(req.body.totalUSD + "e+2") + "e-2");
+        const listWebsite = req.body.listWebsite;
+        const number = req.body.number;
         const create_payment_json = {
             "intent": "sale",
             "payer": {
@@ -924,7 +925,7 @@ class API {
                     "currency": "USD",
                     "total": totalUSD
                 },
-                "description": "Cho nay nhet thang ThongTinGD vao"
+                "description": "Giao dịch mua hàng từ GreyPanther's user"
             }]
         };
         
