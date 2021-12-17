@@ -86,7 +86,7 @@ function AddProduct() {
                             <div className="d-flex input-admin">
                                 <Form.Control 
                                     className="input-size" 
-                                    type="text" 
+                                    type="number" 
                                     placeholder="Nhập chiều rộng"
                                     onChange={(e) => {
                                         setBannerWidth(e.target.value);
@@ -94,7 +94,7 @@ function AddProduct() {
                                 />
                                 <Form.Control 
                                     className="input-size" 
-                                    type="text" 
+                                    type="number" 
                                     placeholder="Nhập chiều cao"
                                     style={{marginLeft: '3.5vw'}}
                                     onChange={(e) => {
@@ -107,7 +107,7 @@ function AddProduct() {
                             <label className="label-admin">
                             Giá khởi điểm:
                             </label>
-                            <Form.Control className="input-admin" type="text" placeholder="Nhập giá khởi điểm"
+                            <Form.Control className="input-admin" type="number" placeholder="Nhập giá khởi điểm"
                                 onChange={(e) => {
                                     setPrice(e.target.value);
                                 }} 

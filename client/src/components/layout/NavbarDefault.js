@@ -5,7 +5,7 @@ import { Form, Button} from "react-bootstrap";
 class NavbarDefault extends Component {
     render() {
         return (
-            <Form className="mr-5">
+            <Form className="mr-5 containerHeader">
                 <a href="/login">
                     <Button className="btn-nav mr-2 outLineNone" variant="outline-info">
                        <MeetingRoom className="mr-2 mb-1"/>

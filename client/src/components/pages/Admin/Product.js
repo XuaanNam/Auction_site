@@ -62,17 +62,25 @@ export default function Product(props) {
                 <Row className="group-list" >
                     <Col>
                         <div className="pt-2">
-                            <label className="label-admin" column lg={2}>Vị trí:</label>
+                            <label 
+                                className="label-admin" 
+                                style={{fontWeight: 'bold'}}
+                                column lg={2}>Vị trí:
+                            </label>
                             <span>{props.product.ViTri}</span>
                         </div>
                         
                         <div className="pt-3">
-                            <label className="label-admin" column lg={2}>Website:</label>
+                        <label 
+                                className="label-admin" 
+                                style={{fontWeight: 'bold'}}
+                                column lg={2}>Website:
+                            </label>
                             <span>{props.product.Website}</span>
                         </div>
                         <div className="pt-3">
                             <Button className="mt-3 mr-5 btn-info" href={props.hrefSP}>Chi tiết</Button> 
-                            <Button className="mt-3 ml-5 btn-danger" onClick={handleShow}>Xóa đấu giá</Button>
+                            <Button className="mt-3 ml-3 btn-danger" onClick={handleShow}>Xóa đấu giá</Button>
                         </div>
                     </Col>
                 </Row>
