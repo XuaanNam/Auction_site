@@ -9,7 +9,7 @@
 .dropdownHeader {
     position: absolute;
     top: 100%;
-    right: -6%;
+    right: -65px;
     width: 11.875rem;
     z-index: 2;
     border: 1px solid rgba(0, 0, 0, 0.04);

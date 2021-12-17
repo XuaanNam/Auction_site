@@ -1,5 +1,5 @@
 import {Gavel, KeyboardArrowDown,AddShoppingCart, Person, VerifiedUser, ExitToApp, KeyboardArrowUp, FormatListBulleted,
-  BorderTop, BorderLeft, BorderRight, BorderBottom } from '@material-ui/icons';
+  BorderTop, BorderLeft, BorderRight, BorderBottom, Search } from '@material-ui/icons';
 import React, { Component} from "react";
 import { Form, Button, InputGroup, FormControl} from "react-bootstrap";
 
@@ -80,7 +80,7 @@ class NavbarLogin extends Component {
      
         <div className="containerHeader d-flex" ref={this.container}>
           <Form className="">
-            <InputGroup className="">
+            <InputGroup className="" style={{marginRight: "5vh"}}>
               <FormControl
                 placeholder="Tìm kiếm game đấu giá ..."
                 aria-label="Recipient's username"
@@ -89,58 +89,11 @@ class NavbarLogin extends Component {
                 onChange={this.handleChange}
               />
               <Button variant="outline-secondary" onClick={this.props.handleSearch} id="button-addon2">
-                <smaill>hình kính lúp</smaill>
+                <smaill><Search/></smaill>
               </Button>
             </InputGroup>
           </Form>
-          {/* bổ sung danh mục */}
-          <Button className="btn-nav mr-1 outLineNone" style={{minWidth: '14vw'}} variant="outline-info" onClick={this.handleButtonClick2}>
-            <FormatListBulleted className="mr-1"/>
-              DANH MỤC<span></span>
-              {!this.state.openCategory && (<KeyboardArrowDown className="ml-1 nonActiveRotate" />)}
-              
-              {this.state.openCategory && ( <KeyboardArrowUp className="ml-1 activeRotate" /> )}
-          </Button>
-          {/* Toggle */}
-          {this.state.openCategory && (
-            <div className="dropdownHeaderCata">
-              <ul>
-                <li>
-                  <a href="/">
-                    <Button className="btnCatalog outLineNone" variant="outline-info">
-                      <BorderTop className="mr-2"/>
-                      TOP
-                    </Button>
-                  </a>
-                </li>
-                <li>
-                  <a href="/">
-                    <Button className="btnCatalog outLineNone" variant="outline-info">
-                      <BorderRight className="mr-2"/>
-                      RIGHT
-                    </Button>
-                  </a>
-                </li>
-                <li>
-                  <a href="/">
-                    <Button className="btnCatalog outLineNone" variant="outline-info">
-                      <BorderBottom className="mr-2"/>
-                      BOTTOM
-                    </Button>
-                  </a>
-                </li>
-                <li>
-                  <a href="/">
-                    <Button className="btnCatalog outLineNone" variant="outline-info">
-                      <BorderLeft className="mr-2"/>
-                      LEFT
-                    </Button>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          )}
-
+          
           <a href="/interested">
             <Button className="btn-nav outLineNone" variant="outline-info">
               <Gavel className="mr-2"/>
@@ -168,7 +121,7 @@ class NavbarLogin extends Component {
               <ul>
                 <li>
                   <a href="/profile">
-                    <Button className="btn-nav mr-2 outLineNone" variant="outline-info">
+                    <Button className="btn-nav mr-2 outLineNone w-100" variant="outline-info">
                       <VerifiedUser className="mr-2"/>
                       Cá nhân
                     </Button>
@@ -177,7 +130,7 @@ class NavbarLogin extends Component {
                 <li>
                   <a href="/">
                     <Button
-                      className="btn-nav outLineNone"
+                      className="btn-nav outLineNone w-100"
                       variant="outline-info"
                       onClick={this.props.handleLogout}
                     >
