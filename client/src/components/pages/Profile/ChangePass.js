@@ -26,6 +26,8 @@ function ChangePass() {
         .then((Response) => {
           if (Response.data.message) {
             setError(Response.data.message);
+            // document.getElementsByClassName("passreload").reset();
+            window.location.reload(false);
           } 
         })
         .catch(() => {
@@ -41,7 +43,7 @@ function ChangePass() {
       <div className="info">
         <h4>Thay đổi mật khẩu</h4>
         <div>
-          <div className="d-grid">
+          <div className="d-grid passreload">
             <label >
               
                   Mật khẩu cũ:
@@ -53,7 +55,7 @@ function ChangePass() {
               }}
             />
           </div>
-          <div className="d-grid">
+          <div className="d-grid passreload">
             <label >Mật khẩu mới:</label>
             <input
               type="password"
@@ -62,7 +64,7 @@ function ChangePass() {
               }}
             />
           </div>
-          <div className="d-grid">
+          <div className="d-grid passreload">
             <label >Xác nhận mật khẩu:</label>
             <input
               type="password"

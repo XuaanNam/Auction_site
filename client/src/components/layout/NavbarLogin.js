@@ -72,7 +72,7 @@ class NavbarLogin extends Component {
   };
 
   // click ra ngoài
-  
+
 
   render() {
     
@@ -83,13 +83,15 @@ class NavbarLogin extends Component {
           <Form className="form-search">
             <InputGroup className="" style={{marginRight: "5vh"}}>
               <FormControl
+                type="text"
+                ref={this.input}
                 placeholder="Tìm kiếm game đấu giá ..."
                 aria-label="Recipient's username"
                 aria-describedby="basic-addon2"
                 value={this.state.search}
                 onChange={this.handleChange}
               />
-              <Button variant="outline-secondary" onClick={this.props.handleSearch} id="button-addon2">
+              <Button variant="outline-secondary" onClick={this.props.handleSearch} id="button-addon2" type="submit">
                 <small><Search/></small>
               </Button>
             </InputGroup>

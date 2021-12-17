@@ -77,7 +77,7 @@ class NavbarLoginAdmin extends Component {
               <ul>
                 <li>
                   <a href="/profile">
-                    <Button className="btn-nav mr-2 outLineNone" variant="outline-info">
+                    <Button className="btn-nav mr-2 outLineNone w-100" variant="outline-info">
                       <VerifiedUser className="mr-2"/>
                       Cá nhân
                     </Button>
@@ -86,7 +86,7 @@ class NavbarLoginAdmin extends Component {
                 <li>
                   <a href="/">
                     <Button
-                      className="btn-nav outLineNone"
+                      className="btn-nav outLineNone w-100"
                       variant="outline-info"
                       onClick={this.props.handleLogout}
                     >

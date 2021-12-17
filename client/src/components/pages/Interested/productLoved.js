@@ -17,6 +17,14 @@ function ProductLoved (props) {
             })
     }
 
+    const convertPrice = (price) => { 
+        const formatter = new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 0
+        })
+          
+        return formatter.format(price);
+    }
+
     return(
         <Having> 
             <a href={("/auction/" + props.list.idDG)}>
@@ -44,10 +52,10 @@ function ProductLoved (props) {
                     Kích thước:
                     <span className="text-warning"> {props.list.KichThuoc}</span>
                 </span>
-                <span className={Interest.sizeBanner}>
+                <span className={Interest.timeDuration}>
                     <BorderHorizontal className="mr-1"/>
                     Thời hạn:
-                    <span className="text-warning"> {props.list.ThoiHan}</span>
+                    <span className="text-warning"> {props.list.ThoiHan} tháng</span>
                 </span>
                 <span className={Interest.timeBegunBanner}>
                     ⏱ Thời gian:
@@ -63,11 +71,11 @@ function ProductLoved (props) {
 
                 <span className={Interest.priceBegunBanner}>
                     💸 Giá khởi điểm:
-                    <span className="text-success"> {props.list.Gia} VNĐ</span>
+                    <span className="text-success"> {convertPrice(props.list.Gia)} VNĐ</span>
                 </span>
                 <span className={Interest.priceJumpBanner}>
                     💰 Bước giá:
-                    <span className="text-success"> {props.list.BuocGia} VNĐ</span>
+                    <span className="text-success"> {convertPrice(props.list.BuocGia)} VNĐ</span>
                 </span>
 
                 <span className={Interest.notifyInterest}>

@@ -20,14 +20,14 @@
 .cartGameTime {
     position: absolute;
     font-weight: 501;
-    bottom: 24%;
+    bottom: 27%;
     left: -5%;
 }
 
 .cartGamePosition {
     position: absolute;
     font-weight: 501;
-    bottom: 16%;
+    bottom: 13%;
     left: -5%;
 }
 
@@ -38,4 +38,11 @@
     font-size: 20px;
     bottom: 5%;
     left: 5%;
+}
+
+.cartGameDuration {
+    position: absolute;
+    font-weight: 501;
+    left: -5%;
+    bottom: 20%;
 }

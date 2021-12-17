@@ -1,4 +1,4 @@
-import {Edit, AccountCircle} from '@material-ui/icons';
+import {Edit, AccountCircle, DeleteForever, PhotoSizeSelectLarge, CloudUpload} from '@material-ui/icons';
 import React, { useState, useEffect } from 'react';
 import avtpanther from '../images/Logo.png'
 import Header from "../layout/Header";
@@ -167,18 +167,18 @@ function Profile() {
                                 <input type="file"  style={{display: 'none'}} name="avatar" id='avt' onChange={ (e)=>{handleFile(e)} }/>
                                 
                                 <button onClick={chooseAvt} className="btn btn-info btn-sm" >
-                                    {/* <AccountCircle className="mr-1"/>  */}
+                                    <PhotoSizeSelectLarge className="mr-1"/> 
                                     Chọn ảnh
                                 </button> 
                                 {file ?
                                     <button onClick={submitAvt} className="btn btn-dark btn-sm" >
-                                        <AccountCircle className="mr-1"/> 
-                                        Đổi ảnh đại diện
+                                        <CloudUpload className="mr-1"/> 
+                                        Đổi ảnh
                                     </button>
                                 :
                                     <button onClick={deleteAvt} className="btn btn-danger btn-sm" >
-                                        <AccountCircle className="mr-1"/> 
-                                        Xóa ảnh
+                                        <DeleteForever className="mr-1"/> 
+                                        Xoá ảnh
                                     </button>
                                 }
                             </div>

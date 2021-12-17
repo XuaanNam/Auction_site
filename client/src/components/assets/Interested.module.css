@@ -52,14 +52,14 @@
 .positionBanner {
     position: absolute;
     font-weight: 601;
-    top: 23%;
+    top: 29%;
     left: 67%;
 
 }
 .sizeBanner {
     position: absolute;
     font-weight: 601;
-    top: 34%;
+    top: 38%;
     left: 67%;
 }
 
@@ -74,7 +74,7 @@
 .timePlayBanner {
     position: absolute;
     font-weight: 601;
-    top: 45%;
+    top: 48%;
     left: 67%;
 }
 
@@ -90,7 +90,7 @@
 .priceJumpBanner {
     position: absolute;
     font-weight: 601;
-    top: 56%;
+    top: 58%;
     left: 67%;
 }
 
@@ -99,5 +99,13 @@
     font-size: 20px;
     font-weight: 601;
     bottom: 12%;
+    left: 67%;
+}
+
+.timeDuration {
+    position: absolute;
+    font-size: 20px;
+    font-weight: 601;
+    top: 20%;
     left: 67%;
 }

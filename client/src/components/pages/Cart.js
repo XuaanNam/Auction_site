@@ -70,6 +70,7 @@ function Cart() {
           
         return formatter.format(price);
     }
+    
     const parseInterger = (intCurrency) => {
         return parseInt(intCurrency.split(',')[0] + intCurrency.split(',')[1] + intCurrency.split(',')[2] + intCurrency.split(',')[3])
     }
@@ -199,10 +200,17 @@ function Cart() {
                                                 </Button>
                                             </span>
                                         :     */}
-                                            <Button onClick={paymentByPaypal} className={`btn ${CartD.btnCheckout}`}>
+                                            {/* <Button onClick={paymentByPaypal} className={`btn ${CartD.btnCheckout}`}>
                                                 <VerifiedUserOutlined className={CartD.iconCheckout}/>
                                                 Thanh toán ngay 💳
-                                            </Button>
+                                            </Button> */}
+                                            
+                                            <table border='0' cellpadding='10' cellspacing='0' align='center'>
+                                                <tr>
+                                                    <td align='center'></td>
+                                                </tr><tr>
+                                                    <td align='center'><a style={{cursor: "pointer"}}  title='How PayPal Works' onClick={paymentByPaypal}><img src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/buy-logo-large.png' alt='Buy now with PayPal | Large' /></a></td></tr></table>
+
                                         {/* } */}
                                              
                                     

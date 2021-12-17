@@ -62,7 +62,8 @@
   text-align:left;
   width: 80%;
   height: 100%;
-  margin: 5vh auto;
+  margin: 10vh auto;
+  padding: 10vh;
 }
 .player-name{
   margin-left: 20vw;

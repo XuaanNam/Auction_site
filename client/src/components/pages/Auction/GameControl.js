@@ -29,7 +29,7 @@ class HistoryTable extends Component {
                             <span>Kích thước: {this.props.bannerSize}</span>            
                         </div>  
                         <div className="d-flex">
-                            <span>Thời hạn: {this.props.term}</span>
+                            <span>Thời hạn: {this.props.term} tháng</span>
                                       
                         </div>                      
                     </div>

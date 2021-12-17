@@ -61,7 +61,7 @@ const Interested = () => {
                 {isEmpty ?
                     <div></div>
                 :   
-                    <div>
+                    <div style={{margin: '0 0 20vh 0'}}>
                         {listLoved.map(list=>(
                             <ProductLoved key = {list.idQT} 
                                 list = {list}

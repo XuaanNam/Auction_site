@@ -1,5 +1,5 @@
 import {Gavel,Cancel,BorderHorizontal, GpsFixed,
-    VerifiedUserOutlined, Language} from '@material-ui/icons';
+    VerifiedUserOutlined, Language, Timelapse} from '@material-ui/icons';
 import { useState, useEffect,React } from 'react';
 import MessageToast from '../ToastMessage/MessageToast';
 import banner from "../../images/banner-panther-site.png";
@@ -58,6 +58,16 @@ export default function AuctionGame (props){
         }
     }, [toasts]);
 
+    //for chuyen doi tien
+    const convertPrice = (price) => { 
+        const formatter = new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: 0
+        })
+          
+        return formatter.format(price);
+    }
+
+
     return(
         <Card className={`card-items ${AuctionG.cartAuctionGame}`}>
             <a className="auction-link" href={props.idRoom}>
@@ -79,13 +89,13 @@ export default function AuctionGame (props){
                     Website: {props.auc.Website}
                 </span>
 
-                <span className={`ml-5 text-success ${AuctionG.cartGamePriceBegun}`}>
-                    
-                    Thời hạn: {props.auc.ThoiHan} Tháng
+                <span className={`ml-5 ${AuctionG.cartGameDuration}`}>
+                    <Timelapse clasName="mr-1"/>
+                    Thời hạn: {props.auc.ThoiHan} tháng
                 </span>
                 <span className={`ml-5 text-success ${AuctionG.cartGamePriceBegun}`}>
                     
-                    💸 Giá khởi điểm: {props.auc.Gia} VNĐ
+                    💸 Giá khởi điểm: {convertPrice(props.auc.Gia)} VNĐ
                 </span>
             </Card.Body>
             {props.handleLiked && <LoveButton handleLiked={handleLiked}/> }

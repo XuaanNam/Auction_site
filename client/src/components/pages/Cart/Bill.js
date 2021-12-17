@@ -1,4 +1,4 @@
-import {Cancel,BorderHorizontal, GpsFixed,Language} from '@material-ui/icons';
+import {Cancel,BorderHorizontal, GpsFixed,Language, Timelapse} from '@material-ui/icons';
 import React, {  useState } from 'react'
 import { Button, Modal} from 'react-bootstrap'
 import styled from 'styled-components';
@@ -89,11 +89,16 @@ export default function Bill (props) {
                                 {/* BIDING Ở ĐÂY */}
                                 {props.list.Website}
                             </a>
-                    </span>
-                    <span className={CartD.detailBannerPrice}>
-                         Thời hạn: <span className="text-success">{props.convertPrice(props.list.ThoiHan)} VNĐ</span>
-                    </span> 
+                        </span>
                     </span><br/>
+
+                    <span className={CartD.detailTimeDuration}>
+                        <Timelapse className="mr-1"/>
+                         Thời hạn: <span className="text-success">
+                             {props.convertPrice(props.list.ThoiHan)} tháng
+                         </span>
+                    </span> 
+                    
                     <span className={CartD.detailBannerInfo}>
                     ℹ️ Thông tin GD: <span className="text-center" style={{fontSize: "15px"}}>
                         <br/>
