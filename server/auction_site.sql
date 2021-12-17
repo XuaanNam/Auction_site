@@ -49,18 +49,20 @@ ThongTinGD text(1000),
 foreign key (idTK) references taikhoan(idTK),
 foreign key (idSP) references sanpham(idSP)
 )
-; -- alter table giaodich add column TrangThai int default 0 after GiaTien;
+; 
 create table daugia(
 idDG int not null primary key AUTO_INCREMENT,
 idSP int  not null CHECK (idSP !=""),
 TgBatDau datetime not null,
 TgDauGia int not null,
+ThoiHan int not null,
 TrangThai int default 0, -- 0 là sắp diễn ra, 1 là đang diễn ra, 2 là đã kết thúc ;
 BuocGia double,
 foreign key (idSP) references sanpham(idSP)
 )
 ;-- drop table daugia; delete from daugia where TrangThai = 0; update sanpham set TrangThai = 0 where TrangThai = 0
 -- select * from sanpham s, daugia d where s.idSP = d.idSP and idDG = 20
+-- alter table daugia add column ThoiHan int not null after TgDauGia;
 
 create table quantam(
 idQT int not null primary key AUTO_INCREMENT,
@@ -69,8 +71,6 @@ idDG int  not null CHECK (idDG !=""),
 foreign key (idTK) references taikhoan(idTK),
 foreign key (idDG) references daugia(idDG)
 );
-ALTER TABLE quantam ADD PRIMARY KEY(idTK, idDG)
-
 
 -- ------------------------------------------------------------------------------------------------------
 delimiter $$

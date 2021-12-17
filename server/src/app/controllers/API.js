@@ -232,7 +232,7 @@ class API {
 
         const updateSql = "update taikhoan set Avt = ? where idTK = ?";
         const selectSql = "select * from taikhoan where idTK = ?";
-        const idTK = req.user[0].idTK; console.log(req.file)
+        const idTK = req.user[0].idTK; 
         const Avt = "image" + "/" + req.file.filename;
         const basePath = path.join(__dirname, '../../../../client', 'public');
 
@@ -639,8 +639,11 @@ class API {
 
         const sqlUpdateSP2 = 'update sanpham set TrangThai = 2 where idSP = ?';
         const sqlUpdateSP1 = 'update sanpham set TrangThai = 0 where idSP = ?';
+
         const sqlInsertGD = 'insert into giaodich (idSP, idTK, NgayDG, GiaTien, ThongTinGD) value (?, ?, ?, ?, ?)';
-        const sqlUpdateGD = 'update giaodich set TrangThai = 1 where idDG = ?';
+        const sqlUpdateGD = 'update giaodich set TrangThai = 1 where idGD = ?';
+
+        const sqlDeleteQT = 'delete from quantam where idDG = ?'
 
         const y = new Date(Date.now()).getFullYear();
         const m = new Date(Date.now()).getMonth();
@@ -664,6 +667,9 @@ class API {
                         connection.query(sqlSelectTK, TenDN, function (er, rs, fields) {
                             if (rs) {
                                 const idTK = rs[0].idTK;
+                                connection.query(sqlDeleteQT, idDG, (e) => {
+                                    if (e) { throw e }
+                                });
                                 connection.query(sqlUpdateDG, idDG, (e) => {
                                     if (e) { throw e }
                                 });
@@ -802,12 +808,13 @@ class API {
         const idTK = req.user[0].idTK;
         const idDG = req.body.idDG;
 
-        connection.query(insertSql, [idTK, idDG], function (error, results, fields) {
+        pool.query(insertSql, [idTK, idDG], function (error, results, fields) {
             if (error) {
                 res.status(200).send({ status: "error", message: "Đã thêm banner vào quan tâm!" });
                 // res.status(200).send({ message: "Sàn đấu giá không tồn tại!" });
-            } console.log(results)
-            res.status(200).send({ status: "success", message: "Đã thêm banner vào quan tâm!" });
+            } else {
+                res.status(200).send({ status: "success", message: "Đã thêm banner vào quan tâm!" });
+            }
         });
     }
 
@@ -872,6 +879,20 @@ class API {
                 res.send(results);
             }
         });
+    }
+
+    // [GET] /api/get/currency
+    getCurrency(req, res, next) {
+       
+        res.send({
+            "success": true,
+            "timestamp": 1639740843,
+            "rates": {
+                "USD": 1.131702,
+                "VND": 26009.33654,
+            }
+        })
+        
     }
 
     // [POST] /api/payment/paypal

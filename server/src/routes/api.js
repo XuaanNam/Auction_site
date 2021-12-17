@@ -37,6 +37,7 @@ router.delete('/delete/my/cart', passport.authenticate('jwt', {session: false}),
 router.get('/my/loved', passport.authenticate('jwt', {session: false}), api.myLoved);
 router.delete('/delete/my/loved', passport.authenticate('jwt', {session: false}), api.deleteMyLoved);
 router.get('/my/bill', passport.authenticate('jwt', {session: false}), api.getMyBill);
+router.get('/get/currency', api.getCurrency);
 router.post('/payment/paypal', passport.authenticate('jwt', {session: false}), api.paymentByPaypal);
 router.get('/paymentSuccess', api.paymentSuccess);
 

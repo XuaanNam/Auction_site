@@ -17,7 +17,6 @@ function Cart() {
     const [isEmpty, setIsEmpty] = useState(true);
     const [listProduct, setListProduct] = useState([]);
     const [bill, setBill] = useState('');
-    const [billUSD, setBillUSD] = useState('');
     const [payment, setPayment] = useState(false);
     const [tiGia, setTiGia] = useState('');
 
@@ -37,11 +36,9 @@ function Cart() {
                             }
                         })
                     
-                    axios.get('http://api.exchangeratesapi.io/v1/latest?access_key=fc14a7991276f64ded88e84e9e07e31b')
+                    axios.get("get/currency")
                         .then((res) => {
-                            if(res.data.success){
-                                setTiGia((parseInt(res.data.rates.USD)/parseInt(res.data.rates.VND)).toString());
-                            }
+                            setTiGia((parseInt(res.data.rates.VND)/parseInt(res.data.rates.USD)).toString());
                         })
                 }
             })
@@ -52,8 +49,7 @@ function Cart() {
                 } 
                 axios.get("my/bill")
                     .then((res) =>{ 
-                        if(res.data.length > 0 ){ 
-                            setBillUSD(convertPrice(res.data[0].sumGT * parseInt(tiGia)));
+                        if(res.data.length > 0 ){                             
                             setBill(convertPrice(res.data[0].sumGT));
                         }
                     })      
@@ -76,7 +72,7 @@ function Cart() {
     }
 
     const paymentByPaypal = () => {
-        const totalUSD = parseInterger(bill)/23020;
+        const totalUSD = parseInterger(bill)*parseInt(tiGia);
         let listWebsite = '';
         const number = listProduct.length;
         let i = 0;
@@ -93,6 +89,11 @@ function Cart() {
 
                 }
             })
+    }
+
+    const billUSD = (bill) => {
+
+        return (convertPrice(parseInterger(bill) / parseInt(tiGia)));
     }
 
     return (
@@ -142,7 +143,7 @@ function Cart() {
                                         <SummaryItemPrice><b>{(bill + ' VND')}</b></SummaryItemPrice>
 
                                         <SummaryItemText><b>Quy đổi:</b></SummaryItemText>
-                                        <SummaryItemPrice><b>{(billUSD + ' USD')}</b></SummaryItemPrice>
+                                        <SummaryItemPrice><b>{(billUSD(bill) + ' USD')}</b></SummaryItemPrice>
                                     </SummaryItem>
 
                                     <SummaryItem>
@@ -159,7 +160,7 @@ function Cart() {
                                             </span>
                                         :    
                                             <Button onClick={handlePay} className={`btn ${CartD.btnCheckout}`}>
-                                                <VerifiedUserOutlined class={CartD.iconCheckout}/>
+                                                <VerifiedUserOutlined className={CartD.iconCheckout}/>
                                                 Thanh toán ngay 💳
                                             </Button>
                                         }

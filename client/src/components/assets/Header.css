@@ -1,7 +1,15 @@
 .containerHeader {
-    margin-left: auto;
-}
 
+ margin-left: auto;
+}
+.containerHeader>.form-search{
+  margin-right: 20vw;
+  
+}
+.containerHeader>.form-links{
+  margin-left: auto;
+  
+}
 .outLineNone {
     border: none !important;
 }

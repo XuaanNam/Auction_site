@@ -111,7 +111,7 @@ function Profile() {
             })
             .catch(err => {console.log(err)})
             .then(() => {
-                window.location.reload(false);
+               window.location.reload(false);
             })
     }
 
