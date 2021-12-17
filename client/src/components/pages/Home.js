@@ -19,10 +19,13 @@ import TabComing from "./home/tabComing";
 import TabHappening from "./home/tabHappening"
 // import Body from '../body';
 
-function Home() {
+function Home(props) {
   const [happening, setHappening] = useState(true);
+  const [isSearching, setIsSearching] = useState(false);
   const [listAuctionComing, setListAuctionComing] = useState([]);
   const [listAuctionHappening, setListAuctionHappening] = useState([]);
+  const [listAuctionSearching, setListAuctionSearching] = useState([]);
+  const [search, setSearch] = useState('');
   
 
   let navigate = useNavigate();
@@ -54,14 +57,27 @@ function Home() {
       })
   }, []);
 
-
   const handleSwitchTab = () => {
     setHappening( happening ? false : true);
   }
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    axios.get('search', {params: {search}})
+      .then((res)=>{
+        if(res.data.isSearching){
+          setListAuctionSearching(res.data.isSearching);
+          setIsSearching(true);
+        }
+        alert(res.data.message);
+      })
+      .catch(err => {console.log(err)})
+  }
+  const onChange = search => setSearch(search);
+
   return (
     <div>
-      <Header isActive={true} />
+      <Header onChange={onChange} handleSearch={handleSearch} isActive={true} />
       <div className="background" style={{ backgroundImage: `url(${background})` }} />
       <div className = "home-container">
         <div className= "home-sologan">
@@ -70,17 +86,25 @@ function Home() {
           </span>
         </div>
         <div className="body-container pt-5 pl-5 pr-5 body-banner">   
-          {happening? 
-            <TabHappening handleSwitchTab = {handleSwitchTab}/>
-
-          : 
-            <TabComing handleSwitchTab = {handleSwitchTab}/>
-
-          }
-          {happening? 
-            <IsHappening listAucH={listAuctionHappening}/> 
-          : 
-            <IsComing handleLiked={true} listAucC={listAuctionComing}/>
+          {isSearching?
+            <span>
+              <p className="auction-title">Sắp được đấu giá</p>
+              <IsComing handleLiked={true} listAucC={listAuctionSearching}/>
+            </span>
+            :
+            <span>
+              {happening? 
+                <span>
+                  <TabHappening handleSwitchTab = {handleSwitchTab}/>
+                  <IsHappening listAucH={listAuctionHappening}/> 
+                </span>
+              : 
+                <span>
+                  <TabComing handleSwitchTab = {handleSwitchTab}/>
+                  <IsComing handleLiked={true} listAucC={listAuctionComing}/>
+                </span>
+              }
+            </span>
           }
         </div>
       </div>

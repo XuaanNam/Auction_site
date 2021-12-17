@@ -136,7 +136,7 @@ function AddAuction() {
                             <div className="d-flex input-admin">
                                 <Form.Control 
                                     className="input-size" 
-                                    type="text" 
+                                    type="number" 
                                     value={bannerWidth}
                                     onChange={(e) => {
                                         setBannerWidth(e.target.value);
@@ -144,7 +144,7 @@ function AddAuction() {
                                 />
                                 <Form.Control 
                                     className="input-size" 
-                                    type="text" 
+                                    type="number" 
                                     value={bannerHeight}
                                     style={{marginLeft: '3.5vw'}}
                                     onChange={(e) => {

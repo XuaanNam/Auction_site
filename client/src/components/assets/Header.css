@@ -1,6 +1,5 @@
 .containerHeader {
-    position: relative;
-  display: inline-block;
+    margin-left: auto;
 }
 
 .outLineNone {
@@ -10,7 +9,7 @@
 .dropdownHeader {
     position: absolute;
     top: 100%;
-    right: -9%;
+    right: -6%;
     width: 11.875rem;
     z-index: 2;
     border: 1px solid rgba(0, 0, 0, 0.04);
@@ -25,7 +24,7 @@
 .dropdownHeaderCata {
   position: absolute;
   top: 100%;
-  right: 66%;
+  right: 44%;
   width: 10rem;
   z-index: 2;
   border: 1px solid rgba(0, 0, 0, 0.04);

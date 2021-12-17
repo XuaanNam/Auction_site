@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -14,9 +14,10 @@ import AddProduct from './components/pages/Admin/AddProduct';
 import List from './components/pages/Admin/List';
 import AddAuction from './components/pages/Admin/AddAuction';
 import PaymentSuccess from './components/pages/Cart/PaymentSuccess';
-
+//import axios from "./api/axios";
 
 function App() {
+
   return (
     <div className="App">
       <div>

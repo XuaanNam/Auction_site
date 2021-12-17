@@ -912,14 +912,14 @@ class API {
     // [GET] /api/search
     search(req, res, next){
         const srch = '%' + req.query.search + '%';
-        const selectSql = 'select * from sanpham s, daugia d where s.idSP = d.idSP and d.TrangThai = 0' 
-            + 'and (s.Gia like ? or d.TgBatDau like ? or s.MoTa like ? or s.Website like ? or s.ViTri like ? or s.KichThuoc like ?)';
+        const selectSql = "select * from sanpham s, daugia d where s.idSP = d.idSP and d.TrangThai = 0" 
+            + " and (s.Gia like ? or d.TgBatDau like ? or s.MoTa like ? or s.Website like ? or s.ViTri like ? or s.KichThuoc like ?)";
         pool.query(selectSql, [srch, srch, srch, srch, srch, srch], function (err, results, fields) {
-            if (err) {
+            if (err) { 
                 res.status(200).send({ message: "Tìm kiếm phiên đấu giá thất bại" });
             } else {
-                if (results) {
-                    res.send({ isComing: results, message: "Tìm kiếm thành công"});
+                if (results.length > 0) {
+                    res.send({ isSearching: results, message: "Tìm kiếm thành công"});
                 } else {
                     res.send({ message: "Không tìm thấy phiên đấu giá nào!" });
                 }

@@ -28,6 +28,7 @@ class Header extends Component{
             window.location.reload(false);
         }, 500) ;
     }
+   
     render(){
         return (
             <div>
@@ -35,13 +36,13 @@ class Header extends Component{
                     
 
                     {this.props.isAdmin? 
-                        <Nav className="mr-auto">
+                        <Nav className="mr-2">
                          
                             <img className="logo-header ml-5" src={logo} alt="logo gray panther" />
                           
                         </Nav>
                     : 
-                        <Nav className="mr-auto">
+                        <Nav className="mr-2">
                             <a href="/home">
                                 <img className="logo-header ml-5" src={logo} alt="logo gray panther" />
                             </a>
@@ -50,7 +51,7 @@ class Header extends Component{
                     }
                     
                     {this.props.isAdmin && <NavbarLoginAdmin handleLogout={this.handleLogout} user={this.state.user}/>}
-                    {this.props.isActive && <NavbarLogin handleLogout={this.handleLogout} user={this.state.user}/>}
+                    {this.props.isActive && <NavbarLogin handleSearch={this.props.handleSearch} onChange={this.props.onChange} handleLogout={this.handleLogout} user={this.state.user}/>}
                     {this.props.isGuest && <NavbarDefault/>}
 
                 </Navbar>

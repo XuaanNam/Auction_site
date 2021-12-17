@@ -1,8 +1,7 @@
 import {Gavel, KeyboardArrowDown,AddShoppingCart, Person, VerifiedUser, ExitToApp, KeyboardArrowUp, FormatListBulleted,
   BorderTop, BorderLeft, BorderRight, BorderBottom } from '@material-ui/icons';
 import React, { Component} from "react";
-import { Form, Button} from "react-bootstrap";
-
+import { Form, Button, InputGroup, FormControl} from "react-bootstrap";
 
 class NavbarLogin extends Component {
 
@@ -10,6 +9,7 @@ class NavbarLogin extends Component {
   state = {
     openUserMenu: false,
     openCategory: false,
+    search: '',
   };
 
   test = (e) => {
@@ -63,7 +63,13 @@ class NavbarLogin extends Component {
     }
   };
 
-
+  handleChange = (e) => {
+    this.setState({ search: e.target.value }, () => {
+      if (this.props.onChange) {
+        this.props.onChange(this.state.search);
+      }
+    })
+  };
 
   // click ra ngoài
   
@@ -71,63 +77,29 @@ class NavbarLogin extends Component {
   render() {
     
     return (
-      <Form className="mr-5">
-        <div className="containerHeader" ref={this.container}>
-        {/* bổ sung danh mục */}
-        <Button className="btn-nav mr-1 outLineNone" style={{minWidth: '14vw'}} variant="outline-info" onClick={this.handleButtonClick2}>
-            <FormatListBulleted className="mr-1"/>
-            DANH MỤC<span></span>
-            {!this.state.openCategory && (<KeyboardArrowDown className="ml-1 nonActiveRotate" />)}
-            
-            {this.state.openCategory && ( <KeyboardArrowUp className="ml-1 activeRotate" /> )}
-          </Button>
-          {/* Toggle */}
-          {this.state.openCategory && (
-            <div className="dropdownHeaderCata">
-              <ul>
-                <li>
-                  <a href="/">
-                    <Button className="btnCatalog outLineNone" variant="outline-info">
-                      <BorderTop className="mr-2"/>
-                      TOP
-                    </Button>
-                  </a>
-                </li>
-                <li>
-                  <a href="/">
-                    <Button className="btnCatalog outLineNone" variant="outline-info">
-                      <BorderRight className="mr-2"/>
-                      RIGHT
-                    </Button>
-                  </a>
-                </li>
-                <li>
-                  <a href="/">
-                    <Button className="btnCatalog outLineNone" variant="outline-info">
-                      <BorderBottom className="mr-2"/>
-                      BOTTOM
-                    </Button>
-                  </a>
-                </li>
-                <li>
-                  <a href="/">
-                    <Button className="btnCatalog outLineNone" variant="outline-info">
-                      <BorderLeft className="mr-2"/>
-                      LEFT
-                    </Button>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          )}
-
-
+     
+        <div className="containerHeader d-flex" ref={this.container}>
+          <Form className="">
+            <InputGroup className="">
+              <FormControl
+                placeholder="Tìm kiếm game đấu giá ..."
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+                value={this.state.search}
+                onChange={this.handleChange}
+              />
+              <Button variant="outline-secondary" onClick={this.props.handleSearch} id="button-addon2">
+                <smaill>hình kính lúp</smaill>
+              </Button>
+            </InputGroup>
+          </Form>
+          {/* bổ sung danh mục */}
           <Button className="btn-nav mr-1 outLineNone" style={{minWidth: '14vw'}} variant="outline-info" onClick={this.handleButtonClick2}>
             <FormatListBulleted className="mr-1"/>
-            DANH MỤC<span></span>
-            {!this.state.openCategory && (<KeyboardArrowDown className="ml-1 nonActiveRotate" />)}
-            
-            {this.state.openCategory && ( <KeyboardArrowUp className="ml-1 activeRotate" /> )}
+              DANH MỤC<span></span>
+              {!this.state.openCategory && (<KeyboardArrowDown className="ml-1 nonActiveRotate" />)}
+              
+              {this.state.openCategory && ( <KeyboardArrowUp className="ml-1 activeRotate" /> )}
           </Button>
           {/* Toggle */}
           {this.state.openCategory && (
@@ -168,11 +140,6 @@ class NavbarLogin extends Component {
               </ul>
             </div>
           )}
-
-        {/* Xử lý chuyển hướng! */}
-        
-
-          {/* tới phần này */}
 
           <a href="/interested">
             <Button className="btn-nav outLineNone" variant="outline-info">
@@ -223,7 +190,7 @@ class NavbarLogin extends Component {
             </div>
           )}
         </div>
-      </Form>
+     
     );
   }
 }
