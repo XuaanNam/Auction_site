@@ -249,20 +249,20 @@ class API {
 
                     connection.query(updateSql, [Avt, idTK], function (err, rs, fields) {
                         if (err) {
-                            res.status(200).send({ message: "Kết nối DataBase thất bại" });
+                            res.status(200).send({status: "error", message: "Kết nối DataBase thất bại" });
                         } else {
                             if (rs) {
                                 if (results[0].Avt === "" || results[0].Avt === null || results[0].Avt === 'undefined') {
-                                    res.send({ message: "Cập nhật ảnh đại diện thành công" });
+                                    res.send({status: "success", message: "Cập nhật ảnh đại diện thành công" });
                                 } else {
                                     fs.unlink(filePath, function (err) {
                                         if (err) throw err;
                                         //console.log('ảnh đại diện cũ đã bị xóa!');
                                     });
-                                    res.send({ message: "Cập nhật ảnh đại diện thành công, dữ liệu cũ đã bị xóa!" });
+                                    res.send({status: "success", message: "Cập nhật ảnh đại diện thành công, dữ liệu cũ đã bị xóa!" });
                                 }
                             } else {
-                                res.send({ message: "Cập nhật ảnh đại diện thất bại, lỗi cú pháp!" });
+                                res.send({status: "error", message: "Cập nhật ảnh đại diện thất bại, lỗi cú pháp!" });
                             }
                         }
                     })
@@ -286,25 +286,25 @@ class API {
             // Use the connection
             connection.query(selectSql, idTK, function (error, results, fields) {
                 if (error) {
-                    res.status(200).send({ message: "Kết nối DataBase thất bại" });
+                    res.status(200).send({status: "error", message: "Kết nối DataBase thất bại" });
                 } else {
                     const filePath = basePath + "/" + results[0].Avt;
                     connection.query(updateSql, idTK, function (err, rs, fields) {
                         if (err) {
-                            res.status(200).send({ message: "Kết nối DataBase thất bại" });
+                            res.status(200).send({status: "error", message: "Kết nối DataBase thất bại" });
                         } else {
                             if (rs) {
                                 if (results[0].Avt === "" || results[0].Avt === null || results[0].Avt === 'undefined') {
-                                    res.send({ message: "Bạn chưa đặt ảnh đại diện" });
+                                    res.send({status: "error", message: "Bạn chưa đặt ảnh đại diện" });
                                 } else {
                                     fs.unlink(filePath, function (err) {
                                         if (err) throw err;
                                         //console.log('ảnh đại diện cũ đã bị xóa!');
                                     });
-                                    res.send({ message: "Đã xóa ảnh đại diện!" });
+                                    res.send({status: "success", message: "Đã xóa ảnh đại diện!" });
                                 }
                             } else {
-                                res.send({ message: "Xóa ảnh đại diện thất bại, lỗi cú pháp!" });
+                                res.send({status: "error", message: "Xóa ảnh đại diện thất bại, lỗi cú pháp!" });
                             }
                         }
                     })
@@ -787,13 +787,15 @@ class API {
             if (err) throw err;
             connection.query(selectSql, [idTK, idDG], function (error, rs, fields) {
                 if (rs[0]) {
-                    res.status(200).send({ message: "Trận đấu giá này đã được thêm vào quan tâm trước đó" });
+                    res.status(200).send({ status: "error", message: "Trận đấu giá này đã thêm vào quan tâm trước đó!" });
+                    // res.status(200).send({ message: "Trận đấu giá này đã được thêm vào quan tâm trước đó" });
                 } else {
                     connection.query(insertSql, [idTK, idDG], function (error, results, fields) {
                         if (error) {
-                            res.status(200).send({ message: "Sàn đấu giá không tồn tại!" });
+                            res.status(200).send({ status: "error", message: "Sàn đấu giá không tồn tại!" });
+                            // res.status(200).send({ message: "Sàn đấu giá không tồn tại!" });
                         } console.log(results)
-                        res.status(200).send({ message: "Đã thêm vào quan tâm!" });
+                        res.status(200).send({ status: "success", message: "Đã thêm banner vào quan tâm!" });
                     });
                 }
             });
@@ -916,12 +918,12 @@ class API {
             + " and (s.Gia like ? or d.TgBatDau like ? or s.MoTa like ? or s.Website like ? or s.ViTri like ? or s.KichThuoc like ?)";
         pool.query(selectSql, [srch, srch, srch, srch, srch, srch], function (err, results, fields) {
             if (err) { 
-                res.status(200).send({ message: "Tìm kiếm phiên đấu giá thất bại" });
+                res.status(200).send({status: "error", message: "Tìm kiếm phiên đấu giá thất bại" });
             } else {
                 if (results.length > 0) {
-                    res.send({ isSearching: results, message: "Tìm kiếm thành công"});
+                    res.send({status: "info", isSearching: results, message: "Tìm kiếm thành công"});
                 } else {
-                    res.send({ message: "Không tìm thấy phiên đấu giá nào!" });
+                    res.send({status: "warning", message: "Không tìm thấy phiên đấu giá nào!" });
                 }
             }
         });

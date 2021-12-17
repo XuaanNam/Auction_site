@@ -4,6 +4,7 @@ import Footer from "../layout/Footer";
 import "../assets/Home.css";
 import React from "react";
 import "../../App.css";
+import MessageToast from "./ToastMessage/MessageToast";
 //VIDEO - ANH
 import background from "../images/background3.png";
 import panther from "../images/Image.png";
@@ -69,11 +70,49 @@ function Home(props) {
           setListAuctionSearching(res.data.isSearching);
           setIsSearching(true);
         }
-        alert(res.data.message);
+        const title = res.data.status === "info" ? "Thành công" : "Thất bại";
+                setToastMessage(res.data.status, title, res.data.message);
       })
       .catch(err => {console.log(err)})
   }
   const onChange = search => setSearch(search);
+
+
+  //TOAST FOR SEARCH
+  // State for toast mess
+  const [toasts, setToasts] = useState([]);
+
+  function setToastMessage(status, title, message) {
+      setToasts(prevToast => [
+          ...prevToast,
+          {
+              id: new Date().getTime(),
+              status,
+              title,
+              message
+          }
+      ]); 
+  }
+
+  //close
+  function handleCloseToast(toast) {
+      setToasts(prevToast => prevToast.filter(item => item.id !== toast.id));
+  };
+
+  // animation
+  const [remove, setRemove] = useState(null);
+
+  useEffect(() =>{
+      if (remove) {
+          setToasts(prevToast => prevToast.filter(toast => toast.id !== remove));
+      }
+  }, [remove]);
+
+  useEffect(() =>{
+      if (toasts.length) {
+          setTimeout(() => setRemove(toasts[toasts.length - 1].id), 2000);
+      }
+  }, [toasts]);
 
   return (
     <div>
@@ -108,6 +147,11 @@ function Home(props) {
           }
         </div>
       </div>
+         {/* TOAST MESSAGE */}
+         <MessageToast 
+            toasts={toasts}
+            setToasts={setToasts}
+            handleCloseToast={handleCloseToast}/>   
       <Footer />
     </div>
   );

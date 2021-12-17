@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import avtpanther from '../images/Logo.png'
 import Header from "../layout/Header";
 import Footer from '../layout/Footer';
+//
+import MessageToast from '../pages/ToastMessage/MessageToast' 
 import '../assets/Profile.css'
 import ChangePass from './Profile/ChangePass';
 import Information from './Profile/Infomation'
@@ -89,7 +91,8 @@ function Profile() {
         try {
             await axios.post('stored/avatar', image)
                     .then((res) => {
-                        alert(res.data.message);
+                        const title = res.data.status === "success" ? "Thành công" : "Thất bại";
+                        setToastMessage(res.data.status, title, res.data.message);
                     })
                     .catch(err => {console.log(err)})
                     .then(() => {
@@ -103,13 +106,51 @@ function Profile() {
     const deleteAvt = () => {
         axios.patch('/delete/avatar')
             .then((res) => {
-                alert(res.data.message);
+                const title = res.data.status === "success" ? "Thành công" : "Thất bại";
+                setToastMessage(res.data.status, title, res.data.message);
             })
             .catch(err => {console.log(err)})
             .then(() => {
                 window.location.reload(false);
             })
     }
+
+    //FOR TOAST MESSAGE
+    // State for toast mess
+    const [toasts, setToasts] = useState([]);
+
+    function setToastMessage(status, title, message) {
+        setToasts(prevToast => [
+            ...prevToast,
+            {
+                id: new Date().getTime(),
+                status,
+                title,
+                message
+            }
+        ]); 
+    }
+
+    //close
+    function handleCloseToast(toast) {
+        setToasts(prevToast => prevToast.filter(item => item.id !== toast.id));
+    };
+
+    // animation
+    const [remove, setRemove] = useState(null);
+
+    useEffect(() =>{
+        if (remove) {
+            setToasts(prevToast => prevToast.filter(toast => toast.id !== remove));
+        }
+    }, [remove]);
+
+    useEffect(() =>{
+        if (toasts.length) {
+            setTimeout(() => setRemove(toasts[toasts.length - 1].id), 2000);
+        }
+    }, [toasts]);
+    //
 
     return (
         <div>
@@ -121,6 +162,7 @@ function Profile() {
             <background style={{ backgroundImage: `url(${background})` }} />
 
             <div className="profile-layout">
+
                 <div className="main-container">   
                     <div className="slide-bar">
                         <div className="avatar">
@@ -186,7 +228,11 @@ function Profile() {
                 </div>
                 
             </div>
-
+                {/* TOAST MESSAGE */}
+                <MessageToast 
+                    toasts={toasts}
+                    setToasts={setToasts}
+                    handleCloseToast={handleCloseToast}/>
             <Footer/>
         </div>
     )
