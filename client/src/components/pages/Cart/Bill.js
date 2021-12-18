@@ -1,8 +1,9 @@
 import {Cancel,BorderHorizontal, GpsFixed,Language, Timelapse} from '@material-ui/icons';
-import React, {  useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Modal} from 'react-bootstrap'
 import styled from 'styled-components';
 import CartD from '../../assets/CartDetail.module.css'
+import MessageToast from '../../pages/ToastMessage/MessageToast'
 //
 import axios from "../../../api/axios"; 
 
@@ -11,6 +12,9 @@ import axios from "../../../api/axios";
 export default function Bill (props) {
 
     const [show, setShow] = useState(false);
+    const [toasts, setToasts] = useState([]);
+    const [remove, setRemove] = useState(null);
+
  
     function handleClose() {
         return setShow(false);
@@ -26,7 +30,7 @@ export default function Bill (props) {
         try {
             await axios.delete('delete/my/cart', { data: {idGD} })
                     .then((res) => {
-                        res.data.message && alert(res.data.message);
+                        res.data.message && setToastMessage('info', 'Thành công', res.data.message);
                     })
                     .catch(err => {console.log(err)})
                     .then(() => {
@@ -36,6 +40,35 @@ export default function Bill (props) {
             throw error
         }
     }
+
+    function setToastMessage(status, title, message) {
+        setToasts(prevToast => [
+            ...prevToast,
+            {
+                id: new Date().getTime(),
+                status,
+                title,
+                message
+            }
+        ]); 
+    }
+
+     //close
+     function handleCloseToast(toast) {
+        setToasts(prevToast => prevToast.filter(item => item.id !== toast.id));
+    };
+
+    useEffect(() =>{
+        if (remove) {
+            setToasts(prevToast => prevToast.filter(toast => toast.id !== remove));
+        }
+    }, [remove]);
+
+    useEffect(() =>{
+        if (toasts.length) {
+            setTimeout(() => setRemove(toasts[toasts.length - 1].id), 2000);
+        }
+    }, [toasts]);
 
     return(
         <div>
@@ -109,6 +142,10 @@ export default function Bill (props) {
                     <Cancel className=""/>
                  </ShopButton>
             </ContainerBody>
+            <MessageToast 
+                toasts={toasts}
+                setToasts={setToasts}
+                handleCloseToast={handleCloseToast}/>
         </div>
     );
 }

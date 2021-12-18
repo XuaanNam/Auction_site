@@ -53,6 +53,8 @@ function Home(props) {
   useEffect(() => {
     axios.get("get/all/auction")
       .then((res) => {
+        const title = res.data.status === "info" ? "Thành công" : "Thất bại";
+        setToastMessage(res.data.status, title, res.data.message);
         setListAuctionComing(res.data.isComing);
         setListAuctionHappening(res.data.isHappening);
       })

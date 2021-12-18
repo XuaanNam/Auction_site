@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import {Gavel,Cancel,BorderHorizontal, GpsFixed,
    VerifiedUserOutlined, Language} from '@material-ui/icons';
 import React, { useEffect, useState } from 'react'
@@ -17,6 +18,8 @@ import FormRange from 'react-bootstrap/esm/FormRange';
 function Cart() {
 
     const [toasts, setToasts] = useState([]);
+    const [remove, setRemove] = useState(null);
+
     const [isEmpty, setIsEmpty] = useState(true);
     const [listProduct, setListProduct] = useState([]);
     const [bill, setBill] = useState('');
@@ -119,9 +122,6 @@ function Cart() {
         setToasts(prevToast => prevToast.filter(item => item.id !== toast.id));
     };
 
-    // animation
-    const [remove, setRemove] = useState(null);
-
     useEffect(() =>{
         if (remove) {
             setToasts(prevToast => prevToast.filter(toast => toast.id !== remove));
@@ -133,7 +133,6 @@ function Cart() {
             setTimeout(() => setRemove(toasts[toasts.length - 1].id), 2000);
         }
     }, [toasts]);
-    //
 
     return (
         <Container>
@@ -143,10 +142,10 @@ function Cart() {
                     
                     {isEmpty ? 
                         <Empty>
-                            <Title>Giỏ hàng 🛒</Title>
+                            <Title>Đơn hàng 🛒</Title>
                             <EmptyCart src={logo} />
-                            <TopText className={`text-decoration-none alert-danger ${CartD.cartAlert}`}>Số lượng trong giỏ hàng: 0</TopText>
-                            <h4 className={CartD.cartNullTitle}>Bạn hiện không có sản phẩm nào trong giỏ hàng 🔄</h4>
+                            <TopText className={`text-decoration-none alert-danger ${CartD.cartAlert}`}>Số lượng đơn hàng: 0</TopText>
+                            <h4 className={CartD.cartNullTitle}>Bạn hiện không có sản phẩm nào trong đơn hàng 🔄</h4>
                             <Link to="/">
                                 <ShopButton className={`btn btn-dark btn-custom ${CartD.btnNullTitle}`}>
                                 <Gavel className="mr-1"/>
@@ -188,32 +187,18 @@ function Cart() {
                                     </SummaryItem>
 
                                     <SummaryItem>
-                                        {/* {payment?
-                                            <span>
-                                                <Button onClick = {paymentByPaypal} className={`btn ${CartD.btnCheckout}`}>
-                                                    
-                                                    Paypal
-                                                </Button> <br/>
-                                                <Button className={`btn ${CartD.btnCheckout}`}>
-                                                   
-                                                    Credit Card
-                                                </Button>
-                                            </span>
-                                        :     */}
-                                            {/* <Button onClick={paymentByPaypal} className={`btn ${CartD.btnCheckout}`}>
-                                                <VerifiedUserOutlined className={CartD.iconCheckout}/>
-                                                Thanh toán ngay 💳
-                                            </Button> */}
-                                            
-                                            <table border='0' cellpadding='10' cellspacing='0' align='center'>
-                                                <tr>
-                                                    <td align='center'></td>
-                                                </tr><tr>
-                                                    <td align='center'><a style={{cursor: "pointer"}}  title='How PayPal Works' onClick={paymentByPaypal}><img src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/buy-logo-large.png' alt='Buy now with PayPal | Large' /></a></td></tr></table>
-
-                                        {/* } */}
-                                             
-                                    
+                                        <table border='0' cellpadding='0' cellspacing='0' align='center'>
+                                            <tr>
+                                                <td align='center'></td>
+                                            </tr>
+                                            <tr>
+                                                <td align='center'>
+                                                    <a style={{cursor: "pointer"}} onClick={paymentByPaypal}>
+                                                        <img src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/buy-logo-large.png' alt ="Thanh toán bằng PayPal"/>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </SummaryItem>
                                 </Summary>
                             </Bottom>

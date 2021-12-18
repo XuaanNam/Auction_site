@@ -78,8 +78,6 @@ CREATE TRIGGER TG_DELETE_TK before DELETE ON taikhoan FOR EACH ROW
 BEGIN
     DELETE FROM the
     WHERE idTK = old.idTK;
-    DELETE FROM giohang
-    WHERE idTK = old.idTK;
     DELETE FROM giaodich
     WHERE idTK = old.idTK;
     DELETE FROM quantam
@@ -98,8 +96,6 @@ END$$
 delimiter $$
 CREATE TRIGGER TG_DELETE_DG before DELETE ON daugia FOR EACH ROW 
 BEGIN
-    DELETE FROM giohang
-    WHERE idDG = old.idDG;
     DELETE FROM quantam
     WHERE idDG = old.idDG;
 END$$
