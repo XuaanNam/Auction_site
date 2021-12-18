@@ -188,7 +188,7 @@ class API {
                 if (results) {
                     res.send({ message: "Cập nhật thông tin thành công" });
                 } else {
-                    res.send({ message: "Cập nhật thông tin thất bại, lỗi cú pháp!" });
+                    res.send({ message: "Cập nhật thông tin thất bại!" });
                 }
             }
         });
@@ -224,10 +224,10 @@ class API {
                                         if (err) throw err;
                                         //console.log('ảnh đại diện cũ đã bị xóa!');
                                     });
-                                    res.send({status: "success", message: "Cập nhật ảnh đại diện thành công, dữ liệu cũ đã bị xóa!" });
+                                    res.send({status: "success", message: "Cập nhật ảnh đại diện thành công!" });
                                 }
                             } else {
-                                res.send({status: "error", message: "Cập nhật ảnh đại diện thất bại, lỗi cú pháp!" });
+                                res.send({status: "error", message: "Cập nhật ảnh đại diện thất bại!" });
                             }
                         }
                     })
@@ -269,7 +269,7 @@ class API {
                                     res.send({status: "success", message: "Đã xóa ảnh đại diện!" });
                                 }
                             } else {
-                                res.send({status: "error", message: "Xóa ảnh đại diện thất bại, lỗi cú pháp!" });
+                                res.send({status: "error", message: "Xóa ảnh đại diện thất bại!" });
                             }
                         }
                     })
@@ -364,7 +364,7 @@ class API {
                                     }
                                     res.send({ check: "Thêm ảnh cho SP thành công" });
                                 } else {
-                                    res.send({ check: "Thêm ảnh cho SP thất bại, lỗi cú pháp!" });
+                                    res.send({ check: "Thêm ảnh cho SP thất bại!" });
                                 }
                             }
                         });
@@ -397,7 +397,7 @@ class API {
                     if (results) {
                         res.send({ message: "Thêm SP thành công" });
                     } else {
-                        res.send({ message: "Thêm SP thất bại, lỗi cú pháp!" });
+                        res.send({ message: "Thêm SP thất bại!" });
                     }
                 }
             });
@@ -425,7 +425,7 @@ class API {
                     if (results) {
                         res.send({ message: "Cập nhật SP thành công" });
                     } else {
-                        res.send({ message: "Cập nhật SP thất bại, lỗi cú pháp!" });
+                        res.send({ message: "Cập nhật SP thất bại!" });
                     }
                 }
             });
@@ -436,9 +436,9 @@ class API {
     deleteProduct(req, res, next) {
         const deleteSql = "delete from sanpham where idSP = ?";
         const selectSql = "select * from sanpham where idSP = ?";
-
+        
         const PQ = req.user[0].PhanQuyen;
-        const idSP = req.body.idSP;
+        const idSP = req.body.idSP; 
         const basePath = path.join(__dirname, '../../../../client', 'public');
         if (PQ === 0) {
             res.send({ message: "Bạn chưa được cấp quyền admin để xóa SP này!" })
@@ -449,10 +449,9 @@ class API {
                 connection.query(selectSql, idSP, function (error, results, fields) {
                     if (error) {
                         res.status(200).send({ message: err.sqlMessage });
-                    } else {
-                        const HA = results[0].HinhAnh;
+                    } else {res.send({ message: "Xóa SP thất   pháp!" });
+                        const HA = results[0].HinhAnh; console.log(HA)
                         const filePath = basePath + "/" + HA;
-                        console.log(deleteSql, idSP);
                         connection.query(deleteSql, idSP, function (err, rs, fields) {
                             if (err) {
                                 res.status(200).send({ message: err.sqlMessage });
@@ -464,11 +463,11 @@ class API {
                                             if (er) throw er;
                                         });
                                     }
-                                    res.send();
+                                    res.send({ message: "Xóa sản phẩm thành công!" });
                                 } else {
-                                    res.send({ message: "Xóa SP thất bại, lỗi cú pháp!" });
+                                    res.send({ message: "Xóa SP thất bại!" });
                                 }
-                            }
+                             }
                         });
 
 
@@ -531,7 +530,7 @@ class API {
 
                             res.send({ message: "Đã lên lịch cho game đấu giá này!", done: true });
                         } else {
-                            res.send({ message: "Thêm game ĐG thất bại, lỗi cú pháp!" });
+                            res.send({ message: "Thêm game ĐG thất bại!" });
                         }
                     }
                 });
@@ -562,7 +561,7 @@ class API {
                     if (results) {
                         res.send({ check: "Cập nhật game ĐG thành công" });
                     } else {
-                        res.send({ check: "Cập nhật game ĐG thất bại, lỗi cú pháp!" });
+                        res.send({ check: "Cập nhật game ĐG thất bại!" });
                     }
                 }
             });
@@ -586,7 +585,7 @@ class API {
                     if (results) {
                         res.send({ check: "Xóa game ĐG thành công" });
                     } else {
-                        res.send({ check: "Xóa game ĐG thất bại, lỗi cú pháp!" });
+                        res.send({ check: "Xóa game ĐG thất bại!" });
                     }
                 }
             });
@@ -693,12 +692,12 @@ class API {
                                 if (rs) {
                                     res.send({ isComing: results, isHappening: rs , status: "info", message: "Lấy phiên đấu giá thành công"});
                                 } else {
-                                    res.send({  message: "Lấy phiên đấu giá thất bại, lỗi cú pháp!" });
+                                    res.send({  message: "Lấy phiên đấu giá thất bại!" });
                                 }
                             }
                         });
                     } else {
-                        res.send({ message: "Lấy phiên đấu giá thất bại, lỗi cú pháp!" });
+                        res.send({ message: "Lấy phiên đấu giá thất bại!" });
                     }
                 }
             });
@@ -769,7 +768,7 @@ class API {
 
     // [GET] /api/my/cart
     myCart(req, res, next) {
-        const selectSql = 'select s.ViTri, s.KichThuoc, s.Website, s.HinhAnh, g.idGD, g.NgayDG, g.GiaTien, g.ThongTinGD, d.ThoiHan from sanpham s, giaodich g, daugia d where s.idSP = g.idSP and s.idSP = d.idSP and g.TrangThai = 0 and idTK = ?';
+        const selectSql = 'select s.ViTri, s.KichThuoc, s.Website, s.HinhAnh, g.idGD, g.NgayDG, g.GiaTien, g.ThongTinGD, d.ThoiHan from sanpham s, giaodich g, daugia d where s.idSP = g.idSP and s.idSP = d.idSP and g.TrangThai = 0 and d.TrangThai = 2 and idTK = ?';
         const idTK = req.user[0].idTK;
         pool.query(selectSql, idTK, function (error, results, fields) {
             if (error) {
@@ -782,7 +781,7 @@ class API {
 
     //[DELETE] /api/delete/my/cart
     deleteMyCart(req, res, next) {
-        const idGD = req.body.idGD; console.log(req.body);
+        const idGD = req.body.idGD;
         const sql = 'delete from giaodich where idGD = ?';
         pool.query(sql, idGD, function (error, results, fields) {
             if (error) {
@@ -813,7 +812,7 @@ class API {
             if (error) {
                 res.status(200).send({ message: "Sàn đấu giá không tồn tại!" });
             }
-            res.send();
+            res.send({ message: "Đã xóa khỏi mục bạn quan tâm" });
         });
     }
 
