@@ -75,9 +75,7 @@ class NavbarLogin extends Component {
 
 
   render() {
-    
     return (
-     
       <div className="containerHeader d-flex" ref={this.container}>
         {this.props.coudldSearch &&
           <Form className="form-search">
@@ -98,7 +96,7 @@ class NavbarLogin extends Component {
           </Form> 
         }
         <Form className="form-links">
-          <a href="/interested">
+          <a href="/interested" className="mr-4">
             <Button className="btn-nav outLineNone" variant="outline-info">
               <Gavel className="mr-2"/>
               Quan tâm

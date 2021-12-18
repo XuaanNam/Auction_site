@@ -17,7 +17,6 @@ const Interested = () => {
 
     const [toasts, setToasts] = useState([]);
     const [remove, setRemove] = useState(null);
-
     const [isEmpty, setIsEmpty] = useState(true);
     const [listLoved, setListLoved] = useState([]);
 
@@ -31,7 +30,7 @@ const Interested = () => {
                     isAuth = 1;
                     axios.get("my/loved")
                         .then((res) =>{ 
-                            if(res.data.results){ 
+                            if(res.data.results.length > 0){ 
                                 setListLoved(res.data.results);  
                                 setIsEmpty(false);
                                 setToastMessage("success","Thành công", res.data.message);
@@ -50,6 +49,9 @@ const Interested = () => {
     const onDelete = (idQT) => {
         const listL = listLoved.filter(list => list.idQT !== idQT); 
         setListLoved(listL); 
+        if(listL.length === 0){
+            setIsEmpty(true);
+        }
     }
 
     function setToastMessage(status, title, message) {
@@ -96,7 +98,11 @@ const Interested = () => {
                     <TopText className={`text-decoration-none alert-danger ${Interest.amountInterest}`}>Số lượng trong giỏ hàng: 0</TopText>
                 </Link> */}
                 {isEmpty ?
-                    <div></div>
+                    <div>
+                        <div className="mess-list">
+                            <h3 style={{textAlign: 'center'}}>Bạn chưa quan tâm cuộc đấu giá nào!</h3>
+                        </div>
+                    </div>
                 :   
                     <div style={{margin: '0 0 20vh 0'}}>
                         {listLoved.map(list=>(

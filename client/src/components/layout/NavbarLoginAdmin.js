@@ -1,4 +1,4 @@
-import {KeyboardArrowDown, Assignment, AddShoppingCart, Person, VerifiedUser, ExitToApp } from '@material-ui/icons';
+import {KeyboardArrowDown, KeyboardArrowUp, Assignment, AddShoppingCart, Person, VerifiedUser, ExitToApp } from '@material-ui/icons';
 import React, { Component} from "react";
 import { Form, Button} from "react-bootstrap";
 
@@ -49,9 +49,9 @@ class NavbarLoginAdmin extends Component {
   render() {
 
     return (
-      <Form className="mr-5 containerHeader">
+      <Form className="containerHeader">
         <div className="containerHeader" ref={this.container}>
-          <a href="/admin/list">
+          <a href="/admin/list" className="mr-4">
             <Button className="btn-nav outLineNone" variant="outline-info">
               <Assignment className="mr-2"/>
               Danh sách
@@ -64,12 +64,12 @@ class NavbarLoginAdmin extends Component {
             </Button>
           </a>
           {/* USER _ HAS TOGGLE */}
-          <Button className="btn-nav mr-1 outLineNone" variant="outline-info" onClick={this.handleButtonClick}>
+          <Button className="btn-nav mr-1 outLineNone" style={{minWidth: '16vw'}} variant="outline-info" onClick={this.handleButtonClick}>
             <Person className="mr-1"/>
-            Xin chào, <span>{this.props.user}</span>
-            {!this.state.open && (<KeyboardArrowDown className="ml-1" />)}
+              <span>{this.props.user}</span>
+            {!this.state.open && (<KeyboardArrowDown className="ml-1 nonActiveRotate" />)}
             
-            {this.state.open && ( <KeyboardArrowDown className="ml-1 activeRotate" /> )}
+            {this.state.open && ( <KeyboardArrowUp className="ml-1 activeRotate" /> )}
           </Button>
           {/* Toggle */}
           {this.state.open && (

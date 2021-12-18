@@ -185,8 +185,17 @@
   text-align: center;
   color: #17A2B8;
 }
+.logo-list{
+  width: 40vw;
+  height: 40vh;
+  margin-left: 29vw;
+  margin-bottom: 5vh;
+}
+.mess-list{
+  margin-bottom: 35vh!important;
+}
 .img-list img{
-  max-width: 35vw;
+  width: 35vw;
   max-height: 35vh;
   box-shadow: 4px 4px 10px rgb(60, 40, 60);
 }
@@ -208,12 +217,11 @@
 }
 /* addauction */
 .img-detail{
-  margin-left: 11vw!important;
   margin-bottom: 2vh;
 }
 .img-detail img{
-  max-width: 34vw;
-  /*max-height: 27vh;*/
+  width: 46vw;
+  max-height: 40vh;
 }
 /*====================== scroll ======================*/
 ::-webkit-scrollbar {
