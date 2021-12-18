@@ -11,6 +11,7 @@ const io = require("socket.io-client");
 const job = [];
 const trading = [];
 const paypal = require('paypal-rest-sdk');
+const { Console } = require("console");
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
     'client_id': process.env.CLIENT_ID, 
@@ -658,14 +659,17 @@ class API {
     // [GET] /api/search
     search(req, res, next){
         const srch = '%' + req.query.search + '%';
-        const selectSql = "select * from sanpham s, daugia d where s.idSP = d.idSP and d.TrangThai = 0" 
-            + " and (s.Gia like ? or d.TgBatDau like ? or s.MoTa like ? or s.Website like ? or s.ViTri like ? or s.KichThuoc like ?)";
-        pool.query(selectSql, [srch, srch, srch, srch, srch, srch], function (err, results, fields) {
+        const selectSql = 'call ListSearch(?)'
+        pool.query(selectSql, srch, function (err, results, fields) {
             if (err) { 
                 res.status(200).send({status: "error", message: "Tìm kiếm phiên đấu giá thất bại" });
             } else {
                 if (results.length > 0) {
-                    res.send({status: "info", isSearching: results, message: "Tìm kiếm thành công"});
+                    const rs = [];
+                    for(let i =0 ; i<results[0].length; i++ ){
+                        rs.push(results[0][i]);
+                    }
+                    res.send({status: "info", isSearching: rs, message: "Tìm kiếm thành công"});
                 } else {
                     res.send({status: "warning", message: "Không tìm thấy phiên đấu giá nào!" });
                 }
@@ -675,11 +679,11 @@ class API {
 
     // [GET] /api/get/all/auction (for home)
     getAuction(req, res, next) {
-        const selectSql0 = "select * from sanpham s, daugia d where s.idSP = d.idSP and d.TrangThai = 0";
-        const selectSql1 = "select * from sanpham s, daugia d where s.idSP = d.idSP and d.TrangThai = 1";
+        const selectSql0 = "select * from DSDGSapDienRa";
+        const selectSql1 = "select * from DSDGDangDienRa";
 
         pool.getConnection(function (error, connection) {
-            if (error) throw error; // not connected!
+            if (error) res.status(200).send({ message: "Lỗi!"});
             connection.query(selectSql0, function (er, results, fields) {
                 if (er) {
                     res.status(200).send({ message: er.sqlMessage});
@@ -735,17 +739,15 @@ class API {
 
     // [GET] /api/get/auction/iscoming (for homepage only)
     getComingAuction(req, res, next) {
-        const selectSql0 = "select * from sanpham s, daugia d where s.idSP = d.idSP and d.TrangThai = 0";
+        const selectSql0 = "select * from DSDGSapDienRa";
         pool.query(selectSql0, function (err, results, fields) {
-            if (err) {
-                res.status(200).send({ message: err.sqlMessage });
-            } else {
-                if (results) {
+            
+                if (results) { console.log(results)
                     res.send({ isComing: results });
                 } else {
                     res.send({ message: "Hiện không có phiên đấu giá nào sắp diễn ra!" });
                 }
-            }
+            
         });
     }
 
@@ -768,13 +770,17 @@ class API {
 
     // [GET] /api/my/cart
     myCart(req, res, next) {
-        const selectSql = 'select s.ViTri, s.KichThuoc, s.Website, s.HinhAnh, g.idGD, g.NgayDG, g.GiaTien, g.ThongTinGD, d.ThoiHan from sanpham s, giaodich g, daugia d where s.idSP = g.idSP and s.idSP = d.idSP and g.TrangThai = 0 and d.TrangThai = 2 and idTK = ?';
+        const selectSql = 'call ListDGTheoIdTK(?)'
         const idTK = req.user[0].idTK;
         pool.query(selectSql, idTK, function (error, results, fields) {
             if (error) {
-                throw error;
+                res.send({ message: "Không thể lấy danh sách đơn hàng"});
             } else {
-                res.send(results);
+                const rs = [];
+                for(let i =0 ; i<results[0].length; i++ ){
+                    rs.push(results[0][i]);
+                }
+                res.send({results :rs, message: "Đang hiển thị danh sách đơn hàng"}); 
             }
         });
     }
@@ -793,13 +799,17 @@ class API {
 
     // [GET] /api/my/loved
     myLoved(req, res, next) {
-        const selectSql = 'select s.ViTri, s.KichThuoc, s.Website, s.HinhAnh, s.Gia, d.idDG, d.TgBatDau, d.TgDauGia, d.BuocGia, d.ThoiHan, q.idQT from sanpham s, daugia d, quantam q where s.idSP = d.idSP and q.idDG = d.idDG and idTK = ?';
+        const selectSql = "call ListQTTheoIdTK(?)"
         const idTK = req.user[0].idTK;
         pool.query(selectSql, idTK, function (error, results, fields) {
             if (error) {
-                throw error;
+                res.send({ message: "Không thể lấy danh sách quan tâm"});
             } else {
-                res.send(results);
+                const rs = [];
+                for(let i =0 ; i<results[0].length; i++ ){
+                    rs.push(results[0][i]);
+                }
+                res.send({results :rs, message: "Đang hiển thị danh sách đấu giá bạn quan tâm"}); 
             }
         });
     }

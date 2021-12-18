@@ -35,9 +35,10 @@ function Cart() {
                     isAuth = 1;
                     axios.get("my/cart")
                         .then((res) =>{ 
-                            if(res.data.length > 0 ){ 
-                                setListProduct(res.data);  
+                            if(res.data.results){ 
+                                setListProduct(res.data.results);  
                                 setIsEmpty(false);
+                                setToastMessage("success","Thành công", res.data.message);
                             }
                         })
                     
@@ -194,16 +195,15 @@ function Cart() {
 
                                     <SummaryItem>
                                         <table border='0' cellPadding='0' cellSpacing='0' align='center'>
-                                            <tr>
-                                                <td align='center'></td>
-                                            </tr>
-                                            <tr>
-                                                <td align='center'>
-                                                    <a style={{cursor: "pointer"}} onClick={paymentByPaypal}>
-                                                        <img src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/buy-logo-large.png' alt ="Thanh toán bằng PayPal"/>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                            <tbody>
+                                                <tr>
+                                                    <td align='center'>
+                                                        <a style={{cursor: "pointer"}} onClick={paymentByPaypal}>
+                                                            <img src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/buy-logo-large.png' alt ="Thanh toán bằng PayPal"/>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
                                         </table>
                                     </SummaryItem>
                                 </Summary>

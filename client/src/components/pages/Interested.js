@@ -31,9 +31,10 @@ const Interested = () => {
                     isAuth = 1;
                     axios.get("my/loved")
                         .then((res) =>{ 
-                            if(res.data){ 
-                                setListLoved(res.data);  
+                            if(res.data.results){ 
+                                setListLoved(res.data.results);  
                                 setIsEmpty(false);
+                                setToastMessage("success","Thành công", res.data.message);
                             }
                         })
                 }

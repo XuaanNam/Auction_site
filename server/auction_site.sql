@@ -38,7 +38,20 @@ MoTa text(1000)
 -- select s.ViTri, s.KichThuoc, s.Website, s.HinhAnh, s.Gia, d.TgBatDau, d.TgDauGia, d.BuocGia, q.idQT from sanpham s, daugia d, quantam q where s.idSP = d.idSP and q.idDG = d.idDG and idTK =659323833;
 -- drop table sanpham;
 -- drop table giaodich;
--- drop table daugia;
+
+create table daugia(
+idDG int not null primary key AUTO_INCREMENT,
+idSP int  not null CHECK (idSP !=""),
+TgBatDau datetime not null,
+TgDauGia int not null,
+ThoiHan int not null,
+TrangThai int default 0, -- 0 là sắp diễn ra, 1 là đang diễn ra, 2 là đã kết thúc ;
+BuocGia double,
+foreign key (idSP) references sanpham(idSP)
+)
+;-- drop table daugia;
+-- select * from sanpham s, daugia d where s.idSP = d.idSP and idDG = 20
+-- alter table daugia add column ThoiHan int not null after TgDauGia;
 
 create table giaodich(
 idGD int not null primary key AUTO_INCREMENT,
@@ -55,19 +68,6 @@ foreign key (idDG) references daugia(idDG)
 )
 ; -- select s.ViTri, s.KichThuoc, s.Website, s.HinhAnh, g.idGD, g.NgayDG, g.GiaTien, g.ThongTinGD from sanpham s, giaodich g, daugia d where s.idSP = g.idSP and s.idSP = d.idSP and g.TrangThai = 0 and idTK = 659323832
 ; -- alter table giaodich add foreign key (idDG) references daugia(idDG) 
-create table daugia(
-idDG int not null primary key AUTO_INCREMENT,
-idSP int  not null CHECK (idSP !=""),
-TgBatDau datetime not null,
-TgDauGia int not null,
-ThoiHan int not null,
-TrangThai int default 0, -- 0 là sắp diễn ra, 1 là đang diễn ra, 2 là đã kết thúc ;
-BuocGia double,
-foreign key (idSP) references sanpham(idSP)
-)
-;-- drop table daugia;
--- select * from sanpham s, daugia d where s.idSP = d.idSP and idDG = 20
--- alter table daugia add column ThoiHan int not null after TgDauGia;
 
 create table quantam(
 idQT int not null primary key AUTO_INCREMENT,
@@ -190,5 +190,40 @@ BEGIN
     update sanpham set TrangThai = 0 where idSP = old.idSP;
 END$$
 
-create view DG_IS_COMING as select * from sanpham as s JOIN daugia as d where d.TrangThai = 0;
-create view DG_IS_HAPPENING as select * from sanpham as s JOIN daugia as d where d.TrangThai = 1;
+--------------------------------
+
+
+CREATE VIEW DSDGSapDienRa AS
+SELECT dg.idDG, dg.idSP, dg.TgBatDau, dg.TgDauGia, dg.ThoiHan, sp.HinhAnh, sp.Website, sp.ViTri, sp.KichThuoc, sp.Gia, sp.MoTa
+FROM sanpham sp, daugia dg
+WHERE sp.idSP = dg.idSP AND dg.TrangThai = 0;
+
+CREATE VIEW DSDGDangDienRa AS
+SELECT dg.idDG, dg.idSP, dg.TgBatDau, dg.TgDauGia, dg.ThoiHan, sp.HinhAnh, sp.Website, sp.ViTri, sp.KichThuoc, sp.Gia, sp.MoTa
+FROM sanpham sp, daugia dg
+WHERE sp.idSP = dg.idSP AND dg.TrangThai = 1;
+
+DELIMITER $$ 
+CREATE PROCEDURE ListDGTheoIdTK (IN id int)
+BEGIN
+	SELECT s.ViTri, s.KichThuoc, s.Website, s.HinhAnh, g.idGD, g.NgayDG, g.GiaTien, g.ThongTinGD, d.ThoiHan 
+    FROM sanpham s, giaodich g, daugia d 
+    WHERE s.idSP = g.idSP AND s.idSP = d.idSP AND g.TrangThai = 0 AND d.TrangThai = 2 AND idTK = id;
+END$$
+
+DELIMITER $$
+CREATE PROCEDURE ListQTTheoIdTK (IN id int)
+BEGIN
+	SELECT s.ViTri, s.KichThuoc, s.Website, s.HinhAnh, s.Gia, d.idDG, d.TgBatDau, d.TgDauGia, d.BuocGia, d.ThoiHan, q.idQT 
+    FROM sanpham s, daugia d, quantam q 
+    WHERE s.idSP = d.idSP AND q.idDG = d.idDG AND idTK = id;
+END$$
+
+DELIMITER $$
+CREATE PROCEDURE ListSearch(IN search text )
+BEGIN
+    SELECT *
+    FROM  sanpham s, daugia d 
+    WHERE s.idSP = d.idSP AND d.TrangThai = 0 AND (s.Gia like  search  or d.TgBatDau like search or s.MoTa like search or s.Website like search or s.ViTri like search or s.KichThuoc like search) ;
+END$$
+
