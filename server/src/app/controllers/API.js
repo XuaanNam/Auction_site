@@ -450,7 +450,7 @@ class API {
                 connection.query(selectSql, idSP, function (error, results, fields) {
                     if (error) {
                         res.status(200).send({ message: err.sqlMessage });
-                    } else {res.send({ message: "Xóa SP thất   pháp!" });
+                    } else {
                         const HA = results[0].HinhAnh; console.log(HA)
                         const filePath = basePath + "/" + HA;
                         connection.query(deleteSql, idSP, function (err, rs, fields) {
