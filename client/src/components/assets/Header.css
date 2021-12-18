@@ -16,15 +16,13 @@
 
 .dropdownHeader {
     position: absolute;
-    top: 100%;
-    right: -3.438rem;
-    width: 11.875rem;
+    width: auto;
+    text-align: center;
     z-index: 2;
     border: 1px solid rgba(0, 0, 0, 0.04);
     box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14);
-    /* background */
     background: #343a40;
-    margin: 0 90px;
+    margin: 0;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
@@ -44,50 +42,8 @@
   border-bottom-right-radius: 5px;
 }
 
-.btnCatalog {
-  padding: .375rem .75rem !important;
-  width: 100%;
-  text-align: left;
-}
 
-.inputAllSearch {
-  position: absolute;
-  top: -14%;
-  left: -36%;
-  min-width: 14rem;
-  margin-top: 0.8rem;
-  padding-left: 6px;
-  height: 2.2rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background: #343a40;
-  font-size: inherit;
-  color: #fff;
 
-}
-
-.inputSearch {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  padding-top: 0;
-  padding-bottom: 0;
-  border: 1px solid #ccc;
-  /* border-radius: 4px; */
-  border-left: none;
-  background: #343a40;
-  font-size: inherit;
-  color: #fff;
-  font-size: 14px;
-  margin-left: -0.375rem;
-  padding-left: 0.575rem;
-  font-weight: 501;
-}
-
-.inputSearch:hover {
-  /* box-shadow: 0 16px 24px 2px rgba(28, 12, 245, 0.14); */
-  box-shadow: 0 0 10px rgb(75, 178, 229);
-}
 
 .svgtoSearch {
   position: absolute;
@@ -101,17 +57,10 @@
   font-weight: 400;
 }
 
-.headerBtnLogin {
-    /* padding: 0;
-  width: 50px;
-  border: 0;
-  background-color: #fff;
-  color: #333;
-  cursor: pointer;
-  outline: 0;
-  padding: .375rem .75rem;
-  font-size: 1.2rem;
-  font-weight: 400; */
+.dropdown-header{
+  position: relative;
+  display: inline-block;
+  padding: 0;
 }
 
 

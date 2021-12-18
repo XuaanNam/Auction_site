@@ -2,6 +2,9 @@ create database auctiondata -- drop database auctiondata
 ;
 use auctiondata
 ;
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123123123';
+flush privileges;
+
 create table taikhoan(
 idTK int not null primary key AUTO_INCREMENT,
 Ho nvarchar(20) not null CHECK (Ho !=""),
@@ -192,17 +195,20 @@ END$$
 
 --------------------------------
 
-
+delimiter $$
 CREATE VIEW DSDGSapDienRa AS
 SELECT dg.idDG, dg.idSP, dg.TgBatDau, dg.TgDauGia, dg.ThoiHan, sp.HinhAnh, sp.Website, sp.ViTri, sp.KichThuoc, sp.Gia, sp.MoTa
 FROM sanpham sp, daugia dg
 WHERE sp.idSP = dg.idSP AND dg.TrangThai = 0;
-
+ $$
+ 
+delimiter $$
 CREATE VIEW DSDGDangDienRa AS
 SELECT dg.idDG, dg.idSP, dg.TgBatDau, dg.TgDauGia, dg.ThoiHan, sp.HinhAnh, sp.Website, sp.ViTri, sp.KichThuoc, sp.Gia, sp.MoTa
 FROM sanpham sp, daugia dg
 WHERE sp.idSP = dg.idSP AND dg.TrangThai = 1;
-
+ $$
+ 
 DELIMITER $$ 
 CREATE PROCEDURE ListDGTheoIdTK (IN id int)
 BEGIN

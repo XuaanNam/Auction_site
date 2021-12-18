@@ -111,41 +111,43 @@ class NavbarLogin extends Component {
               
             </Button>
           </a>
-          {/* USER _ HAS TOGGLE */}
-          <Button className="btn-nav mr-1 outLineNone" style={{minWidth: '16vw'}} variant="outline-info" onClick={this.handleButtonClick}>
-            <Person className="mr-1"/>
-            <span>{this.props.user}</span>
-            {!this.state.openUserMenu && (<KeyboardArrowDown className="ml-1 nonActiveRotate" />)}
-            
-            {this.state.openUserMenu && ( <KeyboardArrowUp className="ml-1 activeRotate" /> )}
-          </Button>
-          {/* Toggle */}
-          {this.state.openUserMenu && (
-            <div className="dropdownHeader">
-              <ul>
-                <li>
-                  <a href="/profile">
-                    <Button className="btn-nav mr-2 outLineNone w-100" variant="outline-info">
-                      <VerifiedUser className="mr-2"/>
-                      Cá nhân
-                    </Button>
-                  </a>
-                </li>
-                <li>
-                  <a href="/">
-                    <Button
-                      className="btn-nav outLineNone w-100"
-                      variant="outline-info"
-                      onClick={this.props.handleLogout}
-                    >
-                      <ExitToApp className="mr-2"/>
-                      Đăng xuất
-                    </Button>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          )}
+         
+          <div className="dropdown-header">
+            <Button className="btn-nav mr-1 outLineNone" style={{minWidth: '16vw'}} variant="outline-info" onClick={this.handleButtonClick}>
+              <Person className="mr-1"/>
+              <span>{this.props.user}</span>
+              {!this.state.openUserMenu && (<KeyboardArrowDown className="ml-1 nonActiveRotate" />)}
+              
+              {this.state.openUserMenu && ( <KeyboardArrowUp className="ml-1 activeRotate" /> )}
+            </Button>
+            {/* Toggle */}
+            {this.state.openUserMenu && (
+              <div className="dropdownHeader">
+                <ul>
+                  <li>
+                    <a href="/profile">
+                      <Button className="btn-nav mr-2 outLineNone w-100" variant="outline-info">
+                        <VerifiedUser className="mr-2"/>
+                        Cá nhân
+                      </Button>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/">
+                      <Button
+                        className="btn-nav outLineNone w-100"
+                        variant="outline-info"
+                        onClick={this.props.handleLogout}
+                      >
+                        <ExitToApp className="mr-2"/>
+                        Đăng xuất
+                      </Button>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
         </Form>
       </div>
     );
