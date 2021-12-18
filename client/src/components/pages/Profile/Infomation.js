@@ -21,12 +21,12 @@ function Infomation(props) {
 
   const handleEdit = (event) => {
     event.preventDefault();
-    if(ho === "" || ten === "" || tenDN === ""){
+    if(ho === "" || ten === ""){
       setError("Vui lòng không để trống trường Họ & Tên, Tên người dùng!");
     } else {
       axios
         .patch("update/profile", {
-          ho, ten, tenDN, ngaySinh, sDT
+          ho, ten, ngaySinh, sDT
         })
         .then((Response) => {
           if (Response.data.message) {
@@ -48,7 +48,7 @@ function Infomation(props) {
           <div>
             <div className="d-grid">
               <label>Tên người dùng:</label>
-              <input type="text" value={tenDN} onChange={(e) => {setTenDN(e.target.value);}}/>
+              <input type="text" value={tenDN} disabled/>
             </div>
 
             <div className="d-grid">

@@ -5,13 +5,13 @@
 .cartAlert {
     padding: 0,125rem 3.125rem 0,125rem 3.125rem;
     border-radius: 5px;
-    margin-bottom: 4.375rem !important;
+    margin-bottom: 1rem !important;
 }
 
 .cartNullTitle {
     font-weight: 600;
     font-size: 30px;
-    margin-bottom: 1.875rem !important;
+    margin: 5vh !important;
 }
 
 .btnNullTitle {

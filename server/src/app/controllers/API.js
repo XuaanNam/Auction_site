@@ -174,20 +174,19 @@ class API {
     // [PATCH] /api/update/profile
     updateProfile(req, res, next) {
 
-        const updateSql = "update taikhoan set Ho = ? , Ten = ?, TenDN = ? , NgaySinh = ?, SDT = ? where idTK = ?";
+        const updateSql = "update taikhoan set Ho = ? , Ten = ?, NgaySinh = ?, SDT = ? where idTK = ?";
 
         const idTK = req.user[0].idTK;
         const Ho = req.body.ho,
             Ten = req.body.ten,
-            TenDN = req.body.tenDN,
             NgaySinh = req.body.ngaySinh ? req.body.ngaySinh : "",
             SDT = req.body.sDT ? req.body.sDT : "";
-        pool.query(updateSql, [Ho, Ten, TenDN, NgaySinh, SDT, idTK], function (err, results, fields) {
+        pool.query(updateSql, [Ho, Ten, NgaySinh, SDT, idTK], function (err, results, fields) {
             if (err) {
                 res.status(200).send({ message: err.sqlMessage });
             } else {
                 if (results) {
-                    res.send({ message: "Cập nhật thông tin thành công" });
+                    res.send({ message: "Cập nhật thông tin thành công!" });
                 } else {
                     res.send({ message: "Cập nhật thông tin thất bại!" });
                 }
@@ -295,7 +294,7 @@ class API {
                     res.status(200).send({ message: "Kết nối DataBase thất bại" });
                 } else {
                     if (results) {
-                        res.send(results);
+                        res.send({results});
                     } else {
                         res.send({ message: "Không thể lấy dữ liệu" });
                     }
@@ -396,9 +395,9 @@ class API {
                     res.status(200).send({ message: "Kết nối DataBase thất bại" });
                 } else {
                     if (results) {
-                        res.send({ message: "Thêm SP thành công" });
+                        res.send({ message: "Thêm sản phẩm thành công" });
                     } else {
-                        res.send({ message: "Thêm SP thất bại!" });
+                        res.send({ message: "Thêm sản phẩm thất bại!" });
                     }
                 }
             });

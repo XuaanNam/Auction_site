@@ -6,13 +6,14 @@ import Product from './Product'
 import axios from "../../../api/axios";
 import { useNavigate} from "react-router-dom";
 import MessageToast from '../../pages/ToastMessage/MessageToast' 
+import logo from "../../images/auc-img1.png"
 function List() {
 
     const [toasts, setToasts] = useState([]);
     const [remove, setRemove] = useState(null);
 
     const [list, setList] = useState([]);
-
+    const [isExist, setExist] = useState(false);
     let navigate = useNavigate();
     let isAdmin = 0;
     useEffect(()=>{
@@ -23,9 +24,11 @@ function List() {
                     isAdmin = 1;
                     axios.get("admin/get/all/product",)
                         .then((res) => { 
-                            res.data.message && alert(res.data.message);
-                            setList(res.data); 
-                            console.log(res.data);
+                            res.data.message && setToastMessage('error', 'Có biến', res.data.message);
+                            if(res.data.results.length > 0) {
+                                setList(res.data.results); 
+                                setExist(true);
+                            }
                         })
                 }
             })
@@ -40,8 +43,10 @@ function List() {
     const onDelete = (idSP) => {
         const listP = list.filter(list => list.idSP !== idSP); 
         setList(listP); 
+        if(listP.length === 0) {
+            setExist(false);
+        }
     }
-
     function setToastMessage(status, title, message) {
         setToasts(prevToast => [
             ...prevToast,
@@ -75,16 +80,27 @@ function List() {
         <div>
             <Header isAdmin={true}/>
             <h3 className="title-list">Danh sách sản phẩm</h3> <br/>
-            <div className="admins-list-all-product">
-                {list.map(prod => ( 
-                    <Product key={prod.idSP} 
-                        hrefSP={"/admin/addauction/" + prod.idSP}
-                        product={prod}
-                        setToastMessage={setToastMessage}
-                        onDelete={onDelete}
-                    />
-                ))}
-            </div>
+            {isExist?
+                 <div className="admins-list-all-product">
+                    {list.map(prod => ( 
+                        <Product key={prod.idSP} 
+                            hrefSP={"/admin/addauction/" + prod.idSP}
+                            product={prod}
+                            setToastMessage={setToastMessage}
+                            onDelete={onDelete}
+                        />
+                    ))}
+                </div>
+            :
+                <span>
+                    <img src={logo} className="logo-list" />
+                    <div className="mess-list">
+                        <h3 style={{textAlign: 'center'}}>Hiện tại chưa có sản phẩm trong kho !</h3>
+                    </div>
+                </span>
+            }
+            
+           
             <MessageToast 
                 toasts={toasts}
                 setToasts={setToasts}

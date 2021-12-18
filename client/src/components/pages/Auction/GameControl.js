@@ -24,61 +24,61 @@ class HistoryTable extends Component {
                                 Trang web: {this.props.website}
                             </span>
                         </div>
-                        <div className="d-flex">
+                        <div className="d-flex mt-2">
                             <span>Vị trí: {this.props.position}</span>
                             <span>Kích thước: {this.props.bannerSize}</span>            
                         </div>  
-                        <div className="d-flex">
+                        <div className="d-flex mt-2">
                             <span>Thời hạn: {this.props.term} tháng</span>
                                       
                         </div>                      
                     </div>
                     { this.props.isStart && 
                         <span>
-                            <strong>Người thắng hiện tại: Ông/Bà {this.props.userWinner}</strong>
+                            <strong>Người thắng hiện tại: Ông/Bà
+                                <span className="player">{this.props.userWinner}</span>
+                            </strong>
                         </span>
                     }
                     
-                    <div className="d-flex pt-3">
-                        <span>
+                    <div className="d-flex pt-3 auc-time">
                             {this.props.isPrepare && 
                                 <strong> Thời gian bắt đầu:{" "} 
                                     <Card.Img style={{maxWidth:20, marginBottom: 3}} src={clock}/>
                                     {" "}
-                                    {this.props.currentTime}
+                                    <span>{this.props.currentTime}</span>
                                 </strong>
                             }
                             {this.props.isStart && 
                                 <strong> Thời gian còn lại:{" "} 
                                     <Card.Img style={{maxWidth:20, marginBottom: 3}} src={clock}/>
                                     {" "}
-                                    {this.props.currentTime}
+                                    <span>{this.props.currentTime}</span>
                                 </strong>                            
                             } 
                             {this.props.isEnding && 
                                 <strong> Đấu giá kết thúc vào lúc:{" "} 
                                     <Card.Img style={{maxWidth:20, marginBottom: 3}} src={clock}/>
                                     {" "}
-                                    {this.props.currentTime}
+                                    <span>{this.props.currentTime}</span>
                                 </strong>
                             }
-                        </span>
                     </div>
                     
-                    <div className="d-flex pt-3  pb-4 auc-price">
+                    <div className="pt-3 pb-4 auc-price">
+                        {/*price Step */}
+                        <div className="d-flex">
+                            <b>Bước giá:</b><br />
+                            <span >{this.props.priceStep} VNĐ</span>
+                        </div>
+
                         {/* highest Price */}
-                        <div>
+                        <div className="d-flex pt-3">
                             {this.props.isPrepare && <b>Giá khởi điểm:</b>}
                             {this.props.isStart && <b>Giá cao nhất hiện tại:</b>}
                             {this.props.isEnding && <b>Tổng giá trị:</b>}
                             <br />
                             <span >{this.props.highestPrice} VNĐ</span>
-                        </div>
-
-                        {/*price Step */}
-                        <div>
-                            <b>Bước giá:</b><br />
-                            <span >{this.props.priceStep} VNĐ</span>
                         </div>
                     </div>
 

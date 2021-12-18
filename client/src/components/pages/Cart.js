@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import Header from "../layout/Header";
 import Footer from '../layout/Footer';
 import CartD from '../assets/CartDetail.module.css'
-import logo from "../images/img-login.png"
+import logo from "../images/auc-img2.png"
 import Bill from './Cart/Bill'
 import MessageToast from '../pages/ToastMessage/MessageToast' 
 //
@@ -35,7 +35,7 @@ function Cart() {
                     isAuth = 1;
                     axios.get("my/cart")
                         .then((res) =>{ 
-                            if(res.data.results){ 
+                            if(res.data.results.length > 0){ 
                                 setListProduct(res.data.results);  
                                 setIsEmpty(false);
                                 setToastMessage("success","Thành công", res.data.message);
@@ -108,8 +108,10 @@ function Cart() {
     const onDelete = (idGD) => {
         const listP = listProduct.filter(list => list.idGD !== idGD); 
         setListProduct(listP); 
+        if(listP.length === 0){
+            setIsEmpty(true)
+        }
     }
-
     function setToastMessage(status, title, message) {
         setToasts(prevToast => [
             ...prevToast,
@@ -149,19 +151,18 @@ function Cart() {
                         <Empty>
                             <Title>Đơn hàng 🛒</Title>
                             <EmptyCart src={logo} />
-                            <TopText className={`text-decoration-none alert-danger ${CartD.cartAlert}`}>Số lượng đơn hàng: 0</TopText>
                             <h4 className={CartD.cartNullTitle}>Bạn hiện không có sản phẩm nào trong đơn hàng 🔄</h4>
                             <Link to="/">
                                 <ShopButton className={`btn btn-dark btn-custom ${CartD.btnNullTitle}`}>
-                                <Gavel className="mr-1"/>
+                                    <Gavel className="mr-1"/>
                                     Đi đến đấu giá!
-                                    </ShopButton>
+                                </ShopButton>
                             </Link>
                         </Empty>
                     :
                         <span>
                             <Top>
-                                <Title>Đấu giá của tôi 🏆</Title><br></br>
+                                <Title>Đơn hàng 🛒</Title><br></br>
                                 <TopTexts >
                                 {/* DESCRIPTION cho trang này nếu có */}
                                 </TopTexts>

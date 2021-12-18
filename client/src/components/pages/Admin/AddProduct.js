@@ -52,10 +52,14 @@ function AddProduct() {
                 await axios.post('admin/stored/product', image)
                         .then((res) => {
                             setError(res.data.message);
-                        })
-                        .catch(err => {console.log(err)})
-                        .then(() => {
-                            window.location.reload(false);
+                            setBannerWidth('');
+                            setBannerHeight('');
+                            setPosition('');
+                            setSelectedImage(null);
+                            setPrice('');
+                            setWebsite('');
+                            setDescribe('');
+                            document.getElementById('add-img').value = null;
                         })
             } catch (error) {
                 throw error
@@ -74,6 +78,7 @@ function AddProduct() {
                         <Row className="group-admin" >
                             <label className="label-admin" >Vị trí:</label>
                             <Form.Control className="input-admin" type="text" placeholder="Nhập tên vị trí"
+                                value={position}
                                 onChange={(e) => {
                                     setPosition(e.target.value);
                                 }} 
@@ -88,6 +93,7 @@ function AddProduct() {
                                     className="input-size" 
                                     type="number" 
                                     placeholder="Nhập chiều rộng"
+                                    value={bannerWidth}
                                     onChange={(e) => {
                                         setBannerWidth(e.target.value);
                                     }} 
@@ -97,6 +103,7 @@ function AddProduct() {
                                     type="number" 
                                     placeholder="Nhập chiều cao"
                                     style={{marginLeft: '3.5vw'}}
+                                    value={bannerHeight}
                                     onChange={(e) => {
                                         setBannerHeight(e.target.value);
                                     }} 
@@ -108,6 +115,7 @@ function AddProduct() {
                             Giá khởi điểm:
                             </label>
                             <Form.Control className="input-admin" type="number" placeholder="Nhập giá khởi điểm"
+                                value={price}
                                 onChange={(e) => {
                                     setPrice(e.target.value);
                                 }} 
@@ -118,6 +126,7 @@ function AddProduct() {
                             Website:
                             </label>
                             <Form.Control className="input-admin" type="text" placeholder="Nhập tên website"
+                                value={website}
                                 onChange={(e) => {
                                     setWebsite(e.target.value);
                                 }} 
@@ -128,6 +137,7 @@ function AddProduct() {
                             Mô tả:
                             </label>
                             <Form.Control className="input-admin" as="textarea" rows={3}
+                                value={describe}
                                 onChange={(e) => {
                                     setDescribe(e.target.value);
                                 }}
@@ -140,6 +150,7 @@ function AddProduct() {
                             <div className="btn-file"> 
                                 <input
                                     className="img-admin"
+                                    id="add-img"
                                     type="file"
                                     name="image"
                                     onChange={(event) => {
@@ -148,11 +159,13 @@ function AddProduct() {
                                 />
                             </div>
                         </Row>
-                        {selectedImage && (
-                            <div className="img-detail">
-                                <img  alt="not found" src={URL.createObjectURL(selectedImage)} />
-                            </div>
-                        )}
+                        <Row>
+                            {selectedImage && (
+                                <div className="img-detail">
+                                    <img  alt="not found" src={URL.createObjectURL(selectedImage)} />
+                                </div>
+                            )}
+                        </Row>
                         <span style={{color: 'red', marginLeft: '11vw'}}>{error}</span><br/>
                         <div className="div-btn-admin"> 
                             <Button className="btn-admin" onClick={handleAddProduct}>Thêm</Button>

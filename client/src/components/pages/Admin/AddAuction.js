@@ -186,16 +186,6 @@ function AddAuction() {
                         </Row>
                         <Row className="group-admin">
                             <label className="label-admin">
-                            Thời hạn (Tháng):
-                            </label>
-                            <FormControl className="input-admin" type="number"
-                                onChange={(e) => {
-                                    setTerm(e.target.value);
-                                }}
-                            />
-                        </Row>
-                        <Row className="group-admin">
-                            <label className="label-admin">
                             Bước giá:
                             </label>
                             <Form.Control className="input-admin" type="number"
@@ -216,11 +206,21 @@ function AddAuction() {
                         </Row>
                         <Row className="group-admin">
                             <label className="label-admin">
-                            Thời gian đấu giá:
+                            Thời gian:
                             </label>
                             <Form.Control className="input-admin" type="number" 
                                 onChange={(e) => {
                                     setLimitTime(e.target.value);
+                                }}
+                            />
+                        </Row>
+                        <Row className="group-admin">
+                            <label className="label-admin">
+                            Thời hạn (Tháng):
+                            </label>
+                            <FormControl className="input-admin" type="number"
+                                onChange={(e) => {
+                                    setTerm(e.target.value);
                                 }}
                             />
                         </Row>

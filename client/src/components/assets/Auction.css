@@ -1,6 +1,6 @@
 .auc-layout {
     width: 100%;
-    padding: 22vh 7vw 5vh;
+    padding: 22vh 4vw 5vh;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -14,6 +14,7 @@
     border: 2px solid rgb(106, 167, 104) !important;
     box-sizing: border-box;
     background: #fff;
+    box-shadow: 0 0 12px #000;
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: auto auto;
@@ -47,7 +48,6 @@
     font-size: 1rem;
     font-weight: bold;
     color: #2cc3c9;
-    
     margin: auto;
 }
 .auc-info .auc-site span{
@@ -56,16 +56,22 @@
     color: #c91717;
     margin: auto;
 }
-.auc-game-control span strong{
-    padding: 0 0 0 2rem;
-}
-.auc-game-control .auc-price div{
 
-    margin: auto;
+.auc-game-control .player{
+    padding-left: 7px;   
+    color: #c91717;
+    font-weight: 700;
 }
+
+.auc-game-control .auc-time span{       
+    color: #3d9e3d;
+    font-weight: 700;
+}
+
 .auc-game-control .auc-price span{       
     color: #3d9e3d;
     font-weight: 700;
+    padding-left: 7px;  
 }
 
 .auc-game-control .mess-prepare{
