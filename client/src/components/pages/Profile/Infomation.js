@@ -28,9 +28,9 @@ function Infomation(props) {
         .patch("update/profile", {
           ho, ten, ngaySinh, sDT
         })
-        .then((Response) => {
-          if (Response.data.message) {
-            setError(Response.data.message);
+        .then((res) => {
+          if (res.data.message) {
+            setError(res.data.message);
           } 
         })
         .catch(() => {
@@ -62,7 +62,7 @@ function Infomation(props) {
             </div>
 
             <div className="d-grid">
-              <label c>Ngày sinh:</label>
+              <label>Ngày sinh:</label>
               <input type="date" value={ngaySinh} onChange={(e) => {setNgaySinh(e.target.value);}}/>
             </div>
 

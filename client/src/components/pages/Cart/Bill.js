@@ -1,9 +1,8 @@
 import {Cancel,BorderHorizontal, GpsFixed,Language, Timelapse} from '@material-ui/icons';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, Modal} from 'react-bootstrap'
 import styled from 'styled-components';
 import CartD from '../../assets/CartDetail.module.css'
-import MessageToast from '../../pages/ToastMessage/MessageToast'
 //
 import axios from "../../../api/axios"; 
 
@@ -48,7 +47,8 @@ export default function Bill (props) {
                     <Modal.Title>Xóa banner</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <b style={{color: 'red'}}>Bạn chắc chắn muốn Banner của website: <span style={{color: 'black'}}>{props.list.Website}</span> này chứ ? </b>
+                    <b style={{color: 'red'}}>Bạn chắc chắn muốn Banner của website: 
+                    <span style={{color: 'black'}}>{props.list.Website}</span> này chứ ? </b>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {Gavel,Cancel,BorderHorizontal, GpsFixed,
-   VerifiedUserOutlined, Language} from '@material-ui/icons';
+import {Gavel} from '@material-ui/icons';
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -13,7 +12,6 @@ import MessageToast from '../pages/ToastMessage/MessageToast'
 //
 import axios from "../../api/axios"; 
 import { useNavigate } from 'react-router-dom';
-import FormRange from 'react-bootstrap/esm/FormRange';
 
 function Cart() {
 
@@ -62,9 +60,6 @@ function Cart() {
             });
     }, []);
 
-    // const handlePay = () => {
-    //     setPayment(true);
-    // }
 
     const convertPrice = (price) => { 
         const formatter = new Intl.NumberFormat('en-US', {
@@ -164,7 +159,7 @@ function Cart() {
                             <Top>
                                 <Title>Đơn hàng 🛒</Title><br></br>
                                 <TopTexts >
-                                {/* DESCRIPTION cho trang này nếu có */}
+                              
                                 </TopTexts>
                             </Top>
                     
@@ -231,20 +226,6 @@ const Container = styled.div`
     flex-wrap: nowrap;
 `;
 
-const ContainerBody = styled.div`
-    position: relative;
-    border: 2px solid #343a40;
-    border-radius: 0.625rem;
-    margin-left: -4.125rem;
-    padding: 1,25rem;
-    height: 39rem;
-    margin-bottom: 3.125rem;
-    margin-right: 1.25rem;
-    box-shadow: 0 0 10px rgb(52, 58, 64);
-    &:hover {
-        box-shadow: 0 0 10px rgb(75, 178, 229);
-    }
-`;
 
 const Main = styled.div`
     flex: 1;
@@ -268,17 +249,10 @@ const Top = styled.div`
     justify-content: space-between;
     padding: 1.25rem;
 `;
-const TopButton = styled.button`
-    text-transform: uppercase;
-`;
+
 const TopTexts = styled.div`
     text-decoration: none !important;
    
-`;
-const TopText = styled.span`
-    text-decoration: underline;
-    cursor: pointer;
-    margin: 0 1.25rem;
 `;
 
 const Bottom = styled.div`
@@ -290,72 +264,6 @@ const Bottom = styled.div`
 const Info = styled.div`
     flex: 2;
     height: 100%
-`;
-const Product = styled.div`
-    display: flex;
-    justify-content: space-between;
-    border-radius: 5px !important;
-    
-`;
-const ProductDetail = styled.div`
-    flex: 2;
-    display: flex;
-    padding-top: 2.2rem;
-`;
-const Image = styled.img`
-    
-    width: 100%;
-    height: 18.625rem;
-    border-radius: 5px;
-    //border: 1px solid rgba(0, 0, 0, 0.3);
-   
-`;
-const Details = styled.div`
-    padding: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    
-`;
-const ProductName = styled.span`
-    margin-bottom: 1.25rem;
-`;
-
-const PriceDetail = styled.div`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
-`;
-const ProductAmountContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: 700;
-    margin-top: 1.25rem;
-    margin-bottom: 1.25rem;
-`;
-const ProductAmount = styled.span`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.5rem;
-    height: 2.1875rem;
-    font-size: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.3);
-`;
-const ProductPrice = styled.div`
-    font-size: 30px;
-    font-weight: 200;
-`;
-const Hr = styled.hr`
-    background-color: #5db1e4;
-    border: none;
-    height: 1px;
-    margin-right: 5rem !important;
-    margin-bottom: 2rem !important;
 `;
 
 const Summary = styled.div`
@@ -386,9 +294,7 @@ const SummaryItem = styled.div`
 `;
 const SummaryItemText = styled.span``;
 const SummaryItemPrice = styled.span``;
-const Button = styled.button`
-    width: 100%;
-`;
+;
 const Empty = styled.div`
     height: 100%;
     padding: 1.25rem;

@@ -1,10 +1,10 @@
 import {CheckCircle, Close, Error, ListAlt} from '@material-ui/icons';
 import Coming from '../../assets/isComing.module.css'
-import React, { Component} from 'react';
+import React from 'react';
 
 function MessageToast({toasts, handleCloseToast}) {
 
-    const status = toasts.status === "success" ? "Coming.toast__success" : "Coming.toast__error";
+    //const status = toasts.status === "success" ? "Coming.toast__success" : "Coming.toast__error";
   
 
     return (

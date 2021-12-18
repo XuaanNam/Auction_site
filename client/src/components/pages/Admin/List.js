@@ -93,7 +93,7 @@ function List() {
                 </div>
             :
                 <span>
-                    <img src={logo} className="logo-list" />
+                    <img alt="" src={logo} className="logo-list" />
                     <div className="mess-list">
                         <h3 style={{textAlign: 'center'}}>Hiện tại chưa có sản phẩm trong kho !</h3>
                     </div>

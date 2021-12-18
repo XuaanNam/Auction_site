@@ -1,4 +1,4 @@
-import {Edit, AccountCircle, DeleteForever, PhotoSizeSelectLarge, CloudUpload} from '@material-ui/icons';
+import {Edit, DeleteForever, PhotoSizeSelectLarge} from '@material-ui/icons';
 import React, { useState, useEffect } from 'react';
 import avtpanther from '../images/Logo.png'
 import Header from "../layout/Header";
@@ -38,15 +38,15 @@ function Profile() {
    
     useEffect(()=>{
         axios.get("get/user")
-            .then((Response) => {
-                if (Response.data.message) {
+            .then((res) => {
+                if (res.data.message) {
                     setTenDN(username);
-                    setHo(Response.data.Ho);
-                    setTen(Response.data.Ten);
-                    setNgaySinh(Response.data.NgaySinh);
-                    setSDT(Response.data.SDT);
-                    setEmail(Response.data.Email);
-                    setAvt(Response.data.Avt);                    
+                    setHo(res.data.Ho?res.data.Ho:"");
+                    setTen(res.data.Ten?res.data.Ten:"");
+                    setNgaySinh(res.data.NgaySinh?res.data.NgaySinh:"");
+                    setSDT(res.data.SDT?res.data.SDT:"");
+                    setEmail(res.data.Email);
+                    setAvt(res.data.Avt);                    
                 } 
             })
             .catch((err) => {
@@ -56,13 +56,12 @@ function Profile() {
 
     useEffect(()=>{
         axios.get("isAuth",)
-          .then((Response) => {
-            if(Response.data.PQ === 1){
+          .then((res) => {
+            if(res.data.PQ === 1){
               setIsAdmin(true);
               
             } 
-            if(Response.data.isAuth){
-              console.log(isAuth);
+            if(res.data.isAuth){
               // eslint-disable-next-line react-hooks/exhaustive-deps
               isAuth = 1;
             }
@@ -151,7 +150,6 @@ function Profile() {
             {isAdmin ? <Header isAdmin={true}/> : <Header isActive={true}/>}
             <img alt="" className="img-inout" src={background}></img>
             <div className="profile-layout">
-
                 <div className="main-container">   
                     <div className="slide-bar">
                         <div className="avatar">
@@ -162,10 +160,13 @@ function Profile() {
                             :
                                 <img src={Avt||avtpanther} alt=""/>
                             }
-                           
+                            
                             <h4>{username}</h4>
                             <div className="d-flex">
-                                <input type="file"  style={{display: 'none'}} name="avatar" id='avt' onChange={ (e)=>{handleFile(e)} }/>
+                                <input type="file"  style={{display: 'none'}} 
+                                    name="avatar" id='avt' 
+                                    onChange={ (e)=>{handleFile(e)} }
+                                />
                                 
                                 <button onClick={chooseAvt} className="btn btn-info btn-sm" >
                                     <PhotoSizeSelectLarge className="mr-1"/> 
@@ -189,11 +190,11 @@ function Profile() {
                         
                         
                     </div>
-                    {/* profile */}
+                    
                     <div className="article">
                         <div className="title-art">
-                         
-                            <Edit class="clickToEdit"/>
+                            
+                            <Edit className="clickToEdit"/>
                         
                             <h3>Thông tin cá nhân</h3>
                         </div>
@@ -216,8 +217,7 @@ function Profile() {
                         </div>
                     </div>
 
-                </div>
-                
+                </div>                
             </div>
                 {/* TOAST MESSAGE */}
                 <MessageToast 

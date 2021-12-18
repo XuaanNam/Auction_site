@@ -1,5 +1,4 @@
-import {Gavel, KeyboardArrowDown,AddShoppingCart, Person, VerifiedUser, ExitToApp, KeyboardArrowUp, FormatListBulleted,
-  BorderTop, BorderLeft, BorderRight, BorderBottom, Search } from '@material-ui/icons';
+import {Gavel, KeyboardArrowDown,AddShoppingCart, Person, VerifiedUser, ExitToApp, KeyboardArrowUp, Search } from '@material-ui/icons';
 import React, { Component} from "react";
 import { Form, Button, InputGroup, FormControl} from "react-bootstrap";
 

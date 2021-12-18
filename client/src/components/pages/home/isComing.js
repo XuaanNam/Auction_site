@@ -1,8 +1,6 @@
 import React, { Component} from 'react';
-import {CheckCircle, Close, Error} from '@material-ui/icons';
 import { Row, Col} from "react-bootstrap";
 import AuctionGame from './AuctionGame';
-import Coming from '../../assets/isComing.module.css'
 
 class isComing extends Component {
 

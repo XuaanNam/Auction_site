@@ -1,5 +1,4 @@
-import {Gavel,Cancel,BorderHorizontal, GpsFixed,
-    VerifiedUserOutlined, Language, Timelapse} from '@material-ui/icons';
+import { GpsFixed, Language, Timelapse} from '@material-ui/icons';
 import { useState, useEffect,React } from 'react';
 import MessageToast from '../ToastMessage/MessageToast';
 import banner from "../../images/banner-panther-site.png";
@@ -20,7 +19,6 @@ export default function AuctionGame (props){
                 const title = res.data.status === "success" ? "Thành công" : "Thất bại";
                 setToastMessage(res.data.status, title, res.data.message);
             })
-            .catch((err)=>{})
     }
     
     // State for toast mess

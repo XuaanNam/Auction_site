@@ -1,4 +1,4 @@
-import {Cancel,BorderHorizontal, GpsFixed, Language
+import {BorderHorizontal, GpsFixed, Language
      } from '@material-ui/icons';
 import React, {  useState } from 'react'
 import styled from 'styled-components';
@@ -90,22 +90,7 @@ function ProductLoved (props) {
         </Having>
     );
 }
-    const Title = styled.h3`
-    
-    padding-top: 6.125rem;
-    padding-bottom: 1.875rem;
-    font-weight: 600;
-    font-size: 25px;
-    text-align: center;
-    text-transform: uppercase;
-`;
 
-
-const Main = styled.div`
-    flex: 1;
-    height: 100%;
-    margin-top: 3.75rem;
-`;
 
 const Having = styled.div`
     position: relative;
@@ -123,28 +108,6 @@ const Having = styled.div`
     }
 `;
 
-
-const EmptyCart = styled.img`
-    margin-bottom: 0.625rem;
-    width: 25rem;
-    height: 11.25rem;
-`;
-
-
-
-const TopText = styled.span`
-    text-decoration: underline;
-    cursor: pointer;
-    margin: 0 1.25rem;
-`;
-
-const ShopButton = styled.button`
-    margin-top: 0.3125rem;
-`;
-
-const TopButton = styled.button`
-    text-transform: uppercase;
-`;
 
 const Image = styled.img`
     

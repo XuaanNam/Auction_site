@@ -1,5 +1,4 @@
-import {Gavel,Cancel,BorderHorizontal, GpsFixed,
-         Timer, AttachMoney} from '@material-ui/icons';
+import {Gavel} from '@material-ui/icons';
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -94,9 +93,7 @@ const Interested = () => {
                             <Gavel className ="mr-1"/>
                             Tiếp tục đấu giá</TopButton>
                 </Link>
-                {/* <Link to="/cart" className="text-decoration-none">
-                    <TopText className={`text-decoration-none alert-danger ${Interest.amountInterest}`}>Số lượng trong giỏ hàng: 0</TopText>
-                </Link> */}
+               
                 {isEmpty ?
                     <div>
                         <div className="mess-list">
@@ -147,51 +144,8 @@ const Main = styled.div`
     margin-top: 3.75rem;
 `;
 
-const Having = styled.div`
-    position: relative;
-    border: 2px solid #343a40;
-    border-radius: 10px;
-    margin-left: -4.125rem;
-    padding: 1.25rem 1.25rem 5rem 1.25rem;
-    height: 100%;
-    margin-bottom: 4.125rem;
-    margin-right: 1.25rem;
-`;
-
-const EmptyCart = styled.img`
-    margin-bottom: 0.625rem;
-    width: 25rem;
-    height: 11.25rem;
-`;
-
-
-
-const TopText = styled.span`
-    text-decoration: underline;
-    cursor: pointer;
-    margin: 0 1.25rem;
-`;
-
-const ShopButton = styled.button`
-    margin-top: 0.3125rem;
-`;
-
 const TopButton = styled.button`
     text-transform: uppercase;
-`;
-
-const Image = styled.img`
-    
-    width: 75%;
-    height: 16rem;
-    border-radius: 5px;
-    //border: 1px solid rgba(0, 0, 0, 0.3);
-   
-`;
-
-const ProductDetail = styled.div`
-    flex: 2;
-    display: flex;
 `;
 
 export default Interested;
