@@ -20,6 +20,9 @@ function Profile() {
 
     let navigate = useNavigate();
     let isAuth = 0;
+    const [toasts, setToasts] = useState([]);
+    const [remove, setRemove] = useState(null);
+
     const [changePass, setChangePass] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const [file, setFile] = useState(null);
@@ -85,39 +88,33 @@ function Profile() {
         avt.click();
     }
 
-    const submitAvt = async() => {
+    useEffect(() => {
         const image = new FormData();
-        image.append("avatar", file);
-        try {
-            await axios.post('stored/avatar', image)
+        if(file){
+            image.append("avatar", file);
+            try {
+                axios.post('stored/avatar', image)
                     .then((res) => {
                         const title = res.data.status === "success" ? "Thành công" : "Thất bại";
                         setToastMessage(res.data.status, title, res.data.message);
+                        setAvt('n');
                     })
-                    .catch(err => {console.log(err)})
-                    .then(() => {
-                        window.location.reload(false);
-                    })
-        } catch (error) {
-            throw error
+            } catch (error) {
+                throw error
+            }
         }
-    }
+    }, [file]);
 
     const deleteAvt = () => {
         axios.patch('/delete/avatar')
             .then((res) => {
                 const title = res.data.status === "success" ? "Thành công" : "Thất bại";
                 setToastMessage(res.data.status, title, res.data.message);
-            })
-            .catch(err => {console.log(err)})
-            .then(() => {
-               window.location.reload(false);
+                setAvt('');
+                setFile(null);
             })
     }
 
-    //FOR TOAST MESSAGE
-    // State for toast mess
-    const [toasts, setToasts] = useState([]);
 
     function setToastMessage(status, title, message) {
         setToasts(prevToast => [
@@ -135,9 +132,6 @@ function Profile() {
     function handleCloseToast(toast) {
         setToasts(prevToast => prevToast.filter(item => item.id !== toast.id));
     };
-
-    // animation
-    const [remove, setRemove] = useState(null);
 
     useEffect(() =>{
         if (remove) {
@@ -161,7 +155,14 @@ function Profile() {
                 <div className="main-container">   
                     <div className="slide-bar">
                         <div className="avatar">
-                            <img src={Avt||avtpanther} alt=""/>
+                            {file ? 
+                                
+                                <img  alt="not found" src={URL.createObjectURL(file) ||avtpanther} />
+                                
+                            :
+                                <img src={Avt||avtpanther} alt=""/>
+                            }
+                           
                             <h4>{username}</h4>
                             <div className="d-flex">
                                 <input type="file"  style={{display: 'none'}} name="avatar" id='avt' onChange={ (e)=>{handleFile(e)} }/>
@@ -170,12 +171,7 @@ function Profile() {
                                     <PhotoSizeSelectLarge className="mr-1"/> 
                                     Chọn ảnh
                                 </button> 
-                                {file ?
-                                    <button onClick={submitAvt} className="btn btn-dark btn-sm" >
-                                        <CloudUpload className="mr-1"/> 
-                                        Đổi ảnh
-                                    </button>
-                                :
+                                {Avt &&                                
                                     <button onClick={deleteAvt} className="btn btn-danger btn-sm" >
                                         <DeleteForever className="mr-1"/> 
                                         Xoá ảnh

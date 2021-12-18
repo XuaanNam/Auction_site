@@ -23,7 +23,6 @@ function Cart() {
     const [isEmpty, setIsEmpty] = useState(true);
     const [listProduct, setListProduct] = useState([]);
     const [bill, setBill] = useState('');
-   // const [payment, setPayment] = useState(false);
     const [tiGia, setTiGia] = useState('');
 
     let navigate = useNavigate();
@@ -105,6 +104,11 @@ function Cart() {
         return (convertPrice(parseInterger(bill) / parseInt(tiGia)));
     }
 
+    const onDelete = (idGD) => {
+        const listP = listProduct.filter(list => list.idGD !== idGD); 
+        setListProduct(listP); 
+    }
+
     function setToastMessage(status, title, message) {
         setToasts(prevToast => [
             ...prevToast,
@@ -117,8 +121,8 @@ function Cart() {
         ]); 
     }
 
-     //close
-     function handleCloseToast(toast) {
+    //close
+    function handleCloseToast(toast) {
         setToasts(prevToast => prevToast.filter(item => item.id !== toast.id));
     };
 
@@ -169,6 +173,8 @@ function Cart() {
                                             <Bill  key={list.idGD}
                                                 list={list}
                                                 convertPrice ={convertPrice}
+                                                setToastMessage={setToastMessage}
+                                                onDelete={onDelete}
                                             />
                                         ))}
                                     </>
@@ -187,7 +193,7 @@ function Cart() {
                                     </SummaryItem>
 
                                     <SummaryItem>
-                                        <table border='0' cellpadding='0' cellspacing='0' align='center'>
+                                        <table border='0' cellPadding='0' cellSpacing='0' align='center'>
                                             <tr>
                                                 <td align='center'></td>
                                             </tr>

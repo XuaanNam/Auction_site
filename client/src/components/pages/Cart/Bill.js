@@ -12,11 +12,8 @@ import axios from "../../../api/axios";
 export default function Bill (props) {
 
     const [show, setShow] = useState(false);
-    const [toasts, setToasts] = useState([]);
-    const [remove, setRemove] = useState(null);
 
- 
-    function handleClose() {
+     function handleClose() {
         return setShow(false);
     }
 
@@ -30,45 +27,14 @@ export default function Bill (props) {
         try {
             await axios.delete('delete/my/cart', { data: {idGD} })
                     .then((res) => {
-                        res.data.message && setToastMessage('info', 'Thành công', res.data.message);
+                        res.data.message && props.setToastMessage('success', 'Thành công', res.data.message);
+                        props.onDelete(idGD);
                     })
                     .catch(err => {console.log(err)})
-                    .then(() => {
-                        window.location.reload(false);
-                    })
         } catch (error) {
             throw error
         }
     }
-
-    function setToastMessage(status, title, message) {
-        setToasts(prevToast => [
-            ...prevToast,
-            {
-                id: new Date().getTime(),
-                status,
-                title,
-                message
-            }
-        ]); 
-    }
-
-     //close
-     function handleCloseToast(toast) {
-        setToasts(prevToast => prevToast.filter(item => item.id !== toast.id));
-    };
-
-    useEffect(() =>{
-        if (remove) {
-            setToasts(prevToast => prevToast.filter(toast => toast.id !== remove));
-        }
-    }, [remove]);
-
-    useEffect(() =>{
-        if (toasts.length) {
-            setTimeout(() => setRemove(toasts[toasts.length - 1].id), 2000);
-        }
-    }, [toasts]);
 
     return(
         <div>
@@ -142,10 +108,7 @@ export default function Bill (props) {
                     <Cancel className=""/>
                  </ShopButton>
             </ContainerBody>
-            <MessageToast 
-                toasts={toasts}
-                setToasts={setToasts}
-                handleCloseToast={handleCloseToast}/>
+    
         </div>
     );
 }

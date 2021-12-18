@@ -22,11 +22,8 @@ export default function Product(props) {
         try {
             await axios.delete('admin/delete/product', { data: {idSP} })
                     .then((res) => {
-                        res.data.message && alert(res.data.message);
-                    })
-                    .catch(err => {console.log(err)})
-                    .then(() => {
-                        window.location.reload(false);
+                        res.data.message && props.setToastMessage('success', 'Thành công', res.data.message);
+                        props.onDelete(idSP);
                     })
         } catch (error) {
             throw error

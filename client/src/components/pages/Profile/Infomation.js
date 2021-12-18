@@ -23,7 +23,7 @@ function Infomation(props) {
     event.preventDefault();
     if(ho === "" || ten === "" || tenDN === ""){
       setError("Vui lòng không để trống trường Họ & Tên, Tên người dùng!");
-    } else { console.log(ho, ten, tenDN, ngaySinh, sDT)
+    } else {
       axios
         .patch("update/profile", {
           ho, ten, tenDN, ngaySinh, sDT
@@ -37,9 +37,6 @@ function Infomation(props) {
           setError(
             "Đã có một lỗi bất thường xảy ra, vui lòng thử lại sau ít phút!"
           );
-        })
-        .then(() => {
-          window.location.reload(false);
         })
     }
   };

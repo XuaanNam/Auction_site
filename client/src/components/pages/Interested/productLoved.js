@@ -13,7 +13,8 @@ function ProductLoved (props) {
     const handleDeleteLoved = () => {
         axios.delete("delete/my/loved", {data: {idQT}})
             .then((res) =>{ 
-                window.location.reload(false);
+                res.data.message && props.setToastMessage('success', 'Thành công', res.data.message);
+                props.onDelete(idQT);
             })
     }
 

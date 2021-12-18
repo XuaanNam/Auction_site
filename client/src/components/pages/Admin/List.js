@@ -5,7 +5,11 @@ import Footer from '../../layout/Footer';
 import Product from './Product'
 import axios from "../../../api/axios";
 import { useNavigate} from "react-router-dom";
+import MessageToast from '../../pages/ToastMessage/MessageToast' 
 function List() {
+
+    const [toasts, setToasts] = useState([]);
+    const [remove, setRemove] = useState(null);
 
     const [list, setList] = useState([]);
 
@@ -33,6 +37,40 @@ function List() {
             })
     }, []);
 
+    const onDelete = (idSP) => {
+        const listP = list.filter(list => list.idSP !== idSP); 
+        setList(listP); 
+    }
+
+    function setToastMessage(status, title, message) {
+        setToasts(prevToast => [
+            ...prevToast,
+            {
+                id: new Date().getTime(),
+                status,
+                title,
+                message
+            }
+        ]); 
+    }
+
+    //close
+    function handleCloseToast(toast) {
+        setToasts(prevToast => prevToast.filter(item => item.id !== toast.id));
+    };
+
+    useEffect(() =>{
+        if (remove) {
+            setToasts(prevToast => prevToast.filter(toast => toast.id !== remove));
+        }
+    }, [remove]);
+
+    useEffect(() =>{
+        if (toasts.length) {
+            setTimeout(() => setRemove(toasts[toasts.length - 1].id), 2000);
+        }
+    }, [toasts]);
+
     return (
         <div>
             <Header isAdmin={true}/>
@@ -42,9 +80,15 @@ function List() {
                     <Product key={prod.idSP} 
                         hrefSP={"/admin/addauction/" + prod.idSP}
                         product={prod}
+                        setToastMessage={setToastMessage}
+                        onDelete={onDelete}
                     />
                 ))}
             </div>
+            <MessageToast 
+                toasts={toasts}
+                setToasts={setToasts}
+                handleCloseToast={handleCloseToast}/>
             <Footer/>
         </div>
     )

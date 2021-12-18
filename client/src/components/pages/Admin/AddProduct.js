@@ -135,7 +135,7 @@ function AddProduct() {
                         </Row>
                         <Row className="group-admin">
                             <label className="label-admin">
-                                Banner:
+                                Hình ảnh:
                             </label>
                             <div className="btn-file"> 
                                 <input

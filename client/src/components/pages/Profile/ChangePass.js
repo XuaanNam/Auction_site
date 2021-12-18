@@ -26,8 +26,9 @@ function ChangePass() {
         .then((Response) => {
           if (Response.data.message) {
             setError(Response.data.message);
-            // document.getElementsByClassName("passreload").reset();
-            window.location.reload(false);
+            setMatKhauCu('');
+            setMatKhauMoi('');
+            setCFMatKhauMoi('');
           } 
         })
         .catch(() => {
@@ -50,6 +51,7 @@ function ChangePass() {
             </label>
             <input
               type="password"
+              value={MkCu}
               onChange={(e) => {
                 setMatKhauCu(e.target.value);
               }}
@@ -59,6 +61,7 @@ function ChangePass() {
             <label >Mật khẩu mới:</label>
             <input
               type="password"
+              value={MkMoi}
               onChange={(e) => {
                 setMatKhauMoi(e.target.value);
               }}
@@ -68,6 +71,7 @@ function ChangePass() {
             <label >Xác nhận mật khẩu:</label>
             <input
               type="password"
+              value={CFMkMoi}
               onChange={(e) => {
                 setCFMatKhauMoi(e.target.value);
               }}
