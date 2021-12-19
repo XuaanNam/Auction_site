@@ -90,7 +90,9 @@ function Cart() {
                 if(res.data.payment_link){ 
                     //window.open(res.data.payment_link);
                     window.location = res.data.payment_link;
-
+                }
+                if(res.data.message){ 
+                    setToastMessage("warning","Thất bại", res.data.message);
                 }
             })
     }

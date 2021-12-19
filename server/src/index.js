@@ -1,5 +1,4 @@
 const express = require('express');
-const methodOverride = require('method-override');
 const app = express();
 const cors = require("cors");
 const morgan = require("morgan");
@@ -18,20 +17,20 @@ paypal.configure({
 
 
 const socket = require('./app/controllers/Io');
-const portSocket = 4000;
+const portSocket = parseInt(process.env.PORT_IO);
 const { Server} = require('socket.io');
 const http = require('http');
 const server = http.createServer(app);
 const io = new Server (server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: process.env.ORIGIN_PATH,
         method: ["GET", "POST"]
     }
 });
 
 app.use(
     cors({
-        origin: ["http://localhost:3000"],
+        origin: [process.env.ORIGIN_PATH],
         methods: ['GET','POST','PUT', 'DELETE', 'PATCH'],
         credentials: true,
         exposedHeaders: 'isAuth',
@@ -41,7 +40,6 @@ app.use(morgan("combined"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(helmet());
-app.use(methodOverride('_method'));
 
 route(app);
 socket(io);

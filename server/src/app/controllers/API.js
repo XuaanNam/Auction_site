@@ -2,7 +2,7 @@ const pool = require("../models/pool");
 const fs = require('fs');
 const express = require('express');
 const path = require('path');
-const LimitTime = require('../../util/getLimitTime');
+
 const bcrypt = require("bcrypt");
 const saltRound = 10;
 const encodeToken = require("../../util/encodeToken");
@@ -142,7 +142,7 @@ class API {
         const MkMoi = req.body.MkMoi;
 
         pool.getConnection(function (err, connection) {
-            if (err) throw err; // not connected!
+            //if (err) throw err; // not connected!
             connection.query(selectSql, idTK, function (error, results, fields) {
                 if (error) {
                     res.send({ message: "Kết nối DataBase thất bại" });
@@ -204,7 +204,7 @@ class API {
         const basePath = path.join(__dirname, '../../../../client', 'public');
 
         pool.getConnection(function (err, connection) {
-            if (err) throw err; // not connected!
+            //if (err) throw err; // not connected!
 
             // Use the connection
             connection.query(selectSql, idTK, function (error, results, fields) {
@@ -221,7 +221,7 @@ class API {
                                     res.send({status: "success", message: "Cập nhật ảnh đại diện thành công" });
                                 } else {
                                     fs.unlink(filePath, function (err) {
-                                        if (err) throw err;
+                                        //if (err) throw err;
                                         //console.log('ảnh đại diện cũ đã bị xóa!');
                                     });
                                     res.send({status: "success", message: "Cập nhật ảnh đại diện thành công!" });
@@ -246,7 +246,7 @@ class API {
         const basePath = path.join(__dirname, '../../../../client', 'public');
 
         pool.getConnection(function (err, connection) {
-            if (err) throw err; // not connected!
+            //if (err) throw err; // not connected!
 
             // Use the connection
             connection.query(selectSql, idTK, function (error, results, fields) {
@@ -263,7 +263,7 @@ class API {
                                     res.send({status: "error", message: "Bạn chưa đặt ảnh đại diện" });
                                 } else {
                                     fs.unlink(filePath, function (err) {
-                                        if (err) throw err;
+                                        //if (err) throw err;
                                         //console.log('ảnh đại diện cũ đã bị xóa!');
                                     });
                                     res.send({status: "success", message: "Đã xóa ảnh đại diện!" });
@@ -342,7 +342,7 @@ class API {
             res.send({ message: "Bạn chưa được cấp quyền admin để thêm ảnh cho SP này!" })
         } else {
             pool.getConnection(function (err, connection) {
-                if (err) throw err; // not connected!
+                //if (err) throw err; // not connected!
 
                 // Use the connection
                 connection.query(selectSql, idSP, function (error, results, fields) {
@@ -359,7 +359,7 @@ class API {
                                     if (results[0].Avt === "" || results[0].Avt === null || results[0].Avt === 'undefined') {
                                     } else {
                                         fs.unlink(filePath, function (err) {
-                                            if (err) throw err;
+                                            //if (err) throw err;
                                         });
                                     }
                                     res.send({ check: "Thêm ảnh cho SP thành công" });
@@ -444,13 +444,13 @@ class API {
             res.send({ message: "Bạn chưa được cấp quyền admin để xóa SP này!" })
         } else {
             pool.getConnection(function (err, connection) {
-                if (err) throw err; // not connected!
+                //if (err) throw err; // not connected!
                 // Use the connection
                 connection.query(selectSql, idSP, function (error, results, fields) {
                     if (error) {
                         res.status(200).send({ message: err.sqlMessage });
                     } else {
-                        const HA = results[0].HinhAnh; console.log(HA)
+                        const HA = results[0].HinhAnh; 
                         const filePath = basePath + "/" + HA;
                         connection.query(deleteSql, idSP, function (err, rs, fields) {
                             if (err) {
@@ -460,7 +460,7 @@ class API {
                                     if (HA === "" || HA === null || HA === 'undefined') {
                                     } else {
                                         fs.unlink(filePath, function (er) {
-                                            if (er) throw er;
+                                            //if (er) throw er;
                                         });
                                     }
                                     res.send({ message: "Xóa sản phẩm thành công!" });
@@ -494,7 +494,7 @@ class API {
             res.send({ message: "Bạn chưa được cấp quyền admin để thêm game ĐG này!" })
         } else {
             pool.getConnection(function (err, connection) {
-                if (err) throw err; 
+                //if (err) throw err; 
                 connection.query(insertSql, [idSP, TgBatDau, TgDauGia, ThoiHan, BuocGia], function (err, results, fields) {
                     if (err) {
                         
@@ -517,7 +517,7 @@ class API {
 
                             job[parseInt(idDG)] = new CronJob(date, function () {
                                 pool.query(updateSql, idDG, () => {
-                                    console.log('chuyển đổi trạng thái game đấu từ sắp -> đang diễn ra');
+                                    //console.log('chuyển đổi trạng thái game đấu từ sắp -> đang diễn ra');
                                 });
                                 const socket = io.connect("http://localhost:4000");
 
@@ -613,7 +613,7 @@ class API {
         const date = new Date(y, m, d, h, mi, s);
 
         pool.getConnection(function (error, connection) {
-            if (error) throw error; // not connected!
+            //if (error) throw error; // not connected!
             connection.query(sqlSelectDG, idDG, function (err, results, fields) {
                 if (results) {
                     const idSP = results[0].idSP;
@@ -628,25 +628,20 @@ class API {
                                 const idTK = rs[0].idTK;
     
                                 connection.query(sqlInsertGD, [idSP, idTK, idDG, NgayDG, GiaTien, ThongTinGD], (e, rsl) => {
-                                    if (e) { throw e }
+                                   //if(e) throw e;
                                     const idGD = rsl.insertId.toString();
 
                                     trading[parseInt(idGD)] = new CronJob(date, function () {
-                                        pool.query(sqlUpdateGD, idGD, (e) => {
-                                            if (e) { throw e }
-                                        });
+                                        pool.query(sqlUpdateGD, idGD);
+                                        pool.query(sqlUpdateSP, idSP);
                                         trading[parseInt(idDG)] = '';
                                     }, null, true);
                                 });
                             }
                         });
                     } else{
-                        connection.query(sqlUpdateDG, idDG, (e) => {
-                            if (e) { throw e }
-                        });
-                        connection.query(sqlUpdateSP, idSP, (e) => {
-                            if (e) { throw e }
-                        });
+                        connection.query(sqlUpdateDG, idDG);
+                        connection.query(sqlUpdateSP, idSP);
                     }
                     
                 }
@@ -741,7 +736,7 @@ class API {
         const selectSql0 = "select * from DSDGSapDienRa";
         pool.query(selectSql0, function (err, results, fields) {
             
-                if (results) { console.log(results)
+                if (results) { 
                     res.send({ isComing: results });
                 } else {
                     res.send({ message: "Hiện không có phiên đấu giá nào sắp diễn ra!" });
@@ -831,7 +826,7 @@ class API {
         const idTK = req.user[0].idTK;
         pool.query(sumSql, idTK, function (error, results, fields) {
             if (error) {
-                throw error;
+                res.send({message: 'Có lỗi, vui lòng thử lại sau'});
             } else {
                 res.send(results);
             }
@@ -884,10 +879,10 @@ class API {
                 "description": "Giao dịch mua hàng từ GreyPanther's user"
             }]
         };
-        //console.log("create_payment_json", create_payment_json)
+      
         paypal.payment.create(create_payment_json, function (error, payment) {
             if (error) {
-                throw error;
+                res.send({message: 'Có lỗi, vui lòng thử lại sau'});
             } else { 
                 for(let i = 0; i < payment.links.length; i++){
                     if(payment.links[i].rel === 'approval_url'){ //console.log(payment)
@@ -902,7 +897,7 @@ class API {
     paymentSuccess(req ,res ){
         const idTK = req.query.idTK
         const totalUSD = req.query.totalUSD
-        const updateSql = 'update giaodich set TrangThai = 2 where idTK = ?';
+        const updateSqlGD = 'update giaodich set TrangThai = 2 where idTK = ?';
         const payerId = req.query.PayerID
         const paymentId = req.query.paymentId;
         const excute_payment_json={
@@ -916,15 +911,11 @@ class API {
         };
         paypal.payment.execute(paymentId, excute_payment_json, function (error, payment) {
             if (error) {
-                throw error;
-            } else {
-                          
-                pool.query(updateSql, idTK, function (error, results, fields) {
-                    if (error) {
-                        throw error;
-                    } 
-                    res.redirect('http://localhost:3000/cart');                               
-                });
+                res.redirect('http://localhost:3000/cart');
+            } else {                        
+                pool.query(updateSqlGD, idTK); 
+
+                res.redirect('http://localhost:3000/cart');  
             }
         });
         

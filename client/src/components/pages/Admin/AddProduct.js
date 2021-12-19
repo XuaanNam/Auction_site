@@ -36,8 +36,11 @@ function AddProduct() {
         if(!selectedImage){setError('Vui lòng chọn hình ảnh minh họa!'); return}
         else if(!position){setError('Vui lòng thêm vị trí banner!'); return}
         else if(!bannerWidth){setError('Vui lòng thêm chiều rộng banner!'); return}
+        else if(parseInt(bannerWidth)<=0){setError('Chiều rộng phải lớn hơn 0'); return}
         else if(!bannerHeight){setError('Vui lòng thêm chiều cao banner!'); return}
+        else if(parseInt(bannerHeight)<=0){setError('CHiều cao phải lớn hơn 0'); return}
         else if(!price){setError('Vui lòng thêm giá cho banner!'); return}
+        else if(parseInt(price)<=0){setError('Giá tiền phải lớn hơn 0'); return}
         else if(!website){setError('Vui lòng thêm địa chỉ website của banner!'); return}
         else {
             const bannerSize = bannerWidth + "x" + bannerHeight;

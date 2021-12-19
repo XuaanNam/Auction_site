@@ -87,13 +87,18 @@ function AddAuction() {
 
         if(!position){setError('Vui lòng thêm vị trí banner!'); return}
         else if(!bannerWidth){setError('Vui lòng thêm chiều rộng banner!'); return}
+        else if(parseInt(bannerWidth)<=0){setError('Chiều rộng phải lớn hơn 0'); return}
         else if(!bannerHeight){setError('Vui lòng thêm chiều cao banner!'); return}
+        else if(parseInt(bannerHeight)<=0){setError('Chiều cao phải lớn hơn 0'); return}
         else if(!price){setError('Vui lòng thêm giá cho banner!'); return}
+        else if(parseInt(price)<=0){setError('Giá tiền phải lớn hơn 0'); return}
         else if(!website){setError('Vui lòng thêm địa chỉ website của banner!'); return}
         else if(!datetime){setError('Vui lòng thêm thời gian diễn ra đấu giá!'); return}
         else if(!compareDate(datetime)){setError('Thời gian đấu giá đang nhỏ hơn thời gian hiện tại!'); return}
         else if(!limitTime){setError('Hãy thêm thời lượng đấu giá!'); return}
+        else if(parseInt(limitTime)<=0){setError('Thời lượng đấu giá phải lớn hơn 0'); return}
         else if(!priceStep){setError('Hãy thêm bước giá cho game đấu giá!'); return}
+        else if(parseInt(priceStep)<=0){setError('Bước giá phải lớn hơn 0'); return}
         else if(!term){setError('Hãy thêm thời hạn treo banner!'); return}
         else {
             axios.post('admin/stored/auction',{

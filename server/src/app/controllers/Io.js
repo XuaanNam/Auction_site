@@ -11,16 +11,16 @@ function socket(io) {
     let countdown = [];
 
     io.on("connection", (socket) => {
-        console.log(`user connected: ${socket.id}`);
+        //console.log(`user connected: ${socket.id}`);
 
         socket.on('join_room', (data) => {
             socket.join(data);
-            console.log(`user id: ${socket.id}, joined room: ${data}`);
+            //console.log(`user id: ${socket.id}, joined room: ${data}`);
         });
         
         socket.on('leave_room', (data) => {
             socket.leave(data);
-            console.log(`user id: ${socket.id}, leave room: ${data}`);
+            //console.log(`user id: ${socket.id}, leave room: ${data}`);
         });
 
         socket.on('setHaftMinLast', (data) => {
@@ -28,7 +28,7 @@ function socket(io) {
         });
 
         socket.on('settimer', (data) => {
-            console.log(`user id: ${socket.id} is setting time countdown for room ${data.room}`);
+          //  console.log(`user id: ${socket.id} is setting time countdown for room ${data.room}`);
             countdown[data.room] = parseInt(data.time) ? parseInt(data.time) : 15*60;
            
             IntervalId[data.room] = setInterval(() => {  
@@ -99,7 +99,7 @@ function socket(io) {
         });
         
         socket.on("disconnect", () =>{
-            console.log('user disconnected: ',socket.id);
+            //console.log('user disconnected: ',socket.id);
         });
     })
 }
