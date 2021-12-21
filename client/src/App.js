@@ -34,7 +34,7 @@ function App() {
             <Route path='/admin/addproduct' element={<AddProduct/>} />
             <Route path='/admin/list' element={<List/>} />
             <Route path='/admin/addauction/:id' element={<AddAuction/>} />
-            <Route path='/error404' element={<Error404/>} />
+            <Route path='*' element={<Error404/>} />
           </Routes>
         </Router>
       </div>
