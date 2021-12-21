@@ -8,7 +8,7 @@
     "npm": "8.1.3"
   },
   "scripts": {
-    "server": "nodemon server/src/index.js",
+    "server": "node server/src/index.js",
     "client": "npm run start --prefix ./client",
     "product": "concurrently --kill-others-on-fail \"node server/src/index.js\" \"npm run start --prefix ./client\""
   },
