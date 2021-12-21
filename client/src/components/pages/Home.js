@@ -66,7 +66,9 @@ function Home(props) {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    axios.get('search', {params: {search}})
+    if(search.trim() !== "")
+    {
+      axios.get('search', {params: {search}})
       .then((res)=>{
         if(res.data.isSearching){
           setListAuctionSearching(res.data.isSearching);
@@ -76,6 +78,9 @@ function Home(props) {
                 setToastMessage(res.data.status, title, res.data.message);
       })
       .catch(err => {console.log(err)})
+    }
+    
+     
   }
   const onChange = search => setSearch(search);
 
