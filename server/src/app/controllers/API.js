@@ -2,7 +2,7 @@ const pool = require("../models/pool");
 const fs = require('fs');
 const express = require('express');
 const path = require('path');
-
+require('dotenv').config();
 const bcrypt = require("bcrypt");
 const saltRound = 10;
 const encodeToken = require("../../util/encodeToken");
@@ -11,9 +11,8 @@ const io = require("socket.io-client");
 const job = [];
 const trading = [];
 const paypal = require('paypal-rest-sdk');
-const { Console } = require("console");
 paypal.configure({
-    'mode': 'sandbox', //sandbox or live
+    'mode': process.env.PP_MODE,
     'client_id': process.env.CLIENT_ID, 
     'client_secret': process.env.PP_SECRET_KEY
 });
