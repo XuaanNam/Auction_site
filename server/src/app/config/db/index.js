@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 if(process.env.NODE_ENV === 'production'){
-    console.log('db config: ',process.env.DB_USER)
     module.exports = {
         host     : process.env.DB_HOST,
         user     : process.env.DB_USER,

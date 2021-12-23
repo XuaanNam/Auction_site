@@ -1,5 +1,5 @@
 
-/.env
+/.env.production
 /server/.env
 #
 /client/public/image/**
