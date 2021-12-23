@@ -23,7 +23,7 @@ function Infomation(props) {
     event.preventDefault();
     if(ho === "" || ten === ""){
       setError("Vui lòng không để trống trường Họ & Tên, Tên người dùng!");
-    } else {
+    } else { 
       axios
         .patch("update/profile", {
           ho, ten, ngaySinh, sDT

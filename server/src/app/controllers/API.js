@@ -178,7 +178,7 @@ class API {
         const idTK = req.user[0].idTK;
         const Ho = req.body.ho,
             Ten = req.body.ten,
-            NgaySinh = req.body.ngaySinh ? req.body.ngaySinh : "",
+            NgaySinh = req.body.ngaySinh ? req.body.ngaySinh : null, 
             SDT = req.body.sDT ? req.body.sDT : "";
         pool.query(updateSql, [Ho, Ten, NgaySinh, SDT, idTK], function (err, results, fields) {
             if (err) {

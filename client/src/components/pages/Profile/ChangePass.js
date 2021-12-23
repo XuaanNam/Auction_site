@@ -12,6 +12,9 @@ function ChangePass() {
 
   const handleChangePassword = (event) => {
     event.preventDefault();
+    if (MkCu === '' || MkMoi === '' || CFMkMoi === '') {
+      setError("Vui lòng nhập đầy đủ các trường!");
+    } else
     if (MkCu === MkMoi) {
       setError("Mật khẩu mới trùng với mật khẩu cũ!");
     } else
