@@ -1,5 +1,6 @@
 
 /.env
+/server/.env
 #
 /client/public/image/**
 #
