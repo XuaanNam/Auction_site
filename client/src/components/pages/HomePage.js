@@ -6,7 +6,6 @@ import '../assets/Home.css'
 import { useNavigate } from 'react-router-dom';
 import background from '../images/background3.png';
 import panther from '../images/Image.png';
-import panther_img from '../images/a.png';
 
 import {Card} from 'react-bootstrap';
 import  IsComing from './home/isComing';
@@ -49,7 +48,7 @@ export default function HomePage() {
                     <Card.Img src={panther}></Card.Img>
                 </span>
             </div>
-            <div src={panther_img} className="body-container pt-5 pl-5 pr-5 body-banner">
+            <div  className="body-container pt-5 pl-5 pr-5 body-banner">
                 <p className="auction-title">Sắp được đấu giá</p>
                 <IsComing listAucC={listAuctionComing} handleLiked={false}/>
             </div>

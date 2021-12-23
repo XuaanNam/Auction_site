@@ -1,7 +1,7 @@
 
 .BgPage {
     background: #181828;
-    height: 75rem;
+    height: 100vh;
 }
 
 .topHeader:before {
@@ -317,7 +317,7 @@ button {
 
 .cable {
   width: 8px;
-    height: 248px;
+    height: 100px;
     background-image: linear-gradient(rgb(32 148 218 / 70%), rgb(193 65 25)), linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7));
 }
 
@@ -362,13 +362,13 @@ button {
 .light {
       width: 200px;
     height: 0px;
-    border-bottom: 900px solid rgb(44 255 255 / 24%);
+    border-bottom: 500px solid rgb(44 255 255 / 24%);
     border-left: 50px solid transparent;
     border-right: 50px solid transparent;
     position: absolute;
     left: 0px;
     right: 0px;
-    top: 270px;
+    top: 180px;
     margin: 0px auto;
     z-index: 1;
     border-radius: 90px 90px 0px 0px;

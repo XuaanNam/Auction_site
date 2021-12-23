@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+
+import React from 'react'
 import ErrorC from '../../assets/Error404.module.css'
 
 export default function Error404 () {
     return(
         <div className={ErrorC.BgPage}>
-            <a href="" target="_blank">
+            <a href="##">
                 <header class={ErrorC.topHeader}>
                 </header>
 
@@ -37,14 +38,14 @@ export default function Error404 () {
                     <p class={ErrorC.message__text}>Trang yêu cầu không tồn tại hoặc liên kết trang đó đã hỏng.<br></br> Bạn có thể trở về trang chủ!</p>
                     </div>
                     <div class={`${ErrorC.error__nav} ${ErrorC.eNav}`}>
-                    <a href="/home" class={ErrorC.eNav__link}></a>
+                        <a href="/home" class={ErrorC.eNav__link}> </a>
                     </div>
                 </div>
                 {/* <!-- END Content --> */}
 
                 </section>
 
-                </a>
+            </a>
         </div>
     )
 

@@ -518,7 +518,7 @@ class API {
                                 pool.query(updateSql, idDG, () => {
                                     //console.log('chuyển đổi trạng thái game đấu từ sắp -> đang diễn ra');
                                 });
-                                const socket = io.connect("http://localhost:4000");
+                                const socket = io.connect(process.env.IO_PATH);
 
                                 socket.emit('settimer', { room: idDG, time: TgDG });
                                 setTimeout(() => {

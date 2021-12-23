@@ -135,19 +135,19 @@ function Home(props) {
           {isSearching?
             <span>
               <p className="auction-title">Sắp được đấu giá</p>
-              <IsComing handleLiked={true} listAucC={listAuctionSearching}/>
+              <IsComing handleLiked={true} setToastMessage={setToastMessage} listAucC={listAuctionSearching}/>
             </span>
             :
             <span>
               {happening? 
                 <span>
                   <TabHappening handleSwitchTab = {handleSwitchTab}/>
-                  <IsHappening listAucH={listAuctionHappening}/> 
+                  <IsHappening setToastMessage={setToastMessage} listAucH={listAuctionHappening}/> 
                 </span>
               : 
                 <span>
                   <TabComing handleSwitchTab = {handleSwitchTab}/>
-                  <IsComing handleLiked={true} listAucC={listAuctionComing}/>
+                  <IsComing setToastMessage={setToastMessage} handleLiked={true} listAucC={listAuctionComing}/>
                 </span>
               }
             </span>
