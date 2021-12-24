@@ -20,7 +20,6 @@ const Login = () => {
   const [validated, setValidated] = useState(false);
 
   let isAuth = 0;
-  let isCorr = 0;
   axios.defaults.withCredentials = true;
   let navigate = useNavigate();
   useEffect(() => {
@@ -60,6 +59,7 @@ const Login = () => {
       })
         .then((Response) => {
           if (Response.data.isAuth) {
+            setLoginStatus("Đăng nhập thàng công!"); 
             cookies.set("userAuth", Response.headers.isauth, {
               path: "/",
               maxAge: 1000 * 60 * 60 * 72,
@@ -70,20 +70,14 @@ const Login = () => {
               maxAge: 1000 * 60 * 60 * 72,
               //httpOnly: ,
             });
-            isCorr = 1;
+            window.location.reload(false);
           } else if (Response.data.message) {
             setLoginStatus(Response.data.message);
-            isCorr = 0;
           }
         })
         .catch(() => {
           setLoginStatus("Đăng nhập thất bại");  
         })
-        .then( () => {  
-            if(isCorr === 1) {
-              window.location.reload(false);
-            }
-        });
     }
     setValidated(true);
   };

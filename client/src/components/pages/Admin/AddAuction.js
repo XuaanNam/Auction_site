@@ -73,15 +73,6 @@ function AddAuction() {
             .catch(err => {console.log(err)})
     };
 
-    const compareDate = (datetime) => {
-        if(parseInt(datetime.split('T')[0].split('-')[0]) < parseInt(new Date(Date.now()).getFullYear())) return false; 
-        if(parseInt(datetime.split('T')[0].split('-')[1]) < parseInt((new Date(Date.now()).getMonth() + 1))) return false; 
-        if(parseInt(datetime.split('T')[0].split('-')[2]) < parseInt(new Date(Date.now()).getDate())) return false; 
-        if(parseInt(datetime.split('T')[1].split(':')[0]) < parseInt(new Date(Date.now()).getHours())) return false; 
-        if(parseInt(datetime.split('T')[1].split(':')[1]) < parseInt(new Date(Date.now()).getMinutes())) return false; 
-        return true; 
-    }
-
     const handleCreateAuction = () => {
         
 
@@ -94,7 +85,6 @@ function AddAuction() {
         else if(parseInt(price)<=0){setError('Giá tiền phải lớn hơn 0'); return}
         else if(!website){setError('Vui lòng thêm địa chỉ website của banner!'); return}
         else if(!datetime){setError('Vui lòng thêm thời gian diễn ra đấu giá!'); return}
-        else if(!compareDate(datetime)){setError('Thời gian đấu giá đang nhỏ hơn thời gian hiện tại!'); return}
         else if(!limitTime){setError('Hãy thêm thời lượng đấu giá!'); return}
         else if(parseInt(limitTime)<=0){setError('Thời lượng đấu giá phải lớn hơn 0'); return}
         else if(!priceStep){setError('Hãy thêm bước giá cho game đấu giá!'); return}
