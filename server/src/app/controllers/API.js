@@ -610,7 +610,7 @@ class API {
         const mi = (new Date(Date.now()).getMinutes() + 10);
         const s = new Date(Date.now()).getSeconds();
         const date = new Date(y, m, d, h, mi, s);
-        const InfoDate = new Date(y, m, d, (h + 7), mi, s);
+        const InfoDate = new Date(y, m, d, (h + parseInt(process.env.TIME_ZONE)), mi, s);
 
         pool.getConnection(function (error, connection) {
             //if (error) throw error; // not connected!
