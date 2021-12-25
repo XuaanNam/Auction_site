@@ -56,9 +56,9 @@ export default function Product(props) {
                         
                     </div>
                 </Row>
-                <Row className="group-list" >
+                <Row className="group-list ml-4" >
                     <Col>
-                        <div className="pt-2">
+                        <div className="pt-4">
                             <label 
                                 className="label-admin" 
                                 style={{fontWeight: 'bold'}}

@@ -197,6 +197,7 @@
 .img-list img{
   width: 35vw;
   max-height: 35vh;
+  border-radius: 10px;
   box-shadow: 4px 4px 10px rgb(60, 40, 60);
 }
 .Listproduct-container{
@@ -216,8 +217,9 @@
   background-color:#17A2B8!important;
 }
 /* addauction */
-.img-detail{
+.img-detail img{
   margin-bottom: 2vh;
+  border-radius: 5px;
 }
 .img-detail img{
   width: 46vw;

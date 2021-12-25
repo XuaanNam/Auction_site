@@ -1,5 +1,4 @@
-import {BorderHorizontal, GpsFixed, Language
-     } from '@material-ui/icons';
+import {BorderHorizontal, GpsFixed, Language, AccessTime} from '@material-ui/icons';
 import React, {  useState } from 'react'
 import styled from 'styled-components';
 import Interest from '../../assets/Interested.module.css'
@@ -54,7 +53,7 @@ function ProductLoved (props) {
                     <span className="text-warning"> {props.list.KichThuoc}</span>
                 </span>
                 <span className={Interest.timeDuration}>
-                    <BorderHorizontal className="mr-1"/>
+                    <AccessTime className="mr-1"/>
                     Thời hạn:
                     <span className="text-warning"> {props.list.ThoiHan} tháng</span>
                 </span>
