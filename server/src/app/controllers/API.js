@@ -2,7 +2,7 @@ const pool = require("../models/pool");
 const fs = require('fs');
 const express = require('express');
 const path = require('path');
-
+require('dotenv').config();
 const bcrypt = require("bcrypt");
 const saltRound = 10;
 const encodeToken = require("../../util/encodeToken");
@@ -11,9 +11,8 @@ const io = require("socket.io-client");
 const job = [];
 const trading = [];
 const paypal = require('paypal-rest-sdk');
-const { Console } = require("console");
 paypal.configure({
-    'mode': 'sandbox', //sandbox or live
+    'mode': process.env.PP_MODE,
     'client_id': process.env.CLIENT_ID, 
     'client_secret': process.env.PP_SECRET_KEY
 });
@@ -179,7 +178,7 @@ class API {
         const idTK = req.user[0].idTK;
         const Ho = req.body.ho,
             Ten = req.body.ten,
-            NgaySinh = req.body.ngaySinh ? req.body.ngaySinh : "",
+            NgaySinh = req.body.ngaySinh ? req.body.ngaySinh : null, 
             SDT = req.body.sDT ? req.body.sDT : "";
         pool.query(updateSql, [Ho, Ten, NgaySinh, SDT, idTK], function (err, results, fields) {
             if (err) {
@@ -489,7 +488,6 @@ class API {
             TgDauGia = req.body.TgDauGia,
             BuocGia = req.body.BuocGia, 
             ThoiHan = req.body.ThoiHan
-
         if (PQ === 0) {
             res.send({ message: "Bạn chưa được cấp quyền admin để thêm game ĐG này!" })
         } else {
@@ -510,16 +508,17 @@ class API {
                             const y = parseInt(getDate[0]);
                             const m = (parseInt(getDate[1]) - 1);
                             const d = parseInt(getDate[2]);
-                            const h = parseInt(getTime[0]);
+                            const h = (parseInt(getTime[0]) - parseInt(process.env.TIME_ZONE));   
+                            // -7h, vì server ở trên aws lightsail tự động +7h
+                            // ở local Việt Nam thì -0  
                             const mi = parseInt(getTime[1]);
                             const s = 0;
                             const date = new Date(y, m, d, h, mi, s);
-
                             job[parseInt(idDG)] = new CronJob(date, function () {
                                 pool.query(updateSql, idDG, () => {
-                                    //console.log('chuyển đổi trạng thái game đấu từ sắp -> đang diễn ra');
+                                    console.log('chuyển đổi trạng thái game đấu từ sắp -> đang diễn ra');
                                 });
-                                const socket = io.connect("http://localhost:4000");
+                                const socket = io.connect(process.env.IO_PATH);
 
                                 socket.emit('settimer', { room: idDG, time: TgDG });
                                 setTimeout(() => {
@@ -611,6 +610,7 @@ class API {
         const mi = (new Date(Date.now()).getMinutes() + 10);
         const s = new Date(Date.now()).getSeconds();
         const date = new Date(y, m, d, h, mi, s);
+        const InfoDate = new Date(y, m, d, (h + 7), mi, s);
 
         pool.getConnection(function (error, connection) {
             //if (error) throw error; // not connected!
@@ -621,7 +621,7 @@ class API {
                     if (haveWinner === 1) {
                         const ThongTinGD = 'Chúc mừng ' + TenDN + ' đã chiến thắng sản phẩm có id = ' +
                             idSP + '. Số tiền: ' + GiaTien + 
-                            '. Sản phẩm này sẽ được thu hồi sau 10 phút nếu bạn không thanh toán. Thời hạn: ' + date ;
+                            '. Sản phẩm này sẽ được thu hồi sau 10 phút nếu bạn không thanh toán. Thời hạn: ' + InfoDate ;
 
                         connection.query(sqlSelectTK, TenDN, function (er, rs, fields) {
                             if (rs) {
@@ -859,8 +859,8 @@ class API {
                 "payment_method": "paypal"
             },
             "redirect_urls": {
-                "return_url": `http://localhost:5000/api/paymentSuccess?idTK=${idTK}&totalUSD=${totalUSD}`,
-                "cancel_url": "http://localhost:3000/cart"
+                "return_url": process.env.return_url + `/api/paymentSuccess?idTK=${idTK}&totalUSD=${totalUSD}`,
+                "cancel_url": process.env.cancel_url
             },
             "transactions": [{
                 "item_list": {
@@ -876,7 +876,7 @@ class API {
                     "currency": "USD",
                     "total": totalUSD
                 },
-                "description": "Giao dịch mua hàng từ GreyPanther's user"
+                "description": "Giao dịch mua hàng từ GreyPanther"
             }]
         };
       
@@ -911,11 +911,11 @@ class API {
         };
         paypal.payment.execute(paymentId, excute_payment_json, function (error, payment) {
             if (error) {
-                res.redirect('http://localhost:3000/cart');
+                res.redirect(process.env.cancel_url);
             } else {                        
                 pool.query(updateSqlGD, idTK); 
 
-                res.redirect('http://localhost:3000/cart');  
+                res.redirect(process.env.cancel_url);  
             }
         });
         

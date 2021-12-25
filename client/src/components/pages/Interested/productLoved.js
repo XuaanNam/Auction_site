@@ -65,7 +65,7 @@ function ProductLoved (props) {
 
                 <span className={Interest.timePlayBanner}>
                     ⏳ Thời gian đấu giá:
-                    <span className="text-danger"> {props.list.tgDauGia} 1 phút</span>
+                    <span className="text-danger"> {props.list.TgDauGia} phút</span>
                     
                 </span>
 

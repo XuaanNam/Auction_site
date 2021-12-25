@@ -13,6 +13,7 @@ class isComing extends Component {
                         {this.props.listAucC.filter(auc => auc.idDG % 2 === 1).map(auc =>(                      
                             <Col key={auc.idDG} className="col-items mr-2" xs sm="5" >
                                 <AuctionGame 
+                                    setToastMessage={this.props.setToastMessage}
                                     idRoom={"auction/" + auc.idDG}
                                     auc={auc}
                                     handleLiked = {this.props.handleLiked}
@@ -22,6 +23,7 @@ class isComing extends Component {
                         {this.props.listAucC.filter(auc => auc.idDG % 2 === 0).map(auc =>(                      
                             <Col key={auc.idDG} className="col-items mr-2" xs sm="5">
                                 <AuctionGame 
+                                    setToastMessage={this.props.setToastMessage}
                                     idRoom={"auction/" + auc.idDG}
                                     auc={auc}
                                     handleLiked = {this.props.handleLiked}

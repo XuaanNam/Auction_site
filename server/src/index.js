@@ -1,20 +1,10 @@
 const express = require('express');
 const app = express();
 const cors = require("cors");
-const morgan = require("morgan");
-const { resourceLimits } = require('worker_threads');
 const route = require('./routes');
 const helmet = require("helmet");
 require('dotenv').config();
 const port = parseInt(process.env.PORT);
-const paypal = require('paypal-rest-sdk');
-paypal.configure({
-    'mode': 'sandbox', //sandbox or live
-    'client_id': process.env.CLIENT_ID,
-    'client_secret': process.env.PP_SECRET_KEY
-});
-
-
 
 const socket = require('./app/controllers/Io');
 const portSocket = parseInt(process.env.PORT_IO);
@@ -36,7 +26,12 @@ app.use(
         exposedHeaders: 'isAuth',
     }
 ));
-app.use(morgan("combined"));
+
+if(process.env.NODE_ENV === 'development'){
+    const morgan = require("morgan");
+    app.use(morgan("combined"));
+}
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(helmet());

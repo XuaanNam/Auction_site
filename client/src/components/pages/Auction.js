@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "../assets/Auction.css";
 //page
 import Header from "../layout/Header";
@@ -9,12 +10,10 @@ import HistoryTable from './Auction/HistoryTable';
 import background from "../images/background.jpg";
 //backend
 import axios from "../../api/axios";
-import { useNavigate, useParams } from "react-router-dom";
-import io from "socket.io-client";
+import socket from "../../backend/socket";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
-const socket = io.connect("http://localhost:4000");
 const username = cookies.get('username') ? cookies.get('username'): null;
 
 function Auction() {

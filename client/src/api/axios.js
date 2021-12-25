@@ -2,7 +2,7 @@ import axiosInstance from "axios";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
-//const baseURL = "https://greypanther.herokuapp.com/api/";
+
 const baseURL = "http://localhost:5000/api/";
 const token = cookies.get('userAuth') ? cookies.get('userAuth'): null;
 

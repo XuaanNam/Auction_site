@@ -13,6 +13,7 @@ import Interested from './components/pages/Interested';
 import AddProduct from './components/pages/Admin/AddProduct';
 import List from './components/pages/Admin/List';
 import AddAuction from './components/pages/Admin/AddAuction';
+import Error404 from './components/pages/Error/Error404';
 //import axios from "./api/axios";
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
             <Route path='/admin/addproduct' element={<AddProduct/>} />
             <Route path='/admin/list' element={<List/>} />
             <Route path='/admin/addauction/:id' element={<AddAuction/>} />
+            <Route path='*' element={<Error404/>} />
           </Routes>
         </Router>
       </div>

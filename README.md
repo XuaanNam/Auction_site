@@ -22,7 +22,6 @@ Học phần: Thương Mại Điện Tử (3 tín chỉ)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Hệ thống chấp nhận thanh toán bằng thẻ thanh toán Quốc tế & Paypal      
 
 Đồ án được hướng dẫn triển khai và thực hiện bởi thầy Lương Vĩ Minh <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Mật danh: thầy Minh LV ( LV là "louis vuitton" hoặc "luôn vui tươi" )<br>
 Thành viên nhóm P109 gồm:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Nguyễn Xuân Nam     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
