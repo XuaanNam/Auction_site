@@ -36,29 +36,31 @@ export default function AuctionGame (props){
                 <Card.Img variant="top" className="src" src={props.auc.HinhAnh? props.auc.HinhAnh:banner} />
             </a>
             <Card.Body>
-                <span className={`ml-5 ${AuctionG.cartGamePosition}`}>
-                    <GpsFixed className="mr-1"/>
-                    Vị trí: {props.auc.ViTri}
-                </span>
-
-                <span className={`ml-5 ${AuctionG.cartGameTime}`}>
-                    
-                    🕒 Thời gian: {props.auc.TgBatDau}
-                </span>
-
-                <span className={`ml-5 text-danger ${AuctionG.cartGameWebsite}`}>
+                
+                <div className={`ml-2 mb-2 text-danger d-flex ${AuctionG.cartGameWebsite}`}>
                     <Language className="mr-1"/>
+                    <div className="ml-1">
                     Website: {props.auc.Website}
-                </span>
-
-                <span className={`ml-5 ${AuctionG.cartGameDuration}`}>
+                    </div>
+                </div>
+                <div className={`ml-2 mb-2 ${AuctionG.cartGameTime}`}>
+                    🕒 Thời gian: {props.auc.TgBatDau}
+                </div>
+                <div className={`ml-2 mb-2 d-flex ${AuctionG.cartGameDuration}`}>
                     <Timelapse clasName="mr-1"/>
+                    <div className="ml-2">
                     Thời hạn: {props.auc.ThoiHan} tháng
-                </span>
-                <span className={`ml-5 text-success ${AuctionG.cartGamePriceBegun}`}>
-                    
+                    </div>
+                </div>
+                <div className={`ml-2 mb-2 d-flex ${AuctionG.cartGamePosition}`}>
+                    <GpsFixed className="mr-1"/>
+                    <div className="ml-1">
+                    Vị trí: {props.auc.ViTri}
+                    </div>
+                </div>
+                <div className={`ml-4 text-success ${AuctionG.cartGamePriceBegun}`}>
                     💸 Giá khởi điểm: {convertPrice(props.auc.Gia)} VNĐ
-                </span>
+                </div>
             </Card.Body>
             {props.handleLiked && <LoveButton handleLiked={handleLiked}/> }
  

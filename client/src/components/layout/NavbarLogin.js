@@ -105,10 +105,8 @@ class NavbarLogin extends Component {
             <Button className="btn-nav outLineNone" variant="outline-info">
             <AddShoppingCart className="mr-2"/>
               Đơn hàng
-              
             </Button>
           </a>
-         
           <div className="dropdown-header">
             <Button className="btn-nav mr-1 outLineNone" style={{minWidth: '16vw'}} variant="outline-info" onClick={this.handleButtonClick}>
               <Person className="mr-1"/>

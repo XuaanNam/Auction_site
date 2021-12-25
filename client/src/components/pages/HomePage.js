@@ -6,13 +6,16 @@ import '../assets/Home.css'
 import { useNavigate } from 'react-router-dom';
 import background from '../images/background3.png';
 import panther from '../images/Image.png';
-
+import MessageToast from "./ToastMessage/MessageToast";
 import {Card} from 'react-bootstrap';
 import  IsComing from './home/isComing';
 
 
 export default function HomePage() {
     const [listAuctionComing, setListAuctionComing] = useState([]);
+    const [search, setSearch] = useState('');
+    const [listAuctionSearching, setListAuctionSearching] = useState([]);
+    const [isSearching, setIsSearching] = useState(false);
     let navigate = useNavigate();   
 
     useEffect(()=>{
@@ -35,11 +38,66 @@ export default function HomePage() {
         })
     }, []);
     
-
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if(search.trim() !== "")
+        {
+          axios.get('search', {params: {search}})
+          .then((res)=>{
+            if(res.data.isSearching){
+              setListAuctionSearching(res.data.isSearching);
+              setIsSearching(true);
+            }
+            const title = res.data.status === "info" ? "Thành công" : "Thất bại";
+                    setToastMessage(res.data.status, title, res.data.message);
+          })
+          .catch(err => {console.log(err)})
+        }
+        
+         
+      }
+      const onChange = search => setSearch(search);
+    
+    
+      //TOAST FOR SEARCH
+      // State for toast mess
+      const [toasts, setToasts] = useState([]);
+    
+      function setToastMessage(status, title, message) {
+          setToasts(prevToast => [
+              ...prevToast,
+              {
+                  id: new Date().getTime(),
+                  status,
+                  title,
+                  message
+              }
+          ]); 
+      }
+    
+      //close
+      function handleCloseToast(toast) {
+          setToasts(prevToast => prevToast.filter(item => item.id !== toast.id));
+      };
+    
+      // animation
+      const [remove, setRemove] = useState(null);
+    
+      useEffect(() =>{
+          if (remove) {
+              setToasts(prevToast => prevToast.filter(toast => toast.id !== remove));
+          }
+      }, [remove]);
+    
+      useEffect(() =>{
+          if (toasts.length) {
+              setTimeout(() => setRemove(toasts[toasts.length - 1].id), 2000);
+          }
+      }, [toasts]);
 
     return (
     <div>
-    <Header isGuest={true}/>
+    <Header isGuest={true} onChange={onChange} handleSearch={handleSearch}/>
     <div className="background" style={{ backgroundImage: `url(${background})` }}/>
         <div className = "home-container">
             <div className= "home-sologan">
@@ -50,9 +108,18 @@ export default function HomePage() {
             </div>
             <div  className="body-container pt-5 pl-5 pr-5 body-banner">
                 <p className="auction-title">Sắp được đấu giá</p>
-                <IsComing listAucC={listAuctionComing} handleLiked={false}/>
+                {isSearching ?
+                 <IsComing listAucC={listAuctionSearching} handleLiked={false}/>
+                 :
+                 <IsComing listAucC={listAuctionComing} handleLiked={false}/>
+                }
+               
             </div>
         </div>
+        <MessageToast 
+            toasts={toasts}
+            setToasts={setToasts}
+            handleCloseToast={handleCloseToast}/> 
       <Footer/>
     </div>
     )

@@ -1,6 +1,6 @@
 .cartAuctionGame {
     position: relative;
-    height: 65vh !important;
+    height: 67vh !important;
     background: aliceblue;
     border: 1px solid rgb(103, 185, 240);
 }
@@ -11,38 +11,26 @@
 }
 
 .cartGameWebsite {
-    position: absolute;
-    font-weight: 601;
-    bottom: 34%;
-    left: -5%;
+    font-weight: 600;
 }
 
 .cartGameTime {
-    position: absolute;
-    font-weight: 501;
-    bottom: 27%;
-    left: -5%;
+    font-weight: 500;
+
 }
 
+.cartGameDuration {
+    font-weight: 500;
+}
 .cartGamePosition {
-    position: absolute;
-    font-weight: 501;
-    bottom: 13%;
-    left: -5%;
+    font-weight: 500;
+
 }
 
 
 .cartGamePriceBegun {
-    position: absolute;
-    font-weight: 601;
+    font-weight: 600;
     font-size: 20px;
     bottom: 5%;
     left: 5%;
-}
-
-.cartGameDuration {
-    position: absolute;
-    font-weight: 501;
-    left: -5%;
-    bottom: 20%;
 }
